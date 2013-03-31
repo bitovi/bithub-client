@@ -1,18 +1,17 @@
 // Load all of the plugin dependencies
 steal(
 	//'./styles.css',
-	'jquery',
-	'can',
-	function(){
+	'app/events',
+	function(Events){
 		
 		// Create the state that will be shared by everything
 		var currentState = can.compute();
 
-		// Controllers
-		// init
+		// Init Controllers
+		new Events('#events');
 		
 		// 
-		console.log("BitHub client");
+		console.log("BitHub client loaded!");
 	});
 
 
