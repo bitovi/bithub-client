@@ -44,9 +44,6 @@ steal(
 					})
 					.done(success)
 					.fail(error);
-			},
-			models : function(data){
-				return this._super(data.results);
 			}
 
 		}, {});
