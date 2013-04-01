@@ -16,13 +16,13 @@ steal(
 			latest: function(params, success, error) {
 				$.ajax(
 					{
-						url: '/api/events123/',
+						url: '/api/events/',
 						type: 'GET',
 						data: params,
 						dataType: 'json'
 					})
 					.done(function (data) {
-						success($.groupBy(data['data'], "origin_date"));
+						success($.groupBy(data['data'], ['origin_date', 'category']));
 					})
 					.fail(error);
 			}

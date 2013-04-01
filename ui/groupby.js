@@ -3,16 +3,38 @@ steal(
 	function () {
 		(function () {
 
-			// static method on jQuery object
-			$.groupBy = function (collection, key) {
-				var result = {};
-				$.each(collection, function (index, value) {
-					// create a new key:[value] pair or append to existing one
-					if (!result[value[key]]) {
-						result[value[key]] = [value];
-					} else {
+			var groupByIter = function (result, keys, value) {
+				var key = keys.splice(0,1);
+				if (keys.length > 0) {
+
+					// if key doesn't exits create a new key/object pair 
+					if (!result[value[key]]) { result[value[key]] = {};	}
+
+					// do iter
+					groupByIter(result[value[key]], keys, value);
+					
+				} else {
+					// if key/array exists push value to it or create key/array pair.
+					if (result[value[key]]) {
 						result[value[key]].push(value);
+					} else {
+						result[value[key]] = [value];
 					}
+				}
+				
+			};
+
+			// static method on jQuery object
+			$.groupBy = function (collection, keys) {
+				var result = {};
+				$.each(collection, function (i, value) {
+
+					// if value is string wrap it inside array
+					if (typeof keys === "string") { keys = [keys]; }
+					
+					// call recursion passoing copy of keys
+					groupByIter(result, keys.slice(0), value);
+					
 				});
 				return result;		
 			};

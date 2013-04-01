@@ -15,6 +15,9 @@ steal(
 							  function(err) {
 								  console.log("Error HTTP status: " + err.status);
 							  });
+			},
+			'{Events} latestFetched': function () {
+				console.log("EVENT MODEL TRIGGERED");
 			}
 		});
 	});
