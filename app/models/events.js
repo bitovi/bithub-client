@@ -13,7 +13,10 @@ steal(
 			destroy : 'DELETE /api/events/{id}',
 
 			// Custom requests
+
+			// Get latest events grouped by date and category
 			latest: function(params, success, error) {
+				params ? params['order'] = 'origin_ts:desc' : params = {order: 'origin_ts:desc'};
 				$.ajax(
 					{
 						url: '/api/events/',
@@ -25,6 +28,26 @@ steal(
 						success($.groupBy(data['data'], ['origin_date', 'category']));
 					})
 					.fail(error);
+			},
+
+			// Get greatest events (sorted by points)
+			latest: function(params, success, error) {
+				params = params || {};
+				//params['order'] = params['order'] || 'points:desc';
+
+				$.ajax(
+					{
+						url: '/api/events/',
+						type: 'GET',
+						data: params,
+						dataType: 'json'
+					})
+					.done(success)
+					.fail(error);
+			},
+			models : function(data){
+				return this._super(data.results);
 			}
+
 		}, {});
 	});
