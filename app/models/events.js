@@ -31,7 +31,7 @@ steal(
 			},
 
 			// Get greatest events (sorted by points)
-			latest: function(params, success, error) {
+			greatest: function(params, success, error) {
 				params = params || {};
 				//params['order'] = params['order'] || 'points:desc';
 
