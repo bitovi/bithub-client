@@ -1,14 +1,14 @@
 // Load all of the plugin dependencies
 steal(	
 	'can',
-	'app/models/events.js',
-	function(can, Events) {
+	'app/models/users.js',
+	function(can, Users) {
 		return can.Control({
 		}, {
 			init: function () {
-				console.log("Events list controller initialized!");
+				console.log("Leaderboard controller initialized!");
 
-				Events.latest({},
+				Users.leaderboard({},
 							  function(data) {
 								  console.log(data);
 							  },
