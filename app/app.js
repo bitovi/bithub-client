@@ -1,10 +1,11 @@
 // Load all of the plugin dependencies
 steal(
 	//'./styles.css',
+	'can',
 	'app/events',
 	'app/leaderboard',
 	'app/filterbar',
-	function(Events, Leaderboard, Filterbar){
+	function(can, Events, Leaderboard, Filterbar){
 		
 		// Create the state that will be shared by everything
 		var currentState = can.compute();

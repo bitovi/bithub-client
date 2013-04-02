@@ -1,0 +1,21 @@
+<div id="events-list">
+  
+  {{#days}}
+  <div class="day">
+	<h2>{{key}}</h2>
+
+	{{#value}}
+	<div class="category-{{key}}">
+	  <h3>{{key}}</h3>
+	  <div class="truncated">
+		{{#value}}
+		{{>events/event.mustache}}
+		{{/value}}
+	  </div>
+	</div>
+	{{/value}}
+	
+  </div>
+  {{/days}}
+  
+</div>

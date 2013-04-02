@@ -10,14 +10,12 @@
 	  
 	  <div class="truncated">
 		<% days[day][category].map(function(event) { %>
-		<div class="event">
-		  <h4><%= event.attr('title') %></h4>
-		</div>
+		<%== can.view.render('events/event.ejs', {event: event}) %>
 		<% }) %>
 	  </div>
 	  
-	<% } %>
 	</div>
+	<% } %>
 	
   </div>
   <% } %>

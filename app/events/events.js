@@ -1,8 +1,8 @@
 // Load all of the plugin dependencies
 steal(	
-	'can',
+	'can',	
 	'app/models/events.js',
-	//'can/views/
+	'can/view/mustache',
 	function(can, Events) {
 		return can.Control({
 		}, {
@@ -11,9 +11,10 @@ steal(
 				
 				Events.latest({},
 							  function(data) {
-								  //console.log(data);
+								  console.log(data);
 
-								  self.element.html( can.view('events/latest.ejs', {days: data}) );
+								  self.element.html( can.view('events/latest.mustache', {days: data}) );
+								  //self.element.html( can.view('events/latest.ejs', {days: data}) );
 							  },
 							  function(err) {
 								  console.log("Error HTTP status: " + err.status);
