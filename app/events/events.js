@@ -2,19 +2,23 @@
 steal(	
 	'can',
 	'app/models/events.js',
+	//'can/views/
 	function(can, Events) {
 		return can.Control({
 		}, {
 			init: function () {
-				console.log("Events list controller initialized!");
-
+				var self = this;
+				
 				Events.latest({},
 							  function(data) {
-								  console.log(data);
+								  //console.log(data);
+
+								  self.element.html( can.view('events/latest.ejs', {days: data}) );
 							  },
 							  function(err) {
 								  console.log("Error HTTP status: " + err.status);
 							  });
 			}
+			
 		});
 	});

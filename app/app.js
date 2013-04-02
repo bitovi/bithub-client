@@ -14,8 +14,6 @@ steal(
 		new Leaderboard('#leaderboard');
 		new Filterbar('#filterbar');
 		
-		// 
-		console.log("BitHub client loaded!");
 	});
 
 

@@ -25,7 +25,8 @@ steal(
 						dataType: 'json'
 					})
 					.done(function (data) {
-						success($.groupBy(data['data'], ['origin_date', 'category']));
+						// convert response to model instances and do the grouping
+						success( $.groupBy( can.Model.models(data['data']), ['origin_date', 'category'] ) );
 					})
 					.fail(error);
 			},
@@ -42,7 +43,10 @@ steal(
 						data: params,
 						dataType: 'json'
 					})
-					.done(success)
+					.done(function (data) {
+						// return list of model instances
+						success( can.Model.models(data['data']) );
+					})
 					.fail(error);
 			}
 

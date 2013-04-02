@@ -1,0 +1,25 @@
+<div id="events-list">
+
+  <% for (day in days) { %>
+  <div class="day">
+    <h2><%= day %></h2>
+	
+	<% for (category in days[day]) { %>
+	<div class="category-<%= category%>">
+	  <h3><%= category %></h3>
+	  
+	  <div class="truncated">
+		<% days[day][category].map(function(event) { %>
+		<div class="event">
+		  <h4><%= event.attr('title') %></h4>
+		</div>
+		<% }) %>
+	  </div>
+	  
+	<% } %>
+	</div>
+	
+  </div>
+  <% } %>
+  
+</div>

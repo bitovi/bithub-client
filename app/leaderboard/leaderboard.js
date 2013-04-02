@@ -6,11 +6,9 @@ steal(
 		return can.Control({
 		}, {
 			init: function () {
-				console.log("Leaderboard controller initialized!");
-
 				Users.leaderboard({},
 							  function(data) {
-								  console.log(data);
+								  //console.log(data);
 							  },
 							  function(err) {
 								  console.log("Error HTTP status: " + err.status);
