@@ -2,9 +2,9 @@
 steal(
 	//'./styles.css',
 	'can',
-	'app/events',
-	'app/leaderboard',
-	'app/filterbar',
+	'bithub/events',
+	'bithub/leaderboard',
+	'bithub/filterbar',
 	
 	'jquery',
 	'ui/bootstrap.js',

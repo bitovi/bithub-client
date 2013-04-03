@@ -1,7 +1,7 @@
 // Load all of the plugin dependencies
 steal(
 	'can',
-	'app/models/tags.js',
+	'bithub/models/tags.js',
 	function(can, Tags) {
 		return can.Control({
 			page: 'latest',

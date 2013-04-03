@@ -1,18 +1,22 @@
 // Load all of the plugin dependencies
 steal(	
-	'can',
-	'app/models/users.js',
-	function(can, Users) {
+	'can',	
+	'bithub/models/events.js',
+	'can/view/mustache',
+	function(can, Events) {
 		return can.Control({
 		}, {
 			init: function () {
-				Users.leaderboard({},
+				var self = this;
+				
+				Events.latest({},
 							  function(data) {
-								  //console.log(data);
+								  self.element.html( can.view('events/latest.mustache', {days: data}) );
 							  },
 							  function(err) {
 								  console.log("Error HTTP status: " + err.status);
 							  });
 			}
+			
 		});
 	});
