@@ -5,6 +5,9 @@ steal(
 	'app/events',
 	'app/leaderboard',
 	'app/filterbar',
+	
+	'jquery',
+	'ui/bootstrap.js',
 	function(can, Events, Leaderboard, Filterbar){
 		
 		// Create the state that will be shared by everything

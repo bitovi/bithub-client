@@ -1,0 +1,42 @@
+
+<!-- GREATEST / LATEST -->
+<li><a href="#" class="latest boxed active"><span class="glyph"></span>Latest</a></li>
+<li><a href="#" class="greatest boxed"><span class="glyph"></span>Greatest</a></li>
+<!-- /GREATEST / LATEST -->
+
+<li class="divider-vertical"></li>
+
+<!-- PROJECTS FILTER -->
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle boxed projects" data-toggle="dropdown">
+	All projects
+	<b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+	<li><a href="#">All projects</a></li>
+	{{#projects}}
+		<li><a href="#">{{display_name}}</a></li>	
+	{{/projects}}
+  </ul>
+</li>
+<!-- /PROJECTS FILTER -->
+
+<li class="divider-vertical"></li>
+
+<!-- CATEGORY FILTER -->
+<li><a class="disabled">Filter:</a></li>
+<li><a class="active" href="#">All</a></li>	
+
+{{#categories_outlined}}
+  <li><a href="#">{{display_name}}</a></li>	
+{{/categories}}
+
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> More <b class="caret"></b> </a>
+  <ul class="dropdown-menu">
+	{{#categories}}
+	  <li><a href="#">{{display_name}}</a></li>	
+	{{/categories}}
+  </ul>
+</li>
+<!-- /CATEGORY FILTER -->
