@@ -11,10 +11,7 @@ steal(
 				
 				Events.latest({},
 							  function(data) {
-								  console.log(data);
-
 								  self.element.html( can.view('events/latest.mustache', {days: data}) );
-								  //self.element.html( can.view('events/latest.ejs', {days: data}) );
 							  },
 							  function(err) {
 								  console.log("Error HTTP status: " + err.status);

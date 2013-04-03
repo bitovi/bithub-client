@@ -4,21 +4,23 @@ steal(
 	'app/models/tags.js',
 	function(can, Tags) {
 		return can.Control({
+			page: 'latest',
+			project: '',
+			category: ''
 		}, {
 			init: function () {
 				var self = this;
 
-				self.element.html( can.view('filterbar/filterbar.ejs', {}) );
+				Tags.projects({}, function (projects) {
+					Tags.categories({}, function(categories) {						
+						self.element.html( can.view('filterbar/filterbar.mustache', {
+							projects: projects,
+							categories_outlined: categories.splice(0,3),
+							categories: categories
+						}) );
+					});
+				});
 
-				/*
-				Tags.findAll({},
-							 function(data) {
-								 //console.log(data);
-							 },
-							 function(err) {
-								 console.log("Error HTTP status: " + err.status);
-							 });
-				 */
 			}
 		});
 	});
