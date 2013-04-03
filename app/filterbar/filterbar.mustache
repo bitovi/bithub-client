@@ -7,15 +7,15 @@
 <li class="divider-vertical"></li>
 
 <!-- PROJECTS FILTER -->
-<li class="dropdown">
+<li class="dropdown" id="projects">
   <a href="#" class="dropdown-toggle boxed projects" data-toggle="dropdown">
-	All projects
+	<span id="projectTitle">All projects</span>
 	<b class="caret"></b>
   </a>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu" id="projectOptions">
 	<li><a href="#">All projects</a></li>
 	{{#projects}}
-		<li><a href="#">{{display_name}}</a></li>	
+	  <li><a href="#" {{data 'project'}}>{{display_name}}</a></li>	
 	{{/projects}}
   </ul>
 </li>
@@ -28,14 +28,14 @@
 <li><a class="active" href="#">All</a></li>	
 
 {{#categories_outlined}}
-  <li><a href="#">{{display_name}}</a></li>	
+  <li><a href="#" {{data 'category'}}>{{display_name}}</a></li>	
 {{/categories}}
 
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown"> More <b class="caret"></b> </a>
   <ul class="dropdown-menu">
 	{{#categories}}
-	  <li><a href="#">{{display_name}}</a></li>	
+	  <li><a href="#" {{data 'category'}}>{{display_name}}</a></li>	
 	{{/categories}}
   </ul>
 </li>

@@ -21,6 +21,13 @@ steal(
 					});
 				});
 
+			},
+			'#projectOptions a click': function (el, ev) {
+				var self = this;
+
+				self.element.find('#projectTitle').html( can.data($(el), 'project').display_name );
+
+				ev.preventDefault();
 			}
 		});
 	});
