@@ -23,12 +23,13 @@
 	<div class="status row">
 	  <div class="metadata-container pull-right">
 		<div class="event-metadata pull-right">
-		  <small><a href="#">User</a> / Today at 2:56 AM via <strong><a href="#">feed</a></strong></small>
+		  <small><a href="#">User</a> / Today at 2:56 AM via <strong><a href="#">{{feed}}</a></strong></small>
 		</div>
 	  </div>	  
-	  <ul class="tag-list nav">	
-		<li class="tag-name canjs"><a href="/canjs/"><small>canjs</small></a></li>	
-		<li class="category-name"><a href="/bug/"><small>bug</small></a></li>
+	  <ul class="tag-list nav">
+		{{#tags}}
+		<li class="tag-name {{.}}"><a href="#"><small>{{.}}</small></a></li>	
+		{{/tags}}
 	  </ul>
 	  <div class="clearfix"></div>
 	</div>
