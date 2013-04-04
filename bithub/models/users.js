@@ -17,16 +17,18 @@ steal(
 			leaderboard: function(params, success, error) {
 				params = params || {};
 				//params['order'] = params['order'] || 'score:desc';
-				//params['limit'] = params['order'] || 6;
+				//params['limit'] = params['limit'] || 6;
 				
-				$.ajax(
+				can.ajax(
 					{
 						url: '/api/users/',
 						type: 'GET',
 						data: params,
 						dataType: 'json'
 					})
-					.done(success)
+					.done(function(data) {
+						success(can.Model.models(data['data']));
+					})
 					.fail(error);
 			}
 
