@@ -1,0 +1,35 @@
+<!-- GREATEST / LATEST -->
+<ul id="views" class="nav">
+  <li><a href="#" class="latest boxed active"><span class="glyph"></span>Latest</a></li>
+  <li><a href="#" class="greatest boxed"><span class="glyph"></span>Greatest</a></li>
+</ul>
+<!-- /GREATEST / LATEST -->
+
+<ul class="nav">
+  <li class="divider-vertical"></li>
+</ul>
+
+<!-- PROJECTS FILTER -->
+<ul id="projects" class="nav">
+  <li class="dropdown" id="projects">
+	<a href="#" class="dropdown-toggle boxed projects" data-toggle="dropdown">
+	  <span id="projectTitle">All projects</span>
+	  <b class="caret"></b>
+	</a>
+	<ul class="dropdown-menu" id="projectOptions">
+	  <li><a href="#">All projects</a></li>
+	  {{#projects}}
+	  <li><a href="#" {{data 'project'}}>{{display_name}}</a></li>	
+	  {{/projects}}
+	</ul>
+  </li>
+</ul>
+<!-- /PROJECTS FILTER -->
+
+<ul class="nav">
+  <li class="divider-vertical"></li>
+</ul>
+
+<!-- CATEGORY FILTER -->
+<ul id="categories" class="nav"></ul>
+<!-- /CATEGORY FILTER -->

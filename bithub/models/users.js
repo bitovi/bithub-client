@@ -21,7 +21,7 @@ steal(
 				
 				can.ajax(
 					{
-						url: '/api/users/',
+						url: '/api/users/top/',
 						type: 'GET',
 						data: params,
 						dataType: 'json'

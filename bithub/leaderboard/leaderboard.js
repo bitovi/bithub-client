@@ -19,7 +19,7 @@ steal('can',
 			Users.leaderboard({},
 							  function(data) {
 								  can.each(data, function (user, index) {
-									  user.attr('no', index+1);
+									  user.attr('no', index + 1);
 								  });
 								  self.element.html(initView({ users: data }));
 							  },

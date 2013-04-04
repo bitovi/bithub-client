@@ -5,9 +5,6 @@ steal(
 	'bithub/events',
 	'bithub/leaderboard',
 	'bithub/filterbar',
-	
-	'jquery',
-	'ui/bootstrap.js',
 	function(can, Events, Leaderboard, Filterbar){
 		
 		// Create the state that will be shared by everything
