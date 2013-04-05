@@ -1,0 +1,16 @@
+<li class="dropdown" id="projects">
+  <a href="#" class="dropdown-toggle boxed projects" data-toggle="dropdown">
+	{{#default}}
+	<span class="title">{{display_name}}</span>
+	{{/default}}
+	<b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu" id="projectOptions">
+	{{#default}}
+	<li><a href="#" {{data 'item'}} class="item">{{display_name}}</a></li>
+	{{/default}}
+	{{#items}}
+	<li><a href="#" {{data 'item'}} class="item">{{display_name}}</a></li>	
+	{{/items}}
+  </ul>
+</li>

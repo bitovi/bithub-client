@@ -8,13 +8,17 @@ steal(
 	function(can, Events, Leaderboard, Filterbar){
 		
 		// Create the state that will be shared by everything
-		var currentState = can.compute();
+		var currentState = new can.Observe({
+			view: 'latest',
+			project: '',
+			category: ''
+		});
 
 		// Init Controllers
-		new Events('#events');
+		new Events('#events', {currentState: currentState});
+		new Filterbar('#filterbar', {currentState: currentState});
 		new Leaderboard('#leaderboard');
-		new Filterbar('#filterbar');
-		
+
 	});
 
 

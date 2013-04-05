@@ -1,8 +1,10 @@
 steal('can',
 	  './init.mustache',
-	  'bithub/models/tags.js',
-	  'ui/categories',
-	  function(can, initView, Tags, Categories){
+	  'bithub/models/tag.js',
+	  'ui/optionselector',
+	  'ui/dropdownselector',
+	  'ui/smartselector',
+	  function(can, initView, Tag, OptionSelector, DropdownSelector, SmartSelector){
 		  /**
 		   * @class filterbar
 		   * @alias Filterbar   
@@ -10,36 +12,46 @@ steal('can',
 		  return can.Control(
 			  /** @Static */
 			  {
-				  defaults : {
-					  currentFilter: new can.Observe({
-						  page: 'latest',
-						  project: '',
-						  category: ''
-					  })
-				  }
+				  defaults : {}
 			  },
 			  /** @Prototype */
 			  {
 				  init : function(){
 					  var self = this;
 					  
-					  Tags.projects({}, function (projects) {
-						  self.element.html(initView({ projects: projects }));
-						  new Categories('#categories', { currentFilter: self.options.currentFilter });
+					  Tag.projects({}, function (projects) {
+						  Tag.categories({}, function (categories) {
+							  self.element.html(initView({}));
+
+							  // init UI controls
+							  new OptionSelector('#viewFilter', {
+								  state: function (newVal) {
+									  self.options.currentState.attr('view', newVal);
+								  },
+								  items: [
+									  {name: 'latest', display_name: 'Latest', class: 'active'},
+									  {name: 'greatest', display_name: 'Greatest'}
+								  ]
+							  });
+							  new DropdownSelector('#projectFilter', {
+								  state: function (newVal) {
+									  self.options.currentState.attr('project', newVal);
+								  },
+								  items: projects,
+								  default: {name: '', display_name: 'All projects'}
+							  });
+							  new SmartSelector('#categoryFilter', {
+								  state: function (newVal) {
+									  self.options.currentState.attr('category', newVal);
+								  },
+								  items: categories
+							  });
+						  });
 					  });
-
-				  },
-				  
-				  '#projectOptions a click': function (el, ev) {
-					  var self = this;
 					  
-					  self.element.find('#projectTitle').html( can.data(el, 'project').display_name );
-					  self.options.currentFilter.attr( 'project', can.data(el, 'project').name );
-					  
-					  ev.preventDefault();
 				  },
 
-				  '{currentFilter} change': function(currentFilter, ev, attr, method, newVal) {
+				  '{currentState} change': function(currentState, ev, attr, method, newVal) {
 					  console.log(attr + " set to " + newVal);
 				  }
 
