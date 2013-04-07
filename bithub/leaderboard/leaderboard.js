@@ -1,7 +1,7 @@
 steal('can',
 	  './init.mustache',
-	  'bithub/models/users.js',	  
-	  function(can, initView, Users){
+	  'bithub/models/user.js',	  
+	  function(can, initView, User){
     /**
      * @class bithub/leaderboard
 	 * @alias Leaderboard   
@@ -16,7 +16,7 @@ steal('can',
 		init : function(){
 			var self = this;
 			
-			Users.leaderboard({},
+			User.leaderboard({},
 							  function(data) {
 								  can.each(data, function (user, index) {
 									  user.attr('no', index + 1);

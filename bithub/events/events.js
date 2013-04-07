@@ -1,15 +1,15 @@
 // Load all of the plugin dependencies
 steal(	
 	'can',	
-	'bithub/models/events.js',
+	'bithub/models/event.js',
 	'can/view/mustache',
-	function(can, Events) {
+	function(can, Event) {
 		return can.Control({
 		}, {
 			init: function () {
 				var self = this;
 				
-				Events.latest({},
+				Event.latest({},
 							  function(data) {
 								  self.element.html( can.view('events/latest.mustache', {days: data}) );
 							  },
