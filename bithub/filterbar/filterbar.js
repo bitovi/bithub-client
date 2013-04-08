@@ -49,10 +49,6 @@ steal('can',
 						  });
 					  });
 					  
-				  },
-
-				  '{currentState} change': function(currentState, ev, attr, method, newVal) {
-					  console.log(attr + " set to " + newVal);
 				  }
 
 			  });

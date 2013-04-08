@@ -1,6 +1,6 @@
 steal('can',
 	  './init.mustache',
-	  'ui/bootstrap.js',	  
+	  'ui/bootstrap.js',
 	  function(can, initView){
 		  /**
 		   * @class ui/smartselector

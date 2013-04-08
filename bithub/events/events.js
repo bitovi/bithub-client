@@ -17,16 +17,20 @@ steal('can',
 				  init : function(){
 					  var self = this;
 					  
-					  Event.latest({},
+					  Event.findAll({order: 'origin_ts:desc'},
 								   function(data) {
 									   self.element.html(initView({
-										   days: data
+										   days: $.groupBy( data, ['origin_date', 'category'] )
 									   }));									   
 								   },
 								   function(err) {
 									   console.log("Error HTTP status: " + err.status);
-								   });
-					  
+								   });					  
+				  },
+				  
+				  '{currentState} change': function(currentState, ev, attr, method, newVal) {
+					  console.log(attr + " set to " + newVal);
 				  }
+
 			  });
 	  });
