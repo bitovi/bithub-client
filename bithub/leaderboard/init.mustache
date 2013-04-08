@@ -2,7 +2,7 @@
 
 <ul class="unstyled">
   {{#users}}
-  <li class="">
+  <li class="{{#if loggedin}}active{{/if}}">
 	<span class="position">#{{no}}</span>
 	<img class="avatar" src="{{avatar}}?size=22" alt="avatar">
 	{{name}}
