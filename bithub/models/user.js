@@ -12,25 +12,8 @@ steal(
 			findOne : 'GET /api/users/{id}',
 			create  : 'POST /api/users',
 			update  : 'PUT /api/users/{id}',
-			destroy : 'DELETE /api/users/{id}',
+			destroy : 'DELETE /api/users/{id}'
 
-			// Get leaderboard
-			leaderboard: function(params, success, error) {
-				params = params || {};
-				//params['order'] = params['order'] || 'score:desc';
-				//params['limit'] = params['limit'] || 6;
-				
-				can.ajax({
-						url: '/api/users/top/',
-						type: 'GET',
-						data: params,
-						dataType: 'json'
-					})
-					.done(function(data) {
-						success(can.Model.models(data['data']));
-					})
-					.fail(error);
-			}
 		}, {
 			fromSession: function() {
 				var self = this;
