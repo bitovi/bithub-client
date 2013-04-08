@@ -19,8 +19,8 @@ steal('can',
 				  init : function(){
 					  var self = this;
 					  
-					  Tag.projects({}, function (projects) {
-						  Tag.categories({}, function (categories) {
+					  Tag.findAll({type: 'project'}, function (projects) {
+						  Tag.findAll({type: 'category'}, function (categories) {
 							  self.element.html(initView({}));
 
 							  // init UI controls
