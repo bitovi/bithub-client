@@ -6,7 +6,9 @@ steal(
 	'bithub/leaderboard',
 	'bithub/filterbar',
 	'bithub/login',
-	function(can, Events, Leaderboard, Filterbar, Login){
+	'bithub/models/current_user.js',
+	function(can, Events, Leaderboard, Filterbar, Login, currentUser){
+
 		// Create the state that will be shared by everything
 		var currentState = new can.Observe({
 			view: 'latest',
@@ -15,8 +17,8 @@ steal(
 		});
 
 		// Init Controllers
-		new Events('#events', {currentState: currentState});
-		new Filterbar('#filterbar', {currentState: currentState});
-		new Leaderboard('#leaderboard');
-		new Login('#login');
+		new Login('#login', { currentUser: currentUser });
+		new Events('#events', { currentState: currentState });
+		new Filterbar('#filterbar', { currentState: currentState });
+		new Leaderboard('#leaderboard', { currentUser: currentUser });
 	});

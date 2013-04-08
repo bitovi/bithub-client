@@ -10,7 +10,7 @@ steal('can',
 			  /** @Static */
 			  {
 				  defaults : {
-					  currentUser: new can.Observe({id: 0}) //tmp
+					  // currentUser: new can.Observe({id: 0}) //tmp
 				  }
 			  },
 			  /** @Prototype */
@@ -36,9 +36,9 @@ steal('can',
 										});
 				  },
 				  
-				  '{currentUser} change': function (currentUser, ev, attr, method, newVal) {
+				  '{currentUser} loggedin': function (currentUser, ev, attr, method, newVal) {
 					  var self = this;
-					  
+
 					  can.each(self.options.users, function(user, index) {
 						  if (self.options.currentUser.attr('id') === user.attr('id')) {
 							  user.attr('loggedin', true);

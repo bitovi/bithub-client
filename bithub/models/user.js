@@ -30,7 +30,7 @@ steal(
 						success(can.Model.models(data['data']));
 					})
 					.fail(error);
-			},
+			}
 		}, {
 			fromSession: function() {
 				var self = this;
@@ -49,7 +49,7 @@ steal(
 				auth.login.apply(this, arguments);
 			},
 			logout: function() {
-				auth.logout()
+				auth.logout();
 			}
 		});
 	});

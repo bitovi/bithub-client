@@ -1,28 +1,36 @@
 steal(
 	'can',
 	'./init.mustache',
-	'bithub/models/current_user.js',
-	function(can, initView, currentUser) {
+	function(can, initView) {
 		return can.Control({
-			defaults: {currentUser: currentUser}
+			defaults: {}
 		}, {
 			init: function () {
 				var self = this;
-				self.element.html(initView({loggedIn: currentUser.attr('loggedIn'), currentUser: currentUser}));
+				
+				self.element.html(initView({
+					loggedIn: self.options.currentUser.attr('loggedIn'),
+					currentUser: self.options.currentUser
+				}));
 			},
 
 			'{currentUser} loggedin': function() {
-				this.element.html(initView({loggedIn: currentUser.attr('loggedIn'), currentUser: currentUser}));
+				var self = this;
+				
+				self.element.html(initView({
+					loggedIn: self.options.currentUser.attr('loggedIn'),
+					currentUser: self.options.currentUser
+				}));
 			},
 
 			'#login-github-link click': function(el, ev) {
 				ev.preventDefault();
-				currentUser.login({url: '/users/auth/github' });
+				this.options.currentUser.login({url: '/users/auth/github' });
 			},
 
 			'#login-twitter-link click': function(el, ev) {
 				ev.preventDefault();
-				currentUser.login({url: '/users/auth/twitter' });
+				this.options.currentUser.login({url: '/users/auth/twitter' });
 			}
-		})
+		});
 	});
