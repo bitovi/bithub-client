@@ -1,6 +1,6 @@
 steal('can',
 	  './init.mustache',
-	  'bithub/models/users.js',
+	  'bithub/models/user.js',
 	  function(can, initView, Users){
 		  /**
 		   * @class bithub/leaderboard
