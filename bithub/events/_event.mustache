@@ -15,7 +15,7 @@
 	<!-- title & body -->
 	<div class="row">
 	  <h5>
-		<a href="#">{{title}}</a>
+		<a {{#if url}}href="{{url}}"{{/if}}>{{title}}</a>
 		{{#if award}}<span class='badge'>+{{award_sum}}</span>{{/if}}
 	  </h5>
 	  <div class="body">{{{body}}}</div>

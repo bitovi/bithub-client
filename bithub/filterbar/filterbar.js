@@ -44,7 +44,8 @@ steal('can',
 								  state: function (newVal) {
 									  self.options.currentState.attr('category', newVal);
 								  },
-								  items: categories
+								  items: categories,
+								  default: {name: '', display_name: 'All'}
 							  });
 						  });
 					  });

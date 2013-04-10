@@ -20,6 +20,7 @@ steal('can',
 						  items = self.options.items;
 					  
 					  self.element.html(initView({
+						  default: self.options.default,
 						  outlinedItems: items.slice( 0, self.options.break ),
 						  items: items.slice( self.options.brake, items.length )
 					  }));

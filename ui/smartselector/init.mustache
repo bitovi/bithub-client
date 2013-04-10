@@ -1,5 +1,7 @@
 <li><a class="disabled">Filter:</a></li>
-<li><a class="active option" href="#">All</a></li>	
+{{#default}}
+<li><a href="#" {{data 'item'}} class="item active">{{display_name}}</a></li>	
+{{/default}}
 
 {{#outlinedItems}}
   <li><a href="#" {{data 'item'}} class="item">{{display_name}}</a></li>	

@@ -1,26 +1,4 @@
 <div id="events-list">
-  
-  {{#days}}
-  <div class="day">
-
-	<div class="sep-wrapper wrapper" style="height: 42px;">
-	  <div class="sep blue">
-		<h4 class="flag blue">{{key}}</h4>
-	  </div>
-	</div>
-
-	{{#value}}
-	<div class="category-{{key}}">
-	  <h3>{{key}}</h3>
-	  <div class="truncated">
-		{{#value}}
-		{{>events/_event.mustache}}
-		{{/value}}
-	  </div>
-	</div>
-	{{/value}}
-	
-  </div>
-  {{/days}}
-  
+  {{#if days}} {{>events/latest.mustache}} {{/if}}
+  {{#if events}} {{>events/greatest.mustache}} {{/if}}
 </div>
