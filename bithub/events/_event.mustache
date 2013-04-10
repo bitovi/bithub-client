@@ -1,10 +1,10 @@
-<div class="event">
+<div class="event" {{data 'event'}}>
   <div class="toolbar"></div>
 
   <!-- upvotes -->
   <div class="span1 votes">
 	<div class="uparrow"></div>
-	<div class="count">0</div>
+	<div class="count">{{upvotes}}</div>
 	<div class="voteup "><span class="upvote-caret"></span>Vote up</div>	
 	<div class="clearfix"></div>
   </div>
@@ -14,7 +14,10 @@
 
 	<!-- title & body -->
 	<div class="row">
-	  <h5><a href="#">{{title}}</a></h5>
+	  <h5>
+		<a href="#">{{title}}</a>
+		{{#if award}}<span class='badge'>+{{award_sum}}</span>{{/if}}
+	  </h5>
 	  <div class="body">{{{body}}}</div>
 	  <div class="clearfix"></div>	  
 	</div>

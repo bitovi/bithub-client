@@ -2,7 +2,7 @@ steal('can',
 	  './init.mustache',
 	  'bithub/models/event.js',
 	  'can/view/mustache',
-	  function(can, initView, Event){
+	  function(can, initView, Events){
 		  /**
 		   * @class bithub/events
 		   * @alias Events
@@ -17,8 +17,9 @@ steal('can',
 				  init : function(){
 					  var self = this;
 					  
-					  Event.findAll({order: 'origin_ts:desc'},
+					  Events.findAll({order: 'origin_ts:desc'},
 								   function(data) {
+									   
 									   self.element.html(initView({
 										   days: $.groupBy( data, ['origin_date', 'category'] )
 									   }));									   
@@ -27,10 +28,19 @@ steal('can',
 									   console.log("Error HTTP status: " + err.status);
 								   });					  
 				  },
-				  
+
+				  '.voteup click': function (el, ev) {
+					  var event = can.data(el.closest('.event'), 'event');
+
+					  event.upvote(function () {
+						  event.attr('upvotes', event.attr('upvotes') + 1);
+					  });
+				  },
+
 				  '{currentState} change': function(currentState, ev, attr, method, newVal) {
 					  console.log(attr + " set to " + newVal);
 				  }
+
 
 			  });
 	  });
