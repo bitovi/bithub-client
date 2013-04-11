@@ -25,6 +25,8 @@ steal(
 		// static method on jQuery object
 		$.groupBy = function (collection, keys) {
 			var result = [];
+			collection.attr('length');
+			
 			$.each(collection, function (i, value) {
 
 				// if value is string wrap it inside array
@@ -69,6 +71,8 @@ steal(
 		// static method on jQuery object
 		$.groupBy = function (collection, keys) {
 			var result = {};
+ 			collection.attr('length');
+
 			$.each(collection, function (i, value) {
 
 				// if value is string wrap it inside array

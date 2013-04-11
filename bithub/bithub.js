@@ -1,6 +1,5 @@
 // Load all of the plugin dependencies
 steal(
-	//'./styles.css',
 	'can',
 	'bithub/events',
 	'bithub/leaderboard',
