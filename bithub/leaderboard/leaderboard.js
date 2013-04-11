@@ -9,9 +9,7 @@ steal('can',
 		  return can.Control(
 			  /** @Static */
 			  {
-				  defaults : {
-					  // currentUser: new can.Observe({id: 0}) //tmp
-				  }
+				  defaults : {}
 			  },
 			  /** @Prototype */
 			  {

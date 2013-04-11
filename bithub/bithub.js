@@ -6,6 +6,8 @@ steal(
 	'bithub/filterbar',
 	'bithub/login',
 	'bithub/models/current_user.js',
+	'vendor/bootstrap/bootstrap.min.css',
+	'bithub/assets/styles/app.css',
 	function(can, Events, Leaderboard, Filterbar, Login, currentUser){
 
 		// Create the state that will be shared by everything

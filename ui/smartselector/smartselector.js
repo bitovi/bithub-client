@@ -1,5 +1,6 @@
 steal('can',
 	  './init.mustache',
+	  'bithub/assets/styles/app.css',
 	  'vendor/bootstrap.js',
 	  function(can, initView){
 		  /**
