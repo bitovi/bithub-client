@@ -1,9 +1,9 @@
 <h4>Leaderboard</h4>
 
 <ul class="unstyled">
-  {{#users}}
-  <li class="{{#if loggedin}}active{{/if}}">
-	<span class="position">#{{no}}</span>
+  {{#enumerate users}}
+  <li class="{{isLoggedin}}">
+	<span class="position">#{{index}}</span>
 	<img class="avatar" src="{{avatar_url}}?size=22" alt="avatar">
 	{{name}}
 	<span class="points pull-right">{{score}}</span>

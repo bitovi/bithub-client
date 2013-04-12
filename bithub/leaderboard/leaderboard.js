@@ -1,11 +1,17 @@
 steal('can',
 	  './init.mustache',
 	  'bithub/models/user.js',
-	  function(can, initView, Users){
+	  function(can, initView, User){
 		  /**
 		   * @class bithub/leaderboard
 		   * @alias Leaderboard
 		   */
+
+		  var defaultParams = {
+			  order: 'score:desc',
+			  limit: 6
+		  };
+
 		  return can.Control(
 			  /** @Static */
 			  {
@@ -13,36 +19,45 @@ steal('can',
 			  },
 			  /** @Prototype */
 			  {
-				  init : function(){
+				  init : function() {
 					  var self = this;
 
-					  Users.findAll({order: 'score:desc', limit: 6},
-									function(data) {
-										self.options.users = data;
-										
-										can.each(data, function (user, index) {
-											user.attr('no', index + 1);
+					  this.users = new Bithub.Models.User.List();
 
-											// check if user is already loggedin
-											user.attr('loggedin', (self.options.currentUser.attr('id') === user.attr('id')) ? true : false);
-										});
-										self.element.html(initView({ users: data }));
-									},
-									function(err) {
-										console.log("Error HTTP status: " + err.status);
-										// init view with error message?
-									});
+					  this.element.html( initView( {
+						  users: self.users
+					  }, {
+						  enumerate: function (data, opts) {
+							  return data.map( function(item, index) {
+								  item.attr('index', index+1);
+								  return opts.fn(item);
+							  }).join('');
+						  },
+						  isLoggedin: function (opts) {
+							  return (this.attr('loggedIn')) ? 'active' : '';
+						  }
+					  }) );
+
+					  this.updateLeaderboard();
 				  },
-				  
-				  '{currentUser} loggedin': function (currentUser, ev, attr, method, newVal) {
-					  var self = this;
 
-					  can.each(self.options.users, function(user, index) {
-						  if (self.options.currentUser.attr('id') === user.attr('id')) {
-							  user.attr('loggedin', true);
+				  // find the better way ...
+				  '{currentUser} loggedin': function (currentUser) {
+					  this.users.each(function (user) {
+						  if (currentUser.attr('id') === user.attr('id')) {
+							  user.attr('loggedIn', true);
 						  }
 					  });
-					  
+				  },
+				  //
+
+				  updateLeaderboard: function( params ) {
+					  var self = this;
+
+					  User.findAll( defaultParams, function ( data ) {
+						  self.users.replace( data );
+					  });
 				  }
+
 			  });
 	  });

@@ -2,10 +2,8 @@ steal(
 	'can',
 	'../helpers/auth.js',
 	function (can, auth) {
-		return can.Model({
-			init: function () {
-
-			},
+		var User = can.Model('Bithub.Models.User', {
+			init: function () {},
 
 			// CRUD
 			findAll : 'GET /api/users',
@@ -28,11 +26,15 @@ steal(
 					console.error(response);
 				});
 			},
+
 			login: function(options) {
 				auth.login.apply(this, arguments);
 			},
+
 			logout: function() {
 				auth.logout();
 			}
 		});
+
+		return User;
 	});
