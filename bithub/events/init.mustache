@@ -1,8 +1,11 @@
 <div id="events-list">
+
   {{#isLatest partial}}
     {{>events/latest.mustache}}
   {{/isLatest}}
+  
   {{#isGreatest partial}}
     {{>events/greatest.mustache}}
   {{/isGreatest}}
+  
 </div>

@@ -5,7 +5,8 @@ steal('can',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
 	  'can/construct/proxy',
-	  function(can, initView, latestView, greatestView, Events, Upvote){
+	  'vendor/moment',
+	  function(can, initView, latestView, greatestView, Event, Upvote){
 		  /**
 		   * @class bithub/events
 		   * @alias Events
@@ -38,14 +39,19 @@ steal('can',
 						  },
 						  partial: this.currentView
 					  }, {
-						  isLatest: function (partial, opts) {
+						  isLatest: function( partial, opts ) {
 							  return partial() === 'latest' ? opts.fn(this) : '';
 						  },
-						  isGreatest: function (partial, opts) {
+						  isGreatest: function( partial, opts ) {
 							  return partial() === 'greatest' ? opts.fn(this) : '';
 						  }
-					  })
-									   );
+					  }) );
+
+					  // helpers passed to mustache view aren't accessable in partials? 
+					  can.Mustache.registerHelper('isCategory', function( category, opts ) {
+							  return category === this.key ? opts.fn(this) : '';
+						  });
+
 					  this.load();
 				  },
 
@@ -55,10 +61,10 @@ steal('can',
 
 				  '{currentState} change': function(currentState, ev, attr, method, newVal) {
 					  clearTimeout(this.stateTimeout);
-					  
+
 					  this.stateTimeout = setTimeout(this.proxy(function () {
 						  var params = {};
-						  
+
 						  if (currentState.attr('project')) { params.tag = currentState.attr('project'); }
 						  if (currentState.attr('category')) { params.category = currentState.attr('category'); }
 
@@ -68,16 +74,16 @@ steal('can',
 				  },
 
 				  load: function( params ) {
-					  Events.findAll( can.extend({}, defaultParams[this.options.currentState.view], params || {} ),
+					  Event.findAll( can.extend({}, defaultParams[this.options.currentState.view], params || {} ),
 									  this.proxy('updateEvents')
 									);
-					  
+
 				  },
 
 				  updateEvents: function( events ) {
 					  this.currentView( this.options.currentState.view );
 					  this.events.replace(events);
 				  }
-				  
+
 			  });
 	  });

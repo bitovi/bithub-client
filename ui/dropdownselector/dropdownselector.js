@@ -1,6 +1,6 @@
 steal('can',
 	  './init.mustache',
-	  'vendor/bootstrap.js',
+	  'vendor/bootstrap',
 	  function(can, initView){
 		  /**
 		   * @class ui/dropdownselector

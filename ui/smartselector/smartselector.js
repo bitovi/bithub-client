@@ -1,7 +1,7 @@
 steal('can',
 	  './init.mustache',
 	  'bithub/assets/styles/app.css',
-	  'vendor/bootstrap.js',
+	  'vendor/bootstrap',
 	  function(can, initView){
 		  /**
 		   * @class ui/smartselector
