@@ -1,6 +1,5 @@
 steal(
 	'can',
-	'ui/groupby.js',
 	'can/construct/proxy',
 	'can/construct/super',
 	function (can) {

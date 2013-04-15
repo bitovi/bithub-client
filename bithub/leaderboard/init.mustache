@@ -3,7 +3,7 @@
 <ul class="unstyled">
   {{#enumerate users}}
   <li class="{{isLoggedin}}">
-	<span class="position">#{{index}}</span>
+	<span class="position">#{{__index}}</span>
 	<img class="avatar" src="{{avatar_url}}?size=22" alt="avatar">
 	{{name}}
 	<span class="points pull-right">{{score}}</span>

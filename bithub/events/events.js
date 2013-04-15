@@ -5,7 +5,7 @@ steal('can',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
 	  'can/construct/proxy',
-	  'vendor/moment',
+	  'bithub/helpers/mustacheHelpers.js',
 	  function(can, initView, latestView, greatestView, Event, Upvote){
 		  /**
 		   * @class bithub/events
@@ -47,11 +47,6 @@ steal('can',
 						  }
 					  }) );
 
-					  // helpers passed to mustache view aren't accessable in partials? 
-					  can.Mustache.registerHelper('isCategory', function( category, opts ) {
-							  return category === this.key ? opts.fn(this) : '';
-						  });
-
 					  this.load();
 				  },
 
@@ -65,8 +60,12 @@ steal('can',
 					  this.stateTimeout = setTimeout(this.proxy(function () {
 						  var params = {};
 
-						  if (currentState.attr('project')) { params.tag = currentState.attr('project'); }
-						  if (currentState.attr('category')) { params.category = currentState.attr('category'); }
+						  if (currentState.attr('project')) {
+							  params.tag = currentState.attr('project');
+						  }
+						  if (currentState.attr('category')) {
+							  params.category = currentState.attr('category');
+						  }
 
 						  // render view
 						  this.load(params);

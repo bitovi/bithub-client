@@ -29,7 +29,7 @@ steal('can',
 					  }, {
 						  enumerate: function (data, opts) {
 							  return data.map( function(item, index) {
-								  item.attr('index', index+1);
+								  item.attr('__index', index+1);
 								  return opts.fn(item);
 							  }).join('');
 						  },

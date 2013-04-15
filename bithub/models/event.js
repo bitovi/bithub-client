@@ -1,9 +1,9 @@
 steal(
 	'can',
 	'./upvote.js',
+	'bithub/helpers/group.js',
 	'can/model/list',
-	'ui/groupby.js',
-	function (can, Upvote) {
+	function (can, Upvote, helpers) {
 		var Event = can.Model('Bithub.Models.Event', {
 			init: function () {},
 
@@ -24,7 +24,17 @@ steal(
 
 		can.Model.List('Bithub.Models.Event.List', {
 			latest: function () {
-				return $.groupBy( this, ['origin_date', 'category'] );
+				this.attr('length');
+
+				// group events by 'origin_date' into array of days
+				var days = helpers.groupIntoArray( this, ['origin_date'] );
+
+				// then for every day group events by 'category' into object with categories as keys
+				$.each( days, function(i, day) {
+					day.value = helpers.groupIntoObject( day.value, ['category'] );
+				});
+
+				return days;				
 			}
 		});
 		

@@ -8,14 +8,117 @@
   </div>
 
   {{#value}}
-  <div class="category-{{key}}">
-	<h3>{{key}}</h3>
-	<div class="truncated">
-	  {{#value}}
-	  {{>events/_event.mustache}}
-	  {{/value}}
-	</div>
-  </div>
+  
+	{{#if digest}}
+    <div class="category-digest">
+	  <h3>Digest</h3>
+	  <div class="truncated">
+	    {{#digest}}
+	    {{>events/_event.mustache}}
+	    {{/digest}}
+	  </div>
+    </div>
+	{{/if}}
+
+	{{#if twitter}}
+    <div class="category-twitter">
+	  <h3>Twitter</h3>
+	  <div class="truncated">
+	    {{#twitter}}
+	    {{>events/_event_twitter.mustache}}
+	    {{/twitter}}
+	  </div>
+    </div>
+    {{/if}}
+	
+	{{#if bug}}
+    <div class="category-bug">
+	  <h3>Bugs</h3>
+	  <div class="truncated">
+	    {{#digest}}
+	    {{>events/_event.mustache}}
+	    {{/digest}}
+	  </div>
+    </div>
+	{{/if}}
+	
+	{{#if comment}}
+    <div class="category-comment">
+	  <h3>Comments</h3>
+	  <div class="truncated">
+	    {{#comment}}
+	    {{>events/_event.mustache}}
+	    {{/comment}}
+	  </div>
+    </div>
+	{{/if}}
+
+	{{#if feature}}
+    <div class="category-feature">
+	  <h3>Features</h3>
+	  <div class="truncated">
+	    {{#feature}}
+	    {{>events/_event.mustache}}
+	    {{/feature}}
+	  </div>
+    </div>
+	{{/if}}
+
+	{{#if question}}
+    <div class="category-question">
+	  <h3>Questions</h3>
+	  <div class="truncated">
+	    {{#question}}
+	    {{>events/_event.mustache}}
+	    {{/question}}
+	  </div>
+    </div>
+	{{/if}}
+
+	{{#if article}}
+    <div class="category-article">
+	  <h3>Articles</h3>
+	  <div class="truncated">
+	    {{#article}}
+	    {{>events/_event.mustache}}
+	    {{/article}}
+	  </div>
+    </div>
+	{{/if}}
+
+	{{#if plugin}}
+    <div class="category-plugin">
+	  <h3>Plugins</h3>
+	  <div class="truncated">
+	    {{#plugin}}
+	    {{>events/_event.mustache}}
+	    {{/plugin}}
+	  </div>
+    </div>
+	{{/if}}
+
+	{{#if app}}
+    <div class="category-app">
+	  <h3>Apps</h3>
+	  <div class="truncated">
+	    {{#app}}
+	    {{>events/_event.mustache}}
+	    {{/app}}
+	  </div>
+    </div>
+	{{/if}}
+
+	{{#if code}}
+    <div class="category-code">
+	  <h3>Code</h3>
+	  <div class="truncated">
+	    {{#code}}
+	    {{>events/_event_code.mustache}}
+	    {{/code}}
+	  </div>
+    </div>
+	{{/if}}
+	
   {{/value}}
   
 </div>
