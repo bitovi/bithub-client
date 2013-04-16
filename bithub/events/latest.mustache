@@ -22,7 +22,7 @@
 
 	{{#if twitter}}
     <div class="category-twitter">
-	  <h3>Twitter</h3>
+	  <h3 class="twitter-icon">Twitter</h3>
 	  <div class="truncated">
 	    {{#twitter}}
 	    {{>events/_event_twitter.mustache}}
@@ -33,18 +33,18 @@
 	
 	{{#if bug}}
     <div class="category-bug">
-	  <h3>Bugs</h3>
+	  <h3 class="bugs-icon">Bugs</h3>
 	  <div class="truncated">
-	    {{#digest}}
+	    {{#bug}}
 	    {{>events/_event.mustache}}
-	    {{/digest}}
+	    {{/bug}}
 	  </div>
     </div>
 	{{/if}}
 	
 	{{#if comment}}
     <div class="category-comment">
-	  <h3>Comments</h3>
+	  <h3 class="comments-icon">Comments</h3>
 	  <div class="truncated">
 	    {{#comment}}
 	    {{>events/_event.mustache}}
@@ -55,7 +55,7 @@
 
 	{{#if feature}}
     <div class="category-feature">
-	  <h3>Features</h3>
+	  <h3 class="features-icon">Features</h3>
 	  <div class="truncated">
 	    {{#feature}}
 	    {{>events/_event.mustache}}
@@ -66,7 +66,7 @@
 
 	{{#if question}}
     <div class="category-question">
-	  <h3>Questions</h3>
+	  <h3 class="questions-icon">Questions</h3>
 	  <div class="truncated">
 	    {{#question}}
 	    {{>events/_event.mustache}}
@@ -77,7 +77,7 @@
 
 	{{#if article}}
     <div class="category-article">
-	  <h3>Articles</h3>
+	  <h3 class="articles-icon">Articles</h3>
 	  <div class="truncated">
 	    {{#article}}
 	    {{>events/_event.mustache}}
@@ -88,7 +88,7 @@
 
 	{{#if plugin}}
     <div class="category-plugin">
-	  <h3>Plugins</h3>
+	  <h3 class="plugins-icon">Plugins</h3>
 	  <div class="truncated">
 	    {{#plugin}}
 	    {{>events/_event.mustache}}
@@ -99,7 +99,7 @@
 
 	{{#if app}}
     <div class="category-app">
-	  <h3>Apps</h3>
+	  <h3 class="apps-icon">Apps</h3>
 	  <div class="truncated">
 	    {{#app}}
 	    {{>events/_event.mustache}}
@@ -110,7 +110,7 @@
 
 	{{#if code}}
     <div class="category-code">
-	  <h3>Code</h3>
+	  <h3 class="code-icon">Code</h3>
 	  <div class="truncated">
 	    {{#code}}
 	    {{>events/_event_code.mustache}}
@@ -118,6 +118,15 @@
 	  </div>
     </div>
 	{{/if}}
+
+	<div class="feed-header">
+	  <h3 class="irc-icon">Chat <a class="pull-right" href="http://webchat.freenode.net/?channels=canjs"><img src="./assets/images/icon-popout.png" alt="popout"></a></h3>
+	</div>
+	<div class="truncated irc-chat-container">
+	  {{#chat}}
+	  <div><span class="username">{{actor}}</span>: {{title}}</div>
+	  {{/chat}}
+	</div>
 	
   {{/value}}
   
