@@ -45,5 +45,18 @@ steal('can/view/mustache',
 				  return ts.calendar();
 			  }
 		  });
+
+		  can.Mustache.registerHelper('loop', function( collection, opts ) {
+			  var buffer = "",
+				  begin = opts.hash.begin || 0,
+				  length = opts.hash.length || collection.length;
+			  
+			  if (collection.attr('length') > 0) {
+				  for (var i = begin; i < length && i < collection.length; i++) {
+					  buffer += opts.fn( collection[i] );
+				  }
+			  }
+			  return buffer;
+		  });
 		  
 	  });
