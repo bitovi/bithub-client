@@ -16,17 +16,17 @@ steal('can',
 			  },
 			  /** @Prototype */
 			  {
-				  init : function(){
+				  init : function( elem, options ){
 					  var self = this,
 						  items = self.options.items;
 					  
-					  self.element.html(initView({
+					  self.element.html( initView( {
 						  default: self.options.default,
-						  outlinedItems: items.slice( 0, self.options.break ),
-						  items: items.slice( self.options.brake, items.length )
-					  }));
+						  items: items,
+						  break: self.options.break
+					  }) );
 				  },
-				  
+
 				  'a.item click': function(el, ev) {
 					  this.options.state( can.data(el, 'item').name );
 

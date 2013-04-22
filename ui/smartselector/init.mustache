@@ -3,14 +3,14 @@
 <li><a href="#" {{data 'item'}} class="item active">{{display_name}}</a></li>	
 {{/default}}
 
-{{#outlinedItems}}
+{{#loop items begin=0 length=3}}
   <li><a href="#" {{data 'item'}} class="item">{{display_name}}</a></li>	
-{{/outlinedItems}}
+{{/loop}}
 
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown"> More <b class="caret"></b> </a>
   <ul class="dropdown-menu">
-	{{#items}}
+	{{#loop items begin=3}}
 	  <li><a href="#" {{data 'item'}} class="item">{{display_name}}</a></li>	
 	{{/items}}
   </ul>
