@@ -17,7 +17,7 @@
 <ul class="dropdown-menu">
 	<li><a href="#profile"><span class="login-profile"></span>My Profile</a></li>
 	<li><a href="#profile/activity"><span class="login-points"></span>My Points &amp; Activity</a></li>
-	<li><a href="/sign_out"><span class="login-logout"></span>Logout</a></li>
+	<li><a href="/api/logout"><span class="login-logout"></span>Logout</a></li>
 </ul>
 </li>
 {{/loggedIn}}
@@ -27,8 +27,8 @@
 <li id="login-dropdown" class="dropdown">
 <a href="#" class="dropdown-toggle login-btn" data-toggle="dropdown">Login or Register<b class="caret"></b></a>
 <ul class="dropdown-menu">
-	<li><a id="login-twitter-link" href="/users/auth/twitter"><span class="login-twitter"></span>Twitter</a></li>
-	<li><a id="login-github-link" href="/users/auth/github"><span class="login-github"></span>GitHub</a></li>
+	<li><a id="login-twitter-link" href="/api/auth/twitter"><span class="login-twitter"></span>Twitter</a></li>
+	<li><a id="login-github-link" href="/api/auth/github"><span class="login-github"></span>GitHub</a></li>
 </ul>
 </li>
 {{/loggedIn}}
