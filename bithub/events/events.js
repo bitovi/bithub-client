@@ -13,7 +13,7 @@ steal('can',
 		   */
 		  var defaultParams = {
 			  latest: {order: 'origin_ts:desc'},
-			  greatest: {order: 'id:desc'}
+			  greatest: {order: 'upvotes:desc'}
 		  };
 		  
 		  return can.Control(
