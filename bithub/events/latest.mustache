@@ -11,7 +11,6 @@
   
 	{{#if digest}}
     <div class="category-digest">
-	  <h3>Digest</h3>
 	  <div class="truncated">
 	    {{>events/_digest.mustache}}
 	  </div>
@@ -117,6 +116,7 @@
     </div>
 	{{/if}}
 
+	{{#if chat}}
 	<div class="feed-header">
 	  <h3 class="irc-icon">Chat <a class="pull-right" href="http://webchat.freenode.net/?channels=canjs"><img src="./assets/images/icon-popout.png" alt="popout"></a></h3>
 	</div>
@@ -125,6 +125,7 @@
 	  <div><span class="username">{{actor}}</span>: {{title}}</div>
 	  {{/chat}}
 	</div>
+	{{/if}}
 	
   {{/value}}
   

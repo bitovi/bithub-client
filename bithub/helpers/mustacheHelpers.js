@@ -22,10 +22,10 @@ steal('can/view/mustache',
 			  } else {
 				  return date.calendar();
 			  }
-		  });	  
-
+		  });
+		  
 	  	  can.Mustache.registerHelper('humanizeTs', function( ts, opts ) {
-			  ts = moment.utc(ts);
+			  ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
 			  
 			  moment.lang('en', {
 				  calendar: {

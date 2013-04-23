@@ -16,14 +16,14 @@
 	<div class="row">
 
 	  <div class="twitter-profile-pic pull-left">
-		<a href="https://twitter.com/{{actor}}"><img src="{{profile_image_url}}" alt="avatar" /></a>
+		<a href="https://twitter.com/{{props.origin_author_name}}"><img src="{{props.origin_author_avatar_url}}" alt="avatar" /></a>
 	  </div>
 	  
 	  <h5>
-		<a {{#if url}}href="{{url}}"{{/if}}>{{title}}</a>
-		{{#if award}}<span class='badge'>+{{award_sum}}</span>{{/if}}
+		<a href="#">{{getAuthorName}}</a>
+		<a href="http://twitter.com/{{props.origin_author_name}}"><small>@{{props.origin_author_name}}</small></a>
 	  </h5>
-	  <div class="body">{{{body}}}</div>
+	  <div class="body">{{{title}}}</div>
 	  <div class="clearfix"></div>	  
 	</div>
 	
@@ -32,14 +32,14 @@
 	  <div class="metadata-container pull-right">
 
 		<div class="retweets-container pull-left">
-		  <img class='retweet-icon' src="/img/icon-retweet.png" />
+		  <!--<img class='retweet-icon' src="/img/icon-retweet.png" />-->
 		  {{#children}}
-		  <a href='https://twitter.com/{{actor}}'><img class='profile-icon' src='{{profile_image_url'/></a>
+		  <a href='https://twitter.com/{{props.origin_author_name}}'><img class='profile-icon' src='{{props.origin_author_avatar_url}}'/></a>
 		  {{/children}}
 		</div>
 		
 		<div class="event-metadata pull-right">
-		  <small><a href="#">User</a> / Today at 2:56 AM via <strong><a href="#">{{feed}}</a></strong></small>
+		  <small>Today at 2:56 AM via <strong><a href="{{url}}">{{feed}}</a></strong></small>
 		</div>
 	  </div>	  
 	  <ul class="tag-list nav">

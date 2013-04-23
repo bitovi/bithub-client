@@ -14,11 +14,22 @@ steal(
 			destroy : 'DELETE /api/events/{id}'
 
 		}, {
-			upvote: function (success, error) {
+			upvote: function( success, error ) {
 				(new Upvote({event: this})).upvote();
 			},
-			award_sum: function () {
+			
+			award_sum: function() {
 				return this.award + this.attr('upvotes') + this.attr('anteups');
+			},
+			
+			getAuthorName: function() {
+				if (this.author && this.author.name) {
+					return this.author.name;
+				} else if (this.props && this.props.origin_author_name) {
+					return this.props.origin_author_name;
+				} else {
+					return "unknown";
+				}
 			}
 		});
 
