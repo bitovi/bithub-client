@@ -2,7 +2,7 @@ steal('can/view/mustache',
 	  'vendor/moment/moment.min.js',
 	  function () {
 
-		  can.Mustache.registerHelper('humanizeDate', function( date, opts ) {
+		  Mustache.registerHelper('humanizeDate', function( date, opts ) {
 			  date = moment.utc(date);
 
 			  moment.lang('en', {
@@ -24,7 +24,7 @@ steal('can/view/mustache',
 			  }
 		  });
 		  
-	  	  can.Mustache.registerHelper('humanizeTs', function( ts, opts ) {
+	  	  Mustache.registerHelper('humanizeTs', function( ts, opts ) {
 			  ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
 			  
 			  moment.lang('en', {
@@ -46,7 +46,7 @@ steal('can/view/mustache',
 			  }
 		  });
 
-		  can.Mustache.registerHelper('loop', function( collection, opts ) {
+		  Mustache.registerHelper('loop', function( collection, opts ) {
 			  var buffer = "",
 				  begin = opts.hash.begin || 0,
 				  length = opts.hash.length || collection.length;
@@ -59,8 +59,12 @@ steal('can/view/mustache',
 			  return buffer;
 		  });
 
-		  can.Mustache.registerHelper('ifequal', function( a, b, opts ) {
+		  Mustache.registerHelper('ifequal', function( a, b, opts ) {
 			  return (a === b) ? opts.fn(this) : opts.inverse(this);
+		  });
+
+		  Mustache.registerHelper('substring', function( str, start, length, opts ) {
+			  return (typeof(str) === 'string') ? str.substr(start, length) : "not a string";  
 		  });
 
 	  });

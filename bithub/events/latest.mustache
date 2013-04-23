@@ -110,7 +110,11 @@
 	  <h3 class="code-icon">Code</h3>
 	  <div class="truncated">
 	    {{#code}}
-	    {{>events/_event_code.mustache}}
+		{{#if props.commits}}
+	      {{>events/_event_code.mustache}}
+		{{else}}
+	      {{>events/_event.mustache}}
+		{{/if}}
 	    {{/code}}
 	  </div>
     </div>

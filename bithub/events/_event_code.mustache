@@ -18,7 +18,11 @@
 		<a {{#if url}}href="{{url}}"{{/if}}>{{title}}</a>
 		{{#if award}}<span class='badge'>+{{award_sum}}</span>{{/if}}
 	  </h5>
-	  <div class="body">{{{body}}}</div>
+	  <div class="body">
+	  {{#props.commits}}
+	    <div>- <a href="{{url}}">{{sha}}</a> {{message}}</div>
+	  {{/props.commits}}
+	  </div>
 	  <div class="clearfix"></div>	  
 	</div>
 	
@@ -26,7 +30,7 @@
 	<div class="status row">
 	  <div class="metadata-container pull-right">
 		<div class="event-metadata pull-right">
-		  <small><a href="#">User</a> / Today at 2:56 AM via <strong><a href="#">{{feed}}</a></strong></small>
+		  <small><a href="#">{{getAuthorName}}</a> / Today at 2:56 AM via <strong><a href="{{url}}">{{feed}}</a></strong></small>
 		</div>
 	  </div>	  
 	  <ul class="tag-list nav">
