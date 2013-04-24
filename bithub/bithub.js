@@ -12,6 +12,10 @@ steal(
 	function(can, Events, Leaderboard, Filterbar, Login, Tag, currentUser){
 		var self = this;
 		
+		$.ajaxPrefilter( function( opts ) {
+			opts.url = opts.url.replace(/^\/api\/(.*)/, "http://api.bithub.com/api/$1");
+		});
+		
 		// Create the state that will be shared by everything
 		var currentState = new can.Observe({
 			view: 'latest',
