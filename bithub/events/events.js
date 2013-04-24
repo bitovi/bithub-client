@@ -50,11 +50,15 @@ steal('can',
 					  this.load();
 				  },
 
-				  '.voteup click': function (el, ev) {
+				  '.expand-replies click': function( el, ev ) {
+					  el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
+				  },
+				  
+				  '.voteup click': function( el, ev ) {
 					  can.data(el.closest('.event'), 'event').upvote();
 				  },
 
-				  '{currentState} change': function(currentState, ev, attr, method, newVal) {
+				  '{currentState} change': function( currentState, ev, attr, method, newVal ) {
 					  clearTimeout(this.stateTimeout);
 
 					  this.stateTimeout = setTimeout(this.proxy(function () {

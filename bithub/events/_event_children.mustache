@@ -1,0 +1,26 @@
+<div class="replies row">
+  <span class="replies-caret"></span>
+  {{#children}}
+  <div class="reply-event row even"  {{data 'event'}}>
+	{{#if awarded}}
+	  <div class="awarded-badge"></div>
+	{{else}}
+	  <div class="award-btn"><a href="#"><span class="caret"></span>Award</a></div>
+	{{/if}}
+	<div class="votes">
+	  <div class="uparrow"></div>
+	  <div class="count">{{upvotes}}</div>
+	</div>
+	<div class="body reply">
+	  {{#if body}}
+	    {{body}}
+	  {{else}}
+	    {{title}}
+	  {{/of}}
+	  <div class="event-metadata pull-right">
+		<a href="#">{{getAuthorName}}</a> / Today at 2:56 AM via <strong><a href="{{url}}">{{feed}}</a></strong>
+	  </div>
+	</div>
+  </div>
+  {{/children}}
+</div>

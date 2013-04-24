@@ -28,7 +28,10 @@
 		<div class="event-metadata pull-right">
 		  <small><a href="#">{{getAuthorName}}</a> / Today at 2:56 AM via <strong><a href="{{url}}">{{feed}}</a></strong></small>
 		</div>
-	  </div>	  
+	  </div>
+	  {{#if children.length }}
+	  <a class="expand-replies"><span class="icon"></span>Earlier ({{children.length}})</a>
+	  {{/if}}
 	  <ul class="tag-list nav">
 		{{#tags}}
 		<li class="tag-name {{.}}"><a href="#"><small>{{.}}</small></a></li>	
@@ -36,9 +39,14 @@
 	  </ul>
 	  <div class="clearfix"></div>
 	</div>
-	
+
+	{{#if children.length}}
+      {{>events/_event_children.mustache}}
+    {{/if}}
+
   </div>
 
+  
   <div class="clearfix"></div>
 </div>
 
