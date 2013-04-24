@@ -1,4 +1,1 @@
-steal(
-	'jquery',
-	'vendor/bootstrap/bootstrap.min.css')
-	.then('vendor/bootstrap/bootstrap.src.js');
+steal('jquery').then('vendor/bootstrap/bootstrap.src.js');
