@@ -1,0 +1,101 @@
+<div class="container">			
+  <div class="row">
+	<div class="span8 newpost-form">
+
+	  <form id="newpost-form" class="form-horizontal" method="post" enctype="multipart/form-data">
+		<fieldset>
+		  <div class="row">
+
+			<div class="span left">
+
+			  <input type="hidden" name="project">
+			  <input type="hidden" name="type">
+
+			  <div class="image-uploader">
+				<span>Add An <br>Image</span>
+				<div class="progress hidden"><div class="bar" style="width: 0%;"></div></div>
+				<input type="file" name="image">
+			  </div>
+
+			  <div class="btn-group control-group" id="newpost-form-project">
+				<button class="btn select"></button>
+				<button class="btn dropdown-toggle" data-toggle="dropdown">
+				  <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+				  {{#projects}}
+				  <li><a>{{name}}</a></li>
+				  {{/projects}}
+				</ul>
+			  </div>
+
+			  <div class="btn-group control-group" id="newpost-form-type" style="margin-left: 0px;">
+				<button class="btn select">App</button>
+				<button class="btn dropdown-toggle" data-toggle="dropdown">
+				  <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+				  <li><a>Article</a></li>
+				  <li><a>App</a></li>
+				  <li><a>Plugin</a></li>
+				</ul>
+			  </div>
+
+			</div>
+
+			<div class="span right">
+
+			  <div class="control-group" id="newpost-form-title">
+				<p class="text-error hidden"></p>
+				<input name="title" type="text" class="title span3" data-toggle="toggle" placeholder="Title:"/>
+			  </div>
+
+			  <div class="control-group">
+				<input name="link" type="text" class="link span3" placeholder="Link:"/>
+			  </div>
+
+			  <div class="control-group" id="newpost-form-body">
+				<p class="text-error hidden"></p>
+				<textarea name="body" rows="6" class="body span5" placeholder="Write something:"></textarea>
+			  </div>
+
+			  <!-- IF AUTH
+				   <div class="control-group" id="newpost-form-post-as">
+					 <p class="text-error hidden"></p>
+					 <label style="float: left; width: 50px;">
+					   <input type="radio" name="postas_feed" value="twitter" CHECKED>TW
+					 </label>
+					 <label style="float: left; width: 50px;">
+					   <input type="radio" name="postas_feed" value="github">GH
+					 </label>
+					 <input name="postas" type="text" class="title span1 typeahead" data-toggle="toggle" placeholder="Post as:"/>
+					 <input name="postas_id" type="hidden" class="postas_id" value="" />
+					 <img class="postas avatar float-right" src="" alt="" />
+				   </div>
+				   -->
+
+			  <div class="control-group">
+				<button id="newpost-form-submit" type="submit" class="btn-bigass light">Submit</button>
+			  </div>
+			</div>
+
+		  </div>
+		</fieldset>
+	  </form>
+
+	</div>
+
+	<div class="span4 newpost-sidebar">
+	  <button id="hide-newpost-form-btn" class="close">&times;</button>
+
+	  <h4 class="submit-your-app">Submit Your App, <br>Plugin, Blog or Link</h4>
+	  <p>Earn an instant 50 points by sharing something you built, wrote, or found that would be useful to the community.</p>
+
+	  <hr>
+	  
+	  <h4>Need Help?</h4>
+	  <p>If you're looking for help with any of our open source projects, head on over to our <a href="http://forum.javascriptmvc.com">forums</a> and post your question there.</p>
+	  
+	</div>
+  </div>
+</div>

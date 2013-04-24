@@ -124,7 +124,7 @@ input:focus, textarea:focus {
 .dropdown-menu > li > a:hover .login-logout {
 	background-position-x: -20px;
 }
-#filter-bar .btn, #new-post-form .btn, #edit-profile-form .btn {
+#filter-bar .btn, #newpost-form .btn, #edit-profile-form .btn {
 	color: #909090;
 	text-shadow: 0 -1px 0 #fefeff;
 	border: 1px solid #c3bfbe;
@@ -132,7 +132,7 @@ input:focus, textarea:focus {
 	margin-top: 4px;
 }
 
-#filter-bar .btn.active, #new-post-form .btn.active, #edit-profile-form .btn.active {
+#filter-bar .btn.active, #newpost-form .btn.active, #edit-profile-form .btn.active {
 	color: #373737;
 	-moz-box-shadow: 0 0 1px rgba(14, 14, 10, 0);
 	-webkit-box-shadow: 0 0 1px rgba(14, 14, 10, 0);
@@ -243,7 +243,7 @@ input:focus, textarea:focus {
 .btn-bigass.plus.activated::before {
 	background-position-x: 0px;
 }
-#show-new-post {
+#show-newpost {
 	display: block;
 }
 #events, #event-list, #content > .row {
@@ -495,7 +495,7 @@ input:focus, textarea:focus {
 	border-radius: 4px;
 }
 */
-button#show-new-post-form-btn {
+button#show-newpost-form-btn {
 	border: 1px solid #2578b4;
 	color: #fff;
 	font-weight: bold;
@@ -521,11 +521,11 @@ button#show-new-post-form-btn {
 	-webkit-box-shadow: 1px 1px 2px rgba(9, 9, 9, 0.24);
 	box-shadow: 1px 1px 2px rgba(9, 9, 9, 0.24);
 }
-button#show-new-post-form-btn span {
+button#show-newpost-form-btn span {
 	position: relative;
 	top: -1px;
 }
-button#show-new-post-form-btn:hover, button#show-new-post-form-btn.activated {
+button#show-newpost-form-btn:hover, button#show-newpost-form-btn.activated {
 	color: #f1f1f1;
 	text-shadow: 0 -1px 0 #00416f;
 
@@ -1645,21 +1645,21 @@ h4.handwriting {
 
 /* New post ------------------------------------------------------- */
 
-#new-post-form-wrapper {
+#newpost-form-wrapper {
 	position: fixed;
 	top: 62px;
 	z-index: 900;
 	width: 100%;
 }
 
-#new-post-bottom-separator {
+#newpost-bottom-separator {
 	background-color: #d5d8d8;
 	height: 8px;
 	width: 100%;
 	border-bottom: 1px solid #aeadad;
 }
 
-#new-post-form-container {
+#newpost-form-container {
 	background-color: #fff;
 	/*
 	-moz-box-shadow: inset 0px -3px 3px rgba(0, 0, 0, 0.17);
@@ -1669,41 +1669,41 @@ h4.handwriting {
 	*/
 }
 
-.new-post-form {
+.newpost-form {
 	margin-top: 20px;
 }
 
-.new-post-form form {
+.newpost-form form {
 	margin-bottom: 0px;
 }
 
-.new-post-form .left {
+.newpost-form .left {
 	width: 150px;
 	margin-left: 10px;
 }
 
-.new-post-form .left .btn.select {
+.newpost-form .left .btn.select {
 	width: 124px;
 	text-align: left;
 }
 
-.new-post-form .left .btn {
+.newpost-form .left .btn {
 	margin-top: 0px;
 }
 
-.new-post-form .right {
+.newpost-form .right {
 	width: 480px;
 }
 
-.new-post-form .right input[type=text], .new-post-form .right textarea {
+.newpost-form .right input[type=text], .newpost-form .right textarea {
 	width: 480px;
 }
 
-.new-post-form .right input[name=postas] {
+.newpost-form .right input[name=postas] {
 	width: 280px;
 }
 
-.new-post-sidebar {
+.newpost-sidebar {
 	background-color: #f3f4f4;
 	position: relative;
 	width: 270px;
@@ -1711,7 +1711,7 @@ h4.handwriting {
 	padding: 0px 20px 9px;
 }
 
-.new-post-form .image-uploader {
+.newpost-form .image-uploader {
 	-moz-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07);
 	-webkit-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07);
 	box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07);
@@ -1731,13 +1731,13 @@ h4.handwriting {
 	line-height: 15px;
 }
 
-.new-post-form .image-uploader:hover, .new-post-form .image-uploader.active {
+.newpost-form .image-uploader:hover, .newpost-form .image-uploader.active {
 	border: 1px solid #969595;
 	color: #969595;
 	cursor:pointer;
 }
 
-.new-post-form .image-uploader input {
+.newpost-form .image-uploader input {
 	position: absolute;
 	height: 100%;
 	opacity: 0;
@@ -1747,39 +1747,39 @@ h4.handwriting {
 	left: 0px;	
 }
 
-.new-post-form .image-uploader:focus {
+.newpost-form .image-uploader:focus {
 	border: 1px solid #969595;
 }
 
-.new-post-form .image-uploader .progress {
+.newpost-form .image-uploader .progress {
 	width: 80%;
 	margin: 15px auto 0px auto;
 	height: 5px;
 }
 
-.new-post-sidebar h4 {
+.newpost-sidebar h4 {
 	color: #666;
 }
 
-.new-post-sidebar h4.submit-your-app {
+.newpost-sidebar h4.submit-your-app {
 	padding-right: 65px;	
 	padding-top: 4px;
 	min-height: 42px;
 	background: url(../images/points-50.png) no-repeat right center;
 }
 
-.new-post-sidebar p {
+.newpost-sidebar p {
 	font-size: 12px;
 	line-height: 1.4em;
 }
-#new-post-form-submit {
+#newpost-form-submit {
 	padding-right: 30px;
 	padding-left: 30px;
 	margin-right: auto;
 	margin-left: auto;
 	display: block;
 }
-#hide-new-post-form-btn {
+#hide-newpost-form-btn {
 	position: absolute;
 	right: 6px;
 	top: 0px;
@@ -1952,11 +1952,11 @@ only screen and (-webkit-device-pixel-ratio:1.5) {
 		padding-left: 35px;
 		background-size: 14px 49px;
 	}
-	.new-post-form .image-uploader {
+	.newpost-form .image-uploader {
 		background-image: url(../images/image-upload-x2.png);
 		background-size: 38px 38px;
 	}
-	.new-post-sidebar h4.submit-your-app {
+	.newpost-sidebar h4.submit-your-app {
 		background-image: url(../images/points-50-x2.png);
 		background-size: 78px 30px;
 	}
