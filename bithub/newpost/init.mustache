@@ -18,13 +18,13 @@
 			  </div>
 
 			  <div class="btn-group control-group" id="newpost-form-project">
-				<button class="btn select"></button>
+				<button class="btn select">foobar</button>
 				<button class="btn dropdown-toggle" data-toggle="dropdown">
 				  <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
 				  {{#projects}}
-				  <li><a>{{name}}</a></li>
+				  <li><a href="#" {{data 'category'}}>{{display_name}}</a></li>
 				  {{/projects}}
 				</ul>
 			  </div>

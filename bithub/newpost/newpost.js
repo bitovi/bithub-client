@@ -19,8 +19,20 @@ steal(
 					}));
 				},
 
+				'#hide-newpost-form-btn click': function( el, ev ) {
+					ev.preventDefault();
+					this.options.visibility( !this.options.visibility() );
+				},
+
 				'{visibility} change': function( el, ev ) {
 					this.options.visibility() ? this.element.slideDown() : this.element.slideUp();
+				},
+
+				'form submit': function( el, ev ) {
+					ev.preventDefault();
+
+					//
+					console.log("submitted");
 				}
 				
 			});
