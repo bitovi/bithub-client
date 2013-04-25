@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'bundler'
+gem 'foreman'
 
 group :development do
   gem 'capistrano'
