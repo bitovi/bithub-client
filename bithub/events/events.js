@@ -58,33 +58,43 @@ steal('can',
 					  can.data(el.closest('.event'), 'event').upvote();
 				  },
 
-				  '{currentState} change': function( currentState, ev, attr, method, newVal ) {
-					  clearTimeout(this.stateTimeout);
-
-					  this.stateTimeout = setTimeout(this.proxy(function () {
-						  var params = {};
-
-						  if (currentState.attr('project')) {
-							  params.tag = currentState.attr('project');
-						  }
-						  if (currentState.attr('category')) {
-							  params.category = currentState.attr('category');
-						  }
-
-						  // render view
-						  this.load(params);
-					  }), 0);
+				  '{window} onbottom': function( el, ev ) {
+					  //this.options.currentState.attr('offset', this.options.currentState.offset + this.options.currentState.limit);
 				  },
 
+				  '{can.route} view': function( data ) {
+					  this.load( this.prepareParams( data ) );
+				  },
+				  
+				  '{can.route} project': function( data ) {
+					  this.load( this.prepareParams( data ) );
+				  },
+				  
+				  '{can.route} category': function( data ) {
+					  this.load( this.prepareParams( data ) );
+				  },
+
+				  prepareParams: function( data ) {
+					  var params = {};
+					  if( data.attr('project') && data.attr('project') !== 'all' ) {
+						  params.tag = data.attr('project');
+					  }
+					  if( data.attr('category') && data.attr('category') !== 'all' ) {
+						  params.category = data.attr('category');
+					  }
+
+					  return params;
+				  },
+				  				  
 				  load: function( params ) {
-					  Event.findAll( can.extend({}, defaultParams[this.options.currentState.view], params || {} ),
+					  Event.findAll( can.extend({}, defaultParams[can.route.attr('view')], params || {} ),
 									  this.proxy('updateEvents')
 									);
 
 				  },
 
 				  updateEvents: function( events ) {
-					  this.currentView( this.options.currentState.view );
+					  this.currentView( can.route.attr('view') );
 					  this.events.replace(events);
 				  }
 

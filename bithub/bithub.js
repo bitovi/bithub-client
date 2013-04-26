@@ -8,6 +8,7 @@ steal(
 	'bithub/newpost',
 	'bithub/models/tag.js',
 	'bithub/models/current_user.js',
+	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
 	function(can, Events, Leaderboard, Filterbar, Login, Newpost, Tag, currentUser){
@@ -16,23 +17,25 @@ steal(
 		$.ajaxPrefilter( function( opts ) {
 			//opts.url = opts.url.replace(/^\/api\/(.*)/, "http://api.bithub.com/api/$1");
 		});
-		
-		// Create the state that will be shared by everything
-		var currentState = new can.Observe({
-			view: 'latest',
-			project: '',
-			category: ''
-		});
 
-		var newpostVisibility = can.compute(false);
+		// routes - events
+		can.route(':view', {view: 'latest', project: 'all', category: 'all'});
+		can.route(':view/:project', {view: 'latest', project: 'all', category: 'all'});
+		can.route(':view/:project/:category', {view: 'latest', project: 'all', category: 'all'});
+
+		// routes - profile
+		//can.route('profile/:username', {});
 		
-		var projects = new can.Model.List();
-		var categories = new can.Model.List();
-		
+		var	newpostVisibility = can.compute(false),		
+			projects = new can.Model.List(),
+			categories = new can.Model.List();
+
+		// Load category tags
 		Tag.findAll({type: 'category'}, function (data) {
 			categories.replace(data);
 		});
-		
+
+		// Load project tags
 		Tag.findAll({type: 'project'}, function (data) {
 			projects.replace(data);
 		});
@@ -42,10 +45,9 @@ steal(
 			currentUser: currentUser,
 			newpostVisibility: newpostVisibility
 		});
-		new Events('#events', { currentState: currentState });
+		new Events('#events');
 		new Leaderboard('#leaderboard', { currentUser: currentUser });
 		new Filterbar('#filterbar', {
-			currentState: currentState,
 			projects: projects,
 			categories: categories
 		});
@@ -55,6 +57,8 @@ steal(
 			categories: categories,
 			visibility: newpostVisibility
 		});
+
+		new UI.Onbottom(document);
 
 
 	});

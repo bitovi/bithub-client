@@ -23,7 +23,7 @@ steal('can',
 					  // init UI controls
 					  new OptionSelector('#viewFilter', {
 						  state: function (newVal) {
-							  self.options.currentState.attr('view', newVal);
+							  can.route.attr({view: newVal});
 						  },
 						  items: [
 							  { name: 'latest', display_name: 'Latest', class: 'active' },
@@ -33,18 +33,18 @@ steal('can',
 					  
 					  new DropdownSelector('#projectFilter', {
 						  state: function (newVal) {
-							  self.options.currentState.attr('project', newVal);
+							  can.route.attr({project: newVal});
 						  },
 						  items: options.projects,
-					  default: {name: '', display_name: 'All projects'}
+					  default: {name: 'all', display_name: 'All projects'}
 					  });
 
 					  new SmartSelector('#categoryFilter', {
 						  state: function (newVal) {
-							  self.options.currentState.attr('category', newVal);
+							  can.route.attr({category: newVal});
 						  },
 						  items: options.categories,
-					  default: {name: '', display_name: 'All'}
+					  default: {name: 'all', display_name: 'All'}
 					  });
 					  
 				  }

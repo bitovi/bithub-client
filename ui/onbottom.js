@@ -1,7 +1,7 @@
 steal(
 	'can',
 	function () {
-		return can.Control({
+		return can.Control('UI.Onbottom', {
 			defaults: { 
 				treshold: 50,
 				onbottom: false
