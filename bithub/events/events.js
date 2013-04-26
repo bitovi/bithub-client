@@ -87,13 +87,17 @@ steal('can',
 				  },
 				  				  
 				  load: function( params ) {
-					  Event.findAll( can.extend({}, defaultParams[can.route.attr('view')], params || {} ),
-									  this.proxy('updateEvents')
-									);
+					  clearTimeout(this.loadTimeout);
 
+					  this.loadTimeout = setTimeout( this.proxy( function () {
+						  Event.findAll( can.extend({}, defaultParams[can.route.attr('view')], params || {} ),
+										 this.proxy('updateEvents')
+									   );
+					  }));
 				  },
 
 				  updateEvents: function( events ) {
+					  console.log("!!!");
 					  this.currentView( can.route.attr('view') );
 					  this.events.replace(events);
 				  }
