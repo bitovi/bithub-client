@@ -8,8 +8,8 @@
 
 			<div class="span left">
 
-			  <input type="hidden" name="project">
-			  <input type="hidden" name="type">
+			  <input type="hidden" name="event[project]">
+			  <input type="hidden" name="event[category]">
 
 			  <div class="image-uploader">
 				<span>Add An <br>Image</span>
@@ -24,20 +24,20 @@
 				</button>
 				<ul class="dropdown-menu">
 				  {{#projects}}
-				  <li><a href="#" {{data 'category'}}>{{display_name}}</a></li>
+				  <li><a href="javascript://" {{data 'category'}}>{{display_name}}</a></li>
 				  {{/projects}}
 				</ul>
 			  </div>
 
-			  <div class="btn-group control-group" id="newpost-form-type" style="margin-left: 0px;">
+			  <div class="btn-group control-group" id="newpost-form-category" style="margin-left: 0px;">
 				<button class="btn select">App</button>
 				<button class="btn dropdown-toggle" data-toggle="dropdown">
 				  <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
-				  <li><a>Article</a></li>
-				  <li><a>App</a></li>
-				  <li><a>Plugin</a></li>
+				  <li><a href="javascript://">Article</a></li>
+				  <li><a href="javascript://">App</a></li>
+				  <li><a href="javascript://">Plugin</a></li>
 				</ul>
 			  </div>
 
@@ -47,16 +47,16 @@
 
 			  <div class="control-group" id="newpost-form-title">
 				<p class="text-error hidden"></p>
-				<input name="title" type="text" class="title span3" data-toggle="toggle" placeholder="Title:"/>
+				<input name="event[title]" type="text" class="title span3" data-toggle="toggle" placeholder="Title:"/>
 			  </div>
 
 			  <div class="control-group">
-				<input name="link" type="text" class="link span3" placeholder="Link:"/>
+				<input name="event[url]" type="text" class="url span3" placeholder="URL:"/>
 			  </div>
 
 			  <div class="control-group" id="newpost-form-body">
 				<p class="text-error hidden"></p>
-				<textarea name="body" rows="6" class="body span5" placeholder="Write something:"></textarea>
+				<textarea name="event[body]" rows="6" class="body span5" placeholder="Write something:"></textarea>
 			  </div>
 
 			  <!-- IF AUTH
