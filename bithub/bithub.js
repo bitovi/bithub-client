@@ -6,12 +6,13 @@ steal(
 	'bithub/filterbar',
 	'bithub/login',
 	'bithub/newpost',
+	'bithub/profile',
 	'bithub/models/tag.js',
 	'bithub/models/current_user.js',
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	function(can, Events, Leaderboard, Filterbar, Login, Newpost, Tag, currentUser){
+	function(can, Events, Leaderboard, Filterbar, Login, Newpost, Profile, Tag, currentUser){
 		var self = this;
 		
 		$.ajaxPrefilter( function( opts ) {
@@ -19,12 +20,10 @@ steal(
 		});
 
 		// routes - events
-		can.route(':view', {view: 'latest', project: 'all', category: 'all'});
-		can.route(':view/:project', {view: 'latest', project: 'all', category: 'all'});
-		can.route(':view/:project/:category', {view: 'latest', project: 'all', category: 'all'});
-
-		// routes - profile
-		//can.route('profile/:username', {});
+		can.route(':page', {page: 'events', view: 'latest', project: 'all', category: 'all'});
+		can.route(':page/:view', {page: 'events', view: 'latest', project: 'all', category: 'all'});
+		can.route(':page/:view/:project', {page: 'events', view: 'latest', project: 'all', category: 'all'});
+		can.route(':page/:view/:project/:category', {page: 'events', view: 'latest', project: 'all', category: 'all'});
 		
 		var	newpostVisibility = can.compute(false),		
 			projects = new can.Model.List(),
@@ -57,6 +56,8 @@ steal(
 			categories: categories,
 			visibility: newpostVisibility
 		});
+
+		new Profile('#profile');
 
 		new UI.Onbottom(document);
 

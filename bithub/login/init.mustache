@@ -2,33 +2,32 @@
 
 {{#loggedIn}}
 <li>
-<div class="gradient-border-wrapper">
+  <div class="gradient-border-wrapper">
 	<button id="show-newpost-form-btn"><span>+</span> Post</button>
-</div>
+  </div>
 </li>
 
 <li id="profile-dropdown" class="dropdown">
-<button class="dropdown-toggle" data-toggle="dropdown">
+  <button class="dropdown-toggle" data-toggle="dropdown">
 	<div class="gradient-border-wrapper">
-		<img class="avatar" src="{{currentUser.avatar_url}}" alt="gravtar">
+	  <img class="avatar" src="{{currentUser.avatar_url}}" alt="gravtar">
 	</div>
 	<b class="caret"></b>
-</button>
-<ul class="dropdown-menu">
-	<li><a href="#profile"><span class="login-profile"></span>My Profile</a></li>
-	<li><a href="#profile/activity"><span class="login-points"></span>My Points &amp; Activity</a></li>
+  </button>
+  <ul class="dropdown-menu">
+	<li><a href="#!profile"><span class="login-profile"></span>My Profile</a></li>
+	<li><a href="#!profile/activity"><span class="login-points"></span>My Points &amp; Activity</a></li>
 	<li><a href="/api/logout"><span class="login-logout"></span>Logout</a></li>
-</ul>
+  </ul>
 </li>
-{{/loggedIn}}
 
+{{else}}
 
-{{^loggedIn}}
 <li id="login-dropdown" class="dropdown">
-<a href="#" class="dropdown-toggle login-btn" data-toggle="dropdown">Login or Register<b class="caret"></b></a>
-<ul class="dropdown-menu">
+  <a href="#" class="dropdown-toggle login-btn" data-toggle="dropdown">Login or Register<b class="caret"></b></a>
+  <ul class="dropdown-menu">
 	<li><a id="login-twitter-link" href="/api/auth/twitter"><span class="login-twitter"></span>Twitter</a></li>
 	<li><a id="login-github-link" href="/api/auth/github"><span class="login-github"></span>GitHub</a></li>
-</ul>
+  </ul>
 </li>
 {{/loggedIn}}

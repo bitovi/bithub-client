@@ -20,7 +20,7 @@
 	  </h5>
 	  <div class="body">
 	  {{#props.commits}}
-	    <div>- <a href="{{url}}">{{sha}}</a> {{message}}</div>
+	    <div>- <a href="{{url}}">{{substring sha 0 6}}</a> {{message}}</div>
 	  {{/props.commits}}
 	  </div>
 	  <div class="clearfix"></div>	  
