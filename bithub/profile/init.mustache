@@ -1,22 +1,21 @@
-{{#user}}
 <div class="row">
 
   <div class="span5 offset3">
 
 	<form id="edit-profile-form">
-	  <input type="hidden" name="id" value="{{id}}">
+	  <input type="hidden" name="id" value="{{user.id}}">
 
 	  <div class="control-group">
 		<label class="wrapped-label-input">
 		  <span>Name:</span>
-		  <input type="text" name="name" value="{{name}}">
+		  <input type="text" name="name" value="{{user.name}}">
 		</label>
 	  </div>
 
 	  <div class="control-group">
 		<label class="wrapped-label-input">
 		  <span>Email:</span>
-		  <input type="text" name="email" value="{{email}}">
+		  <input type="text" name="email" value="{{user.email}}">
 		</label>
 	  </div>
 
@@ -25,33 +24,36 @@
 	  <div class="control-group">
 		<label class="wrapped-label-input">
 		  <span>Street:</span>
-		  <input type="text" name="address" value="{{address}}">
+		  <input type="text" name="address" value="{{user.address}}">
 		</label>
 	  </div>
 
 	  <div class="controls controls-row">
 		<label class="wrapped-label-input">
 		  <span>City:</span>
-		  <input type="text" name="city" value="{{city}}">
+		  <input type="text" name="city" value="{{user.city}}">
 		</label>
 		<label class="wrapped-label-input">
 		  <span>State/Province:</span>
-		  <input type="text" name="state" value="{{state}}">
+		  <input type="text" name="state" value="{{user.state}}">
 		</label>
 	  </div>
 
 	  <div class="controls controls-row">
 		<label class="wrapped-label-input">
 		  <span>Postal Code:</span>
-		  <input type="text" name="postal" value="{{postal}}">
+		  <input type="text" name="postal" value="{{user.postal}}">
 		</label>
 
 		<div id="country-dropdown" class="btn-group">
-		  <button class="btn select">{{country}}</button>
+		  <button class="btn select">{{user.country}}</button>
 		  <button class="btn dropdown-toggle" data-toggle="dropdown">
 			<span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu">
+			{{#countries}}
+			<li><a>{{display_name}}</a></li>
+			{{/countries}}
 		  </ul>
 		</div>
 
@@ -68,13 +70,13 @@
   <div class="span2">
 	{{#if avatar_url}}
 	<div class="avatar">
-	  <img src="{{avatar_url}}" alt="avatar">
+	  <img src="{{user.avatar_url}}" alt="avatar">
 	</div>
 	{{/if}}
 
 	<ul class="providers">
 	  <li class="github">
-		{{#if providers.github}}
+		{{#if user.providers.github}}
 		<span class="login-github"></span>Github
 		{{else}}
 		<a href="/profile/sync/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
@@ -82,7 +84,7 @@
 	  </li>
 
 	  <li class="twitter">
-		{{#if providers.twitter}}
+		{{#if user.providers.twitter}}
 		<span class="login-twitter"></span>Twitter
 		{{else}}
 		<a href="/profile/sync/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
@@ -93,4 +95,3 @@
   </div>
 
 </div>
-{{/user}}

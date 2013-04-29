@@ -14,8 +14,6 @@ steal(
 						elem: $(el).detach()
 					};
 				});
-				
-				console.log(this.pages);				
 			},
 
 			'{can.route} page': function( route, ev, newVal, oldVal ) {
