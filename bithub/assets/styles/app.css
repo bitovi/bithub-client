@@ -154,7 +154,7 @@ input:focus, textarea:focus {
 #filter-bar .pager { 
 	margin: 10px 0 0; 
 }
-#filter-bar, #user-bar {
+#filter-bar {
 	background-color: #fff;
 	display: block;
 	border-bottom: 1px solid #eee;
@@ -694,22 +694,22 @@ button#show-newpost-form-btn:hover, button#show-newpost-form-btn.activated {
 	margin-bottom: 50px;
 }
 
-#user-bar {
-	height: 30px;
-	padding-top: 20px;
+.profile .navbar {
+	padding-top: 10px;
 }
 
-#user-bar ul.nav li {
+.profile .navbar ul.nav li {
 	display: inline-block;
 	margin-right: 20px;
 	font-size: 13px;
 }
 
-#user-bar ul.nav li a {
+.profile .navbar ul.nav li a {
 	color: #777;
+	padding: 0px;
 }
 
-#user-bar ul.nav li:hover a, #user-bar ul.nav li.active a {
+.profile .navbar ul.nav li:hover a, .profile .navbar ul.nav li.active a {
 	background: none;
 	color: #333;
 }

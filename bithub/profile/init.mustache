@@ -1,97 +1,110 @@
-<div class="row">
+<div class="navbar">
+  <div class="row">
+	<div class="span12">
+	  <ul class="nav">
+		<li>My Account:</li>
+		<li><a href="/profile">Profile</a></li>
+		<li><a href="/profile/activity">Points &amp; Activity</a></li>
+	  </ul>
+	</div>
+  </div>
+</div>
 
-  <div class="span5 offset3">
+<div class="content">
+  <div class="row">
+	<div class="span5 offset3">
 
-	<form id="edit-profile-form">
-	  <input type="hidden" name="id" value="{{user.id}}">
+	  <form id="edit-profile-form">
+		<input type="hidden" name="id" value="{{user.id}}">
 
-	  <div class="control-group">
-		<label class="wrapped-label-input">
-		  <span>Name:</span>
-		  <input type="text" name="name" value="{{user.name}}">
-		</label>
-	  </div>
-
-	  <div class="control-group">
-		<label class="wrapped-label-input">
-		  <span>Email:</span>
-		  <input type="text" name="email" value="{{user.email}}">
-		</label>
-	  </div>
-
-	  <p class="mailing-addr-caption">Mailing Address (so we can send you swag):</p>
-
-	  <div class="control-group">
-		<label class="wrapped-label-input">
-		  <span>Street:</span>
-		  <input type="text" name="address" value="{{user.address}}">
-		</label>
-	  </div>
-
-	  <div class="controls controls-row">
-		<label class="wrapped-label-input">
-		  <span>City:</span>
-		  <input type="text" name="city" value="{{user.city}}">
-		</label>
-		<label class="wrapped-label-input">
-		  <span>State/Province:</span>
-		  <input type="text" name="state" value="{{user.state}}">
-		</label>
-	  </div>
-
-	  <div class="controls controls-row">
-		<label class="wrapped-label-input">
-		  <span>Postal Code:</span>
-		  <input type="text" name="postal" value="{{user.postal}}">
-		</label>
-
-		<div id="country-dropdown" class="btn-group">
-		  <button class="btn select">{{user.country}}</button>
-		  <button class="btn dropdown-toggle" data-toggle="dropdown">
-			<span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu">
-			{{#countries}}
-			<li><a>{{display_name}}</a></li>
-			{{/countries}}
-		  </ul>
+		<div class="control-group">
+		  <label class="wrapped-label-input">
+			<span>Name:</span>
+			<input type="text" name="name" value="{{user.name}}">
+		  </label>
 		</div>
 
-	  </div>
+		<div class="control-group">
+		  <label class="wrapped-label-input">
+			<span>Email:</span>
+			<input type="text" name="email" value="{{user.email}}">
+		  </label>
+		</div>
 
-	  <div class="control-group">
-		<button type="submit" name="update" class="btn-bigass light">Update</button>
-	  </div>
+		<p class="mailing-addr-caption">Mailing Address (so we can send you swag):</p>
 
-	</form>
-	
-  </div>
+		<div class="control-group">
+		  <label class="wrapped-label-input">
+			<span>Street:</span>
+			<input type="text" name="address" value="{{user.address}}">
+		  </label>
+		</div>
 
-  <div class="span2">
-	{{#if avatar_url}}
-	<div class="avatar">
-	  <img src="{{user.avatar_url}}" alt="avatar">
-	</div>
-	{{/if}}
+		<div class="controls controls-row">
+		  <label class="wrapped-label-input">
+			<span>City:</span>
+			<input type="text" name="city" value="{{user.city}}">
+		  </label>
+		  <label class="wrapped-label-input">
+			<span>State/Province:</span>
+			<input type="text" name="state" value="{{user.state}}">
+		  </label>
+		</div>
 
-	<ul class="providers">
-	  <li class="github">
-		{{#if user.providers.github}}
-		<span class="login-github"></span>Github
-		{{else}}
-		<a href="/profile/sync/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
-		{{/if}}
-	  </li>
+		<div class="controls controls-row">
+		  <label class="wrapped-label-input">
+			<span>Postal Code:</span>
+			<input type="text" name="postal" value="{{user.postal}}">
+		  </label>
 
-	  <li class="twitter">
-		{{#if user.providers.twitter}}
-		<span class="login-twitter"></span>Twitter
-		{{else}}
-		<a href="/profile/sync/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
-		{{/if}}
-	  </li>
+		  <div id="country-dropdown" class="btn-group">
+			<button class="btn select">{{user.country}}</button>
+			<button class="btn dropdown-toggle" data-toggle="dropdown">
+			  <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+			  {{#countries}}
+			  <li><a>{{display_name}}</a></li>
+			  {{/countries}}
+			</ul>
+		  </div>
+
+		</div>
+
+		<div class="control-group">
+		  <button type="submit" name="update" class="btn-bigass light">Update</button>
+		</div>
+
+	  </form>
 	  
-	</ul>
-  </div>
+	</div>
 
+	<div class="span2">
+	  {{#if avatar_url}}
+	  <div class="avatar">
+		<img src="{{user.avatar_url}}" alt="avatar">
+	  </div>
+	  {{/if}}
+
+	  <ul class="providers">
+		<li class="github">
+		  {{#if user.providers.github}}
+		  <span class="login-github"></span>Github
+		  {{else}}
+		  <a href="/profile/sync/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
+		  {{/if}}
+		</li>
+
+		<li class="twitter">
+		  {{#if user.providers.twitter}}
+		  <span class="login-twitter"></span>Twitter
+		  {{else}}
+		  <a href="/profile/sync/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
+		  {{/if}}
+		</li>
+		
+	  </ul>
+	</div>
+
+  </div>
 </div>
