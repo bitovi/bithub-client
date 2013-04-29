@@ -13,12 +13,14 @@ steal('can',
 			  },
 			  /** @Prototype */
 			  {
-				  init : function(){
+				  init : function( el, opts ){
 					  var self = this;
 					  
 					  self.element.html(initView({
-						  items: self.options.items,
-						  default: self.options.default
+						  id: opts.id,
+						  cssClass: opts.cssClass,
+						  items: opts.items,
+						  default: opts.default
 					  }));
 				  },
 

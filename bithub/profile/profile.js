@@ -1,9 +1,10 @@
 steal(
 	'can',
 	'./init.mustache',
+	'ui/dropdownselector',
 	'bithub/models/country.js',
-	'can/model/list',	
-	function(can, initView, Country){
+	'can/model/list',
+	function(can, initView, DropdownSelector, Country){
 		/**
 		 * @class bithub/profile
 		 * @alias Profile   
@@ -21,6 +22,13 @@ steal(
 					self.countries = new can.Model.List();					
 					Country.findAll({}, function( data ) {
 						self.countries.replace( data );
+					});
+
+					new DropdownSelector('', {
+						state: function( newVal ) {
+							console.log( newVal );
+						},
+						items: self.countries
 					});
 					
 					this.element.html(initView({

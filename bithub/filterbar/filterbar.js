@@ -30,21 +30,22 @@ steal('can',
 							  { name: 'greatest', display_name: 'Greatest' }
 						  ]
 					  });
-					  
+
 					  new DropdownSelector('#projectFilter', {
+						  items: options.projects,
+						  cssClass: "projects",
+						  default: {name: 'all', display_name: 'All projects'},
 						  state: function (newVal) {
 							  can.route.attr({page: 'events', project: newVal});
-						  },
-						  items: options.projects,
-					  default: {name: 'all', display_name: 'All projects'}
+						  }
 					  });
 
 					  new SmartSelector('#categoryFilter', {
+						  items: options.categories,
+						  default: {name: 'all', display_name: 'All'},
 						  state: function (newVal) {
 							  can.route.attr({page: 'events', category: newVal});
-						  },
-						  items: options.categories,
-					  default: {name: 'all', display_name: 'All'}
+						  }
 					  });
 					  
 				  }
