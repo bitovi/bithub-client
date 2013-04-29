@@ -1,1 +1,96 @@
-Profile page
+{{#user}}
+<div class="row">
+
+  <div class="span5 offset3">
+
+	<form id="edit-profile-form">
+	  <input type="hidden" name="id" value="{{id}}">
+
+	  <div class="control-group">
+		<label class="wrapped-label-input">
+		  <span>Name:</span>
+		  <input type="text" name="name" value="{{name}}">
+		</label>
+	  </div>
+
+	  <div class="control-group">
+		<label class="wrapped-label-input">
+		  <span>Email:</span>
+		  <input type="text" name="email" value="{{email}}">
+		</label>
+	  </div>
+
+	  <p class="mailing-addr-caption">Mailing Address (so we can send you swag):</p>
+
+	  <div class="control-group">
+		<label class="wrapped-label-input">
+		  <span>Street:</span>
+		  <input type="text" name="address" value="{{address}}">
+		</label>
+	  </div>
+
+	  <div class="controls controls-row">
+		<label class="wrapped-label-input">
+		  <span>City:</span>
+		  <input type="text" name="city" value="{{city}}">
+		</label>
+		<label class="wrapped-label-input">
+		  <span>State/Province:</span>
+		  <input type="text" name="state" value="{{state}}">
+		</label>
+	  </div>
+
+	  <div class="controls controls-row">
+		<label class="wrapped-label-input">
+		  <span>Postal Code:</span>
+		  <input type="text" name="postal" value="{{postal}}">
+		</label>
+
+		<div id="country-dropdown" class="btn-group">
+		  <button class="btn select">{{country}}</button>
+		  <button class="btn dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		  </ul>
+		</div>
+
+	  </div>
+
+	  <div class="control-group">
+		<button type="submit" name="update" class="btn-bigass light">Update</button>
+	  </div>
+
+	</form>
+	
+  </div>
+
+  <div class="span2">
+	{{#if avatar_url}}
+	<div class="avatar">
+	  <img src="{{avatar_url}}" alt="avatar">
+	</div>
+	{{/if}}
+
+	<ul class="providers">
+	  <li class="github">
+		{{#if providers.github}}
+		<span class="login-github"></span>Github
+		{{else}}
+		<a href="/profile/sync/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
+		{{/if}}
+	  </li>
+
+	  <li class="twitter">
+		{{#if providers.twitter}}
+		<span class="login-twitter"></span>Twitter
+		{{else}}
+		<a href="/profile/sync/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
+		{{/if}}
+	  </li>
+	  
+	</ul>
+  </div>
+
+</div>
+{{/user}}

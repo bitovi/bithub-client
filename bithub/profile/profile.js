@@ -14,7 +14,7 @@ steal(
 			/** @Prototype */
 			{
 				init : function( el, opts ) {
-					console.log(opts.currentUser);
+
 					this.element.html(initView({
 						user: opts.currentUser
 					}));
