@@ -14,18 +14,11 @@ steal(
 			/** @Prototype */
 			{
 				init : function( el, opts ) {
+					console.log(opts.currentUser);
 					this.element.html(initView({
+						user: opts.currentUser
 					}));
-				},
-
-				/*
-				'{can.route} page': function( data, ev, newVal, oldVal ) {
-					  if ( can.route.attr('page') === 'profile') {
-						  this.element.show();
-					  } else {
-						  this.element.hide();
-					  }
 				}
-				 */
+
 			});
 	});

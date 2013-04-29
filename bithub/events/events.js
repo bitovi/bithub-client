@@ -62,16 +62,6 @@ steal('can',
 					  //this.options.currentState.attr('offset', this.options.currentState.offset + this.options.currentState.limit);
 				  },
 
-				  /*
-				  '{can.route} page': function( data, ev, newVal, oldVal ) {
-					  if ( can.route.attr('page') === 'events') {
-						  this.element.show();
-					  } else {
-						  this.element.hide();
-					  }
-				  },
-				   */
-
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
 					  this.load( this.prepareParams( data ) );
 				  },

@@ -9,11 +9,11 @@ steal(
 	'bithub/newpost',
 	'bithub/profile',
 	'bithub/models/tag.js',
-	'bithub/models/current_user.js',
+	'bithub/models/user.js',
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	function(can, PageSwitcher, Events, Leaderboard, Filterbar, Login, Newpost, Profile, Tag, currentUser){
+	function(can, PageSwitcher, Events, Leaderboard, Filterbar, Login, Newpost, Profile, Tag, User){
 		var self = this;
 		
 		$.ajaxPrefilter( function( opts ) {
@@ -28,7 +28,10 @@ steal(
 		
 		var	newpostVisibility = can.compute(false),		
 			projects = new can.Model.List(),
-			categories = new can.Model.List();
+			categories = new can.Model.List(),
+			currentUser = new User({loggedIn: false});
+
+		currentUser.fromSession();
 
 		// Load category tags
 		Tag.findAll({type: 'category'}, function (data) {
@@ -58,7 +61,9 @@ steal(
 			visibility: newpostVisibility
 		});
 
-		new Profile('#profile');
+		new Profile('#profile', {
+			currentUser: currentUser
+		});
 
 		new UI.Onbottom(document);
 
