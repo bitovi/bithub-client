@@ -1,6 +1,7 @@
 // Load all of the plugin dependencies
 steal(
 	'can',
+	'bithub/pageswitcher',
 	'bithub/events',
 	'bithub/leaderboard',
 	'bithub/filterbar',
@@ -12,7 +13,7 @@ steal(
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	function(can, Events, Leaderboard, Filterbar, Login, Newpost, Profile, Tag, currentUser){
+	function(can, PageSwitcher, Events, Leaderboard, Filterbar, Login, Newpost, Profile, Tag, currentUser){
 		var self = this;
 		
 		$.ajaxPrefilter( function( opts ) {
@@ -62,4 +63,9 @@ steal(
 		new UI.Onbottom(document);
 
 
-	});
+	}).then(
+		'can',
+		'bithub/pageswitcher',
+		function( can, PageSwitcher ) {
+			new PageSwitcher('#pages');		
+		});

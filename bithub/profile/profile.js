@@ -18,6 +18,7 @@ steal(
 					}));
 				},
 
+				/*
 				'{can.route} page': function( data, ev, newVal, oldVal ) {
 					  if ( can.route.attr('page') === 'profile') {
 						  this.element.show();
@@ -25,5 +26,6 @@ steal(
 						  this.element.hide();
 					  }
 				}
+				 */
 			});
 	});
