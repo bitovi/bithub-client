@@ -15,7 +15,7 @@ steal(
 		var self = this;
 		
 		$.ajaxPrefilter( function( opts ) {
-			//opts.url = opts.url.replace(/^\/api\/(.*)/, "http://api.bithub.com/api/$1");
+			// opts.url = opts.url.replace(/^\/api\/(.*)/, "http://api.bithub.com/api/$1");
 		});
 
 		// routes - events

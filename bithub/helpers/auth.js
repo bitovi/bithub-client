@@ -5,7 +5,7 @@ steal(
 				var self = this;
 				var windowPropsStr = options.windowPropsStr ? options.windowPropsStr : "width=600,height=300";
 				var title = options.title ? options.title : "Oauth login";
-				var url = options.url ? options.url : '/users/auth/github';
+				var url = options.url ? options.url : '/api/auth/github';
 
 				oauthWindow = window.open(url, title, windowPropsStr);
 				oauthWindowSweeper = window.setInterval(function() {
@@ -17,7 +17,7 @@ steal(
 			},
 
 			logout: function() {
-				window.location('/sign_out');
+				window.location('/api/auth/logout');
 			}
 		}
 	});
