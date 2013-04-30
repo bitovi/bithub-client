@@ -1,19 +1,52 @@
 steal(
 	'can',
 	'./init.mustache',
-	'bithub/account',
-	'bithub/account/init.mustache',
-	'bithub/activities',
-	function(can, initView, Account, AccountView, Activities){
+	'ui/dropdownselector',
+	'bithub/models/country.js',
+	'can/model/list',
+	'jquerypp/dom/form_params',
+	function(can, initView, DropdownSelector, Country){
 		return can.Control({
 			defaults : {}
 		}, {
 			init : function( elem, opts ){
-				elem.html( initView({}) );
+				var self = this;
 
-				new Account(elem.find('#profile'), {
-					currentUser: opts.currentUser
+				self.countries = new can.Model.List();					
+				Country.findAll({}, function( data ) {
+					self.countries.replace( data );
 				});
+
+				new DropdownSelector('', {
+					state: function( newVal ) {
+						//console.log( newVal );
+					},
+					items: self.countries
+				});
+
+				elem.html(initView({
+					countries: self.countries,
+					user: opts.currentUser
+				}));
+			},
+
+			'form#edit-profile-form submit': function( el, ev ) {
+				ev.preventDefault();
+
+				el.find('.form-status .loading').show();
+				
+				this.options.currentUser
+					.attr( el.formParams() )
+					.save(
+						function( user ) {
+							el.find('.form-status .loading').hide();
+							el.find('.form-status .success').show().delay(1000).fadeOut();
+						},
+						function( xhr ) {
+							el.find('.form-status .loading').hide();
+							el.find('.form-status .error').show().delay(1000).fadeOut();
+						});
 			}
+			
 		});
 	});
