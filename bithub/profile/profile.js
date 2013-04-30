@@ -1,7 +1,11 @@
 steal(
 	'can',
 	'./init.mustache',
-	function(can, initView){
+	'ui/dropdownselector',
+	'bithub/models/country.js',
+	'can/model/list',
+	'jquerypp/dom/form_params',
+	function(can, initView, DropdownSelector, Country){
 		/**
 		 * @class bithub/profile
 		 * @alias Profile   
@@ -14,16 +18,45 @@ steal(
 			/** @Prototype */
 			{
 				init : function( el, opts ) {
+					var self = this;
+
+					self.countries = new can.Model.List();					
+					Country.findAll({}, function( data ) {
+						self.countries.replace( data );
+					});
+
+					new DropdownSelector('', {
+						state: function( newVal ) {
+							console.log( newVal );
+						},
+						items: self.countries
+					});
+					
 					this.element.html(initView({
+						countries: self.countries,
+						user: opts.currentUser
 					}));
 				},
 
-				'{can.route} page': function( data, ev, newVal, oldVal ) {
-					  if ( can.route.attr('page') === 'profile') {
-						  this.element.show();
-					  } else {
-						  this.element.hide();
-					  }
+				'form#edit-profile-form submit': function( el, ev ) {
+					ev.preventDefault();
+
+					el.find('.form-status .loading').show();
+					
+					this.options.currentUser
+						.attr( el.formParams() )
+						.save(
+							function( user ) {
+								el.find('.form-status .loading').hide();
+								el.find('.form-status .success').show().delay(1000).fadeOut();
+							},
+							function( xhr ) {
+								el.find('.form-status .loading').hide();
+								el.find('.form-status .error').show().delay(1000).fadeOut();
+							});
+					
+					
 				}
+
 			});
 	});

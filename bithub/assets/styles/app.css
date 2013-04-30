@@ -154,7 +154,7 @@ input:focus, textarea:focus {
 #filter-bar .pager { 
 	margin: 10px 0 0; 
 }
-#filter-bar, #user-bar {
+#filter-bar {
 	background-color: #fff;
 	display: block;
 	border-bottom: 1px solid #eee;
@@ -415,7 +415,7 @@ input:focus, textarea:focus {
 	background: none;
 	background-color: none;
 }
-#navbar .nav > li > a.active, #navbar .nav > li > a:hover, #navbar .dropdown.open > a, #navbar .nav a.projects {
+#navbar .nav > li > a.active, #navbar .nav > li > a:hover, #navbar .projects > a {
 	color: #a80e14;
 	background: none rgba(166, 168, 168, 0.21);
 	-moz-box-shadow: none;
@@ -426,7 +426,7 @@ input:focus, textarea:focus {
 	border-radius: 20px;
 	border: 1px solid #fff;
 }
-#navbar .nav a.projects {
+#navbar .projects > a {
 	color: #000;
 	width: 90px;
 	max-width: 90px;
@@ -434,7 +434,7 @@ input:focus, textarea:focus {
 #navbar .nav .latest {
 	margin-right: 5px;
 }
-#navbar .nav > li > a.active.boxed, #navbar .nav > li > a.boxed:hover, #navbar .dropdown.open > a.projects, #navbar .nav a.projects {
+#navbar .nav > li > a.active.boxed, #navbar .nav > li > a.boxed:hover, #navbar .projects .dropdown.open > a, #navbar .projects > a {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
@@ -694,22 +694,22 @@ button#show-newpost-form-btn:hover, button#show-newpost-form-btn.activated {
 	margin-bottom: 50px;
 }
 
-#user-bar {
-	height: 30px;
-	padding-top: 20px;
+.profile .navbar {
+	padding-top: 10px;
 }
 
-#user-bar ul.nav li {
+.profile .navbar ul.nav li {
 	display: inline-block;
 	margin-right: 20px;
 	font-size: 13px;
 }
 
-#user-bar ul.nav li a {
+.profile .navbar ul.nav li a {
 	color: #777;
+	padding: 0px;
 }
 
-#user-bar ul.nav li:hover a, #user-bar ul.nav li.active a {
+.profile .navbar ul.nav li:hover a, .profile .navbar ul.nav li.active a {
 	background: none;
 	color: #333;
 }
@@ -723,6 +723,15 @@ button#show-newpost-form-btn:hover, button#show-newpost-form-btn.activated {
 	display: inline-block;
 	margin: 0px 10px 10px 0px;
 }
+
+.form-status {
+	text-align: center;
+	margin-top: 5px;
+}
+.form-status .loading { display: none; }
+.form-status .error { color: red; display: none; }
+.form-status .success { color: green; display: none; }
+
 .controls-row select {
 	width: 190px;
 }
