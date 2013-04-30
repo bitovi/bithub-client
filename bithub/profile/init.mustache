@@ -3,8 +3,8 @@
 	<div class="span12">
 	  <ul class="nav">
 		<li>My Account:</li>
-		<li><a href="/profile">Profile</a></li>
-		<li><a href="/profile/activity">Points &amp; Activity</a></li>
+		<li><a href="/#profile">Profile</a></li>
+		<li><a href="/#profile/activity">Points &amp; Activity</a></li>
 	  </ul>
 	</div>
   </div>
@@ -96,7 +96,7 @@
 		  {{#if user.providers.github}}
 		  <span class="login-github"></span>Github
 		  {{else}}
-		  <a href="/profile/sync/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
+		  <a href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
 		  {{/if}}
 		</li>
 
@@ -104,7 +104,7 @@
 		  {{#if user.providers.twitter}}
 		  <span class="login-twitter"></span>Twitter
 		  {{else}}
-		  <a href="/profile/sync/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
+		  <a href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
 		  {{/if}}
 		</li>
 		

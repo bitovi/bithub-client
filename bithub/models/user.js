@@ -16,7 +16,7 @@ steal(
 			fromSession: function() {
 				var self = this;
 				can.ajax({
-					url: '/api/session',
+					url: '/api/auth/session',
 					type: 'GET'
 				}).done(function(data) {
 					self.attr(can.Model.model(data).attr());
