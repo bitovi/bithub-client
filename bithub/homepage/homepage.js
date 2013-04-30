@@ -1,17 +1,17 @@
 steal(
 	'can',
 	'./init.mustache',
-	'bithub/account',
-	'bithub/account/init.mustache',
-	'bithub/activities',
-	function(can, initView, Account, AccountView, Activities){
+	'bithub/events',
+	'bithub/leaderboard',
+	function(can, initView, Events, Leaderboard) {
 		return can.Control({
 			defaults : {}
 		}, {
 			init : function( elem, opts ){
 				elem.html( initView({}) );
-
-				new Account(elem.find('#profile'), {
+				
+				new Events( elem.find('#events') );
+				new Leaderboard( elem.find('#leaderboard'), {
 					currentUser: opts.currentUser
 				});
 			}

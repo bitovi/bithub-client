@@ -23,7 +23,7 @@ steal('can',
 					  // init UI controls
 					  new OptionSelector('#viewFilter', {
 						  state: function (newVal) {
-							  can.route.attr({page: 'events', view: newVal});
+							  can.route.attr({page: 'homepage', view: newVal});
 						  },
 						  items: [
 							  { name: 'latest', display_name: 'Latest', class: 'active' },

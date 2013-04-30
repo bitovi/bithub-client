@@ -2,18 +2,18 @@
 steal(
 	'can',
 	'bithub/pageswitcher',
-	'bithub/events',
-	'bithub/leaderboard',
+	'bithub/homepage',
+	'bithub/profile',
+	'bithub/activities',
 	'bithub/filterbar',
 	'bithub/login',
 	'bithub/newpost',
-	'bithub/profile',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	function(can, PageSwitcher, Events, Leaderboard, Filterbar, Login, Newpost, Profile, Tag, User){
+	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User){
 		var self = this;
 		
 		$.ajaxPrefilter( function( opts ) {
@@ -21,10 +21,10 @@ steal(
 		});
 
 		// routes - events
-		can.route(':page', {page: 'events', view: 'latest', project: 'all', category: 'all'});
-		can.route(':page/:view', {page: 'events', view: 'latest', project: 'all', category: 'all'});
-		can.route(':page/:view/:project', {page: 'events', view: 'latest', project: 'all', category: 'all'});
-		can.route(':page/:view/:project/:category', {page: 'events', view: 'latest', project: 'all', category: 'all'});
+		can.route(':page', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
+		can.route(':page/:view', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
+		can.route(':page/:view/:project', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
+		can.route(':page/:view/:project/:category', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
 		
 		var	newpostVisibility = can.compute(false),		
 			projects = new can.Model.List(),
@@ -48,8 +48,6 @@ steal(
 			currentUser: currentUser,
 			newpostVisibility: newpostVisibility
 		});
-		new Events('#events');
-		new Leaderboard('#leaderboard', { currentUser: currentUser });
 		new Filterbar('#filterbar', {
 			projects: projects,
 			categories: categories
@@ -60,17 +58,16 @@ steal(
 			categories: categories,
 			visibility: newpostVisibility
 		});
+		new UI.Onbottom(document);
 
-		new Profile('#profile', {
+		new PageSwitcher('#pages', {
+			routeAttr: 'page',
+			controls: {
+				'homepage': Homepage,
+				'profile': Profile,
+				'activities': Activities
+			},
 			currentUser: currentUser
 		});
 
-		new UI.Onbottom(document);
-
-
-	}).then(
-		'can',
-		'bithub/pageswitcher',
-		function( can, PageSwitcher ) {
-			new PageSwitcher('#pages');		
-		});
+	});
