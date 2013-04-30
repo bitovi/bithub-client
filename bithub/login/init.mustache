@@ -1,6 +1,8 @@
 <li class="divider-vertical"></li>
 
-{{#loggedIn}}
+{{#if loggedIn}}
+
+{{#currentUser}}
 <li>
   <div class="gradient-border-wrapper">
 	<button id="show-newpost-form-btn"><span>+</span> Post</button>
@@ -20,6 +22,7 @@
 	<li><a href="/api/auth/logout"><span class="login-logout"></span>Logout</a></li>
   </ul>
 </li>
+{{/currentUser}}
 
 {{else}}
 
