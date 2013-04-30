@@ -4,6 +4,7 @@ steal(
 	'ui/dropdownselector',
 	'bithub/models/country.js',
 	'can/model/list',
+	'jquerypp/dom/form_params',
 	function(can, initView, DropdownSelector, Country){
 		/**
 		 * @class bithub/profile
@@ -35,6 +36,26 @@ steal(
 						countries: self.countries,
 						user: opts.currentUser
 					}));
+				},
+
+				'form#edit-profile-form submit': function( el, ev ) {
+					ev.preventDefault();
+
+					el.find('.form-status .loading').show();
+					
+					this.options.currentUser
+						.attr( el.formParams() )
+						.save(
+							function( user ) {
+								el.find('.form-status .loading').hide();
+								el.find('.form-status .success').show().delay(1000).fadeOut();
+							},
+							function( xhr ) {
+								el.find('.form-status .loading').hide();
+								el.find('.form-status .error').show().delay(1000).fadeOut();
+							});
+					
+					
 				}
 
 			});

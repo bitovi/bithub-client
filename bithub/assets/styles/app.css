@@ -723,6 +723,15 @@ button#show-newpost-form-btn:hover, button#show-newpost-form-btn.activated {
 	display: inline-block;
 	margin: 0px 10px 10px 0px;
 }
+
+.form-status {
+	text-align: center;
+	margin-top: 5px;
+}
+.form-status .loading { display: none; }
+.form-status .error { color: red; display: none; }
+.form-status .success { color: green; display: none; }
+
 .controls-row select {
 	width: 190px;
 }
