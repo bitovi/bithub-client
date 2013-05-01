@@ -1754,6 +1754,7 @@ h4.handwriting {
 	right: 0px;
 	bottom: 0px;
 	left: 0px;	
+	z-index: 101;
 }
 
 .newpost-form .image-uploader:focus {
@@ -1764,6 +1765,15 @@ h4.handwriting {
 	width: 80%;
 	margin: 15px auto 0px auto;
 	height: 5px;
+}
+
+.newpost-form .image-uploader .image-preview {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	z-index: 100;
 }
 
 .newpost-sidebar h4 {
