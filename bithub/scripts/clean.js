@@ -1,8 +1,8 @@
-//steal/js bithub2/scripts/compress.js
+//steal/js bithub/scripts/compress.js
 
 load("steal/rhino/rhino.js");
 steal('steal/clean',function(){
-	steal.clean('bithub2/bithub2.html',{
+	steal.clean('bithub/bithub.html',{
 		indent_size: 1, 
 		indent_char: '\t', 
 		jslint : false,
