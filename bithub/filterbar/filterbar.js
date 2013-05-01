@@ -34,7 +34,7 @@ steal('can',
 					  new DropdownSelector('#projectFilter', {
 						  items: options.projects,
 						  cssClass: "projects",
-						  defaultOpt: {name: 'all', display_name: 'All projects'},
+						  default: {name: 'all', display_name: 'All projects'},
 						  state: function (newVal) {
 							  can.route.attr({page: 'events', project: newVal});
 						  }
