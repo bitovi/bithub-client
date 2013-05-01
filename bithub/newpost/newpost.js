@@ -1,12 +1,19 @@
 steal(
 	'can',
 	'./init.mustache',
+	'vendor/fileupload',
 	'jquerypp/dom/form_params',
-	function(can, initView){
+	function(can, initView, fileUpload){
 		/**
 		 * @class bithub/newpost
 		 * @alias Newpost   
 		 */
+
+
+		function progress(data){
+			return parseInt(data.loaded / data.total * 100, 10);
+		}
+
 		return can.Control('Bithub.Newpost',
 			/** @Static */
 			{
@@ -36,6 +43,37 @@ steal(
 
 					el.find("input[name='event[project]']").val(el.find('#newpost-form-project .btn.select').html());
 					el.find("input[name='event[category]']").val(el.find('#newpost-form-category .btn.select').html());
+
+					el.fileupload({
+						datatype: 'json',
+						limitMultiFileUploads: 1,
+						add: function(el, data) {
+							self.options.fileData = data;
+						}
+					});
+				},
+
+				' fileuploadadd': function( el, ev, data ) {
+					console.log("fileupload ADD");
+					var loadingImage = window.loadImage(
+						data.files[0],
+						function (img) {
+							el.find('.image-preview').html(img);
+						}, {
+							maxWidth: 150,
+							maxHeight: 120
+						}
+					);
+				},
+				
+				' fileuploadprogress' : function( el, ev, data ){
+					el.find('.progress').show().find('.bar').width(progress(data) + '%');
+				},
+
+				' fileuploaddone' : function( el, ev, data ) {
+					console.log("DONE with file");
+					var newEvent = new Bithub.Models.Event(data.result);
+					console.log(newEvent);
 				},
 
 				'#newpost-form-project a click': function( el, ev ) {
@@ -65,10 +103,17 @@ steal(
 					el.closest('form').submit();
 				},
 
-				'form submit': function( el, ev ) {
+				' submit': function( el, ev ) {
 					ev.preventDefault();
-					var event = new Bithub.Models.Event(el.formParams());
-					event.save();
+					if (this.options.fileData) {
+						this.options.fileData.submit();
+					} else {
+						var event = new Bithub.Models.Event(el.formParams());
+						event.save(function(data) {
+							console.log("DONE wo file");
+							console.log(data);
+						});
+					}
 				}
 				
 			});

@@ -1762,9 +1762,11 @@ h4.handwriting {
 }
 
 .newpost-form .image-uploader .progress {
+	position: relative;
 	width: 80%;
 	margin: 15px auto 0px auto;
 	height: 5px;
+	z-index: 102;
 }
 
 .newpost-form .image-uploader .image-preview {
