@@ -47,19 +47,9 @@
 			  <span>Postal Code:</span>
 			  <input type="text" name="postal" value="{{user.postal}}">
 			</label>
-
-			<div id="country-dropdown" class="btn-group">
-			  <button class="btn select">{{user.country}}</button>
-			  <button class="btn dropdown-toggle" data-toggle="dropdown">
-				<span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu">
-				{{#countries}}
-				<li><a>{{display_name}}</a></li>
-				{{/countries}}
-			  </ul>
-			</div>
-
+			
+			<input type="hidden" name="countryISO" value="{{country}}">			
+			<div id="country-container" style="display: inline-block"></div>
 		  </div>
 
 		  <div class="control-group">

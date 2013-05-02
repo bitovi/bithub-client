@@ -1,32 +1,38 @@
 steal(
 	'can',
 	'./init.mustache',
-	'ui/dropdownselector',
+	'ui/bootstrap_dropdown',
 	'bithub/models/country.js',
 	'can/model/list',
 	'jquerypp/dom/form_params',
-	function(can, initView, DropdownSelector, Country){
+	function(can, initView, Dropdown, Country){
 		return can.Control({
 			defaults : {}
 		}, {
 			init : function( elem, opts ){
-				var self = this;
+				var self = this,
+					countryISO = can.compute();
 
-				self.countries = new can.Model.List();					
+				this.countries = new can.Model.List();
+				
 				Country.findAll({}, function( data ) {
-					self.countries.replace( data );
+					var buffer = new can.Model.List();
+						data.each( function( item, index ) {
+							buffer.push( new can.Observe({
+								key: item.iso,
+								value: item.display_name
+							}));
+						});
+					self.countries.replace( buffer );
 				});
 
-				new DropdownSelector('', {
-					state: function( newVal ) {
-						//console.log( newVal );
-					},
-					items: self.countries
+				opts.currentUser.bind('country.iso', function( ev, attr ) {
+					countryISO( attr.iso );
 				});
 
 				elem.html(initView({
-					countries: self.countries,
-					user: opts.currentUser
+					user: opts.currentUser,
+					country: countryISO
 				}, {
 					'hasProvider': function( provider, opts ) {
 						var flag = false;
@@ -39,6 +45,11 @@ steal(
 						return flag ? opts.fn(this) : opts.inverse(this);
 					}
 				}));
+
+				new Dropdown(elem.find('#country-container'), {
+					items: self.countries,
+					selected: countryISO
+				});
 			},
 
 			'form#edit-profile-form submit': function( el, ev ) {
