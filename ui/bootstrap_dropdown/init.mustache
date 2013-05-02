@@ -1,0 +1,11 @@
+<div {{#if htmlId}}id="{{htmlId}}"{{/if}} class="btn-group">
+  <button class="btn select">{{selectedValue}}</button>
+  <button class="btn dropdown-toggle" data-toggle="dropdown">
+	<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+	{{#items}}
+	<li><a {{data 'option'}}>{{value}}</a></li>
+	{{/items}}
+  </ul>
+</div>
