@@ -5,9 +5,11 @@ steal(
 		return can.Control({
 			defaults : {}
 		},	{
-			init : function(){
+			init : function( elem, opts ){
 
-				this.element.html(initView({}));
+				this.element.html(initView({
+					currentUser: opts.currentUser
+				}));
 			}
 		});
 	});

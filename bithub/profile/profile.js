@@ -27,6 +27,17 @@ steal(
 				elem.html(initView({
 					countries: self.countries,
 					user: opts.currentUser
+				}, {
+					'hasProvider': function( provider, opts ) {
+						var flag = false;
+
+						if ( self.options.currentUser.attr('loggedIn') ) {
+							self.options.currentUser.attr('identities').each( function (value) {
+								if (value.provider === provider) flag = true;
+							});
+						}
+						return flag ? opts.fn(this) : opts.inverse(this);
+					}
 				}));
 			},
 
@@ -46,6 +57,16 @@ steal(
 							el.find('.form-status .loading').hide();
 							el.find('.form-status .error').show().delay(1000).fadeOut();
 						});
+			},
+
+			'#login-github-link click': function( el, ev ) {
+				ev.preventDefault();
+				this.options.currentUser.login({url: '/api/auth/github' });
+			},
+			
+			'#login-twitter-link click': function( el, ev ) {
+				ev.preventDefault();
+				this.options.currentUser.login({url: '/api/auth/twitter' });
 			}
 			
 		});

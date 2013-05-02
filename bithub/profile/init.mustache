@@ -77,27 +77,28 @@
 	  </div>
 
 	  <div class="span2">
-		{{#if avatar_url}}
+		{{#if user.avatar_url}}
 		<div class="avatar">
 		  <img src="{{user.avatar_url}}" alt="avatar">
 		</div>
 		{{/if}}
 
 		<ul class="providers">
+
 		  <li class="github">
-			{{#if user.providers.github}}
+			{{#hasProvider 'github'}}
 			<span class="login-github"></span>Github
 			{{else}}
-			<a href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
-			{{/if}}
+			<a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
+			{{/hasProvider}}
 		  </li>
 
 		  <li class="twitter">
-			{{#if user.providers.twitter}}
+			{{#hasProvider 'twitter'}}
 			<span class="login-twitter"></span>Twitter
 			{{else}}
-			<a href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
-			{{/if}}
+			<a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
+			{{/hasProvider}}
 		  </li>
 		  
 		</ul>
