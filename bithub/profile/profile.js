@@ -12,25 +12,16 @@ steal(
 			init : function( elem, opts ){
 				var self = this,
 					countryISO = can.compute();
-
-				this.countries = new can.Model.List();
 				
-				Country.findAll({}, function( data ) {
-					var buffer = new can.Model.List();
-						data.each( function( item, index ) {
-							buffer.push( new can.Observe({
-								key: item.iso,
-								value: item.display_name
-							}));
-						});
-					self.countries.replace( buffer );
-				});
+				self.countries = this.loadCountries();
 
+				// select current country on user load
 				opts.currentUser.bind('country.iso', function( ev, attr ) {
 					countryISO( attr.iso );
 				});
 
-				elem.html(initView({
+				// init form
+				elem.html( initView({
 					user: opts.currentUser,
 					country: countryISO
 				}, {
@@ -44,12 +35,30 @@ steal(
 						}
 						return flag ? opts.fn(this) : opts.inverse(this);
 					}
-				}));
+				}) );
 
-				new Dropdown(elem.find('#country-container'), {
+				// init country dropdown menu
+				new Dropdown( elem.find('#country-container' ), {
 					items: self.countries,
 					selected: countryISO
 				});
+			},
+
+			loadCountries: function() {
+				var countries = new can.Model.List();
+				
+				Country.findAll({}, function( data ) {
+					var buffer = new can.Model.List();
+						data.each( function( item, index ) {
+							buffer.push( new can.Observe({
+								key: item.attr('iso'),
+								value: item.attr('display_name')
+							}));
+						});
+					countries.replace( buffer );
+				});
+				
+				return countries;			
 			},
 
 			'form#edit-profile-form submit': function( el, ev ) {

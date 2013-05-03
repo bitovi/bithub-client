@@ -15,8 +15,8 @@ steal(
 					'selectedValue': function() {
 						var value ="";
 						opts.items.each( function( item ) {
-							if (item.key === opts.selected()) {
-								value = item.value;
+							if (item.attr('key') === opts.selected()) {
+								value = item.attr('value');
 							}
 						});
 						return value;
@@ -28,10 +28,7 @@ steal(
 				ev.preventDefault();
 
 				this.options.selected( (can.data(el, 'option')).key );
-				//this.element.find('.select').html( (can.data(el, 'option')).value );
-				//this.options.selected( (can.data(el, 'option')).key );
 				//this.element.trigger('change', can.data(el, 'option'));
-
 			},
 
 			'button click': function( el, ev ) {
