@@ -2,11 +2,12 @@ steal('can',
 	  './init.mustache',
 	  './latest.mustache',
 	  './greatest.mustache',
+	  './_event.mustache',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
 	  'can/construct/proxy',
 	  'bithub/helpers/mustacheHelpers.js',
-	  function(can, initView, latestView, greatestView, Event, Upvote){
+	  function(can, initView, latestView, greatestView, eventView, Event, Upvote){
 		  /**
 		   * @class bithub/events
 		   * @alias Events
@@ -39,11 +40,17 @@ steal('can',
 						  },
 						  partial: this.currentView
 					  }, {
-						  isLatest: function( partial, opts ) {
-							  return partial() === 'latest' ? opts.fn(this) : '';
+						  'partials': {
+							  latestView: latestView,
+							  greatestView: greatestView
 						  },
-						  isGreatest: function( partial, opts ) {
-							  return partial() === 'greatest' ? opts.fn(this) : '';
+						  'helpers': {
+							  isLatest: function( partial, opts ) {
+								  return partial() === 'latest' ? opts.fn(this) : '';
+							  },
+							  isGreatest: function( partial, opts ) {
+								  return partial() === 'greatest' ? opts.fn(this) : '';
+							  }
 						  }
 					  }) );
 
@@ -100,6 +107,5 @@ steal('can',
 					  this.currentView( can.route.attr('view') );
 					  this.events.replace(events);
 				  }
-
 			  });
 	  });
