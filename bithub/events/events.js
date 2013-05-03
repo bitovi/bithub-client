@@ -4,6 +4,7 @@ steal('can',
 	  './greatest.mustache',
 	  './_digest.mustache',
 	  './_event.mustache',
+	  './_event_children.mustache',
 	  './_event_code.mustache',
 	  './_event_twitter.mustache',
 	  './_event_irc.mustache',
@@ -11,7 +12,7 @@ steal('can',
 	  'bithub/models/upvote.js',
 	  'can/construct/proxy',
 	  'bithub/helpers/mustacheHelpers.js',
-	  function(can, initView, latestView, greatestView, digestPartial, eventPartial, eventCodePartial, eventTwitterPartial, eventIRCPartial, Event, Upvote){
+	  function(can, initView, latestView, greatestView, digestPartial, eventPartial, eventChildrenPartial, eventCodePartial, eventTwitterPartial, eventIRCPartial, Event, Upvote){
 		  /**
 		   * @class bithub/events
 		   * @alias Events
@@ -60,6 +61,7 @@ steal('can',
 							  latestView: latestView,
 							  greatestView: greatestView,
 							  digestPartial: digestPartial,
+							  eventChildrenPartial: eventChildrenPartial,
 							  eventPartial: function( data, helpers ) {
 								  return (self.determineEventPartial(data)).render( data, helpers );
 							  }
