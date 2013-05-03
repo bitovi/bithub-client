@@ -26,7 +26,7 @@ steal('can',
 							  can.route.attr({page: 'homepage', view: newVal});
 						  },
 						  items: [
-							  { name: 'latest', display_name: 'Latest', class: 'active' },
+							  { name: 'latest', display_name: 'Latest', cssClass: 'active' },
 							  { name: 'greatest', display_name: 'Greatest' }
 						  ]
 					  });
@@ -34,7 +34,7 @@ steal('can',
 					  new DropdownSelector('#projectFilter', {
 						  items: options.projects,
 						  cssClass: "projects",
-						  default: {name: 'all', display_name: 'All projects'},
+						  defaultOption: {name: 'all', display_name: 'All projects'},
 						  state: function (newVal) {
 							  can.route.attr({page: 'homepage', project: newVal});
 						  }
@@ -42,7 +42,7 @@ steal('can',
 
 					  new SmartSelector('#categoryFilter', {
 						  items: options.categories,
-					  default: {name: 'all', display_name: 'All'},
+						  defaultOption: {name: 'all', display_name: 'All'},
 						  state: function (newVal) {
 							  can.route.attr({page: 'homepage', category: newVal});
 						  }

@@ -1,14 +1,14 @@
-<li class="dropdown {{#if cssClass}}{{cssClass}}{{/if}}" {{#if id}}id="{{id}}"{{/if}}>
+<li class="dropdown {{#if cssClass}}{{cssClass}}{{/if}}" {{#if htmlId}}id="{{htmlId}}"{{/if}}>
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	{{#default}}
+	{{#defaultOption}}
 	<span class="title">{{display_name}}</span>
-	{{/default}}
+	{{/defaultOption}}
 	<b class="caret"></b>
   </a>
   <ul class="dropdown-menu">
-	{{#default}}
+	{{#defaultOption}}
 	<li><a href="#" {{data 'item'}} class="item">{{display_name}}</a></li>
-	{{/default}}
+	{{/defaultOption}}
 	{{#items}}
 	<li><a href="#" {{data 'item'}} class="item">{{display_name}}</a></li>	
 	{{/items}}

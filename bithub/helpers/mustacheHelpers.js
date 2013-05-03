@@ -66,14 +66,18 @@ steal('can/view/mustache',
 		 });
 
 		 Mustache.registerHelper('substring', function( str, start, length, opts ) {
-			 return (typeof(str) === 'string') ? str.substr(start, length) : "not a string";  
+			 str = (typeof(str) === 'function') ? str() : str;
+			 return str.substr( start, length );
 		 });
 
 		 Mustache.registerHelper('markdown', function( str, opts ) {
-			 return (typeof(str) === 'string') ? markdown.toHTML( str ) : "not a string";  
+			 str = (typeof(str) === 'function') ? str() : str;
+			 return markdown.toHTML( str );
 		 });
 
 		 Mustache.registerHelper('more', function( str, opts ) {
-			 return (typeof(str) === 'string') ? str.substr(start, length) : "not a string";  
+			 str = (typeof(str) === 'function') ? str() : str;
+
+			 return str;
 		 });
 	 });

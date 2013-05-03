@@ -10,20 +10,19 @@ steal('can',
 		  return can.Control(
 			  /** @Static */
 			  {
-				  defaults : {
-					  break: 3
-				  }
+				  defaults : {}
 			  },
 			  /** @Prototype */
 			  {
-				  init : function( elem, options ){
+				  init : function( elem, opts ){
 					  var self = this,
-						  items = self.options.items;
+						  items = opts.items;
 					  
 					  self.element.html( initView( {
-						  default: self.options.default,
+						  htmlId: opts.htmlId,
+						  defaultOption: opts.defaultOption,
 						  items: items,
-						  break: self.options.break
+						  breakIdx: opts.breakIdx || 3
 					  }) );
 				  },
 

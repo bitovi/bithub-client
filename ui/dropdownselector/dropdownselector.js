@@ -17,10 +17,10 @@ steal('can',
 					  var self = this;
 					  
 					  self.element.html(initView({
-						  id: opts.id,
+						  htmlId: opts.htmlId,
 						  cssClass: opts.cssClass,
 						  items: opts.items,
-						  default: opts.default
+						  defaultOption: opts.defaultOption
 					  }));
 				  },
 

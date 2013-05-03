@@ -12,11 +12,11 @@ steal('can',
 			  },
 			  /** @Prototype */
 			  {
-				  init : function(){
+				  init : function( elem, opts ){
 					  var self = this;
 					  
-					  self.element.html(initView({
-						  items: self.options.items
+					  elem.html(initView({
+						  items: opts.items
 					  }));
 				  },
 				  
