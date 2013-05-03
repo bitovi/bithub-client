@@ -21,3 +21,13 @@ set(:default_environment, {
 
 set(:stages, ['staging', 'prod'])
 set(:default_stage, 'prod')
+
+namespace :deploy do
+  desc "Compile a JMVC production build"
+  task :build_production do
+    run "#{current_path}/js bithub/scripts/build.js"
+  end
+end
+
+after 'deploy:update', 'deploy:build_production'
+  
