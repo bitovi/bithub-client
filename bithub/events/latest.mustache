@@ -12,7 +12,7 @@
 	{{#if digest}}
     <div class="category-digest">
 	  <div class="truncated">
-	    {{>events/_digest.mustache}}
+	    {{> digestPartial }}
 	  </div>
     </div>
 	{{/if}}
@@ -22,7 +22,7 @@
 	  <h3 class="twitter-icon">Twitter</h3>
 	  <div class="truncated">
 	    {{#twitter}}
-	    {{>events/_event_twitter.mustache}}
+		{{> eventPartial }}
 	    {{/twitter}}
 	  </div>
     </div>
@@ -33,7 +33,7 @@
 	  <h3 class="bugs-icon">Bugs</h3>
 	  <div class="truncated">
 	    {{#bug}}
-	    {{>events/_event.mustache}}
+		{{> eventPartial }}
 	    {{/bug}}
 	  </div>
     </div>
@@ -44,7 +44,7 @@
 	  <h3 class="comments-icon">Comments</h3>
 	  <div class="truncated">
 	    {{#comment}}
-	    {{>events/_event.mustache}}
+		{{> eventPartial }}
 	    {{/comment}}
 	  </div>
     </div>
@@ -55,7 +55,7 @@
 	  <h3 class="features-icon">Features</h3>
 	  <div class="truncated">
 	    {{#feature}}
-	    {{>events/_event.mustache}}
+		{{> eventPartial }}
 	    {{/feature}}
 	  </div>
     </div>
@@ -66,7 +66,7 @@
 	  <h3 class="questions-icon">Questions</h3>
 	  <div class="truncated">
 	    {{#question}}
-	    {{>events/_event.mustache}}
+		{{> eventPartial }}
 	    {{/question}}
 	  </div>
     </div>
@@ -77,7 +77,7 @@
 	  <h3 class="articles-icon">Articles</h3>
 	  <div class="truncated">
 	    {{#article}}
-	    {{>events/_event.mustache}}
+		{{> eventPartial }}
 	    {{/article}}
 	  </div>
     </div>
@@ -88,7 +88,7 @@
 	  <h3 class="plugins-icon">Plugins</h3>
 	  <div class="truncated">
 	    {{#plugin}}
-	    {{>events/_event.mustache}}
+		{{> eventPartial }}
 	    {{/plugin}}
 	  </div>
     </div>
@@ -99,7 +99,7 @@
 	  <h3 class="apps-icon">Apps</h3>
 	  <div class="truncated">
 	    {{#app}}
-	    {{>events/_event.mustache}}
+		{{> eventPartial }}
 	    {{/app}}
 	  </div>
     </div>
@@ -110,11 +110,7 @@
 	  <h3 class="code-icon">Code</h3>
 	  <div class="truncated">
 	    {{#code}}
-		{{#if props.commits}}
-	      {{>events/_event_code.mustache}}
-		{{else}}
-	      {{>events/_event.mustache}}
-		{{/if}}
+		{{> eventPartial }}
 	    {{/code}}
 	  </div>
     </div>
@@ -126,7 +122,7 @@
 	</div>
 	<div class="truncated irc-chat-container">
 	  {{#chat}}
-	  <div><span class="username">{{actor}}</span>: {{title}}</div>
+	  {{> eventPartial }}
 	  {{/chat}}
 	</div>
 	{{/if}}

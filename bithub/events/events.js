@@ -2,19 +2,35 @@ steal('can',
 	  './init.mustache',
 	  './latest.mustache',
 	  './greatest.mustache',
+	  './_digest.mustache',
 	  './_event.mustache',
+	  './_event_code.mustache',
+	  './_event_twitter.mustache',
+	  './_event_irc.mustache',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
 	  'can/construct/proxy',
 	  'bithub/helpers/mustacheHelpers.js',
-	  function(can, initView, latestView, greatestView, eventView, Event, Upvote){
+	  function(can, initView, latestView, greatestView, digestPartial, eventPartial, eventCodePartial, eventTwitterPartial, eventIRCPartial, Event, Upvote){
 		  /**
 		   * @class bithub/events
 		   * @alias Events
 		   */
 		  var defaultParams = {
 			  latest: {order: 'origin_ts:desc'},
-			  greatest: {order: 'upvotes:desc'}
+			  greatest: {order: 'upvotes:desc'},
+			  eventPartialsLookup: [
+				  {
+					  template: eventCodePartial,
+					  tags: ['push_event']
+				  }, {
+					  template: eventTwitterPartial,
+					  tags: ['status_event']
+				  }, {
+					  template: eventIRCPartial,
+					  tags: ['irc']
+				  }
+			  ]
 		  };
 		  
 		  return can.Control(
@@ -42,7 +58,11 @@ steal('can',
 					  }, {
 						  'partials': {
 							  latestView: latestView,
-							  greatestView: greatestView
+							  greatestView: greatestView,
+							  digestPartial: digestPartial,
+							  eventPartial: function( data, helpers ) {
+								  return (self.determineEventPartial(data)).render( data, helpers );
+							  }
 						  },
 						  'helpers': {
 							  isLatest: function( partial, opts ) {
@@ -106,6 +126,23 @@ steal('can',
 				  updateEvents: function( events ) {
 					  this.currentView( can.route.attr('view') );
 					  this.events.replace(events);
+				  },
+
+				  determineEventPartial: function( event ) {
+					  var template = eventPartial, //default
+						  bestScore = 0;
+
+					  can.each( defaultParams.eventPartialsLookup, function( partial ) {
+						  var score = 0;
+						  
+						  event.attr('tags').each(function( tag ) {
+							  if (partial.tags.indexOf(tag) >= 0) score++;
+						  });
+						  
+						  if (score > bestScore) template = partial.template;
+					  } );
+					  
+					  return template;
 				  }
 			  });
 	  });
