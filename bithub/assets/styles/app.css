@@ -1564,6 +1564,9 @@ h4.handwriting {
 	margin: 0px;
 	position: relative;
 }
+.event .replies .reply-event:nth-child(even) {
+	background-color: #f3f4f4;
+}
 
 .event .replies .even {
 	background-color: #f8f7f7;
