@@ -85,6 +85,11 @@ steal('can',
 					  can.data(el.closest('.event'), 'event').upvote();
 				  },
 
+				  '.votes click': function( el, ev ) {
+					  var event = can.data(el.closest('.reply-event'), 'event');
+					  (new Upvote({event: event})).upvote();
+				  },
+
 				  '{window} onbottom': function( el, ev ) {
 					  //this.options.currentState.attr('offset', this.options.currentState.offset + this.options.currentState.limit);
 				  },
