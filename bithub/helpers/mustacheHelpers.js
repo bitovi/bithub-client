@@ -61,6 +61,17 @@ steal('can/view/mustache',
 			 return buffer;
 		 });
 
+		 Mustache.registerHelper('iterByKeys', function( obj, keys, opts ) {
+			 if (typeof(obj) === 'function') obj = obj();
+			 var buffer = "";
+			 can.each(keys, function (key) {
+				 if (obj.attr(key)) {
+					 buffer += opts.fn( {key: key, values: obj.attr(key)} );
+				 }
+			 });
+			 return buffer;
+		 });
+
 		 Mustache.registerHelper('ifequal', function( a, b, opts ) {
 			 return (a === b) ? opts.fn(this) : opts.inverse(this);
 		 });

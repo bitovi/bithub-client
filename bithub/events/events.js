@@ -45,17 +45,13 @@ steal('can',
 				  init : function(){
 					  var self = this;
 
-					  this.events = new Bithub.Models.Event.List();
+					  this.latestEvents = new Bithub.Models.Event.List();
+					  this.greatestEvents = new Bithub.Models.Event.List();
 					  this.currentView = can.compute('latest');
-
+					  
 					  this.element.html( initView({
-						  data: function() {
-							  if (self.currentView() === 'latest') {
-								  return self.events.latest();
-							  } else {
-								  return self.events;
-							  }
-						  },
+						  latestEvents: self.latestEvents,
+						  greatestEvents: self.greatestEvents,
 						  categories: defaultParams.latestCategories,
 						  partial: this.currentView
 					  }, {
@@ -74,15 +70,6 @@ steal('can',
 							  },
 							  isGreatest: function( partial, opts ) {
 								  return partial() === 'greatest' ? opts.fn(this) : '';
-							  },
-							  iterByKeys: function( obj, keys, opts ) {
-								  var buffer = "";
-								  can.each(keys, function (key) {
-									  if (obj[key]) {
-										  buffer += opts.fn( {key: key, values: obj[key]} );
-									  }
-								  });
-								  return buffer;
 							  }
 						  }
 					  }) );
@@ -154,8 +141,16 @@ steal('can',
 				  },
 
 				  updateEvents: function( events ) {
+
+					  // update data according to selected view
+					  if (can.route.attr('view') === 'latest') {
+						  this.latestEvents.replace(events.latest());
+					  } else {
+						  this.greatestEvents.replace(events);
+					  }
+					  
+					  // switch view
 					  this.currentView( can.route.attr('view') );
-					  this.events.replace(events);
 				  }
 
 			  });

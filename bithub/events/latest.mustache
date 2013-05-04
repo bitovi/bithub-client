@@ -1,4 +1,4 @@
-{{#data}}
+{{#latestEvents}}
 <div class="day">
 
   <div class="sep-wrapper wrapper" style="height: 42px;">
@@ -7,7 +7,7 @@
 	</div>
   </div>
 
-  {{#value.digest}}
+  {{#if value.digest}}
   <div class="category-digest">
 	<div class="truncated">
 	  {{#with value}}
@@ -15,7 +15,7 @@
 	  {{/with}}
 	</div>
   </div>
-  {{/value.digest}}
+  {{/if}}
 
   {{#iterByKeys value categories}}
     <div class="category-{{key}}">
@@ -40,4 +40,4 @@
   {{/if}}
 	
 </div>
-{{/data}}
+{{/latestEvents}}
