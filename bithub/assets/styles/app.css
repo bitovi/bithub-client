@@ -264,14 +264,14 @@ input:focus, textarea:focus {
 	background: url(../images/glyph-categories.png) no-repeat 0px 1px;
 	text-shadow: 0 -1px 0 #ffffff;
 }
-#events h3.bugs-icon { background-position-y: -22px; }
-#events h3.comments-icon { background-position-y: -46px; }
+#events h3.bug-icon { background-position-y: -22px; }
+#events h3.comment-icon { background-position-y: -46px; }
 #events h3.code-icon { background-position-y: -68px; }
 #events h3.irc-icon {	background-position-y: -91px; }
 #events h3.twitter-icon { background-position-y: -114px; }
-#events h3.plugins-icon { background-position-y: -138px; }
-#events h3.apps-icon { background-position-y: -160px; }
-#events h3.questions-icon { background-position-y: -183px; }
+#events h3.plugin-icon { background-position-y: -138px; }
+#events h3.app-icon { background-position-y: -160px; }
+#events h3.question-icon { background-position-y: -183px; }
 
 .flag {
 	font-weight: bold;

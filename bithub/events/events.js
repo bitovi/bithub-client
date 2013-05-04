@@ -31,7 +31,8 @@ steal('can',
 					  template: eventIRCPartial,
 					  tags: ['irc']
 				  }
-			  ]
+			  ],
+			  latestCategories: ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code']
 		  };
 		  
 		  return can.Control(
@@ -55,6 +56,7 @@ steal('can',
 								  return self.events;
 							  }
 						  },
+						  categories: defaultParams.latestCategories,
 						  partial: this.currentView
 					  }, {
 						  'partials': {
@@ -72,6 +74,15 @@ steal('can',
 							  },
 							  isGreatest: function( partial, opts ) {
 								  return partial() === 'greatest' ? opts.fn(this) : '';
+							  },
+							  iterByKeys: function( obj, keys, opts ) {
+								  var buffer = "";
+								  can.each(keys, function (key) {
+									  if (obj[key]) {
+										  buffer += opts.fn( {key: key, values: obj[key]} );
+									  }
+								  });
+								  return buffer;
 							  }
 						  }
 					  }) );
@@ -114,22 +125,7 @@ steal('can',
 
 					  return params;
 				  },
-				  				  
-				  load: function( params ) {
-					  clearTimeout(this.loadTimeout);
-
-					  this.loadTimeout = setTimeout( this.proxy( function () {
-						  Event.findAll( can.extend({}, defaultParams[can.route.attr('view')], params || {} ),
-										 this.proxy('updateEvents')
-									   );
-					  }));
-				  },
-
-				  updateEvents: function( events ) {
-					  this.currentView( can.route.attr('view') );
-					  this.events.replace(events);
-				  },
-
+				  
 				  determineEventPartial: function( event ) {
 					  var template = eventPartial, //default
 						  bestScore = 0;
@@ -145,6 +141,22 @@ steal('can',
 					  } );
 					  
 					  return template;
+				  },
+				  				  
+				  load: function( params ) {
+					  clearTimeout(this.loadTimeout);
+
+					  this.loadTimeout = setTimeout( this.proxy( function () {
+						  Event.findAll( can.extend({}, defaultParams[can.route.attr('view')], params || {} ),
+										 this.proxy('updateEvents')
+									   );
+					  }));
+				  },
+
+				  updateEvents: function( events ) {
+					  this.currentView( can.route.attr('view') );
+					  this.events.replace(events);
 				  }
+
 			  });
 	  });

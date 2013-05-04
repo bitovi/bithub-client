@@ -7,127 +7,37 @@
 	</div>
   </div>
 
-  {{#value}}
-  
-	{{#if digest}}
-    <div class="category-digest">
-	  <div class="truncated">
-	    {{> digestPartial }}
-	  </div>
-    </div>
-	{{/if}}
+  {{#value.digest}}
+  <div class="category-digest">
+	<div class="truncated">
+	  {{#with value}}
+	  {{> digestPartial }}
+	  {{/with}}
+	</div>
+  </div>
+  {{/value.digest}}
 
-	{{#if twitter}}
-    <div class="category-twitter">
-	  <h3 class="twitter-icon">Twitter</h3>
+  {{#iterByKeys value categories}}
+    <div class="category-{{key}}">
+	  <h3 class="{{key}}-icon">{{key}}</h3>
 	  <div class="truncated">
-	    {{#twitter}}
+	    {{#values}}
 		{{> eventPartial }}
-	    {{/twitter}}
+	    {{/values}}
 	  </div>
     </div>
-    {{/if}}
-	
-	{{#if bug}}
-    <div class="category-bug">
-	  <h3 class="bugs-icon">Bugs</h3>
-	  <div class="truncated">
-	    {{#bug}}
-		{{> eventPartial }}
-	    {{/bug}}
-	  </div>
-    </div>
-	{{/if}}
-	
-	{{#if comment}}
-    <div class="category-comment">
-	  <h3 class="comments-icon">Comments</h3>
-	  <div class="truncated">
-	    {{#comment}}
-		{{> eventPartial }}
-	    {{/comment}}
-	  </div>
-    </div>
-	{{/if}}
+  {{/iterKeys}}
 
-	{{#if feature}}
-    <div class="category-feature">
-	  <h3 class="features-icon">Features</h3>
-	  <div class="truncated">
-	    {{#feature}}
-		{{> eventPartial }}
-	    {{/feature}}
-	  </div>
-    </div>
-	{{/if}}
-
-	{{#if question}}
-    <div class="category-question">
-	  <h3 class="questions-icon">Questions</h3>
-	  <div class="truncated">
-	    {{#question}}
-		{{> eventPartial }}
-	    {{/question}}
-	  </div>
-    </div>
-	{{/if}}
-
-	{{#if article}}
-    <div class="category-article">
-	  <h3 class="articles-icon">Articles</h3>
-	  <div class="truncated">
-	    {{#article}}
-		{{> eventPartial }}
-	    {{/article}}
-	  </div>
-    </div>
-	{{/if}}
-
-	{{#if plugin}}
-    <div class="category-plugin">
-	  <h3 class="plugins-icon">Plugins</h3>
-	  <div class="truncated">
-	    {{#plugin}}
-		{{> eventPartial }}
-	    {{/plugin}}
-	  </div>
-    </div>
-	{{/if}}
-
-	{{#if app}}
-    <div class="category-app">
-	  <h3 class="apps-icon">Apps</h3>
-	  <div class="truncated">
-	    {{#app}}
-		{{> eventPartial }}
-	    {{/app}}
-	  </div>
-    </div>
-	{{/if}}
-
-	{{#if code}}
-    <div class="category-code">
-	  <h3 class="code-icon">Code</h3>
-	  <div class="truncated">
-	    {{#code}}
-		{{> eventPartial }}
-	    {{/code}}
-	  </div>
-    </div>
-	{{/if}}
-
-	{{#if chat}}
+  {{#if value.chat}}
 	<div class="feed-header">
 	  <h3 class="irc-icon">Chat <a class="pull-right" href="http://webchat.freenode.net/?channels=canjs"><img src="./assets/images/icon-popout.png" alt="popout"></a></h3>
 	</div>
 	<div class="truncated irc-chat-container">
-	  {{#chat}}
+	  {{#value.chat}}
 	  {{> eventPartial }}
-	  {{/chat}}
+	  {{/value/chat}}
 	</div>
-	{{/if}}
+  {{/if}}
 	
-  {{/value}}
-  
 </div>
 {{/data}}
