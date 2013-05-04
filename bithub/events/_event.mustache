@@ -26,7 +26,7 @@
 	<div class="status row">
 	  <div class="metadata-container pull-right">
 		<div class="event-metadata pull-right">
-		  <small><a href="#">{{getAuthorName}}</a> / {{origin_ts}} via <strong><a href="{{url}}">{{feed}}</a></strong></small>
+		  <small><a href="#">{{getAuthorName}}</a> / {{prettifyTs origin_ts format="datetime"}} via <strong><a href="{{url}}">{{feed}}</a></strong></small>
 		</div>
 	  </div>
 	  {{#if children.length }}

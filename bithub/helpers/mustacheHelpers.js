@@ -4,50 +4,45 @@ steal('can/view/mustache',
 	  'ui/more'
 	 ).then( function () {
 
-		 Mustache.registerHelper('humanizeDate', function( date, opts ) {
-			 date = moment.utc(date);
-
-			 moment.lang('en', {
-				 calendar: {
+	  	 Mustache.registerHelper('prettifyTs', function( ts, opts ) {
+			 ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
+			 
+			 var formats = {
+				 'date': 'dddd',
+				 'time': 'LT',
+				 'datetime': 'dddd [at] LT'
+			 };
+			 var calendars = {
+				 'date': {
 					 lastDay: '[Yesterday]',
 					 sameDay: '[Today]',
 					 sameElse: 'L'
-				 }
-			 });
-
-			 if (moment().diff(date, 'days') < 2) { // today and yesterday
-				 return date.calendar();
-			 } else if (moment().diff(date, 'days') < 7) {  // this week
-				 return date.format('dddd');
-			 } else if (moment().diff(date, 'days') < 14) { // past week
-				 return 'Last ' + date.format('dddd');
-			 } else {
-				 return date.calendar();
-			 }
-		 });
-		 
-	  	 Mustache.registerHelper('humanizeTs', function( ts, opts ) {
-			 ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
-			 
-			 moment.lang('en', {
-				 calendar: {
+				 },
+				 'time': {},
+				 'datetime': {
 					 lastDay: '[Yesterday at] LT',
 					 sameDay: '[Today at] LT',
 					 sameElse: 'L'
 				 }
+			 };
+			 
+			 var format = (opts.hash && opts.hash.format && formats[opts.hash.format]) ? opts.hash.format : formats.date;
+			 			 
+			 moment.lang('en', {
+				 calendar: calendars[format]
 			 });
 
 			 if (moment().diff(ts, 'days') < 2) { // today and yesterday
 				 return ts.calendar();
 			 } else if (moment().diff(ts, 'days') < 7) {  // this week
-				 return ts.format('dddd [at] LT');
+				 return ts.format(formats[format]);
 			 } else if (moment().diff(ts, 'days') < 14) { // past week
-				 return 'Last ' + ts.format('dddd [at] LT');
+				 return 'Last ' + ts.format(formats[format]);
 			 } else {
 				 return ts.calendar();
 			 }
 		 });
-
+		 
 		 Mustache.registerHelper('loop', function( collection, opts ) {
 			 var buffer = "",
 				 begin = opts.hash.begin || 0,
