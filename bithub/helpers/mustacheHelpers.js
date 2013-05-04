@@ -76,14 +76,17 @@ steal('can/view/mustache',
 			 return str.substr( start, length );
 		 });
 
-		 Mustache.registerHelper('markdown', function( str, opts ) {
+		 Mustache.registerHelper('markdown', function( str, tags, opts ) {
 			 str = (typeof(str) === 'function') ? str() : str;
-			 return markdown.toHTML( str );
-		 });
+			 tags = (typeof(tags) === 'function') ? tags() : tags;
 
-		 Mustache.registerHelper('more', function( str, opts ) {
-			 str = (typeof(str) === 'function') ? str() : str;
-
+			 var whitelist = ['issue_comment_event', 'issues_event', 'commit_comment_event'];
+			 for (var i = 0; i < tags.length; i++) 
+				 if ( whitelist.indexOf( tags[i] ) >= 0 ) {
+					 return markdown.toHTML( str );
+				 }
+			 
 			 return str;
 		 });
+								 
 	 });
