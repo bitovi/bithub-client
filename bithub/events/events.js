@@ -17,10 +17,14 @@ steal('can',
 		   * @class bithub/events
 		   * @alias Events
 		   */
-		  var defaultParams = {
-			  latest: {order: 'origin_ts:desc'},
-			  greatest: {order: 'upvotes:desc'},
-			  eventPartialsLookup: [
+
+		  var views = {
+			  latest: new can.Observe( {order: 'origin_ts:desc'} ),
+			  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 50} )
+		  },
+			  filter = new can.Observe({}),
+				  
+			  eventPartialsLookup = [
 				  {
 					  template: eventCodePartial,
 					  tags: ['push_event']
@@ -32,9 +36,8 @@ steal('can',
 					  tags: ['irc']
 				  }
 			  ],
-			  latestCategories: ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code']
-		  };
-		  
+			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'];
+			  
 		  return can.Control(
 			  /** @Static */
 			  {
@@ -52,7 +55,7 @@ steal('can',
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
 						  greatestEvents: self.greatestEvents,
-						  categories: defaultParams.latestCategories,
+						  categories: latestCategories,
 						  partial: this.currentView
 					  }, {
 						  'partials': {
@@ -90,39 +93,30 @@ steal('can',
 					  (new Upvote({event: event})).upvote();
 				  },
 
-				  '{window} onbottom': function( el, ev ) {
-					  //this.options.currentState.attr('offset', this.options.currentState.offset + this.options.currentState.limit);
-				  },
-
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
-					  this.load( this.prepareParams( data ) );
+					  this.load();
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
-					  this.load( this.prepareParams( data ) );
+					  newVal !== 'all' ? filter.attr('project', newVal) : filter.removeAttr('project');
+					  this.load();
 				  },
 				  
 				  '{can.route} category': function( data, ev, newVal, oldVal ) {
-					  this.load( this.prepareParams( data ) );
-				  },
-
-				  prepareParams: function( data ) {
-					  var params = {};
-					  if( data.attr('project') && data.attr('project') !== 'all' ) {
-						  params.tag = data.attr('project');
-					  }
-					  if( data.attr('category') && data.attr('category') !== 'all' ) {
-						  params.category = data.attr('category');
-					  }
-
-					  return params;
+					  newVal !== 'all' ? filter.attr('category', newVal) : filter.removeAttr('category');
+					  this.load();
 				  },
 				  
+				  '{window} onbottom': function( el, ev ) {
+					  // todo: check view
+					  views.attr('greatest').offset += views.attr('greatest').limit;
+				  },
+
 				  determineEventPartial: function( event ) {
 					  var template = eventPartial, //default
 						  bestScore = 0;
 
-					  can.each( defaultParams.eventPartialsLookup, function( partial ) {
+					  can.each( eventPartialsLookup, function( partial ) {
 						  var score = 0;
 						  
 						  event.attr('tags').each(function( tag ) {
@@ -139,7 +133,7 @@ steal('can',
 					  clearTimeout(this.loadTimeout);
 
 					  this.loadTimeout = setTimeout( this.proxy( function () {
-						  Event.findAll( can.extend({}, defaultParams[can.route.attr('view')], params || {} ),
+						  Event.findAll( can.extend({}, views[can.route.attr('view')].attr(), filter.attr(), params || {} ) ,
 										 this.proxy('updateEvents')
 									   );
 					  }));
@@ -153,9 +147,12 @@ steal('can',
 					  } else {
 						  this.greatestEvents.replace(events);
 					  }
-					  
+
 					  // switch view
 					  this.currentView( can.route.attr('view') );
+				  },
+
+				  appendEvents: function( events ) {
 				  }
 
 			  });
