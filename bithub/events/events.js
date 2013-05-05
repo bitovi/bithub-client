@@ -19,8 +19,8 @@ steal('can',
 		   */
 
 		  var views = {
-			  latest: new can.Observe( {order: 'origin_ts:desc'} ),
-			  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 50} )
+			  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: moment().format('YYYY-MM-DD')} ),
+			  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 20} )
 		  },
 			  filter = new can.Observe({}),
 				  
@@ -94,22 +94,29 @@ steal('can',
 				  },
 
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
-					  this.load();
+					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
 					  newVal !== 'all' ? filter.attr('project', newVal) : filter.removeAttr('project');
-					  this.load();
+					  views[ can.route.attr('view') ].attr('offset', 0);
+					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} category': function( data, ev, newVal, oldVal ) {
 					  newVal !== 'all' ? filter.attr('category', newVal) : filter.removeAttr('category');
-					  this.load();
+					  views[ can.route.attr('view') ].attr('offset', 0);
+					  this.load( this.updateEvents );
 				  },
 				  
 				  '{window} onbottom': function( el, ev ) {
-					  // todo: check view
-					  views.attr('greatest').offset += views.attr('greatest').limit;
+					  if (can.route.attr('view') === 'latest') {
+						  var current = moment( views.latest.attr('origin_date') ).subtract('days', 1).format('YYYY-MM-DD');
+						  views.latest.attr('origin_date', current);
+					  } else {
+						  views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
+					  }
+					  this.load( this.appendEvents );
 				  },
 
 				  determineEventPartial: function( event ) {
@@ -128,24 +135,26 @@ steal('can',
 					  
 					  return template;
 				  },
+
+				  prepareParams: function( params ) {
+					  return can.extend({}, views[can.route.attr('view')].attr(), filter.attr(), params || {});
+				  },
 				  				  
-				  load: function( params ) {
+				  load: function( cb, params ) {
 					  clearTimeout(this.loadTimeout);
 
 					  this.loadTimeout = setTimeout( this.proxy( function () {
-						  Event.findAll( can.extend({}, views[can.route.attr('view')].attr(), filter.attr(), params || {} ) ,
-										 this.proxy('updateEvents')
-									   );
-					  }));
+						  Event.findAll( this.prepareParams(), this.proxy( cb ) );
+					  }) );
 				  },
 
 				  updateEvents: function( events ) {
 
 					  // update data according to selected view
 					  if (can.route.attr('view') === 'latest') {
-						  this.latestEvents.replace(events.latest());
+						  this.latestEvents.replace( events.latest() );
 					  } else {
-						  this.greatestEvents.replace(events);
+						  this.greatestEvents.replace( events );
 					  }
 
 					  // switch view
@@ -153,6 +162,18 @@ steal('can',
 				  },
 
 				  appendEvents: function( events ) {
+					  if (can.route.attr('view') === 'latest') {
+						  var buff = new Bithub.Models.Event.List( events.latest() );
+						  
+						  this.latestEvents.push( buff.attr(0) );
+						  
+					  } else {						  
+						  var buffer = new Bithub.Models.Event.List( this.greatestEvents );
+						  events.forEach( function( event ) {
+							  buffer.push( event );
+						  });				  
+						  this.greatestEvents.replace( buffer );
+					  }
 				  }
 
 			  });
