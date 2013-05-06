@@ -103,6 +103,11 @@ steal('can',
 					  (new Award({event: event})).award();
 				  },
 
+				  '.expand-manage-bar click': function( el, ev ) {
+					  ev.preventDefault();
+					  el.closest('.event').find('.manage-bar').slideToggle();
+				  },
+
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
 					  this.load( this.updateEvents );
 
