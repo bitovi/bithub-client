@@ -18,12 +18,13 @@ steal('can',
 		   * @alias Events
 		   */
 
-		  var views = {
-			  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: moment().format('YYYY-MM-DD')} ),
+		  var dateFormat = 'YYYY-MM-DD',
+			  views = {
+			  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: moment().format( dateFormat )} ),
 			  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 20} )
 		  },
 			  filter = new can.Observe({}),
-				  
+			  
 			  eventPartialsLookup = [
 				  {
 					  template: eventCodePartial,
@@ -95,6 +96,9 @@ steal('can',
 
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
 					  this.load( this.updateEvents );
+
+					  this.resetLatestDate();
+					  this.resetGreatestPage();
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
@@ -111,8 +115,7 @@ steal('can',
 				  
 				  '{window} onbottom': function( el, ev ) {
 					  if (can.route.attr('view') === 'latest') {
-						  var current = moment( views.latest.attr('origin_date') ).subtract('days', 1).format('YYYY-MM-DD');
-						  views.latest.attr('origin_date', current);
+						  this.decrementLatestDate();
 					  } else {
 						  views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
 					  }
@@ -135,6 +138,18 @@ steal('can',
 					  
 					  return template;
 				  },
+				  
+				  decrementLatestDate: function() {
+					  views.latest.attr('origin_date', moment( views.latest.attr('origin_date') ).subtract('days', 1).format( dateFormat ));
+				  },
+
+				  resetLatestDate: function() {
+					  views.latest.attr('origin_date', moment().format( dateFormat ));
+				  },
+				  
+				  resetGreatestPage: function() {
+					  views.greatest.attr('offset', 0);
+				  },
 
 				  prepareParams: function( params ) {
 					  return can.extend({}, views[can.route.attr('view')].attr(), filter.attr(), params || {});
@@ -148,38 +163,42 @@ steal('can',
 					  }) );
 				  },
 
-				  updateEvents: function( events ) {
-
-					  // update data according to selected view
-					  if (can.route.attr('view') === 'latest') {
-						  if (events.length == 0) {
-							  var current = moment( views.latest.attr('origin_date') ).subtract('days', 1).format('YYYY-MM-DD');
-							  views.latest.attr('origin_date', current);
-							  this.load( this.updateEvents );
-						  } else {
-							  this.latestEvents.replace( events.latest() );
-						  }
+				  updateLatest: function( events ) {
+					  if (events.length == 0) {
+						  this.decrementLatestDate();
+						  this.load( this.updateLatest );
 					  } else {
-						  this.greatestEvents.replace( events );
+						  this.latestEvents.replace( events.latest() );
 					  }
-
-					  // switch view
 					  this.currentView( can.route.attr('view') );
+				  },
+				  
+				  appendLatest: function( events ) {
+					  var buff = new Bithub.Models.Event.List( events.latest() );
+					  
+					  this.latestEvents.push( buff.attr(0) );
+				  },
+				  
+				  updateGreatest: function( events ) {
+					  this.greatestEvents.replace( events );
+					  this.currentView( can.route.attr('view') );
+				  },
+				  
+				  appendGreatest: function( events ) {
+					  var buffer = new Bithub.Models.Event.List( this.greatestEvents );
+					  events.forEach( function( event ) {
+						  buffer.push( event );
+					  });				  
+					  this.greatestEvents.replace( buffer );
+				  },
+
+				  updateEvents: function( events ) {					  
+					  (can.route.attr('view') === 'latest') ? this.updateLatest( events ) : this.updateGreatest( events );
+					  window.scrollTo(0);
 				  },
 
 				  appendEvents: function( events ) {
-					  if (can.route.attr('view') === 'latest') {
-						  var buff = new Bithub.Models.Event.List( events.latest() );
-						  
-						  this.latestEvents.push( buff.attr(0) );
-						  
-					  } else {						  
-						  var buffer = new Bithub.Models.Event.List( this.greatestEvents );
-						  events.forEach( function( event ) {
-							  buffer.push( event );
-						  });				  
-						  this.greatestEvents.replace( buffer );
-					  }
+					  (can.route.attr('view') === 'latest') ? this.appendLatest( events ) : this.appendGreatest( events );
 				  }
 
 			  });
