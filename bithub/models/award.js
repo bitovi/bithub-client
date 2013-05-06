@@ -3,21 +3,21 @@ steal(
 	'can/construct/proxy',
 	'can/construct/super',
 	function (can) {
-		return can.Model('Bithub.Models.Upvote', {
+		return can.Model('Bithub.Models.Award', {
 			init: function () {},
 
 			//findAll : 'GET /api/events',
 			//findOne : 'GET /api/events/{id}',
-			create  : 'POST /api/events/{event.id}/upvote'
+			create  : 'POST /api/events/{event.id}/award'
 			//update  : 'PUT /api/events/{id}',
 			//destroy : 'DELETE /api/events/{id}'
 
 		}, {
-			upvote: function () {
-				return this.save().done(this.proxy( 'sum_upvotes' ));
+			award: function() {
+				return this.save().done(this.proxy( 'awardEvent' ));
 			},
-			sum_upvotes: function () {
-				this.event.attr('upvotes', this.event.attr('upvotes') + 1);
+			awardEvent: function() {
+				this.event.attr('props').attr('awarded', true);
 			}
 		});
 	});

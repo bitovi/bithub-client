@@ -19,7 +19,15 @@ steal(
 			},
 			
 			award_sum: function() {
-				return this.award + this.attr('upvotes') + this.attr('anteups');
+				return this.award_value + this.attr('upvotes') + this.attr('anteups');
+			},
+
+			award_closed: function() {
+				var closed = false;
+				this.attr('children').forEach( function( child ) {
+					if (child.attr('props').attr('awarded')) closed = true;
+				});
+				return closed;
 			},
 			
 			getAuthorName: function() {

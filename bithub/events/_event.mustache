@@ -6,6 +6,7 @@
 	<div class="uparrow"></div>
 	<div class="count">{{upvotes}}</div>
 	<div class="voteup "><span class="upvote-caret"></span>Vote up</div>	
+	{{#if award_closed}}<div class="awarded">awarded</div>{{/if}}
 	<div class="clearfix"></div>
   </div>
 
@@ -16,7 +17,7 @@
 	<div class="row">
 	  <h5>
 		<a {{#if url}}href="{{url}}"{{/if}}>{{title}}</a>
-		{{#if award}}<span class='badge'>+{{award_sum}}</span>{{/if}}
+		{{#if award_value}}<span class='badge'>+{{award_sum}}</span>{{/if}}
 	  </h5>
 	  <div class="body">{{{markdown body tags}}}</div>
 	  <div class="clearfix"></div>	  

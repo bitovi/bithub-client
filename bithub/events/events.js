@@ -10,9 +10,10 @@ steal('can',
 	  './_event_irc.mustache',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
+	  'bithub/models/award.js',
 	  'can/construct/proxy',
 	  'bithub/helpers/mustacheHelpers.js',
-	  function(can, initView, latestView, greatestView, digestPartial, eventPartial, eventChildrenPartial, eventCodePartial, eventTwitterPartial, eventIRCPartial, Event, Upvote){
+	  function(can, initView, latestView, greatestView, digestPartial, eventPartial, eventChildrenPartial, eventCodePartial, eventTwitterPartial, eventIRCPartial, Event, Upvote, Award){
 		  /**
 		   * @class bithub/events
 		   * @alias Events
@@ -92,6 +93,13 @@ steal('can',
 				  '.votes click': function( el, ev ) {
 					  var event = can.data(el.closest('.reply-event'), 'event');
 					  (new Upvote({event: event})).upvote();
+				  },
+
+				  '.award-btn click': function( el, ev ) {
+					  ev.preventDefault();
+
+					  var event = can.data(el.closest('.reply-event'), 'event');
+					  (new Award({event: event})).award();
 				  },
 
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {

@@ -2,7 +2,7 @@
   <span class="replies-caret"></span>
   {{#children}}
   <div class="reply-event row"  {{data 'event'}}>
-	{{#if awarded}}
+	{{#if props.awarded}}
 	  <div class="awarded-badge"></div>
 	{{else}}
 	  <div class="award-btn"><a href="#"><span class="caret"></span>Award</a></div>
