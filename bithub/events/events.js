@@ -152,7 +152,13 @@ steal('can',
 
 					  // update data according to selected view
 					  if (can.route.attr('view') === 'latest') {
-						  this.latestEvents.replace( events.latest() );
+						  if (events.length == 0) {
+							  var current = moment( views.latest.attr('origin_date') ).subtract('days', 1).format('YYYY-MM-DD');
+							  views.latest.attr('origin_date', current);
+							  this.load( this.updateEvents );
+						  } else {
+							  this.latestEvents.replace( events.latest() );
+						  }
 					  } else {
 						  this.greatestEvents.replace( events );
 					  }
