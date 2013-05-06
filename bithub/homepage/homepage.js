@@ -10,10 +10,8 @@ steal(
 			init : function( elem, opts ){
 				elem.html( initView({}) );
 				
-				new Events( elem.find('#events') );
-				new Leaderboard( elem.find('#leaderboard'), {
-					currentUser: opts.currentUser
-				});
+				new Events( elem.find('#events'), opts );
+				new Leaderboard( elem.find('#leaderboard'), opts );
 			}
 		});
 	});

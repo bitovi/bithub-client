@@ -21,7 +21,7 @@ steal(
 				} else {
 					var control = this.options.controls[newVal],
 						$div = $('<div/>');
-					
+
 					new control( $div, self.options );
 					this.element.html( $div );
 				}

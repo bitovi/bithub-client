@@ -47,18 +47,19 @@ steal('can',
 			  },
 			  /** @Prototype */
 			  {
-				  init : function(){
+				  init : function( elem, opts ){
 					  var self = this;
 
 					  this.latestEvents = new Bithub.Models.Event.List();
 					  this.greatestEvents = new Bithub.Models.Event.List();
 					  this.currentView = can.compute('latest');
-					  
+
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
 						  greatestEvents: self.greatestEvents,
 						  categories: latestCategories,
-						  partial: this.currentView
+						  partial: this.currentView,
+						  currentUser: opts.currentUser
 					  }, {
 						  'partials': {
 							  latestView: latestView,
