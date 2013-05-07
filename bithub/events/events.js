@@ -48,13 +48,10 @@ steal('can',
 				  },
 				  iterCategories: function( obj, opts ) {
 					  if (typeof(obj) === 'function') obj = obj();
-					  var buffer = "",
-						  ctx = opts.contexts[0];
+					  var buffer = "";
 					  can.each(latestCategories, function (key) {
 						  if (obj.attr(key)) {
-							  ctx.key = key;
-							  ctx.values = obj.attr(key);
-							  buffer += opts.fn( ctx );
+							  buffer += opts.fn( {key: key, values: obj.attr(key)} );
 						  }
 					  });
 					  return buffer;					  
@@ -78,9 +75,7 @@ steal('can',
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
 						  greatestEvents: self.greatestEvents,
-						  partial: this.currentView,
-						  currentUser: opts.currentUser,
-						  categories: opts.categories
+						  partial: this.currentView
 					  }, {
 						  'partials': {
 							  latestView: latestView,
@@ -88,6 +83,8 @@ steal('can',
 							  digestPartial: digestPartial,
 							  eventChildrenPartial: eventChildrenPartial,
 							  eventPartial: function( data, helpers ) {
+								  data.categories = opts.categories;
+								  data.projects = opts.projects;
 								  return (self.determineEventPartial(data)).render( data, helpers );
 							  }
 						  },
@@ -122,6 +119,26 @@ steal('can',
 					  el.closest('.event').find('.manage-bar').slideToggle();
 				  },
 
+				  '.manage-bar .tag-action click': function( el, ev ) {
+					  ev.preventDefault();
+
+					  var event = can.data(el.closest('.event'), 'event');
+					  var tag = el.data('tag');
+					  var tags = event.attr('tags');
+
+					  (tags.indexOf(tag) >= 0) ? tags.splice(tags.indexOf(tag), 1) : tags.push(tag);
+					  event.save();
+				  },
+
+				  '.manage-bar .category-action click': function( el, ev ) {
+					  ev.preventDefault();
+
+					  var event = can.data(el.closest('.event'), 'event');
+
+					  event.attr('category', el.data('category'));
+					  event.save();
+				  },
+
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
 					  this.load( this.updateEvents );
 
@@ -149,6 +166,8 @@ steal('can',
 					  }
 					  this.load( this.appendEvents );
 				  },
+
+				  /* --------- */
 
 				  determineEventPartial: function( event ) {
 					  var template = eventPartial, //default

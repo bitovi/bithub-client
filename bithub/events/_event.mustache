@@ -49,14 +49,15 @@
 	<!-- ADMIN -->
 	<div class="manage-bar row">
 	  <ul class="nav">
-		{{#tags}}
-		<li data-tag="{{.}}" class="tag-action present"><a href="#" ><small>{{.}}</small></a></li>
-		{{/tags}}
+		{{#projects}}
+		<li data-tag="{{name}}" class="tag-action present_remove"><a href="#" ><small>{{name}}</small></a></li>
+		{{/projects}}
 		<li class="dropdown">
 		  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><small>{{category}}</small><b class="caret"></b></a>
 		  <ul class="dropdown-menu">
-			<li class="category-action" data-category="foo"><a href="#">foo</a></li>
-			<li class="category-action" data-category="bar"><a href="#">bar</a></li>
+			{{#categories}}
+			<li class="category-action" data-category="{{name}}"><a href="#">{{name}}</a></li>
+			{{/categories}}
 		  </ul>
 		</li>
 	  </ul>

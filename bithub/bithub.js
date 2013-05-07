@@ -68,7 +68,8 @@ steal(
 				'activities': Activities
 			},
 			currentUser: currentUser,
-			categories: categories
+			categories: categories,
+			projects: projects
 		});
 
 	});
