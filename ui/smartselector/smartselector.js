@@ -3,8 +3,7 @@ steal('can',
 	  'jquerypp/dom/cookie',
 	  function(can, initView){
 		  
-		  var items = new can.Observe.List();
-		  
+		  var items = new can.Observe.List();		  
 
 		  return can.Control(
 			  /** @Static */
@@ -21,15 +20,20 @@ steal('can',
 						  defaultOption: opts.defaultOption,
 						  items: items,
 						  breakIdx: opts.breakIdx || 3
+					  }, {
+						  isSelected: function( name, opts ) {
+							  name = (typeof(name) === 'function') ? name() : name;
+							  return (can.route.attr('category') === name) ? 'active' : '';
+						  }
 					  }) );
 				  },
 
-				  'a.item click': function(el, ev) {
-					  var selected = can.data(el, 'item');
-					  this.options.state( selected.name );
-
-					  items.splice( items.indexOf(selected), 1 );
-					  items.unshift(selected);
+				  'a.item:not(.default) click': function(el, ev) {
+					  var item = can.data(el, 'item');
+					  this.options.state( item.name );
+					  
+					  items.splice( items.indexOf(item), 1 );
+					  items.unshift(item);
 
 					  this.saveOrderingToCookie();
 					  
