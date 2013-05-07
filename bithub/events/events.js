@@ -38,8 +38,29 @@ steal('can',
 					  tags: ['irc']
 				  }
 			  ],
-			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'];
-			  
+			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'],
+			  mustacheHelpers = {
+				  isLatest: function( partial, opts ) {
+					  return partial() === 'latest' ? opts.fn(this) : '';
+				  },
+				  isGreatest: function( partial, opts ) {
+					  return partial() === 'greatest' ? opts.fn(this) : '';
+				  },
+				  iterCategories: function( obj, opts ) {
+					  if (typeof(obj) === 'function') obj = obj();
+					  var buffer = "",
+						  ctx = opts.contexts[0];
+					  can.each(latestCategories, function (key) {
+						  if (obj.attr(key)) {
+							  ctx.key = key;
+							  ctx.values = obj.attr(key);
+							  buffer += opts.fn( ctx );
+						  }
+					  });
+					  return buffer;					  
+				  }
+			  };
+		  
 		  return can.Control(
 			  /** @Static */
 			  {
@@ -57,9 +78,9 @@ steal('can',
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
 						  greatestEvents: self.greatestEvents,
-						  categories: latestCategories,
 						  partial: this.currentView,
-						  currentUser: opts.currentUser
+						  currentUser: opts.currentUser,
+						  categories: opts.categories
 					  }, {
 						  'partials': {
 							  latestView: latestView,
@@ -70,14 +91,7 @@ steal('can',
 								  return (self.determineEventPartial(data)).render( data, helpers );
 							  }
 						  },
-						  'helpers': {
-							  isLatest: function( partial, opts ) {
-								  return partial() === 'latest' ? opts.fn(this) : '';
-							  },
-							  isGreatest: function( partial, opts ) {
-								  return partial() === 'greatest' ? opts.fn(this) : '';
-							  }
-						  }
+						  'helpers': mustacheHelpers
 					  }) );
 
 					  this.load();

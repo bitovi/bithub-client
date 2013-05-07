@@ -16,8 +16,8 @@
 	</div>
   </div>
   {{/if}}
-
-  {{#iterByKeys value categories}}
+  
+  {{#iterCategories value}}
     <div class="category-{{key}}">
 	  <h3 class="{{key}}-icon">{{key}}</h3>
 	  <div class="truncated">
@@ -26,7 +26,7 @@
 	    {{/values}}
 	  </div>
     </div>
-  {{/iterKeys}}
+  {{/iterCategories}}
 
   {{#if value.chat}}
 	<div class="feed-header">
