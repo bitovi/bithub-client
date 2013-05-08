@@ -8,12 +8,13 @@ steal(
 	'bithub/filterbar',
 	'bithub/login',
 	'bithub/newpost',
+	'bithub/liveservice',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User){
+	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, LiveService, Tag, User){
 		var self = this;
 		
 		$.ajaxPrefilter( function( opts ) {
@@ -29,6 +30,8 @@ steal(
 		var	newpostVisibility = can.compute(false),		
 			projects = new can.Model.List(),
 			categories = new can.Model.List(),
+			latestEvents = new Bithub.Models.Event.List(),
+			greatestEvents = new Bithub.Models.Event.List(),			
 			currentUser = new User({loggedIn: false});
 
 		currentUser.fromSession();
@@ -69,7 +72,13 @@ steal(
 			},
 			currentUser: currentUser,
 			categories: categories,
-			projects: projects
+			projects: projects,
+			latestEvents: latestEvents,
+			greatestEvents: greatestEvents
+		});
+
+		new LiveService(window, {
+			
 		});
 
 	});
