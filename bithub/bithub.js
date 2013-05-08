@@ -61,6 +61,7 @@ steal(
 			categories: categories,
 			visibility: newpostVisibility
 		});
+		
 		new UI.Onbottom(document);
 
 		new PageSwitcher('#pages', {
@@ -77,8 +78,9 @@ steal(
 			greatestEvents: greatestEvents
 		});
 
-		new LiveService(window, {
-			
-		});
+		
+		//new LiveService(window, {
+		//	latestEvents: latestEvents			
+		//});
 
 	});

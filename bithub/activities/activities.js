@@ -1,7 +1,8 @@
 steal(
 	'can',
 	'./init.mustache',
-	function(can, initView, User){
+	'bithub/profile/_navbar.mustache',
+	function(can, initView, NavbarPartial, User){
 		return can.Control({
 			defaults : {}
 		},	{
@@ -9,6 +10,11 @@ steal(
 
 				this.element.html(initView({
 					currentUser: opts.currentUser
+				}, {
+					helpers: {},
+					partials: {
+						navbarPartial: NavbarPartial
+					}
 				}));
 			}
 		});

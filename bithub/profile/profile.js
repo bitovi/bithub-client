@@ -1,11 +1,12 @@
 steal(
 	'can',
 	'./init.mustache',
+	'./_navbar.mustache',
 	'ui/bootstrap_dropdown',
 	'bithub/models/country.js',
 	'can/model/list',
 	'jquerypp/dom/form_params',
-	function(can, initView, Dropdown, Country){
+	function(can, initView, NavbarPartial, Dropdown, Country){
 		return can.Control({
 			defaults : {}
 		}, {
@@ -25,15 +26,20 @@ steal(
 					user: opts.currentUser,
 					country: countryISO
 				}, {
-					'hasProvider': function( provider, opts ) {
-						var flag = false;
+					helpers: {
+						'hasProvider': function( provider, opts ) {
+							var flag = false;
 
-						if ( self.options.currentUser.attr('loggedIn') ) {
-							self.options.currentUser.attr('identities').each( function (value) {
-								if (value.provider === provider) flag = true;
-							});
+							if ( self.options.currentUser.attr('loggedIn') ) {
+								self.options.currentUser.attr('identities').each( function (value) {
+									if (value.provider === provider) flag = true;
+								});
+							}
+							return flag ? opts.fn(this) : opts.inverse(this);
 						}
-						return flag ? opts.fn(this) : opts.inverse(this);
+					},
+					partials: {
+						navbarPartial: NavbarPartial
 					}
 				}) );
 
