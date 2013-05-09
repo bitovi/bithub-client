@@ -57,6 +57,9 @@ steal('can/view/mustache',
 		 });
 
 		 Mustache.registerHelper('ifequal', function( a, b, opts ) {
+			 a = (typeof(a) === 'function') ? a() : a;
+			 b = (typeof(b) === 'function') ? b() : b;
+			 
 			 return (a === b) ? opts.fn(this) : opts.inverse(this);
 		 });
 
