@@ -1,5 +1,9 @@
 <div class="event" {{data 'event'}}>
-  <div class="toolbar"></div>
+  {{#ifAdmin}}
+  <div class="toolbar">
+	<a href="#" class="delete-event close">&times;</a>
+  </div>
+  {{/ifAdmin}}
 
   <!-- upvotes -->
   <div class="span1 votes">
@@ -38,8 +42,36 @@
 		<li class="tag-name {{.}}"><a href="#"><small>{{.}}</small></a></li>	
 		{{/tags}}
 	  </ul>
+
+	  <!-- ADMIN -->
+	  {{#ifAdmin}}
+	  <a href="#" class="expand-manage-bar"></a>
+	  {{/ifAdmin}}
+	  <!-- /ADMIN -->
+
 	  <div class="clearfix"></div>
 	</div>
+	
+	<!-- ADMIN -->
+	{{#ifAdmin}}
+	<div class="manage-bar row">
+	  <ul class="nav">
+		{{#projects}}
+		<li data-tag="{{name}}" class="tag-action present_remove"><a href="#" ><small>{{name}}</small></a></li>
+		{{/projects}}
+		<li class="dropdown">
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><small>{{category}}</small><b class="caret"></b></a>
+		  <ul class="dropdown-menu">
+			{{#categories}}
+			<li class="category-action" data-category="{{name}}"><a href="#">{{name}}</a></li>
+			{{/categories}}
+		  </ul>
+		</li>
+	  </ul>
+	  <!--<input type="text" class="transfer-ownership typeahead" placeholder="Transfer ownership">-->
+	</div>
+	{{/ifAdmin}}
+	<!-- /ADMIN -->
 	
   </div>
 
