@@ -1,5 +1,9 @@
 <div class="event" {{data 'event'}}>
-  <div class="toolbar"></div>
+  {{#ifAdmin}}
+  <div class="toolbar">
+	<a href="#" class="delete-event close">&times;</a>
+  </div>
+  {{/ifAdmin}}
 
   <!-- upvotes -->
   <div class="span1 votes">

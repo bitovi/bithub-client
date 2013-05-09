@@ -69,14 +69,14 @@ steal('can',
 									  buffer += opts.fn( {category: category, events: self.attr(category)} );
 								  }
 							  });
-							  return buffer;					  
+							  return buffer;
 						  },
 						  ifAdmin: function( opts ) {
 							  return self.options.currentUser.attr('admin') ? opts.fn(this) : 'NOT ADMIN';
 						  }
 					  };
 
-					  opts.socket.on('new_event', function( event ) {
+					  opts.socket && opts.socket.on('new_event', function( event ) {
 						  console.log( event );
 					  });
 					  
@@ -147,6 +147,13 @@ steal('can',
 					  event.save();
 				  },
 
+				  '.delete-event click': function( el, ev ) {
+					  ev.preventDefault();
+					  
+					  var event = can.data( el.closest('.event'), 'event' );
+					  event.destroy();					  
+				  },
+
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
 					  this.load( this.updateEvents );
 
@@ -209,7 +216,7 @@ steal('can',
 				  prepareParams: function( params ) {
 					  return can.extend({}, views[can.route.attr('view')].attr(), filter.attr(), params || {});
 				  },
-				  				  
+				  
 				  load: function( cb, params ) {
 					  clearTimeout(this.loadTimeout);
 
