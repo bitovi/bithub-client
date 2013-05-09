@@ -39,6 +39,11 @@ steal('can',
 					  
 					  ev.preventDefault();
 				  },
+				  
+				  'a.item.default click': function(el, ev) {
+					  this.options.state( (can.data(el, 'item')).name );
+					  ev.preventDefault();
+				  },
 
 				  '{items} change': function() {
 					  this.options.items.forEach( function( item ) {
