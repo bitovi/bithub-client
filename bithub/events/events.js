@@ -24,7 +24,6 @@ steal('can',
 				  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: moment().format( dateFormat )} ),
 				  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 20} )
 			  },
-			  filter = new can.Observe({}),
 			  
 			  eventPartialsLookup = [
 				  {
@@ -157,18 +156,19 @@ steal('can',
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
 					  this.load( this.updateEvents );
 
+					  //can.route.removeAttr('project');
+					  //can.route.removeAttr('category');
+					  
 					  this.resetLatestDate();
 					  this.resetGreatestPage();
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
-					  newVal !== 'all' ? filter.attr('tag', newVal) : filter.removeAttr('tag');
 					  views[ can.route.attr('view') ].attr('offset', 0);
 					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} category': function( data, ev, newVal, oldVal ) {
-					  newVal !== 'all' ? filter.attr('category', newVal) : filter.removeAttr('category');
 					  views[ can.route.attr('view') ].attr('offset', 0);
 					  this.load( this.updateEvents );
 				  },
@@ -214,7 +214,12 @@ steal('can',
 				  },
 
 				  prepareParams: function( params ) {
-					  return can.extend({}, views[can.route.attr('view')].attr(), filter.attr(), params || {});
+					  var query = can.extend({},
+											 views[can.route.attr('view')].attr(),
+											 params || {});
+					  if (can.route.attr('project') !== 'all') query.project = can.route.attr('project');
+					  if (can.route.attr('category') !== 'all') query.category = can.route.attr('category');
+					  return query;
 				  },
 				  
 				  load: function( cb, params ) {
