@@ -22,8 +22,10 @@ steal(
 		});
 
 		// connect to live service
-		var socket = io.connect('http://localhost:3000');
-
+		if( typeof(io) !== 'undefined' ) {
+			var socket = io.connect('http://localhost:3000');
+		}
+		
 		// routes - events
 		can.route(':page', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
 		can.route(':page/:view', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
