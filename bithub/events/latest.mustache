@@ -16,12 +16,12 @@
   {{/if}}
   
   {{#iterCategories}}
-    <div class="category-{{key}}">
-	  <h3 class="{{key}}-icon">{{key}}</h3>
+    <div class="category-{{category}}">
+	  <h3 class="{{category}}-icon">{{category}}</h3>
 	  <div class="truncated">
-	    {{#values}}
+	    {{#events}}
 		{{> eventPartial }}
-	    {{/values}}
+	    {{/events}}
 	  </div>
     </div>
   {{/iterCategories}}

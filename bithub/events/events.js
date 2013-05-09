@@ -21,9 +21,9 @@ steal('can',
 
 		  var dateFormat = 'YYYY-MM-DD',
 			  views = {
-			  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: moment().format( dateFormat )} ),
-			  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 20} )
-		  },
+				  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: moment().format( dateFormat )} ),
+				  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 20} )
+			  },
 			  filter = new can.Observe({}),
 			  
 			  eventPartialsLookup = [
@@ -38,25 +38,7 @@ steal('can',
 					  tags: ['irc']
 				  }
 			  ],
-			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'],
-			  mustacheHelpers = {
-				  isLatest: function( partial, opts ) {
-					  return partial() === 'latest' ? opts.fn(this) : '';
-				  },
-				  isGreatest: function( partial, opts ) {
-					  return partial() === 'greatest' ? opts.fn(this) : '';
-				  },
-				  iterCategories: function( opts ) {
-					  var self = this;
-					  var buffer = "";
-					  can.each(latestCategories, function (key) {
-						  if (self.attr(key)) {
-							  buffer += opts.fn( {key: key, values: self.attr(key)} );
-						  }
-					  });
-					  return buffer;					  
-				  }
-			  };
+			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'];
 		  
 		  return can.Control(
 			  /** @Static */
@@ -71,9 +53,31 @@ steal('can',
 					  this.latestEvents = new Bithub.Models.Event.List(),
 					  this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
+					  
+					  var mustacheHelpers = {
+						  isLatest: function( partial, opts ) {
+							  return partial() === 'latest' ? opts.fn(this) : '';
+						  },
+						  isGreatest: function( partial, opts ) {
+							  return partial() === 'greatest' ? opts.fn(this) : '';
+						  },
+						  iterCategories: function( opts ) {
+							  var self = this;
+							  var buffer = "";
+							  can.each(latestCategories, function (category) {
+								  if (self.attr(category)) {
+									  buffer += opts.fn( {category: category, events: self.attr(category)} );
+								  }
+							  });
+							  return buffer;					  
+						  },
+						  ifAdmin: function( opts ) {
+							  return self.options.currentUser.attr('admin') ? opts.fn(this) : 'NOT ADMIN';
+						  }
+					  };
 
-					  opts.socket.on('new_event', function( data ) {
-						  console.log( data );
+					  opts.socket.on('new_event', function( event ) {
+						  console.log( event );
 					  });
 					  
 					  this.element.html( initView({
