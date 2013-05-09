@@ -8,18 +8,21 @@ steal(
 	'bithub/filterbar',
 	'bithub/login',
 	'bithub/newpost',
-	'bithub/liveservice',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, LiveService, Tag, User){
+	'http://localhost:3000/socket.io/socket.io.js',
+	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User){
 		var self = this;
-		
+
 		$.ajaxPrefilter( function( opts ) {
 			// opts.url = opts.url.replace(/^\/api\/(.*)/, "http://api.bithub.com/api/$1");
 		});
+
+		// connect to live service
+		var socket = io.connect('http://localhost:3000');
 
 		// routes - events
 		can.route(':page', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
@@ -30,8 +33,6 @@ steal(
 		var	newpostVisibility = can.compute(false),		
 			projects = new can.Model.List(),
 			categories = new can.Model.List(),
-			latestEvents = new Bithub.Models.Event.List(),
-			greatestEvents = new Bithub.Models.Event.List(),			
 			currentUser = new User({loggedIn: false});
 
 		currentUser.fromSession();
@@ -74,13 +75,7 @@ steal(
 			currentUser: currentUser,
 			categories: categories,
 			projects: projects,
-			latestEvents: latestEvents,
-			greatestEvents: greatestEvents
+			socket: socket
 		});
-
-		
-		//new LiveService(window, {
-		//	latestEvents: latestEvents			
-		//});
 
 	});

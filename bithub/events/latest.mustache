@@ -3,21 +3,19 @@
 
   <div class="sep-wrapper wrapper" style="height: 42px;">
 	<div class="sep blue">
-	  <h4 class="flag blue">{{prettifyTs key format="date"}}</h4>
+	  <h4 class="flag blue">{{prettifyTs date format="date"}}</h4>
 	</div>
   </div>
 
-  {{#if value.digest}}
+  {{#if digest}}
   <div class="category-digest">
 	<div class="truncated">
-	  {{#with value}}
 	  {{> digestPartial }}
-	  {{/with}}
 	</div>
   </div>
   {{/if}}
   
-  {{#iterCategories value}}
+  {{#iterCategories}}
     <div class="category-{{key}}">
 	  <h3 class="{{key}}-icon">{{key}}</h3>
 	  <div class="truncated">
@@ -28,14 +26,14 @@
     </div>
   {{/iterCategories}}
 
-  {{#if value.chat}}
+  {{#if chat}}
 	<div class="feed-header">
 	  <h3 class="irc-icon">Chat <a class="pull-right" href="http://webchat.freenode.net/?channels=canjs"><img src="./assets/images/icon-popout.png" alt="popout"></a></h3>
 	</div>
 	<div class="truncated irc-chat-container">
-	  {{#value.chat}}
+	  {{#chat}}
 	  {{> eventPartial }}
-	  {{/value/chat}}
+	  {{/chat}}
 	</div>
   {{/if}}
 	

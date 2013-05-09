@@ -43,24 +43,40 @@ steal(
 
 		can.Model.List('Bithub.Models.Event.List', {
 			latest: function () {
-				this.attr('length');
+				var days = [];
 
-				// group events by 'origin_date' into array of days
-				var days = helpers.groupIntoArray( this, ['origin_date'] );
+				// group into days and categories
+				this.each( function( event, index ) {
+					var flag = false;
+					
+					$.each( days, function( i, day ) {
+						if ( day.date === event.attr('origin_date') ) {
+							flag = true;
+							if ( day[event.attr('category')] ) {
+								day[event.attr('category')].push( event );
+							} else {
+								day[event.attr('category')] = [event];
+							}
+						}
+					});
 
-				// then for every day group events by 'category' into object with categories as keys
-				$.each( days, function( i, day ) {
-					day.value = helpers.groupIntoObject( day.value, ['category'] );
+					if (!flag) {
+						var day = {date: event.attr('origin_date')};
+						day[event.attr('category')] = [event];
+						days.push( day );
+					}
+				});
 
-					// additionally group digest events by some miracle
-					if (day.value.digest) {
+				// group digest for every day
+				$.each(days, function( i, day) {
+					if (day.digest) {
 						var digestGrouped = {
 							followers: [],
 							watchers: [],
 							forkers: []
 						};
 
-						$.each(day.value.digest, function( i, event ) {							
+						$.each(day.digest, function( i, event ) {							
 							if ( event.tags.indexOf('follow_event') >= 0 ) {
 								digestGrouped.followers.push(event);
 							}
@@ -76,11 +92,10 @@ steal(
 						digestGrouped.watchers = helpers.groupIntoArray( digestGrouped.watchers, ['props.repo'] );
 						digestGrouped.forkers = helpers.groupIntoArray( digestGrouped.forkers, ['props.repo'] );
 						
-						day.value.digest = digestGrouped;
+						day.digest = digestGrouped;
 					}
-					
 				});
-
+				
 				return days;				
 			}
 		});

@@ -46,12 +46,12 @@ steal('can',
 				  isGreatest: function( partial, opts ) {
 					  return partial() === 'greatest' ? opts.fn(this) : '';
 				  },
-				  iterCategories: function( obj, opts ) {
-					  if (typeof(obj) === 'function') obj = obj();
+				  iterCategories: function( opts ) {
+					  var self = this;
 					  var buffer = "";
 					  can.each(latestCategories, function (key) {
-						  if (obj.attr(key)) {
-							  buffer += opts.fn( {key: key, values: obj.attr(key)} );
+						  if (self.attr(key)) {
+							  buffer += opts.fn( {key: key, values: self.attr(key)} );
 						  }
 					  });
 					  return buffer;					  
@@ -68,10 +68,14 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  this.latestEvents = opts.latestEvents; //new Bithub.Models.Event.List();
-					  this.greatestEvents = opts.greatestEvents; //new Bithub.Models.Event.List();
+					  this.latestEvents = new Bithub.Models.Event.List(),
+					  this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
 
+					  opts.socket.on('new_event', function( data ) {
+						  console.log( data );
+					  });
+					  
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
 						  greatestEvents: self.greatestEvents,
