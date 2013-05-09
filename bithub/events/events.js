@@ -162,7 +162,7 @@ steal('can',
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
-					  newVal !== 'all' ? filter.attr('project', newVal) : filter.removeAttr('project');
+					  newVal !== 'all' ? filter.attr('tag', newVal) : filter.removeAttr('tag');
 					  views[ can.route.attr('view') ].attr('offset', 0);
 					  this.load( this.updateEvents );
 				  },
