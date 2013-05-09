@@ -1,8 +1,6 @@
-<li class="dropdown {{#if cssClass}}{{cssClass}}{{/if}}" {{#if htmlId}}id="{{htmlId}}"{{/if}}>
+<li class="dropdown active" {{#if htmlId}}id="{{htmlId}}"{{/if}}>
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	{{#defaultOption}}
-	<span class="title">{{display_name}}</span>
-	{{/defaultOption}}
+	<span class="title">{{selected}}</span>
 	<b class="caret"></b>
   </a>
   <ul class="dropdown-menu">

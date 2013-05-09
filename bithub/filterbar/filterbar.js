@@ -26,14 +26,13 @@ steal('can',
 							  can.route.attr({page: 'homepage', view: newVal});
 						  },
 						  items: [
-							  { name: 'latest', display_name: 'Latest', cssClass: 'active' },
+							  { name: 'latest', display_name: 'Latest' },
 							  { name: 'greatest', display_name: 'Greatest' }
 						  ]
 					  });
 
 					  new DropdownSelector('#projectFilter', {
 						  items: options.projects,
-						  cssClass: "projects",
 						  defaultOption: {name: 'all', display_name: 'All projects'},
 						  state: function (newVal) {
 							  can.route.attr({page: 'homepage', project: newVal});

@@ -17,6 +17,11 @@ steal('can',
 					  
 					  elem.html(initView({
 						  items: opts.items
+					  },{
+						  isSelected: function( name, opts ) {
+							  name = (typeof(name) === 'function') ? name() : name;
+							  return (can.route.attr('view') === name) ? 'active' : '';
+						  }
 					  }));
 				  },
 				  
