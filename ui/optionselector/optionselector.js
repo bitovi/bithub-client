@@ -20,7 +20,7 @@ steal('can',
 					  },{
 						  isSelected: function( name, opts ) {
 							  name = (typeof(name) === 'function') ? name() : name;
-							  return (can.route.attr('view') === name) ? 'active' : '';
+							  return (self.options.state() === name) ? 'active' : '';
 						  }
 					  }));
 				  },
@@ -28,9 +28,6 @@ steal('can',
 				  'a.item click': function (el, ev) {
 					  ev.preventDefault();
 
-					  this.element.find('a').removeClass('active');
-					  el.addClass('active');
-					  
 					  this.options.state( can.data(el, 'item').name );
 				  }
 				  

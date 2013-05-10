@@ -24,7 +24,7 @@ steal('can',
 						  selected: function( opts ) {
 							  var selected = self.options.defaultOption.display_name;
 							  can.each(self.options.items, function(item) {
-								  if (item.attr('name') === can.route.attr('project')) {
+								  if (self.options.state() === item.attr('name')) {
 									  selected = item.attr('display_name');
 								  }
 							  });

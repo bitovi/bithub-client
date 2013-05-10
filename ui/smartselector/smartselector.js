@@ -23,7 +23,7 @@ steal('can',
 					  }, {
 						  isSelected: function( name, opts ) {
 							  name = (typeof(name) === 'function') ? name() : name;
-							  return (can.route.attr('category') === name) ? 'active' : '';
+							  return (self.options.state() === name) ? 'active' : '';
 						  }
 					  }) );
 				  },
