@@ -71,7 +71,7 @@ steal('can',
 							  return buffer;
 						  },
 						  ifAdmin: function( opts ) {
-							  return self.options.currentUser.attr('admin') ? opts.fn(this) : 'NOT ADMIN';
+							  return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
 						  }
 					  };
 
