@@ -9,7 +9,7 @@ steal('can',
 
 		  var defaultParams = {
 			  order: 'score:desc',
-			  limit: 6
+			  //limit: 6
 		  };
 
 		  return can.Control(
@@ -27,12 +27,6 @@ steal('can',
 					  this.element.html( initView( {
 						  users: self.users
 					  }, {
-						  enumerate: function (data, opts) {
-							  return data.map( function(item, index) {
-								  item.attr('__index', index+1);
-								  return opts.fn(item);
-							  }).join('');
-						  },
 						  isLoggedin: function (opts) {
 							  return (this.attr('loggedIn')) ? 'active' : '';
 						  }
