@@ -50,6 +50,7 @@ steal('can/view/mustache',
 			 
 			 if (collection.attr('length') > 0) {
 				 for (var i = begin; i < length && i < collection.length; i++) {
+					 collection[i].attr('__index', i+1);
 					 buffer += opts.fn( collection[i] );
 				 }
 			 }
