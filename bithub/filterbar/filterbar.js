@@ -23,7 +23,6 @@ steal('can',
 					  // init UI controls
 					  new OptionSelector('#viewFilter', {
 						  state: function (newVal) {
-							  console.log( arguments.length );
 							  if (arguments.length > 0) {
 								  can.route.attr({page: 'homepage', view: newVal});
 							  } else {

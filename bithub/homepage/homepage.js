@@ -8,7 +8,14 @@ steal(
 			defaults : {}
 		}, {
 			init : function( elem, opts ){
-				elem.html( initView({}) );
+				var self = this;
+				
+				elem.html( initView({
+				}, {
+					ifLoggedin: function (opts) {
+						return (self.options.currentUser.attr('loggedIn')) ? opts.fn( this ) : opts.inverse( this );
+					}
+				}) );
 				
 				new Events( elem.find('#events'), opts );
 				new Leaderboard( elem.find('#leaderboard'), opts );
