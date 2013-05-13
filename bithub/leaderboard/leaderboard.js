@@ -9,7 +9,7 @@ steal('can',
 
 		  var defaultParams = {
 			  order: 'score:desc',
-			  //limit: 6
+			  limit: 100
 		  };
 
 		  return can.Control(
