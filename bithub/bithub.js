@@ -13,7 +13,7 @@ steal(
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	'http://localhost:3000/socket.io/socket.io.js',
+	'vendor/socketio/socket.io.js',
 	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User){
 		var self = this;
 
