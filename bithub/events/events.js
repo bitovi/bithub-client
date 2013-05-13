@@ -19,12 +19,18 @@ steal('can',
 		   * @alias Events
 		   */
 
-		  var dateFormat = 'YYYY-MM-DD',
+		  var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),			  
+			  latestDateFilter = can.compute(function () {
+				  return latestTimespan.attr('startDate').format('YYYY-MM-DD') + ':' + latestTimespan.attr('endDate').format('YYYY-MM-DD');
+			  }),
+
+			  // lookup dict with default query params for loading events
 			  views = {
-				  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: moment().format( dateFormat )} ),
-				  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 20} )
+				  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: latestDateFilter, limit: 1000}),
+				  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 25} )
 			  },
-			  
+
+			  // lookup table for dynamic loading of event partials 
 			  eventPartialsLookup = [
 				  {
 					  template: eventCodePartial,
@@ -37,6 +43,8 @@ steal('can',
 					  tags: ['irc']
 				  }
 			  ],
+			  
+			  // used for ordering categories on latest view
 			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'];
 		  
 		  return can.Control(
@@ -49,7 +57,7 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  this.latestEvents = new Bithub.Models.Event.List(),
+					  window.latest = this.latestEvents = new Bithub.Models.Event.List(),
 					  this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
 					  
@@ -202,11 +210,18 @@ steal('can',
 				  },
 				  
 				  decrementLatestDate: function() {
-					  views.latest.attr('origin_date', moment( views.latest.attr('origin_date') ).subtract('days', 1).format( dateFormat ));
+					  latestTimespan.attr({
+						  endDate: latestTimespan.attr('endDate').subtract('days', 2),
+						  startDate: latestTimespan.attr('startDate').subtract('days', 2)
+					  });
+						  
 				  },
 
 				  resetLatestDate: function() {
-					  views.latest.attr('origin_date', moment().format( dateFormat ));
+					  latestTimespan.attr({
+						  endDate: moment(),
+						  startDate: moment().subtract('days', 1)
+					  });
 				  },
 				  
 				  resetGreatestPage: function() {
@@ -241,9 +256,11 @@ steal('can',
 				  },
 				  
 				  appendLatest: function( events ) {
+					  var self = this;
 					  var buff = new Bithub.Models.Event.List( events.latest() );
-					  
-					  this.latestEvents.push( buff.attr(0) );
+					  buff.each( function( day ) {
+						  self.latestEvents.push( day );
+					  });
 				  },
 				  
 				  updateGreatest: function( events ) {
