@@ -217,7 +217,7 @@ steal('can',
 					  var query = can.extend({},
 											 views[can.route.attr('view')].attr(),
 											 params || {});
-					  if (can.route.attr('project') !== 'all') query.project = can.route.attr('project');
+					  if (can.route.attr('project') !== 'all') query.tag = can.route.attr('project');
 					  if (can.route.attr('category') !== 'all') query.category = can.route.attr('category');
 					  return query;
 				  },
