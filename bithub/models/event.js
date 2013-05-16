@@ -36,7 +36,7 @@ steal(
 				} else if (this.props && this.props.origin_author_name) {
 					return this.props.origin_author_name;
 				} else {
-					return "unknown";
+					return '';
 				}
 			}
 		});
