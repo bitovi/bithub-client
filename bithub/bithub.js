@@ -10,13 +10,17 @@ steal(
 	'bithub/newpost',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
+	'bithub/helpers/loadtime.js',
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
 	'vendor/socketio/socket.io.js',
-	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User){
+	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User, loadtime) {
 		var self = this;
 
+		// display load time 
+		loadtime({verbose: true});
+		
 		$.ajaxPrefilter( function( opts ) {
 			// opts.url = opts.url.replace(/^\/api\/(.*)/, "http://api.bithub.com/api/$1");
 		});

@@ -337,6 +337,18 @@ input:focus, textarea:focus {
 	margin-right: 10px;
 }
 
+/* Status Bar ----------------------------------------------------- */
+
+#statusbar {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	padding: 8px 16px;
+	color: #ddd;
+}
+#statusbar:hover { color: #222; }
+
+
 /* Top Navigation Bar --------------------------------------------- */
 
 #navbar {
