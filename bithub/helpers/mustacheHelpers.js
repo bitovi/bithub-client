@@ -82,6 +82,10 @@ steal('can/view/mustache',
 			 return str;
 		 });
 
+		 Mustache.registerHelper('capitalize', function( str, opts ) {
+			 return can.capitalize( typeof(str) === 'function' ? str() : str );
+		 });
+		 
 		 Mustache.registerHelper('logObj', function( obj, opts ) {
 			 console.log( obj );
 		 });
