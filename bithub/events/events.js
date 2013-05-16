@@ -278,7 +278,7 @@ steal('can',
 
 				  updateEvents: function( events ) {					  
 					  (can.route.attr('view') === 'latest') ? this.updateLatest( events ) : this.updateGreatest( events );
-					  window.scrollTo(0);
+					  window.scrollTo(0, 0);
 				  },
 
 				  appendEvents: function( events ) {
