@@ -6,41 +6,49 @@ steal('can/view/mustache',
 
 	  	 Mustache.registerHelper('prettifyTs', function( ts, opts ) {
 			 ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
-			 
+
 			 var formats = {
-				 'date': 'dddd',
-				 'time': 'LT',
-				 'datetime': 'dddd [at] LT'
-			 };
-			 var calendars = {
-				 'date': {
-					 lastDay: '[Yesterday]',
-					 sameDay: '[Today]',
-					 sameElse: 'L'
+				 date: {
+					 today: "[Today]",
+					 yesterday: "[Yesterday]",
+					 thisweek: "dddd",
+					 lastweek: "[Last] dddd",
+					 _default: "L"
 				 },
-				 'time': {},
-				 'datetime': {
-					 lastDay: '[Yesterday at] LT',
-					 sameDay: '[Today at] LT',
-					 sameElse: 'L'
+				 time: {
+					 today: "LT",
+					 yesterday: "LT",
+					 thisweek: "LT",
+					 lastweek: "LT",
+					 _default: "LT"
+				 },
+				 datetime: {
+					 today: "[Today at] LT",
+					 yesterday: "[Yesterday at] LT",
+					 thisweek: "dddd [at] LT",
+					 lastweek: "[Last] dddd [at] LT",
+					 _default: "L [at] LT"
 				 }
 			 };
 			 
-			 var format = (opts.hash && opts.hash.format && formats[opts.hash.format]) ? opts.hash.format : formats.date;
+			 var format = (opts.hash && opts.hash.format && formats[opts.hash.format]) ? opts.hash.format : 'datetime';
 			 			 
-			 moment.lang('en', {
-				 calendar: calendars[format]
-			 });
-
-			 if (moment().diff(ts, 'days') < 2) { // today and yesterday
-				 return ts.calendar();
-			 } else if (moment().diff(ts, 'days') < 7) {  // this week
-				 return ts.format(formats[format]);
-			 } else if (moment().diff(ts, 'days') < 14) { // past week
-				 return 'Last ' + ts.format(formats[format]);
+			 // calculate diff from date
+			 var diff = moment.utc().second(0).minute(0).hour(0).diff( moment.utc(ts).second(0).minute(0).hour(0), 'days', true );
+			 
+			 if (diff < 1) {
+				 format = formats[format].today;
+			 } else if (diff < 2) {
+				 format = formats[format].yesterday;
+			 } else if (diff < 7) {
+				 format = formats[format].thisweek;
+			 } else if (diff < 14) {
+				 format = formats[format].lastweek;
 			 } else {
-				 return ts.calendar();
+				 format = formats[format]._default;
 			 }
+
+			 return ts.format( format );
 		 });
 		 
 		 Mustache.registerHelper('loop', function( collection, opts ) {
