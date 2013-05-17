@@ -7,17 +7,7 @@ steal(
 		}, {
 			init: function( element, options ) {
 				element.html(initView({
-					loggedIn: options.currentUser.attr('loggedIn'),
-					currentUser: options.currentUser
-				}));
-			},
-
-			'{currentUser} loggedin': function() {
-				var self = this;
-				
-				self.element.html(initView({
-					loggedIn: self.options.currentUser.attr('loggedIn'),
-					currentUser: self.options.currentUser
+					user: options.currentUser
 				}));
 			},
 

@@ -21,7 +21,6 @@ steal(
 				}).done(function(data) {
 					self.attr(can.Model.model(data).attr());
 					self.attr('loggedIn', true);
-					can.trigger(self, 'loggedin');
 				}).fail(function(response) {
 					console.error(response);
 				});

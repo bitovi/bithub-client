@@ -11,10 +11,7 @@ steal(
 				var self = this;
 				
 				elem.html( initView({
-				}, {
-					ifLoggedin: function (opts) {
-						return (self.options.currentUser.attr('loggedIn')) ? opts.fn( this ) : opts.inverse( this );
-					}
+					user: opts.currentUser
 				}) );
 				
 				new Events( elem.find('#events'), opts );
