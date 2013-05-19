@@ -53,12 +53,18 @@ steal('can/view/mustache',
 		 
 		 Mustache.registerHelper('loop', function( collection, opts ) {
 			 var buffer = "",
-				 begin = opts.hash.begin || 0,
-				 length = opts.hash.length || collection.length;
+				 begin = (opts.hash && opts.hash.begin) || 0,
+				 length = (opts.hash && opts.hash.length) || collection.length,
+				 iOffset = (opts.hash && opts.hash.iOffset) || 0;
+
 			 
 			 if (collection.attr('length') > 0) {
+				 begin = (typeof(begin) === 'function') ? begin() : begin;
+				 length = (typeof(length) === 'function') ? length() : length;
+				 iOffset = (typeof(iOffset) === 'function') ? iOffset() : iOffset;
+				 
 				 for (var i = begin; i < length && i < collection.length; i++) {
-					 collection[i].attr('__index', i+1);
+					 collection[i].attr('__index', i + iOffset + 1);
 					 buffer += opts.fn( collection[i] );
 				 }
 			 }
