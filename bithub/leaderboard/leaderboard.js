@@ -9,7 +9,7 @@ steal('can',
 
 		  var defaultParams = {
 			  order: 'score:desc',
-			  limit: 100
+			  limit: 6
 		  };
 
 		  return can.Control(
@@ -22,10 +22,13 @@ steal('can',
 				  init : function() {
 					  var self = this;
 
-					  this.users = new Bithub.Models.User.List();
+					  this.topUsers = new Bithub.Models.User.List();
+					  this.nearestUsers = new Bithub.Models.User.List();
 
 					  this.element.html( initView( {
-						  users: self.users
+						  topUsers: self.topUsers,
+						  nearestUsers: self.nearestUsers,
+						  currentUser: self.options.currentUser
 					  }, {
 						  isLoggedin: function (opts) {
 							  return (this.attr('loggedIn')) ? 'active' : '';
@@ -36,12 +39,24 @@ steal('can',
 				  },
 
 				  // find the better way ...
-				  '{currentUser} loggedin': function (currentUser) {
-					  this.users.each(function (user) {
-						  if (currentUser.attr('id') === user.attr('id')) {
-							  user.attr('loggedIn', true);
+				  '{currentUser} change': function( user, ev, attr, how, newVal, oldVal ) {
+					  var self = this;
+
+					  if (attr === 'loggedIn' && newVal === true) {
+						  if ( user.attr('rank') > defaultParams.limit ) {
+							  User.findAll( can.extend({}, defaultParams, {offset: user.attr('rank') -3, limit: 6}), function( data ) {
+								  self.nearestUsers.replace( data );
+							  } );
 						  }
-					  });
+
+						  /*
+						  this.topUsers.each(function (user) {
+							  if (self.options.currentUser.attr('id') === user.attr('id')) {
+								  user.attr('loggedIn', true);
+							  }
+						  });
+						   */
+					  }
 				  },
 				  //
 
@@ -49,7 +64,7 @@ steal('can',
 					  var self = this;
 
 					  User.findAll( defaultParams, function ( data ) {
-						  self.users.replace( data );
+						  self.topUsers.replace( data );
 					  });
 				  }
 

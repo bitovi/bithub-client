@@ -1,12 +1,27 @@
 <h4>Leaderboard</h4>
 
 <ul class="unstyled">
-  {{#loop users length=6}}
+  {{#loop topUsers }}
   <li class="{{isLoggedin}}">
 	<span class="position">#{{__index}}</span>
 	<img class="avatar" src="{{avatar_url}}?size=22" alt="avatar">
 	{{name}}
 	<span class="points pull-right">{{score}}</span>
   </li>
-  {{/users}}
+  {{/loop}}
+</ul>
+
+{{#if nearestUsers.length }}
+  <ul class="unstyled"><li class="lightning-divider"></li></ul>
+{{/if}}
+
+<ul class="unstyled">
+  {{#loop nearestUsers iOffset=currentUser.rank}}
+  <li class="{{isLoggedin}}">
+	<span class="position">#{{__index}}</span>
+	<img class="avatar" src="{{avatar_url}}?size=22" alt="avatar">
+	{{name}}
+	<span class="points pull-right">{{score}}</span>
+  </li>
+  {{/loop}}  
 </ul>
