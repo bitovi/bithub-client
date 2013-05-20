@@ -10,7 +10,7 @@
 	  <span class="points">{{getPoints}}</span>
 	  <span class="type">[{{type}}]</span>
 	  {{title}}
-	  <small>({{created_at}})</small>
+	  <small>({{prettifyTs created_at format="datetime"}})</small>
 	</li>
 	{{/currentUser.activites}}
 	
