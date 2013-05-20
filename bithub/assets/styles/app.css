@@ -427,7 +427,7 @@ input:focus, textarea:focus {
 	background: none;
 	background-color: none;
 }
-#navbar .nav > li > a.active, #navbar .nav > li > a:hover, #navbar .projects > a {
+#navbar .nav > li > a.active, #navbar .nav > li > a:hover {
 	color: #a80e14;
 	background: none rgba(166, 168, 168, 0.21);
 	-moz-box-shadow: none;
@@ -451,6 +451,22 @@ input:focus, textarea:focus {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 }
+
+#navbar #projectFilter.nav > li > a {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #fff;
+	background: none rgba(166, 168, 168, 0.21);
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	color: #222;
+}
+#navbar #projectFilter.nav > li > a:hover {
+	color: #a80e14;
+}
+
 #navbar .nav li li.active a {
 	background: #999;
 }
