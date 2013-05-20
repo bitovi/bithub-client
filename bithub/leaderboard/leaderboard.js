@@ -1,6 +1,7 @@
 steal('can',
 	  './init.mustache',
 	  'bithub/models/user.js',
+	  'can/observe/delegate',
 	  function(can, initView, User){
 		  /**
 		   * @class bithub/leaderboard
@@ -59,13 +60,11 @@ steal('can',
 					  this.updateLeaderboard();
 				  },
 
-				  '{currentUser} change': function( user, ev, attr, how, newVal, oldVal ) {
-					  if (attr === 'loggedIn' && newVal === true) {
-						  this.determineRank();
-					  }
+				  '{currentUser} loggedIn change': function( ) {
+					  this.determineRank();
 				  },
 
-				  '{users} change': function () {
+				  '{users} length': function () {
 					  this.determineRank();
 				  },
 
