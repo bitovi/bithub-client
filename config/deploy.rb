@@ -22,10 +22,11 @@ set(:default_environment, {
 set(:stages, ['staging', 'prod'])
 set(:default_stage, 'prod')
 
-# namespace :deploy do
-#   desc "Compile a JMVC production build"
-#   task :build_production do
-#     run "#{current_path}/js bithub/scripts/build.js"
-#   end
-# end
-# after 'deploy:update', 'deploy:build_production'
+namespace :deploy do
+  desc "Symling uploads from api shared folder to bithub folder"
+  task :symlink_uploads do
+    run "ln -nfs /home/bithub/web/shared/uploads #{current_path}/bithub/uploads"
+  end
+end
+
+after 'deploy:create_symlink', 'deploy:symlink_uploads'
