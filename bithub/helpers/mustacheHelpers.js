@@ -63,7 +63,7 @@ steal('can/view/mustache',
 				 length = (typeof(length) === 'function') ? length() : length;
 				 iOffset = (typeof(iOffset) === 'function') ? iOffset() : iOffset;
 				 
-				 for (var i = begin; i < length && i < collection.length; i++) {
+				 for (var i = begin; i < begin+length && i < collection.length; i++) {
 					 collection[i].attr('__index', i + iOffset + 1);
 					 buffer += opts.fn( collection[i] );
 				 }
