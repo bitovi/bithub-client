@@ -1,8 +1,7 @@
 <li class="divider-vertical"></li>
 
-{{#if loggedIn}}
+{{#if user.loggedIn}}
 
-{{#currentUser}}
 <li>
   <div class="gradient-border-wrapper">
 	<button id="show-newpost-form-btn"><span>+</span> Post</button>
@@ -12,7 +11,7 @@
 <li id="profile-dropdown" class="dropdown">
   <button class="dropdown-toggle" data-toggle="dropdown">
 	<div class="gradient-border-wrapper">
-	  <img class="avatar" src="{{currentUser.avatar_url}}" alt="gravtar">
+	  <img class="avatar" src="{{user.avatar_url}}" alt="gravtar">
 	</div>
 	<b class="caret"></b>
   </button>
@@ -22,7 +21,6 @@
 	<li><a href="/api/auth/logout"><span class="login-logout"></span>Logout</a></li>
   </ul>
 </li>
-{{/currentUser}}
 
 {{else}}
 
@@ -33,4 +31,5 @@
 	<li><a id="login-github-link" href="/api/auth/github"><span class="login-github"></span>GitHub</a></li>
   </ul>
 </li>
-{{/loggedIn}}
+
+{{/if}}

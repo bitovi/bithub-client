@@ -14,7 +14,7 @@ steal(
 				})
 				.ajaxComplete( function ( event, xhr, opts ) {
 					if (--count === 0) {
-						$('#statusbar').append('<small>' + ((new Date() - startTs) / 1000) + '</small><br>');
+						$('#statusbar').html('<small>' + ((new Date() - startTs) / 1000) + '</small>');
 					};
 					verbose && console.log("Ajax COMPLETE; " + opts.url + "; COUNT = " + count);
 				});

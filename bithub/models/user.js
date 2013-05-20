@@ -19,9 +19,9 @@ steal(
 					url: '/api/auth/session',
 					type: 'GET'
 				}).done(function(data) {
-					self.attr(can.Model.model(data).attr());
+					//self.attr(can.Model.model(data).attr());
+					self.attr( data );
 					self.attr('loggedIn', true);
-					can.trigger(self, 'loggedin');
 				}).fail(function(response) {
 					console.error(response);
 				});

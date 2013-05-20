@@ -19,7 +19,7 @@ steal(
 		var self = this;
 
 		// display load time 
-		loadtime({verbose: true});
+		loadtime();
 		
 		$.ajaxPrefilter( function( opts ) {
 			// opts.url = opts.url.replace(/^\/api\/(.*)/, "http://api.bithub.com/api/$1");

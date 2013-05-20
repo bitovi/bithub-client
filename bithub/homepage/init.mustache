@@ -6,7 +6,7 @@
   <div class="sidebar">
 
 	<!--  SIDEBAR -->		
-	{{#ifLoggedin}}
+	{{#if user.loggedIn}}
 	
 	<div id="sidebar-scorings" class="scorings">
 	  <h4>Earn More Points</h4>
@@ -46,7 +46,7 @@
 	  <div class="btn-wrapper"><button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button></div>
 	</div>
 	
-	{{/ifLoggedin}}
+	{{/if}}
 	<!--  /SIDEBAR -->		
 	
 	<!-- LEADERBOARD -->

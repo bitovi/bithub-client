@@ -117,7 +117,7 @@ steal('can',
 					  can.data(el.closest('.event'), 'event').upvote();
 				  },
 
-				  '.votes click': function( el, ev ) {
+				  '.votes .replies click': function( el, ev ) {
 					  var event = can.data(el.closest('.reply-event'), 'event');
 					  (new Upvote({event: event})).upvote();
 				  },
@@ -278,7 +278,7 @@ steal('can',
 
 				  updateEvents: function( events ) {					  
 					  (can.route.attr('view') === 'latest') ? this.updateLatest( events ) : this.updateGreatest( events );
-					  window.scrollTo(0);
+					  window.scrollTo(0, 0);
 				  },
 
 				  appendEvents: function( events ) {
