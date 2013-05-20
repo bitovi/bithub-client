@@ -74,6 +74,7 @@ steal('can',
 					  
 					  this.options.users.each(function (user, i) {							  
 						  if (self.options.currentUser.attr('id') === user.attr('id')) {
+							  user.attr('loggedIn', true);
 							  rank( i );
 						  }
 					  });
