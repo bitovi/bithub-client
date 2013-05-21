@@ -8,14 +8,15 @@ steal(
 	'bithub/filterbar',
 	'bithub/login',
 	'bithub/newpost',
+	'bithub/eventdetails',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
 	'bithub/helpers/loadtime.js',
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	'vendor/socketio/socket.io.js',
-	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User, loadtime) {
+	//'vendor/socketio/socket.io.js',
+	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, Tag, User, loadtime) {
 		var self = this;
 
 		// display load time 
@@ -26,9 +27,9 @@ steal(
 		});
 
 		// connect to live service
-		if( typeof(io) !== 'undefined' ) {
-			var socket = io.connect('http://localhost:3000');
-		}
+		// if( typeof(io) !== 'undefined' ) {
+		//	var socket = io.connect('http://localhost:3000');
+		// }
 		
 		// routes - events
 		can.route(':page', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
@@ -43,17 +44,21 @@ steal(
 
 		currentUser.fromSession();
 
-		// Load category tags
-		Tag.findAll({type: 'category'}, function (data) {
-			categories.replace(data);
-		});
-
-		// Load project tags
-		Tag.findAll({type: 'project'}, function (data) {
-			projects.replace(data);
-		});
-
 		// Init Controllers
+		new PageSwitcher('#pages', {
+			routeAttr: 'page',
+			controls: {
+				'homepage': Homepage,
+				'eventdetails': EventDetails,
+				'profile': Profile,
+				'activities': Activities
+			},
+			currentUser: currentUser,
+			categories: categories,
+			projects: projects
+			//socket: socket
+		});
+
 		new Login('#login', {
 			currentUser: currentUser,
 			newpostVisibility: newpostVisibility
@@ -69,19 +74,17 @@ steal(
 			visibility: newpostVisibility
 		});
 		
-		new UI.Onbottom(document);
-
-		new PageSwitcher('#pages', {
-			routeAttr: 'page',
-			controls: {
-				'homepage': Homepage,
-				'profile': Profile,
-				'activities': Activities
-			},
-			currentUser: currentUser,
-			categories: categories,
-			projects: projects,
-			socket: socket
+		// Load category tags
+		Tag.findAll({type: 'category'}, function (data) {
+			categories.replace(data);
 		});
+
+		// Load project tags
+		Tag.findAll({type: 'project'}, function (data) {
+			projects.replace(data);
+		});
+
+		
+		new UI.Onbottom(document);
 
 	});

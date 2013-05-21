@@ -20,6 +20,9 @@ steal('can',
 			  latestDateFilter = can.compute(function () {
 				  return latestTimespan.attr('startDate').format('YYYY-MM-DD') + ':' + latestTimespan.attr('endDate').format('YYYY-MM-DD');
 			  }),
+
+			  emptyReqCounter = 0,
+			  emptyReqTreshold = 5,
 			  
 			  // lookup dict with default query params for loading events
 			  views = {
@@ -32,7 +35,7 @@ steal('can',
 					  byLimit: new can.Observe({
 						  order: 'origin_ts:desc',
 						  offset: 0,
-						  limit: 50
+						  limit: 25
 					  })
 				  },
 				  greatest: new can.Observe({
@@ -88,7 +91,7 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  this.latestEvents = new Bithub.Models.Event.List(),
+					  window.latest = this.latestEvents = new Bithub.Models.Event.List(),
 					  this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
 					  
@@ -174,46 +177,28 @@ steal('can',
 				  },
 
 				  '.delete-event click': function( el, ev ) {
-					  ev.preventDefault();
-					  
-					  var event = can.data( el.closest('.event'), 'event' );
-					  event.destroy();					  
+					  ev.preventDefault();					  
+					  (can.data( el.closest('.event'), 'event' )).destroy();
 				  },
 
 				  // can.route listeners
 
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
+					  this.resetFilter();
 					  this.load( this.updateEvents );
-
-					  //can.route.removeAttr('project');
-					  //can.route.removeAttr('category');
-					  
-					  this.resetLatestDate();
-					  this.resetLatestFilter();
-					  this.resetGreatestPage();
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
-					  //views[ can.route.attr('view') ].attr('offset', 0);
-
-					  this.resetLatestDate();
-					  this.resetLatestFilter();
-					  this.resetGreatestPage();
-					  
+					  this.resetFilter();
 					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} category': function( data, ev, newVal, oldVal ) {
-					  //views[ can.route.attr('view') ].attr('offset', 0);
-
-					  this.resetLatestDate();
-					  this.resetLatestFilter();
-					  this.resetGreatestPage();
-					  
+					  this.resetFilter();
 					  this.load( this.updateEvents );
 				  },
 
-				  // inifinite scroll
+				  // infinite scroll
 				  
 				  '{window} onbottom': function( el, ev ) {
 					  if (can.route.attr('view') === 'latest') {
@@ -254,21 +239,14 @@ steal('can',
 						  endDate: latestTimespan.attr('endDate').subtract('days', 2),
 						  startDate: latestTimespan.attr('startDate').subtract('days', 2)
 					  });
-						  
 				  },
 
-				  resetLatestDate: function() {
+				  resetFilter: function() {
 					  latestTimespan.attr({
 						  endDate: moment(),
 						  startDate: moment().subtract('days', 1)
 					  });
-				  },
-				  
-				  resetLatestFilter: function() {
 					  views.latest.byLimit.attr('offset', 0);
-				  },
-				  
-				  resetGreatestPage: function() {
 					  views.greatest.attr('offset', 0);
 				  },
 
@@ -299,21 +277,30 @@ steal('can',
 				  },
 
 				  updateLatest: function( events ) {
-					  if (events.length == 0) {
+					  if (events.length == 0 && ++emptyReqCounter < emptyReqTreshold) {
 						  this.decrementLatestDate();
 						  this.load( this.updateLatest );
 					  } else {
+						  emptyReqCounter = 0;
 						  this.latestEvents.replace( events.latest() );
 					  }
 					  this.currentView( can.route.attr('view') );
 				  },
 				  
 				  appendLatest: function( events ) {
-					  var self = this;
-					  var buff = new Bithub.Models.Event.List( events.latest() );
-					  buff.each( function( day ) {
-						  self.latestEvents.push( day );
-					  });
+					  var buffer = new Bithub.Models.Event.List( this.latestEvents );
+					  
+					  $.each(events.latest(), function( i, day ) {
+						  // merge with previous day or push new day
+						  if (buffer[buffer.length-1].attr('date') === day.date) {
+							  for( var category in day ) {
+								  can.merge( buffer[buffer.length-1][category], day[category] );
+							  };
+						  } else {
+							  buffer.push( day );
+						  }
+					  });					  
+					  this.latestEvents.replace( buffer );
 				  },
 				  
 				  updateGreatest: function( events ) {
