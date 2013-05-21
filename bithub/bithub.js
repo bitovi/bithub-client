@@ -43,16 +43,6 @@ steal(
 
 		currentUser.fromSession();
 
-		// Load category tags
-		Tag.findAll({type: 'category'}, function (data) {
-			categories.replace(data);
-		});
-
-		// Load project tags
-		Tag.findAll({type: 'project'}, function (data) {
-			projects.replace(data);
-		});
-
 		// Init Controllers
 		new PageSwitcher('#pages', {
 			routeAttr: 'page',
@@ -81,6 +71,17 @@ steal(
 			categories: categories,
 			visibility: newpostVisibility
 		});
+		
+		// Load category tags
+		Tag.findAll({type: 'category'}, function (data) {
+			categories.replace(data);
+		});
+
+		// Load project tags
+		Tag.findAll({type: 'project'}, function (data) {
+			projects.replace(data);
+		});
+
 		
 		new UI.Onbottom(document);
 
