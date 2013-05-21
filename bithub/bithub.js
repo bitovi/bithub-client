@@ -14,7 +14,7 @@ steal(
 	'ui/onbottom.js',
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
-	'vendor/socketio/socket.io.js',
+	//'vendor/socketio/socket.io.js',
 	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User, loadtime) {
 		var self = this;
 
@@ -26,9 +26,9 @@ steal(
 		});
 
 		// connect to live service
-		if( typeof(io) !== 'undefined' ) {
-			var socket = io.connect('http://localhost:3000');
-		}
+		// if( typeof(io) !== 'undefined' ) {
+		//	var socket = io.connect('http://localhost:3000');
+		// }
 		
 		// routes - events
 		can.route(':page', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
@@ -80,8 +80,8 @@ steal(
 			},
 			currentUser: currentUser,
 			categories: categories,
-			projects: projects,
-			socket: socket
+			projects: projects
+			//socket: socket
 		});
 
 	});
