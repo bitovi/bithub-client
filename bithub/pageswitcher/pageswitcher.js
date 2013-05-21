@@ -8,7 +8,8 @@ steal(
 			}
 		}, {
 			init: function( elem, opts ){
-				this.element.html( initView({}) );
+				elem.html( initView({}) );
+				//this.initControl( 'homepage' );
 			},
 
 			'{can.route} {routeAttr}': function( route, ev, newVal, oldVal ) {
@@ -19,13 +20,16 @@ steal(
 				if( this.options.buffers[newVal] ) {
 					this.element.html( this.options.buffers[newVal] );
 				} else {
-					var control = this.options.controls[newVal],
-						$div = $('<div/>');
-
-					new control( $div, self.options );
-					this.element.html( $div );
+					this.initControl( newVal );
 				}
+			},
 
+			initControl: function( controlName ) {
+				var control = this.options.controls[controlName],
+					$div = $('<div/>');
+
+				new control( $div, this.options );
+				this.element.html( $div );
 			}
 		});
 	});

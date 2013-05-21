@@ -54,6 +54,19 @@ steal(
 		});
 
 		// Init Controllers
+		new PageSwitcher('#pages', {
+			routeAttr: 'page',
+			controls: {
+				'homepage': Homepage,
+				'profile': Profile,
+				'activities': Activities
+			},
+			currentUser: currentUser,
+			categories: categories,
+			projects: projects
+			//socket: socket
+		});
+
 		new Login('#login', {
 			currentUser: currentUser,
 			newpostVisibility: newpostVisibility
@@ -70,18 +83,5 @@ steal(
 		});
 		
 		new UI.Onbottom(document);
-
-		new PageSwitcher('#pages', {
-			routeAttr: 'page',
-			controls: {
-				'homepage': Homepage,
-				'profile': Profile,
-				'activities': Activities
-			},
-			currentUser: currentUser,
-			categories: categories,
-			projects: projects
-			//socket: socket
-		});
 
 	});
