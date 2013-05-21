@@ -91,7 +91,7 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  this.latestEvents = new Bithub.Models.Event.List(),
+					  window.latest = this.latestEvents = new Bithub.Models.Event.List(),
 					  this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
 					  
@@ -289,8 +289,16 @@ steal('can',
 				  
 				  appendLatest: function( events ) {
 					  var buffer = new Bithub.Models.Event.List( this.latestEvents );
+					  
 					  $.each(events.latest(), function( i, day ) {
-						  buffer.push( day );
+						  // merge with previous day or push new day
+						  if (buffer[buffer.length-1].attr('date') === day.date) {
+							  for( var category in day ) {
+								  can.merge( buffer[buffer.length-1][category], day[category] );
+							  };
+						  } else {
+							  buffer.push( day );
+						  }
 					  });					  
 					  this.latestEvents.replace( buffer );
 				  },
