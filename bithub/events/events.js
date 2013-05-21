@@ -14,20 +14,32 @@ steal('can',
 	  'can/construct/proxy',
 	  'bithub/helpers/mustacheHelpers.js',
 	  function(can, initView, latestView, greatestView, digestPartial, eventPartial, eventChildrenPartial, eventCodePartial, eventTwitterPartial, eventIRCPartial, Event, Upvote, Award){
-		  /**
-		   * @class bithub/events
-		   * @alias Events
-		   */
 
-		  var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),			  
+		  var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),
+			  
 			  latestDateFilter = can.compute(function () {
 				  return latestTimespan.attr('startDate').format('YYYY-MM-DD') + ':' + latestTimespan.attr('endDate').format('YYYY-MM-DD');
 			  }),
-
+			  
 			  // lookup dict with default query params for loading events
 			  views = {
-				  latest: new can.Observe( {order: 'origin_ts:desc', origin_date: latestDateFilter, limit: 1000}),
-				  greatest: new can.Observe( {order: 'upvotes:desc', offset: 0, limit: 25} )
+				  latest: {
+					  byDate: new can.Observe({
+						  order: 'origin_ts:desc',
+						  origin_date: latestDateFilter,
+						  limit: 1000 // override default 50
+					  }),
+					  byLimit: new can.Observe({
+						  order: 'origin_ts:desc',
+						  offset: 0,
+						  limit: 50
+					  })
+				  },
+				  greatest: new can.Observe({
+					  order: 'upvotes:desc',
+					  offset: 0,
+					  limit: 25
+				  })
 			  },
 
 			  // lookup table for dynamic loading of event partials 
@@ -45,47 +57,46 @@ steal('can',
 			  ],
 			  
 			  // used for ordering categories on latest view
-			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'];
+			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'],
+
+
+			  // template helpers
+			  mustacheHelpers = {
+				  isLatest: function( partial, opts ) {
+					  return partial() === 'latest' ? opts.fn(this) : '';
+				  },
+				  isGreatest: function( partial, opts ) {
+					  return partial() === 'greatest' ? opts.fn(this) : '';
+				  },
+				  iterCategories: function( opts ) {
+					  var self = this;
+					  var buffer = "";
+					  can.each(latestCategories, function (category) {
+						  if (self.attr(category)) {
+							  buffer += opts.fn( {category: category, events: self.attr(category)} );
+						  }
+					  });
+					  return buffer;
+				  }
+			  };
 		  
 		  return can.Control(
-			  /** @Static */
 			  {
 				  defaults : {}
-			  },
-			  /** @Prototype */
-			  {
+			  }, {
+
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  window.latest = this.latestEvents = new Bithub.Models.Event.List(),
+					  this.latestEvents = new Bithub.Models.Event.List(),
 					  this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
 					  
-					  var mustacheHelpers = {
-						  isLatest: function( partial, opts ) {
-							  return partial() === 'latest' ? opts.fn(this) : '';
-						  },
-						  isGreatest: function( partial, opts ) {
-							  return partial() === 'greatest' ? opts.fn(this) : '';
-						  },
-						  iterCategories: function( opts ) {
-							  var self = this;
-							  var buffer = "";
-							  can.each(latestCategories, function (category) {
-								  if (self.attr(category)) {
-									  buffer += opts.fn( {category: category, events: self.attr(category)} );
-								  }
-							  });
-							  return buffer;
-						  },
-						  ifAdmin: function( opts ) {
-							  return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
-						  }
-					  };
-
+					  /* TODO: live updating
 					  opts.socket && opts.socket.on('new_event', function( event ) {
 						  console.log( event );
 					  });
+					   */
 					  
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
@@ -103,11 +114,19 @@ steal('can',
 								  return (self.determineEventPartial(data)).render( data, helpers );
 							  }
 						  },
-						  'helpers': mustacheHelpers
+						  'helpers': can.extend({}, mustacheHelpers, {
+							  ifAdmin: function( opts ) {
+								  return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
+							  }
+						  })
 					  }) );
 
 					  this.load();
 				  },
+
+				  /*
+				   * Event handlers
+				   */
 
 				  '.expand-replies click': function( el, ev ) {
 					  el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
@@ -161,6 +180,8 @@ steal('can',
 					  event.destroy();					  
 				  },
 
+				  // can.route listeners
+
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
 					  this.load( this.updateEvents );
 
@@ -168,29 +189,48 @@ steal('can',
 					  //can.route.removeAttr('category');
 					  
 					  this.resetLatestDate();
+					  this.resetLatestFilter();
 					  this.resetGreatestPage();
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
-					  views[ can.route.attr('view') ].attr('offset', 0);
+					  //views[ can.route.attr('view') ].attr('offset', 0);
+
+					  this.resetLatestDate();
+					  this.resetLatestFilter();
+					  this.resetGreatestPage();
+					  
 					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} category': function( data, ev, newVal, oldVal ) {
-					  views[ can.route.attr('view') ].attr('offset', 0);
+					  //views[ can.route.attr('view') ].attr('offset', 0);
+
+					  this.resetLatestDate();
+					  this.resetLatestFilter();
+					  this.resetGreatestPage();
+					  
 					  this.load( this.updateEvents );
 				  },
+
+				  // inifinite scroll
 				  
 				  '{window} onbottom': function( el, ev ) {
 					  if (can.route.attr('view') === 'latest') {
-						  this.decrementLatestDate();
+						  if (can.route.attr('project') !== 'all' || can.route.attr('category') !== 'all') {
+							  views.latest.byLimit.attr('offset', views.latest.byLimit.offset + views.latest.byLimit.limit);
+						  } else {
+							  this.decrementLatestDate();
+						  }
 					  } else {
 						  views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
 					  }
 					  this.load( this.appendEvents );
 				  },
 
-				  /* --------- */
+				  /*
+				   * Functions
+				   */
 
 				  determineEventPartial: function( event ) {
 					  var template = eventPartial, //default
@@ -224,16 +264,29 @@ steal('can',
 					  });
 				  },
 				  
+				  resetLatestFilter: function() {
+					  views.latest.byLimit.attr('offset', 0);
+				  },
+				  
 				  resetGreatestPage: function() {
 					  views.greatest.attr('offset', 0);
 				  },
 
 				  prepareParams: function( params ) {
-					  var query = can.extend({},
-											 views[can.route.attr('view')].attr(),
-											 params || {});
+
+					  // determine view
+					  var view = views.greatest;
+					  if( can.route.attr('view') === 'latest' ) {
+						  view = (can.route.attr('project') !== 'all' || can.route.attr('category') !== 'all' ) ? views.latest.byLimit : views.latest.byDate;
+					  }
+
+					  // build query
+					  var query = can.extend({}, view.attr(), params || {});
+
+					  // append filters
 					  if (can.route.attr('project') !== 'all') query.tag = can.route.attr('project');
 					  if (can.route.attr('category') !== 'all') query.category = can.route.attr('category');
+
 					  return query;
 				  },
 				  

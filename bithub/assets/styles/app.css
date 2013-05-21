@@ -264,14 +264,14 @@ input:focus, textarea:focus {
 	background: url(../images/glyph-categories.png) no-repeat 0px 1px;
 	text-shadow: 0 -1px 0 #ffffff;
 }
-#events h3.bug-icon { background-position-y: -22px; text-transform: capitalize; }
-#events h3.comment-icon { background-position-y: -46px; text-transform: capitalize; }
-#events h3.code-icon { background-position-y: -68px; text-transform: capitalize; }
-#events h3.irc-icon {	background-position-y: -91px; text-transform: capitalize; }
-#events h3.twitter-icon { background-position-y: -114px; text-transform: capitalize; }
-#events h3.plugin-icon { background-position-y: -138px; text-transform: capitalize; }
-#events h3.app-icon { background-position-y: -160px; text-transform: capitalize; }
-#events h3.question-icon { background-position-y: -183px; text-transform: capitalize; }
+#events h3.bug-icon { background-position: 0px -22px; text-transform: capitalize; }
+#events h3.comment-icon { background-position: 0px -46px; text-transform: capitalize; }
+#events h3.code-icon { background-position: 0px -68px; text-transform: capitalize; }
+#events h3.irc-icon {	background-position: 0px -91px; text-transform: capitalize; }
+#events h3.twitter-icon { background-position: 0px -114px; text-transform: capitalize; }
+#events h3.plugin-icon { background-position: 0px -138px; text-transform: capitalize; }
+#events h3.app-icon { background-position: 0px -160px; text-transform: capitalize; }
+#events h3.question-icon { background-position: 0px -183px; text-transform: capitalize; }
 
 .flag {
 	font-weight: bold;
@@ -427,7 +427,7 @@ input:focus, textarea:focus {
 	background: none;
 	background-color: none;
 }
-#navbar .nav > li > a.active, #navbar .nav > li > a:hover, #navbar .projects > a {
+#navbar .nav > li > a.active, #navbar .nav > li > a:hover {
 	color: #a80e14;
 	background: none rgba(166, 168, 168, 0.21);
 	-moz-box-shadow: none;
@@ -451,6 +451,22 @@ input:focus, textarea:focus {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 }
+
+#navbar #projectFilter.nav > li > a {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #fff;
+	background: none rgba(166, 168, 168, 0.21);
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	color: #222;
+}
+#navbar #projectFilter.nav > li > a:hover {
+	color: #a80e14;
+}
+
 #navbar .nav li li.active a {
 	background: #999;
 }
