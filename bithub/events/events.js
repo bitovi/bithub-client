@@ -288,11 +288,11 @@ steal('can',
 				  },
 				  
 				  appendLatest: function( events ) {
-					  var self = this;
-					  var buff = new Bithub.Models.Event.List( events.latest() );
-					  buff.each( function( day ) {
-						  self.latestEvents.push( day );
-					  });
+					  var buffer = new Bithub.Models.Event.List( this.latestEvents );
+					  $.each(events.latest(), function( i, day ) {
+						  buffer.push( day );
+					  });					  
+					  this.latestEvents.replace( buffer );
 				  },
 				  
 				  updateGreatest: function( events ) {
