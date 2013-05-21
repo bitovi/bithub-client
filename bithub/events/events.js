@@ -20,6 +20,9 @@ steal('can',
 			  latestDateFilter = can.compute(function () {
 				  return latestTimespan.attr('startDate').format('YYYY-MM-DD') + ':' + latestTimespan.attr('endDate').format('YYYY-MM-DD');
 			  }),
+
+			  emptyReqCounter = 0,
+			  emptyReqTreshold = 5,
 			  
 			  // lookup dict with default query params for loading events
 			  views = {
@@ -174,46 +177,28 @@ steal('can',
 				  },
 
 				  '.delete-event click': function( el, ev ) {
-					  ev.preventDefault();
-					  
-					  var event = can.data( el.closest('.event'), 'event' );
-					  event.destroy();					  
+					  ev.preventDefault();					  
+					  (can.data( el.closest('.event'), 'event' )).destroy();
 				  },
 
 				  // can.route listeners
 
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
+					  this.resetFilter();
 					  this.load( this.updateEvents );
-
-					  //can.route.removeAttr('project');
-					  //can.route.removeAttr('category');
-					  
-					  this.resetLatestDate();
-					  this.resetLatestFilter();
-					  this.resetGreatestPage();
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
-					  //views[ can.route.attr('view') ].attr('offset', 0);
-
-					  this.resetLatestDate();
-					  this.resetLatestFilter();
-					  this.resetGreatestPage();
-					  
+					  this.resetFilter();
 					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} category': function( data, ev, newVal, oldVal ) {
-					  //views[ can.route.attr('view') ].attr('offset', 0);
-
-					  this.resetLatestDate();
-					  this.resetLatestFilter();
-					  this.resetGreatestPage();
-					  
+					  this.resetFilter();
 					  this.load( this.updateEvents );
 				  },
 
-				  // inifinite scroll
+				  // infinite scroll
 				  
 				  '{window} onbottom': function( el, ev ) {
 					  if (can.route.attr('view') === 'latest') {
@@ -254,21 +239,14 @@ steal('can',
 						  endDate: latestTimespan.attr('endDate').subtract('days', 2),
 						  startDate: latestTimespan.attr('startDate').subtract('days', 2)
 					  });
-						  
 				  },
 
-				  resetLatestDate: function() {
+				  resetFilter: function() {
 					  latestTimespan.attr({
 						  endDate: moment(),
 						  startDate: moment().subtract('days', 1)
 					  });
-				  },
-				  
-				  resetLatestFilter: function() {
 					  views.latest.byLimit.attr('offset', 0);
-				  },
-				  
-				  resetGreatestPage: function() {
 					  views.greatest.attr('offset', 0);
 				  },
 
@@ -299,10 +277,11 @@ steal('can',
 				  },
 
 				  updateLatest: function( events ) {
-					  if (events.length == 0) {
+					  if (events.length == 0 && ++emptyReqCounter < emptyReqTreshold) {
 						  this.decrementLatestDate();
 						  this.load( this.updateLatest );
 					  } else {
+						  emptyReqCounter = 0;
 						  this.latestEvents.replace( events.latest() );
 					  }
 					  this.currentView( can.route.attr('view') );
