@@ -8,6 +8,7 @@ steal(
 	'bithub/filterbar',
 	'bithub/login',
 	'bithub/newpost',
+	'bithub/eventdetails',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
 	'bithub/helpers/loadtime.js',
@@ -15,7 +16,7 @@ steal(
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
 	//'vendor/socketio/socket.io.js',
-	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, Tag, User, loadtime) {
+	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, Tag, User, loadtime) {
 		var self = this;
 
 		// display load time 
@@ -48,6 +49,7 @@ steal(
 			routeAttr: 'page',
 			controls: {
 				'homepage': Homepage,
+				'eventdetails': EventDetails,
 				'profile': Profile,
 				'activities': Activities
 			},
