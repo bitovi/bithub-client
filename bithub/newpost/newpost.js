@@ -9,9 +9,20 @@ steal(
 		 * @alias Newpost   
 		 */
 
+		function errorElementName(name) {
+			return '#newpost-form-' + name + ' p.text-error'
+		}
 
 		function progress(data){
 			return parseInt(data.loaded / data.total * 100, 10);
+		}
+
+		function closeNewPostForm(eventId) {
+			var self = this;
+			can.route.attr({page: 'eventdetails', eventId: eventId})
+			setTimeout(function() {
+				self.options.visibility(false);
+			}, 1000);
 		}
 
 		return can.Control('Bithub.Newpost',
@@ -54,7 +65,6 @@ steal(
 				},
 
 				' fileuploadadd': function( el, ev, data ) {
-					console.log("fileupload ADD");
 					var loadingImage = window.loadImage(
 						data.files[0],
 						function (img) {
@@ -71,9 +81,8 @@ steal(
 				},
 
 				' fileuploaddone' : function( el, ev, data ) {
-					console.log("DONE with file");
 					var newEvent = new Bithub.Models.Event(data.result);
-					console.log(newEvent);
+					closeNewPostForm.call(this, newEvent.id)
 				},
 
 				'#newpost-form-project a click': function( el, ev ) {
@@ -104,17 +113,25 @@ steal(
 				},
 
 				' submit': function( el, ev ) {
+					var self = this;
 					ev.preventDefault();
-					if (this.options.fileData) {
-						this.options.fileData.submit();
-					} else {
-						var event = new Bithub.Models.Event(el.formParams());
-						event.save(function(data) {
-							console.log("DONE wo file");
-							console.log(data);
+
+					var eventToCheck = new Bithub.Models.Event(el.formParams().event)
+					var errors = eventToCheck.errors()
+
+					self.element.find('p.text-error').hide()
+					if (this.options.fileData && !errors) {
+						this.options.fileData.submit()
+					} else if (!this.options.fileData && !errors){
+						var event = new Bithub.Models.Event(el.formParams())
+						event.save(function(newEvent) {
+							closeNewPostForm.call(self, newEvent.id)
 						});
+					} else {
+						for (e in errors) {
+							self.element.find(errorElementName(e)).html(errors[e]).show();
+						}
 					}
 				}
-				
 			});
 	});
