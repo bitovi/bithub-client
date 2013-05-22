@@ -1,11 +1,26 @@
-steal(
-	'can',
+steal('can',
 	'./upvote.js',
 	'bithub/helpers/group.js',
 	'can/model/list',
+	'can/observe/validations',
 	function (can, Upvote, helpers) {
 		var Event = can.Model('Bithub.Models.Event', {
-			init: function () {},
+
+			init: function () {
+				this.validate('title', function(title) {
+					if (!title) { return "Title can't blank" }
+				});
+				this.validate('category', function(category) {
+					var validCategories = ['app', 'article', 'plugin'];
+					if (!category) { return "Category can't be blank" }
+					if (validCategories.indexOf(category) < 0) { return "Picked category doesn't exist" }
+				});
+				this.validate('project', function(project) {
+					var validProjects = ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui'];
+					if (!project) { return "Project can't be blank" }
+					if (validProjects.indexOf(project) < 0) { return "Picked project doesn't exist" }
+				});
+			},
 
 			findAll : 'GET /api/events',
 			findOne : 'GET /api/events/{id}',
