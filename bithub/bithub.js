@@ -39,7 +39,6 @@ steal(
 		can.route(':page/:view/:project/:category', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
 		
 		var	newpostVisibility = can.compute(false),
-			$loginModal = $('#login-modal'),
 			projects = new can.Model.List(),
 			categories = new can.Model.List(),
 			currentUser = new User({loggedIn: false});
@@ -58,7 +57,7 @@ steal(
 			currentUser: currentUser,
 			categories: categories,
 			projects: projects,
-			$loginModal: $loginModal
+			newpostVisibility: newpostVisibility
 			//socket: socket
 		});
 
@@ -68,8 +67,7 @@ steal(
 		
 		new Login('#login', {
 			currentUser: currentUser,
-			newpostVisibility: newpostVisibility,
-			$loginModal: $loginModal
+			newpostVisibility: newpostVisibility
 		});
 		new Filterbar('#filterbar', {
 			projects: projects,

@@ -16,6 +16,11 @@ steal(
 				
 				new Events( elem.find('#events'), opts );
 				new Leaderboard( elem.find('#leaderboard'), opts );
+			},
+			
+			'#show-new-post-form-btn click': function ( el, ev ) {
+				ev.preventDefault();
+				this.options.newpostVisibility(true);
 			}
 		});
 	});
