@@ -9,6 +9,7 @@ steal(
 	'bithub/login',
 	'bithub/newpost',
 	'bithub/eventdetails',
+	'bithub/modals',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
 	'bithub/helpers/loadtime.js',
@@ -16,7 +17,7 @@ steal(
 	'bithub/assets/styles/bootstrap.css',
 	'bithub/assets/styles/app.css',
 	//'vendor/socketio/socket.io.js',
-	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, Tag, User, loadtime) {
+	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, Modals, Tag, User, loadtime) {
 		var self = this;
 
 		// display load time 
@@ -37,7 +38,8 @@ steal(
 		can.route(':page/:view/:project', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
 		can.route(':page/:view/:project/:category', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
 		
-		var	newpostVisibility = can.compute(false),		
+		var	newpostVisibility = can.compute(false),
+			$loginModal = $('#login-modal'),
 			projects = new can.Model.List(),
 			categories = new can.Model.List(),
 			currentUser = new User({loggedIn: false});
@@ -55,13 +57,19 @@ steal(
 			},
 			currentUser: currentUser,
 			categories: categories,
-			projects: projects
+			projects: projects,
+			$loginModal: $loginModal
 			//socket: socket
 		});
 
+		new Modals('#bootstrapModals', {
+			currentUser: currentUser
+		});
+		
 		new Login('#login', {
 			currentUser: currentUser,
-			newpostVisibility: newpostVisibility
+			newpostVisibility: newpostVisibility,
+			$loginModal: $loginModal
 		});
 		new Filterbar('#filterbar', {
 			projects: projects,
