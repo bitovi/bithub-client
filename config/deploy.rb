@@ -11,7 +11,7 @@ set(:user, "bithub")
 set(:application, "client")
 set(:repository, "git@github.com:bitovi/bithub-client.git")
 
-set(:branch, "master")
+set(:branch, fetch(:branch, "master"))
 set(:deploy_via, :remote_cache)
 set(:deploy_to) { "/home/#{user}/#{application}" }
 
