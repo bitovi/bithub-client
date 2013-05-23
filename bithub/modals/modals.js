@@ -19,7 +19,10 @@ steal('can',
 					  ev.preventDefault();
 					  el.closest('.modal').modal('hide');
 					  this.options.currentUser.login('github');
+				  },
+
+				  showLogin: function () {
+					  this.element.find('#login-modal').modal('show');					  
 				  }
-				  
 			  });
 	  });

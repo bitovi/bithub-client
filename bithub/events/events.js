@@ -136,12 +136,14 @@ steal('can',
 				  },
 				  
 				  '.voteup click': function( el, ev ) {
-					  can.data(el.closest('.event'), 'event').upvote();
+					  this.upvote( can.data(el.closest('.event'), 'event') );
+					  //can.data(el.closest('.event'), 'event').upvote();
 				  },
 
-				  '.votes .replies click': function( el, ev ) {
-					  var event = can.data(el.closest('.reply-event'), 'event');
-					  (new Upvote({event: event})).upvote();
+				  '.replies .votes click': function( el, ev ) {
+					  this.upvote( can.data(el.closest('.reply-event'), 'event') );
+					  //var event = can.data(el.closest('.reply-event'), 'event');
+					  //(new Upvote({event: event})).upvote();
 				  },
 
 				  '.award-btn click': function( el, ev ) {
@@ -323,6 +325,14 @@ steal('can',
 
 				  appendEvents: function( events ) {
 					  (can.route.attr('view') === 'latest') ? this.appendLatest( events ) : this.appendGreatest( events );
+				  },
+
+				  upvote: function( event ) {
+					  if ( this.options.currentUser.attr('loggedIn') ) {
+						  (new Upvote({event: event})).upvote();
+					  } else {
+						  this.options.modals.showLogin();
+					  }
 				  }
 
 			  });

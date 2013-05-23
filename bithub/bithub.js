@@ -46,6 +46,10 @@ steal(
 		currentUser.fromSession();
 
 		// Init Controllers
+		var modals = new Modals('#bootstrapModals', {
+			currentUser: currentUser
+		});
+		
 		new PageSwitcher('#pages', {
 			routeAttr: 'page',
 			controls: {
@@ -57,14 +61,11 @@ steal(
 			currentUser: currentUser,
 			categories: categories,
 			projects: projects,
-			newpostVisibility: newpostVisibility
+			newpostVisibility: newpostVisibility,
+			modals: modals
 			//socket: socket
 		});
 
-		new Modals('#bootstrapModals', {
-			currentUser: currentUser
-		});
-		
 		new Login('#login', {
 			currentUser: currentUser,
 			newpostVisibility: newpostVisibility
