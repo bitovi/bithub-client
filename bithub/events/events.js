@@ -153,6 +153,13 @@ steal('can',
 					  (new Award({event: event})).award();
 				  },
 
+				  '.internalLink click': function( el, ev ) {
+					  ev.preventDefault();
+					  
+					  var event = can.data(el.closest('.event'), 'event');
+					  can.route.attr({page: 'eventdetails', eventId: event.id});
+				  },
+
 				  '.expand-manage-bar click': function( el, ev ) {
 					  ev.preventDefault();
 					  el.closest('.event').find('.manage-bar').slideToggle();
