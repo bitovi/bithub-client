@@ -19,5 +19,5 @@ steal(
 			logout: function() {
 				window.location('/api/auth/logout');
 			}
-		}
+		};
 	});

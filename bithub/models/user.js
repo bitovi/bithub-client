@@ -2,6 +2,12 @@ steal(
 	'can',
 	'../helpers/auth.js',
 	function (can, auth) {
+
+		var providers = {
+			twitter: { url: '/api/auth/twitter' },
+			github: { url: '/api/auth/github' }			
+		};
+		
 		var User = can.Model('Bithub.Models.User', {
 			init: function () {},
 
@@ -27,8 +33,8 @@ steal(
 				});
 			},
 
-			login: function(options) {
-				auth.login.apply(this, arguments);
+			login: function(provider) {
+				auth.login.apply(this, [ providers[provider] ]);
 			},
 
 			logout: function() {
