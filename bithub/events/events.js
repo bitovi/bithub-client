@@ -29,17 +29,20 @@ steal('can',
 				  latest: {
 					  byDate: new can.Observe({
 						  order: 'origin_ts:desc',
+						  exclude: 'source_data',
 						  origin_date: latestDateFilter,
 						  limit: 1000 // override default 50
 					  }),
 					  byLimit: new can.Observe({
 						  order: 'origin_ts:desc',
+						  exclude: 'source_data',
 						  offset: 0,
 						  limit: 25
 					  })
 				  },
 				  greatest: new can.Observe({
 					  order: 'upvotes:desc',
+					  exclude: 'source_data',
 					  offset: 0,
 					  limit: 25
 				  })
