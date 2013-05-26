@@ -83,6 +83,9 @@ steal('can',
 						  }
 					  });
 					  return buffer;
+				  },
+				  getUrl: function( opts ) {
+					  return this.url || '#!eventdetails/' + this.id;
 				  }
 			  };
 		  
@@ -154,13 +157,6 @@ steal('can',
 
 					  var event = can.data(el.closest('.reply-event'), 'event');
 					  (new Award({event: event})).award();
-				  },
-
-				  '.internalLink click': function( el, ev ) {
-					  ev.preventDefault();
-					  
-					  var event = can.data(el.closest('.event'), 'event');
-					  can.route.attr({page: 'eventdetails', eventId: event.id});
 				  },
 
 				  '.expand-manage-bar click': function( el, ev ) {

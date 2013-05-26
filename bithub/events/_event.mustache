@@ -21,7 +21,7 @@
 	<div class="row">
 	  {{#if image_url}}<img src="{{image_url}}" class="thumb" alt="post image" >{{/if}}
 	  <h5>
-		<a {{#if url}}href="{{url}}"{{else}}class="internalLink"{{/if}}>{{title}}</a>
+		<a href="{{getUrl}}">{{title}}</a>
 		{{#if award_value}}<span class='badge'>+{{award_sum}}</span>{{/if}}
 	  </h5>
 	  <div class="body">{{{markdown body tags}}}</div>
