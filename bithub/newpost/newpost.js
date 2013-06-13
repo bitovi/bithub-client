@@ -25,6 +25,10 @@ steal(
 			}, 1000);
 		}
 
+		function itemIsPartOfQueryString(query, item) {
+			return (item && item.toLowerCase().indexOf(query.trim().toLowerCase()) > -1)
+		}
+
 		return can.Control('Bithub.Newpost',
 			/** @Static */
 			{
@@ -37,7 +41,7 @@ steal(
 				init : function( el, options ){
 					var self = this, filteredCategories;
 
-					this.element.html(initView({
+					el.html(initView({
 						projects: options.projects,
 						categories: options.categories
 					}, {
@@ -49,6 +53,9 @@ steal(
 								}
 							});
 							return buffer;
+						},
+						ifAdmin: function( opts ) {
+							return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
 						}
 					}));
 
@@ -62,6 +69,55 @@ steal(
 							self.options.fileData = data;
 						}
 					});
+
+					el.find('input.typeahead').typeahead({
+						minLength: 3,
+						source: function(query, process) {
+							var	feed = self.element.find('input[name=postas_feed]:checked').val(),
+							queryStr = '/api/users/' + feed + '/' + query
+
+							if (this.timeout) {
+								clearTimeout(this.timeout);
+							}
+
+							this.timeout = setTimeout(function () {					
+								$.get(queryStr, function(data) {
+									autocompleteUsers = [];
+									mappedResponse = {};
+									$.each(data, function (i, user) {
+										if (feed === 'twitter') {
+											mappedResponse[user.name + '_' + user.screen_name] = user;
+											autocompleteUsers.push(user.name + " / " + user.screen_name);
+										} else if (feed == 'github') {
+											mappedResponse[user.name + '_' + user.username] = user;
+											autocompleteUsers.push(user.name + " / " + user.username);
+										}
+									});
+									process(autocompleteUsers);
+								});
+							}, 500);
+						},
+						matcher: function(item) {
+							return itemIsPartOfQueryString(this.query, item);
+						},
+						updater: function (item) {
+							var key = item.replace(' / ', '_');
+							selectedUser = mappedResponse[key];
+							var	feed = self.element.find('input[name=postas_feed]:checked').val();
+							if (feed == 'twitter') {
+								el.find('input.postas_id').val(selectedUser.id); 
+								el.find('img.postas.avatar').attr('src', selectedUser.profile_image_url);
+							} else if (feed == 'github') {
+								el.find('input.postas_id').val(selectedUser.id.replace('user-', '')); 
+								$.get('https://api.github.com/users/' + item.id, function (data) {
+									el.find('img.postas.avatar').attr('src', 'http://www.gravatar.com/avatar/' + data.gravatar_id + '?s=48'); 
+								});
+							}
+							el.find('input.postas_feed').val(feed); 
+							return item;
+						}
+					});
+					
 				},
 
 				' fileuploadadd': function( el, ev, data ) {
