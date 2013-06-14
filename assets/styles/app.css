@@ -81,7 +81,7 @@ input:focus, textarea:focus {
 }
 /* user menu styles */
 #profileOptions {
-	background: url(../images/account-glyphs.png) no-repeat -9999px;
+	background: url(/assets/images/account-glyphs.png) no-repeat -9999px;
 }
 #profileOptions .dropdown-menu {
 	margin-top: 5px;
@@ -94,7 +94,7 @@ input:focus, textarea:focus {
 }
 .login-twitter, .login-github, .login-google, 
 .login-profile, .login-points, .login-logout {
-	background: url(../images/account-glyphs.png) no-repeat;
+	background: url(/assets/images/account-glyphs.png) no-repeat;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
@@ -165,7 +165,7 @@ input:focus, textarea:focus {
 }
 .caret {
 	border: none;
-	background: url(../images/dropdown.png) no-repeat -1px 0px;
+	background: url(/assets/images/dropdown.png) no-repeat -1px 0px;
 	width: 11px;
 	height: 10px;
 	margin: 5px 0 0!important;
@@ -194,7 +194,7 @@ input:focus, textarea:focus {
 	position: relative;
 }
 .btn-bigass.plus {
-	background: url(../images/newpost-glyphs.png) no-repeat 10px 8px #585656;
+	background: url(/assets/images/newpost-glyphs.png) no-repeat 10px 8px #585656;
 	padding-left: 35px;
 }
 .btn-bigass:hover {
@@ -225,7 +225,7 @@ input:focus, textarea:focus {
 	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.48);
 }
 .btn-bigass.plus.activated {
-	background: url(../images/newpost-glyphs.png) no-repeat 10px -25px #252525;
+	background: url(/assets/images/newpost-glyphs.png) no-repeat 10px -25px #252525;
 	-moz-box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.48);
 	-webkit-box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.48);
 	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.48);
@@ -237,7 +237,7 @@ input:focus, textarea:focus {
 	left: 42px;
 	width: 28px;
 	height: 17px;
-	background: url(../images/newpost-expand.png) no-repeat;
+	background: url(/assets/images/newpost-expand.png) no-repeat;
 	background-position-x: -9999px;
 }
 .btn-bigass.plus.activated::before {
@@ -261,7 +261,7 @@ input:focus, textarea:focus {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	padding: 5px 10px 5px 20px;
-	background: url(../images/glyph-categories.png) no-repeat 0px 1px;
+	background: url(/assets/images/glyph-categories.png) no-repeat 0px 1px;
 	text-shadow: 0 -1px 0 #ffffff;
 }
 #events h3.bug-icon { background-position: 0px -22px; text-transform: capitalize; }
@@ -366,7 +366,7 @@ input:focus, textarea:focus {
 }
 
 #navbar .navbar-inner {
-	background: #fff url(../images/header-nav-bkg.jpg);
+	background: #fff url(/assets/images/header-nav-bkg.jpg);
 	border-bottom: 1px solid #fff;
 }
 
@@ -383,7 +383,7 @@ input:focus, textarea:focus {
 	margin-right: 20px;
 	width: 101px;
 	height: 58px;
-	background: url(../images/bithub-logo.png) no-repeat center 12px;
+	background: url(/assets/images/bithub-logo.png) no-repeat center 12px;
 }
 
 #navbar .nav {
@@ -471,7 +471,7 @@ input:focus, textarea:focus {
 	background: #999;
 }
 #navbar .nav > li > a.latest .glyph, #navbar .nav > li > a.greatest .glyph {
-	background-image: url(../images/glyph-navicons.png);
+	background-image: url(/assets/images/glyph-navicons.png);
 	width: 23px;
 	height: 23px;
 	display: inline-block;
@@ -488,7 +488,7 @@ input:focus, textarea:focus {
 
 #navbar .nav .caret {
 	border: none;
-	background: url(../images/dropdown.png) no-repeat -1px 0px;
+	background: url(/assets/images/dropdown.png) no-repeat -1px 0px;
 	width: 11px;
 	height: 10px;
 	margin: 5px 0 0!important;
@@ -605,7 +605,7 @@ button#show-newpost-form-btn:hover, button#show-newpost-form-btn.activated {
 	box-shadow: 1px 1px 2px rgba(9, 9, 9, 0.15);
 }
 #navbar #profileOptions .dropdown-toggle {
-	background: url(../images/dropdown.png) no-repeat right -15px;
+	background: url(/assets/images/dropdown.png) no-repeat right -15px;
 	padding-right: 20px;
 }
 
@@ -658,7 +658,7 @@ button#show-newpost-form-btn:hover, button#show-newpost-form-btn.activated {
 	width: 400px;
 	height: 9px;
 	top: -9px;
-	background: url(../images/glyph-notices.png) no-repeat center top;
+	background: url(/assets/images/glyph-notices.png) no-repeat center top;
 	z-index: 1;
 	margin-right: auto;
 	margin-left: auto;
@@ -677,7 +677,7 @@ button#show-newpost-form-btn:hover, button#show-newpost-form-btn.activated {
 	display: inline-block;
 }
 .notification .close {
-	background: url(../images/glyph-notices.png) no-repeat center bottom;
+	background: url(/assets/images/glyph-notices.png) no-repeat center bottom;
 	width: 15px;
 	height: 15px;
 	text-indent: -9999px;
@@ -882,7 +882,7 @@ a.btn.connect {
 	padding: 5px 25px;
 	z-index: 3;
 	position: relative;
-	/* background: url(../images/bkg-sidebar.png) no-repeat left top; */
+	/* background: url(/assets/images/bkg-sidebar.png) no-repeat left top; */
 	background-color: #fff;
 	min-height: 658px;
 	border-left: 1px solid #eeeeee;
@@ -960,7 +960,7 @@ a.btn.connect {
 }
 
 .sidebar .leaderboard ul li.active {
-	background: #71bee5 url(../images/you-badge.gif) no-repeat left center;
+	background: #71bee5 url(/assets/images/you-badge.gif) no-repeat left center;
 	border-top: 1px solid #4995bb;
 	border-bottom: 1px solid #4995bb;
 	border-right: 1px solid #4995bb;
@@ -982,7 +982,7 @@ a.btn.connect {
 }
 
 .sidebar .lightning-divider {
-	background-image: url(../images/lightning-divider.png);
+	background-image: url(/assets/images/lightning-divider.png);
 	background-repeat: repeat-x;
 	background-position: center center;
 	height: 41px;
@@ -1000,7 +1000,7 @@ a.btn.connect {
 	margin: 0px 10px 0px 5px;
 	text-align: center;
 	font-size: 9px;
-	background: url(../images/point-indicator.png) no-repeat rgba(255, 255, 254, 0);
+	background: url(/assets/images/point-indicator.png) no-repeat rgba(255, 255, 254, 0);
 	height: 15px;
 	line-height: 16px;
 	-webkit-border-radius: 0px;
@@ -1015,7 +1015,7 @@ a.btn.connect {
 .badge::after, .sidebar .scorings .badge::after {
 	content: '';
 	height: 15px;
-	background: url(../images/point-indicator.png) no-repeat right center;
+	background: url(/assets/images/point-indicator.png) no-repeat right center;
 	position: absolute;
 	width: 7px;
 }
@@ -1075,7 +1075,7 @@ h4.handwriting {
 	padding-right: 20px;
 }
 .leftarrow, .rightarrow {
-	background: url(../images/icon-arrows.png) no-repeat;
+	background: url(/assets/images/icon-arrows.png) no-repeat;
 	width: 27px;
 	text-indent: -9999px;
 	height: 35px;
@@ -1109,7 +1109,7 @@ h4.handwriting {
 	display: inline-block;
 	width: 100%;
 	padding-top: 33px;
-	background: url(../images/glyph-swag.png) no-repeat center top;
+	background: url(/assets/images/glyph-swag.png) no-repeat center top;
 	color: #666;
 	font-size: 12px;
 	line-height: 22px;
@@ -1209,7 +1209,7 @@ h4.handwriting {
 	padding-right: 0;
 }
 .digest-event-info li{
-	background-image: url(../images/follow-glyphs.png);
+	background-image: url(/assets/images/follow-glyphs.png);
 	width: 38px;
 	height: 38px;
 }
@@ -1260,7 +1260,7 @@ h4.handwriting {
 	height: 4px;
 	top: -7px;
 	width: 9px;
-	background: url(../images/carets.png) no-repeat left 0;
+	background: url(/assets/images/carets.png) no-repeat left 0;
 }
 
 /* Events --------------------------------------------------------- */
@@ -1412,7 +1412,7 @@ h4.handwriting {
 }
 
 .event .votes .uparrow {
-	background-image: url(../images/vote-up.png);
+	background-image: url(/assets/images/vote-up.png);
 	height: 14px;
 	position: absolute;
 	top: 1px;
@@ -1452,7 +1452,7 @@ h4.handwriting {
 	width: 54px;
 	text-align: center;
 	top: 22px;
-	background: url(../images/carets.png) no-repeat -9999px 0 #169410;
+	background: url(/assets/images/carets.png) no-repeat -9999px 0 #169410;
 }
 
 .event .votes .voteup.upvoted {
@@ -1471,10 +1471,10 @@ h4.handwriting {
 	margin-left: 4px;
 	margin-top: -4px;
 	width: 8px;
-	background: url(../images/carets.png) no-repeat -9px 0;
+	background: url(/assets/images/carets.png) no-repeat -9px 0;
 }
 .event .votes .voteup.upvoted .upvote-caret {
-	background: url(../images/carets.png) no-repeat -17px 0;
+	background: url(/assets/images/carets.png) no-repeat -17px 0;
 }
 .event .votes .awarded {
 	color: #fff;
@@ -1506,14 +1506,14 @@ h4.handwriting {
 	margin: 3px 5px 0px 0px;
 	height: 11px;
 	width: 11px;
-	background: url(../images/replies-glyph.png) no-repeat -1px -1px;
+	background: url(/assets/images/replies-glyph.png) no-repeat -1px -1px;
 }
 .event .status .expand-replies .icon.collapse {
 	background-position-y: -14px;
 }
 
 .event .status .expand-manage-bar {
-	background-image: url(../images/glyph-hovers.png);
+	background-image: url(/assets/images/glyph-hovers.png);
 	background-position-y: -42px;
 	width: 14px;
 	height: 14px;	
@@ -1585,7 +1585,7 @@ h4.handwriting {
 	left: 20px;
 	top: -7px;
 	width: 12px;
-	background: url(../images/replies-glyph.png) no-repeat 0 bottom;
+	background: url(/assets/images/replies-glyph.png) no-repeat 0 bottom;
 }
 
 .event .replies .reply-event {
@@ -1621,7 +1621,7 @@ h4.handwriting {
 }
 
 .reply-event .awarded-badge {
-	background-image: url(../images/awarded.png);
+	background-image: url(/assets/images/awarded.png);
 	width: 37px;
 	height: 37px;
 	position: absolute;
@@ -1648,7 +1648,7 @@ h4.handwriting {
 	padding: 0px 10px;
 }
 .reply-event .award-btn a .caret {
-	background-image: url(../images/carets.png);
+	background-image: url(/assets/images/carets.png);
 	background-position: right top;
 	width: 5px;
 	heigth: 6px;
@@ -1767,7 +1767,7 @@ h4.handwriting {
 	position: relative;
 	text-align: center;
 	width: 150px;
-	background: url(../images/image-upload.png) no-repeat center 20px #fffef2;
+	background: url(/assets/images/image-upload.png) no-repeat center 20px #fffef2;
 	line-height: 15px;
 }
 
@@ -1817,7 +1817,7 @@ h4.handwriting {
 	padding-right: 65px;	
 	padding-top: 4px;
 	min-height: 42px;
-	background: url(../images/points-50.png) no-repeat right center;
+	background: url(/assets/images/points-50.png) no-repeat right center;
 }
 
 .newpost-sidebar p {
@@ -1868,7 +1868,7 @@ h4.handwriting {
 	background-color: #b2b2b2;
 }
 .twitter-actions-list .twitter-action {
-	background-image: url(../images/twitter-actions.png);
+	background-image: url(/assets/images/twitter-actions.png);
 	float: left;
 	width: 17px;
 	height: 20px;
@@ -1913,11 +1913,11 @@ h4.handwriting {
 }
 .noticebox.notice-flag {
 	padding-left: 47px;
-	background-image: url(../images/icon-flag.png);
+	background-image: url(/assets/images/icon-flag.png);
 }
 .noticebox.notice-star {
 	padding-left: 47px;
-	background-image: url(../images/icon-star.png);
+	background-image: url(/assets/images/icon-star.png);
 }
 
 .retweets-container {
@@ -1930,7 +1930,7 @@ h4.handwriting {
 }
 
 .retweets-container .retweet-icon {
-	background-image: url(../images/icon-retweet.png);
+	background-image: url(/assets/images/icon-retweet.png);
 	margin: -1px 3px 0 0;
 	width: 24px;
 	height: 16px;
@@ -1948,73 +1948,73 @@ only screen and (min-device-pixel-ratio: 2),
 only screen and (-webkit-device-pixel-ratio:1.5) {  
 
 	#navbar .brand {
-		background-image: url(../images/bithub-logo-x2.png);
+		background-image: url(/assets/images/bithub-logo-x2.png);
 		background-size: 100px 31px;
 	}
 	.event .votes .uparrow {
-		background-image: url(../images/vote-up-x2.png);
+		background-image: url(/assets/images/vote-up-x2.png);
 		background-size: 15px 28px;
 	}
 	.event .status .expand .icon {
-		background: url(../images/replies-glyph-x2.png) no-repeat;
+		background: url(/assets/images/replies-glyph-x2.png) no-repeat;
 		background-size: 13px 39px;
 	}
 	#navbar #profileOptions .dropdown-toggle, .caret {
-		background-image: url(../images/dropdown-x2.png);
+		background-image: url(/assets/images/dropdown-x2.png);
 		background-size: 11px 37px;
 	}
 	.login-twitter, .login-github, .login-google, 
 	.login-profile, .login-points, .login-logout {
-		background-image: url(../images/account-glyphs-x2.png);
+		background-image: url(/assets/images/account-glyphs-x2.png);
 		background-size: 40px 120px;
 	}
 	.sidebar .scorings .badge,
 	.sidebar .scorings .badge::after  {
-		background-image: url(../images/point-indicator-x2.png);
+		background-image: url(/assets/images/point-indicator-x2.png);
 		background-size: 37px 15px;
 	}
 	.twitter-actions-list .twitter-action {
-		background-image: url(../images/twitter-actions-x2.png);
+		background-image: url(/assets/images/twitter-actions-x2.png);
 		background-size: 17px 51px;
 	}
 	.retweets-container .retweet-icon {
-		background-image: url(../images/icon-retweet-x2.png);
+		background-image: url(/assets/images/icon-retweet-x2.png);
 		background-size: 24px 16px;
 	}
 	/*
 	.sidebar .awards ul li {
-		background-image: url(../images/icon-check-x2.png);
+		background-image: url(/assets/images/icon-check-x2.png);
 		background-size: 15px 16px;
 	}
 	*/
 	.noticebox.notice-flag {
-		background-image: url(../images/icon-flag-x2.png);
+		background-image: url(/assets/images/icon-flag-x2.png);
 		background-size: 25px 25px;
 	}
 	.noticebox.notice-star {
-		background-image: url(../images/icon-star-x2.png);
+		background-image: url(/assets/images/icon-star-x2.png);
 		background-size: 25px 25px;
 	}
 	#navbar #profileOptions .user-avatar {
-		background-image: url(../images/icon-user-x2.png);
+		background-image: url(/assets/images/icon-user-x2.png);
 		background-size: 35px 35px;
 	}
 	.btn-bigass.plus {
-		background: url(../images/newpost-glyphs-x2.png)no-repeat 10px 8px #585656;
+		background: url(/assets/images/newpost-glyphs-x2.png)no-repeat 10px 8px #585656;
 		padding-left: 35px;
 		background-size: 14px 49px;
 	}
 	.newpost-form .image-uploader {
-		background-image: url(../images/image-upload-x2.png);
+		background-image: url(/assets/images/image-upload-x2.png);
 		background-size: 38px 38px;
 	}
 	.newpost-sidebar h4.submit-your-app {
-		background-image: url(../images/points-50-x2.png);
+		background-image: url(/assets/images/points-50-x2.png);
 		background-size: 78px 30px;
 	}
 	/*
 	#event-list h3 {
-		background-image: url(../images/follow-glyphs-x2.png);
+		background-image: url(/assets/images/follow-glyphs-x2.png);
 		background-size: 38px 418px;
 	}
 	*/
