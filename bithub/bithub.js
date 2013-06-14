@@ -14,8 +14,10 @@ steal(
 	'bithub/models/user.js',
 	'bithub/helpers/loadtime.js',
 	'ui/onbottom.js',
-	'bithub/assets/styles/bootstrap.css',
-	'bithub/assets/styles/app.css',
+	'can/route/pushstate',
+	'vendor/bootstrap/bootstrap.js',
+	'assets/styles/bootstrap.css',
+	'assets/styles/app.css',
 	//'vendor/socketio/socket.io.js',
 	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, Modals, Tag, User, loadtime) {
 		var self = this;
@@ -33,16 +35,37 @@ steal(
 		// }
 		
 		// routes - events
-		can.route(':page', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
-		can.route(':page/:view', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
-		can.route(':page/:view/:project', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
-		can.route(':page/:view/:project/:category', {page: 'homepage', view: 'latest', project: 'all', category: 'all'});
+		
+	    var projects = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
+			categories = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin'],
+			views = ['latest', 'greatest'];
+
+		for (var v in views) {
+			can.route('/'+views[v], { view: views[v] });
+			for (var p in projects) {
+				can.route('/'+projects[p], { project: projects[p]});
+				can.route('/'+views[v]+'/'+projects[p], { view: views[v], project: projects[p]});
+				for (var c in categories) {
+					if (categories[c] === 'twitter') { can.route('/'+categories[c], { category: categories[c] }) }
+					else { can.route('/'+categories[c]+'s', { category: categories[c] }) }
+					can.route('/'+views[v]+'/'+categories[c]+'s', { view: views[v], category: categories[c] });
+					can.route('/'+views[v]+'/'+projects[p]+'/'+categories[c]+'s', { view: views[v], project: projects[p], category: categories[c]});
+				}
+			}
+		}
+
+		can.route('/:project', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:view/:project', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:view/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:page/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		
 		var	newpostVisibility = can.compute(false),
 			projects = new can.Model.List(),
 			categories = new can.Model.List(),
 			currentUser = new User({loggedIn: false});
-
+		
 		currentUser.fromSession();
 
 		// Init Controllers
