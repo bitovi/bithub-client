@@ -41,15 +41,15 @@ steal(
 			views = ['latest', 'greatest'];
 
 		for (var v in views) {
-			can.route('/'+views[v], { view: views[v] });
+			can.route('/'+views[v], { page: 'homepage', view: views[v] });
 			for (var p in projects) {
-				can.route('/'+projects[p], { project: projects[p]});
-				can.route('/'+views[v]+'/'+projects[p], { view: views[v], project: projects[p]});
+				can.route('/'+projects[p], { page: 'homepage', view: 'latest', project: projects[p]});
+				can.route('/'+views[v]+'/'+projects[p], { page: 'homepage', view: views[v], project: projects[p]});
 				for (var c in categories) {
-					if (categories[c] === 'twitter') { can.route('/'+categories[c], { category: categories[c] }) }
-					else { can.route('/'+categories[c]+'s', { category: categories[c] }) }
-					can.route('/'+views[v]+'/'+categories[c]+'s', { view: views[v], category: categories[c] });
-					can.route('/'+views[v]+'/'+projects[p]+'/'+categories[c]+'s', { view: views[v], project: projects[p], category: categories[c]});
+					if (categories[c] === 'twitter') { can.route('/'+categories[c], { page: 'homepage', view: 'latest', category: categories[c] }) }
+					else { can.route('/'+categories[c]+'s', { page: 'homepage', view: 'latest', category: categories[c] }) }
+					can.route('/'+views[v]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], category: categories[c] });
+					can.route('/'+views[v]+'/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], project: projects[p], category: categories[c]});
 				}
 			}
 		}
