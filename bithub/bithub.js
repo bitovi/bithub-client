@@ -38,7 +38,7 @@ steal(
 		
 	    var projects = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
 			categories = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin'],
-			views = ['latest', 'greatest'];
+			views = ['greatest', 'latest'];
 
 		for (var v in views) {
 			can.route('/'+views[v], { page: 'homepage', view: views[v] });
@@ -46,8 +46,13 @@ steal(
 				can.route('/'+projects[p], { page: 'homepage', view: 'latest', project: projects[p]});
 				can.route('/'+views[v]+'/'+projects[p], { page: 'homepage', view: views[v], project: projects[p]});
 				for (var c in categories) {
-					if (categories[c] === 'twitter') { can.route('/'+categories[c], { page: 'homepage', view: 'latest', category: categories[c] }) }
-					else { can.route('/'+categories[c]+'s', { page: 'homepage', view: 'latest', category: categories[c] }) }
+					if (categories[c] === 'twitter') {
+						can.route('/'+categories[c], { page: 'homepage', view: 'latest', category: categories[c] })
+						can.route('/'+projects[p]+'/'+categories[c], { page: 'homepage', view: 'latest', category: categories[c] })
+					} else {
+						can.route('/'+categories[c]+'s', { page: 'homepage', view: 'latest', category: categories[c] })
+						can.route('/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: 'latest', category: categories[c] })
+					}
 					can.route('/'+views[v]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], category: categories[c] });
 					can.route('/'+views[v]+'/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], project: projects[p], category: categories[c]});
 				}
