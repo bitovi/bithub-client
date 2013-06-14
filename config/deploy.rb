@@ -25,7 +25,7 @@ set(:default_stage, 'prod')
 namespace :deploy do
   desc "Symling uploads from api shared folder to bithub folder"
   task :symlink_uploads do
-    run "ln -nfs /home/bithub/web/shared/uploads #{current_path}/bithub/uploads"
+    run "ln -nfs /home/bithub/web/shared/uploads #{current_path}/uploads"
   end
 end
 
