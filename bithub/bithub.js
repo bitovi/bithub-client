@@ -48,10 +48,10 @@ steal(
 				for (var c in categories) {
 					if (categories[c] === 'twitter') {
 						can.route('/'+categories[c], { page: 'homepage', view: 'latest', category: categories[c] })
-						can.route('/'+projects[p]+'/'+categories[c], { page: 'homepage', view: 'latest', category: categories[c] })
+						can.route('/'+projects[p]+'/'+categories[c], { page: 'homepage', view: 'latest', project: projects[p], category: categories[c] })
 					} else {
 						can.route('/'+categories[c]+'s', { page: 'homepage', view: 'latest', category: categories[c] })
-						can.route('/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: 'latest', category: categories[c] })
+						can.route('/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: 'latest', project: projects[p], category: categories[c] })
 					}
 					can.route('/'+views[v]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], category: categories[c] });
 					can.route('/'+views[v]+'/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], project: projects[p], category: categories[c]});
