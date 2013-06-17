@@ -59,6 +59,9 @@ steal(
 			}
 		}
 
+		can.route('/profile', { page: 'profile' });
+		can.route('/profile/activities', { page: 'activities' });
+
 		can.route('/:project', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		can.route('/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		can.route('/:view/:project', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
