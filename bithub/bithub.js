@@ -46,7 +46,7 @@ steal(
 				can.route('/'+projects[p], { page: 'homepage', view: 'latest', project: projects[p]});
 				can.route('/'+views[v]+'/'+projects[p], { page: 'homepage', view: views[v], project: projects[p]});
 				for (var c in categories) {
-					if (categories[c] === 'twitter') {
+					if (categories[c] === 'twitter' || categories[c] === 'code') {
 						can.route('/'+categories[c], { page: 'homepage', view: 'latest', category: categories[c] })
 						can.route('/'+projects[p]+'/'+categories[c], { page: 'homepage', view: 'latest', project: projects[p], category: categories[c] })
 					} else {
@@ -62,12 +62,12 @@ steal(
 		can.route('/profile', { page: 'profile' });
 		can.route('/profile/activities', { page: 'activities' });
 
-		can.route('/:project', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
-		can.route('/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:page/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		can.route('/:view/:project', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		can.route('/:view/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
-		can.route('/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
-		can.route('/:page/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route('/:project', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		
 		var	newpostVisibility = can.compute(false),
 			projects = new can.Model.List(),
