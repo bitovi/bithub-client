@@ -17,9 +17,14 @@ steal(
 			return parseInt(data.loaded / data.total * 100, 10);
 		}
 
-		function closeNewPostForm(eventId) {
+		function closeNewPostForm(eventObj) {
 			var self = this;
-			can.route.attr({page: 'eventdetails', eventId: eventId})
+			can.route.attr({
+				page: 'homepage',
+				view: 'latest',
+				category: eventObj.category,
+				project: self.options.recentProject
+			})
 			setTimeout(function() {
 				self.options.visibility(false);
 			}, 1000);
@@ -138,7 +143,7 @@ steal(
 
 				' fileuploaddone' : function( el, ev, data ) {
 					var newEvent = new Bithub.Models.Event(data.result);
-					closeNewPostForm.call(this, newEvent.id)
+					closeNewPostForm.call(this, newEvent)
 				},
 
 				'#newpost-form-project a click': function( el, ev ) {
@@ -176,12 +181,13 @@ steal(
 					var errors = eventToCheck.errors()
 
 					self.element.find('p.text-error').hide()
+					self.options.recentProject = el.formParams().event.project;
 					if (this.options.fileData && !errors) {
 						this.options.fileData.submit()
 					} else if (!this.options.fileData && !errors){
 						var event = new Bithub.Models.Event(el.formParams())
 						event.save(function(newEvent) {
-							closeNewPostForm.call(self, newEvent.id)
+							closeNewPostForm.call(self, newEvent)
 						});
 					} else {
 						for (e in errors) {

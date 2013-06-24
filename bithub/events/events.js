@@ -84,8 +84,12 @@ steal('can',
 					  });
 					  return buffer;
 				  },
-				  getUrl: function( opts ) {
-					  return this.url || '#!eventdetails/' + this.id;
+				  eventUrl: function( opts ) {
+					  if (this.url) {
+						return "<a href=\""+this.url+"\">"+this.title+"</a>";
+					  } else {
+						return can.route.link(this.title, {id: this.id}, {})
+					  }
 				  }
 			  };
 		  

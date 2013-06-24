@@ -46,6 +46,7 @@ steal(
 		can.route(routePrefix + '', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		can.route(routePrefix + '/profile', { page: 'profile' });
 		can.route(routePrefix + '/profile/activities', { page: 'activities' });
+		can.route(routePrefix + '/eventdetails/:id', { page: 'eventdetails' });
 
 		for (var v in views) {
 			can.route(routePrefix + '/'+views[v], { page: 'homepage', view: views[v] });
