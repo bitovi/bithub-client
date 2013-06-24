@@ -1,5 +1,5 @@
 steal('can',
-	  './init.mustache',
+	  './init.ejs',
 	  'jquerypp/dom/cookie',
 	  function(can, initView){
 		  
@@ -24,26 +24,13 @@ steal('can',
 						  isSelected: function( name, opts ) {
 							  name = (typeof(name) === 'function') ? name() : name;
 							  return (self.options.state() === name) ? 'active' : '';
+						  },
+						  itemUrl: function (item) {
+							  return can.route.url({ category: item.name }, true);
 						  }
 					  }) );
 				  },
 
-				  'a.item:not(.default) click': function(el, ev) {
-					  var item = can.data(el, 'item');
-					  this.options.state( item.name );
-					  
-					  items.splice( items.indexOf(item), 1 );
-					  items.unshift(item);
-
-					  this.saveOrderingToCookie();
-					  
-					  ev.preventDefault();
-				  },
-				  
-				  'a.item.default click': function(el, ev) {
-					  this.options.state( (can.data(el, 'item')).name );
-					  ev.preventDefault();
-				  },
 
 				  '{items} change': function() {
 					  this.options.items.forEach( function( item ) {

@@ -1,0 +1,5 @@
+<% can.each(items, function(item) { %>
+<li>
+<a href="<%= itemUrl(item) %>" class="<%= item.name %> boxed item <%= isSelected(item.name) %>"><span class="glyph"></span><%= item.display_name %></a>
+</li>  
+<% }); %>

@@ -23,11 +23,7 @@ steal('can',
 					  // init UI controls
 					  new OptionSelector('#viewFilter', {
 						  state: function (newVal) {
-							  if (arguments.length > 0) {
-								  can.route.attr({page: 'homepage', view: newVal});
-							  } else {
-								  return can.route.attr('view');
-							  }
+							return can.route.attr('view');
 						  },
 						  items: [
 							  { name: 'latest', display_name: 'Latest' },
@@ -39,11 +35,7 @@ steal('can',
 						  items: options.projects,
 						  defaultOption: {name: 'all', display_name: 'All projects'},
 						  state: function (newVal) {
-							  if (arguments.length > 0) {
-								  can.route.attr({page: 'homepage', project: newVal});
-							  } else {
-								  return can.route.attr('project');
-							  }
+							return can.route.attr('project');
 						  }
 					  });
 
@@ -51,11 +43,7 @@ steal('can',
 						  items: options.categories,
 						  defaultOption: {name: 'all', display_name: 'All'},
 						  state: function (newVal) {
-							  if (arguments.length > 0) {
-								  can.route.attr({page: 'homepage', category: newVal});
-							  } else {
-								  return can.route.attr('category');
-							  }
+							return can.route.attr('category');
 						  }
 					  });
 					  

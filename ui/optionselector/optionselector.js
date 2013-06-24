@@ -1,5 +1,5 @@
 steal('can',
-	  './init.mustache',
+	  './init.ejs',
 	  function(can, initView){
 		  /**
 		   * @class ui/optionselector
@@ -21,14 +21,11 @@ steal('can',
 						  isSelected: function( name, opts ) {
 							  name = (typeof(name) === 'function') ? name() : name;
 							  return (self.options.state() === name) ? 'active' : '';
+						  },
+						  itemUrl: function (item) {
+							  return can.route.url({ view: item.name }, true);
 						  }
 					  }));
-				  },
-				  
-				  'a.item click': function (el, ev) {
-					  ev.preventDefault();
-
-					  this.options.state( can.data(el, 'item').name );
 				  }
 				  
 			  });

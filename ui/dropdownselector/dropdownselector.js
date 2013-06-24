@@ -1,5 +1,5 @@
 steal('can',
-	  './init.mustache',
+	  './init.ejs',
 	  'vendor/bootstrap',
 	  function(can, initView){
 		  /**
@@ -15,7 +15,6 @@ steal('can',
 			  {
 				  init : function( el, opts ){
 					  var self = this;
-					  
 					  self.element.html(initView({
 						  htmlId: opts.htmlId,
 						  items: opts.items,
@@ -29,14 +28,11 @@ steal('can',
 								  }
 							  });
 							  return selected;
+						  },
+						  itemUrl: function (item) {
+							  return can.route.url({ project: item.name }, true);
 						  }
 					  }));
-				  },
-
-				  'a.item click': function (el, ev) {
-					  ev.preventDefault();
-
-					  this.options.state( can.data(el, 'item').name );
 				  }
 			  });
 	  });
