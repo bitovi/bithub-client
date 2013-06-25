@@ -49,19 +49,22 @@ steal(
 		can.route(routePrefix + '/eventdetails/:id', { page: 'eventdetails' });
 
 		for (var v in views) {
-			can.route(routePrefix + '/'+views[v], { page: 'homepage', view: views[v] });
+			can.route(routePrefix + '/'+views[v], { page: 'homepage', category:'all', project: 'all', view: views[v] });
 			for (var p in projects) {
-				can.route(routePrefix + '/'+projects[p], { page: 'homepage', view: 'latest', project: projects[p]});
-				can.route(routePrefix + '/'+views[v]+'/'+projects[p], { page: 'homepage', view: views[v], project: projects[p]});
+				can.route(routePrefix + '/'+projects[p], { page: 'homepage', view: 'latest', category: 'all', project: projects[p]});
+				can.route(routePrefix + '/'+views[v]+'/'+projects[p], { page: 'homepage', category: 'all', view: views[v], project: projects[p]});
 				for (var c in categories) {
-					can.route(routePrefix + '/'+categories[c], { page: 'homepage', view: 'latest', category: categories[c] })
+					can.route(routePrefix + '/'+categories[c], { page: 'homepage', view: 'latest', project: 'all', category: categories[c] })
 					can.route(routePrefix + '/'+projects[p]+'/'+categories[c], { page: 'homepage', view: 'latest', project: projects[p], category: categories[c] })
+					can.route(routePrefix + '/'+views[v]+'/'+categories[c], { page: 'homepage', project: 'all', view: views[v], category: categories[c] });
+					can.route(routePrefix + '/'+views[v]+'/'+projects[p]+'/'+categories[c], { page: 'homepage', view: views[v], project: projects[p], category: categories[c]});
+
 					if (categories[c] !== 'twitter' && categories[c] !== 'code') {
-						can.route(routePrefix + '/'+categories[c]+'s', { page: 'homepage', view: 'latest', category: categories[c] })
+						can.route(routePrefix + '/'+categories[c]+'s', { page: 'homepage', view: 'latest', project: 'all', category: categories[c] })
 						can.route(routePrefix + '/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: 'latest', project: projects[p], category: categories[c] })
+						can.route(routePrefix + '/'+views[v]+'/'+categories[c]+'s', { page: 'homepage', project: 'all', view: views[v], category: categories[c] });
+						can.route(routePrefix + '/'+views[v]+'/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], project: projects[p], category: categories[c]});
 					}
-					can.route(routePrefix + '/'+views[v]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], category: categories[c] });
-					can.route(routePrefix + '/'+views[v]+'/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: views[v], project: projects[p], category: categories[c]});
 				}
 			}
 		}
