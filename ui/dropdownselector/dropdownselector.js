@@ -6,6 +6,15 @@ steal('can',
 		   * @class ui/dropdownselector
 		   * @alias Dropdownselector   
 		   */
+
+		  var dropdownItemRoute = can.compute(function(item) {
+			  return can.route.url({
+				  project: item.name,
+				  category: can.route.attr('category'),
+				  view: can.route.attr('view')
+			  }, true);
+		  })
+
 		  return can.Control(
 			  /** @Static */
 			  {
@@ -13,14 +22,15 @@ steal('can',
 			  },
 			  /** @Prototype */
 			  {
-				  init : function( el, opts ){
+				  init : function( el, opts ) {
 					  var self = this;
+					  can.extend(this.options, opts);
 					  self.element.html(initView({
-						  htmlId: opts.htmlId,
-						  items: opts.items,
-						  defaultOption: opts.defaultOption
+						  htmlId: self.options.htmlId,
+						  items: self.options.items,
+						  defaultOption: self.options.defaultOption
 					  }, {
-						  selected: function( opts ) {
+						  selected: function() {
 							  var selected = self.options.defaultOption.display_name;
 							  can.each(self.options.items, function(item) {
 								  if (self.options.state() === item.attr('name')) {
@@ -30,10 +40,9 @@ steal('can',
 							  return selected;
 						  },
 						  itemUrl: function (item) {
-							  return can.route.url({ project: item.name }, true);
+							  return dropdownItemRoute(item);
 						  }
 					  }));
-				  }
+				  },
 			  });
 	  });
-

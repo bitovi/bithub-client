@@ -2,8 +2,15 @@ steal('can',
 	  './init.ejs',
 	  'jquerypp/dom/cookie',
 	  function(can, initView){
+		  var items = new can.Observe.List();
 		  
-		  var items = new can.Observe.List();		  
+		  var smartSelectorItemRoute = can.compute(function(item) {
+			  return can.route.url({
+				  category: item.name,
+				  project: can.route.attr('project'),
+				  view: can.route.attr('view')
+			  }, true);
+		  })
 
 		  return can.Control(
 			  /** @Static */
@@ -14,25 +21,36 @@ steal('can',
 			  {
 				  init : function( elem, opts ){
 					  var self = this;
-					  
-					  self.element.html( initView( {
-						  htmlId: opts.htmlId,
-						  defaultOption: opts.defaultOption,
-						  items: items,
-						  breakIdx: opts.breakIdx || 3
+					  self.element.html(initView( {
+						  htmlId: self.options.htmlId,
+						  defaultOption: self.options.defaultOption,
+						  items: self.options.items,
 					  }, {
-						  isSelected: function( name, opts ) {
-							  name = (typeof(name) === 'function') ? name() : name;
+						  isSelected: function( item ) {
+							  var name = (typeof(item) === 'function') ? item() : item.name;
 							  return (self.options.state() === name) ? 'active' : '';
 						  },
 						  itemUrl: function (item) {
-							  return can.route.url({ category: item.name }, true);
+							  return smartSelectorItemRoute(item);
 						  }
-					  }) );
+					  }));
 				  },
 
+				  // "{can.route} change": function(el, ev, attr, how, newVal, oldVal) {
+					  // if (attr === "category" && (how === 'set' || how === 'add')) {
+						  // if (this.options.items.length > 0) {
+							  // var selectedItem;
+							  // can.each(this.options.items, function(item) {
+								  // if (item.name == newVal) selectedItem = newItem;
+							  // })
+							  // items.splice(items.indexOf(selectedItem), 1);
+							  // items.unshift(selectedItem);
+							  // this.saveOrderingToCookie();
+						  // }
+					  // }
+				  // },
 
-				  '{items} change': function() {
+				  "{items} change": function() {
 					  this.options.items.forEach( function( item ) {
 						  items.push({name: item.attr('name'), display_name: item.attr('display_name') });
 					  });

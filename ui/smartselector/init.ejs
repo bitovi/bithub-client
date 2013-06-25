@@ -1,5 +1,5 @@
 <li><a class="disabled">Filter:</a></li>
-<li><a href="#" class="item default <%= isSelected('all') %>"><%= defaultOption.display_name %></a></li>	
+<li><a href="<%= itemUrl(defaultOption) %>" class="item default <%= isSelected('all') %>"><%= defaultOption.display_name %></a></li>	
 
 <% can.each(items, function(item, idx) { %>
 <% if (idx <= 2) { %>

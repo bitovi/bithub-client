@@ -33,7 +33,7 @@ steal('can',
 
 					  new DropdownSelector('#projectFilter', {
 						  items: options.projects,
-						  defaultOption: {name: 'all', display_name: 'All projects'},
+						  defaultOption: { name: 'all', display_name: 'All projects' },
 						  state: function (newVal) {
 							return can.route.attr('project');
 						  }
@@ -41,7 +41,7 @@ steal('can',
 
 					  new SmartSelector('#categoryFilter', {
 						  items: options.categories,
-						  defaultOption: {name: 'all', display_name: 'All'},
+						  defaultOption: { name: 'all', display_name: 'All' },
 						  state: function (newVal) {
 							return can.route.attr('category');
 						  }

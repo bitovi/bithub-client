@@ -5,6 +5,15 @@ steal('can',
 		   * @class ui/optionselector
 		   * @alias Optionselector   
 		   */
+		  
+		  var optionsSelectorItemRoute = can.compute(function(item) {
+			  return can.route.url({
+				  category: can.route.attr('category'),
+				  project: can.route.attr('project'),
+				  view: item.name
+			  }, true);
+		  })
+
 		  return can.Control(
 			  /** @Static */
 			  {
@@ -14,16 +23,15 @@ steal('can',
 			  {
 				  init : function( elem, opts ){
 					  var self = this;
-					  
 					  elem.html(initView({
-						  items: opts.items
+						  items: self.options.items
 					  },{
-						  isSelected: function( name, opts ) {
-							  name = (typeof(name) === 'function') ? name() : name;
+						  isSelected: function( item ) {
+							  var name = (typeof(item) === 'function') ? item() : item.name;
 							  return (self.options.state() === name) ? 'active' : '';
 						  },
 						  itemUrl: function (item) {
-							  return can.route.url({ view: item.name }, true);
+							  return optionsSelectorItemRoute(item);
 						  }
 					  }));
 				  }
