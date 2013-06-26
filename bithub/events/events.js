@@ -97,7 +97,7 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  window.latest = this.latestEvents = new Bithub.Models.Event.List(),
+					  window.LATEST = this.latestEvents = new Bithub.Models.Event.List(),
 					  this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
 					  
