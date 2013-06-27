@@ -1,5 +1,9 @@
 <div id="events-list">
 
+  <div class="spinner"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>
+
+  <div class="events-container">
+  
   {{#isLatest partial}}
     {{> latestView }}
   {{/isLatest}}
@@ -7,5 +11,9 @@
   {{#isGreatest partial}}
     {{> greatestView }}
   {{/isGreatest}}
-  
+
+  <div class="spinnerBottom"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>
+
+  </div>  
+
 </div>

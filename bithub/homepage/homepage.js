@@ -18,9 +18,15 @@ steal(
 				new Leaderboard( elem.find('#leaderboard'), opts );
 			},
 			
-			'#show-new-post-form-btn click': function ( el, ev ) {
+			'#show-new-post-form-btn click': function( el, ev ) {
 				ev.preventDefault();
 				this.options.newpostVisibility(true);
+			},
+
+			// twitter follow buttons are loaded dynamically
+			'#twitter-modal-btn click': function( el, ev ) {
+				ev.preventDefault();
+				this.options.modals.showTwitter();
 			}
 		});
 	});
