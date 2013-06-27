@@ -7,7 +7,9 @@ steal(
 		}, {
 			init: function( element, options ) {
 				element.html(initView({
-					user: options.currentUser
+					user: options.currentUser,
+					profileRoute: can.route.url({page: 'profile'}, false),
+					activityListRoute: can.route.url({page: 'activities'}, false)
 				}));
 			},
 

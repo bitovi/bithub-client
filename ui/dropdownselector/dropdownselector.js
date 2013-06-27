@@ -25,7 +25,7 @@ steal('can',
 				  init : function( el, opts ) {
 					  var self = this;
 					  can.extend(this.options, opts);
-					  self.element.html(initView({
+					  self.element.html( initView({
 						  htmlId: self.options.htmlId,
 						  items: self.options.items,
 						  defaultOption: self.options.defaultOption

@@ -10,7 +10,7 @@ steal('can',
 				  project: can.route.attr('project'),
 				  view: can.route.attr('view')
 			  }, true);
-		  })
+		  });
 
 		  return can.Control(
 			  /** @Static */
@@ -21,10 +21,10 @@ steal('can',
 			  {
 				  init : function( elem, opts ){
 					  var self = this;
-					  self.element.html(initView( {
+					  self.element.html( initView( {
 						  htmlId: self.options.htmlId,
 						  defaultOption: self.options.defaultOption,
-						  items: self.options.items,
+						  items: self.options.items
 					  }, {
 						  isSelected: function( item ) {
 							  var name = (typeof(item) === 'function') ? item() : item.name;
