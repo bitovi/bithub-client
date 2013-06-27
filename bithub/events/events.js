@@ -91,14 +91,17 @@ steal('can',
 		  
 		  return can.Control(
 			  {
-				  defaults : {}
+				  defaults : {
+					  spinner: can.compute(false),
+					  spinnerBottom: can.compute(false)
+				  }
 			  }, {
 
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  window.latest = this.latestEvents = new Bithub.Models.Event.List(),
-					  this.greatestEvents = new Bithub.Models.Event.List(),			
+					  window.LATEST = this.latestEvents = new Bithub.Models.Event.List(),
+					  window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
 					  
 					  /* TODO: live updating
@@ -129,6 +132,8 @@ steal('can',
 							  }
 						  })
 					  }) );
+
+					  self.options.spinner(true);
 
 					  this.load();
 				  },
@@ -193,16 +198,19 @@ steal('can',
 
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
 					  this.resetFilter();
+					  this.options.spinner(true);
 					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
 					  this.resetFilter();
+					  this.options.spinner(true);
 					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} category': function( data, ev, newVal, oldVal ) {
 					  this.resetFilter();
+					  this.options.spinner(true);
 					  this.load( this.updateEvents );
 				  },
 
@@ -218,7 +226,29 @@ steal('can',
 					  } else {
 						  views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
 					  }
+
+					  this.options.spinnerBottom(true);
 					  this.load( this.appendEvents );
+				  },
+
+				  // spinner
+
+				  '{spinner} change': function( fn, ev, newVal, oldVal ) {
+					  var el = this.element;
+					  
+					  if( newVal ) {
+						  el.find('.events-container').hide();
+						  el.find('.spinner').show()
+					  } else {
+						  el.find('.spinner').hide()
+						  el.find('.events-container').show();
+					  }
+				  },
+
+				  '{spinnerBottom} change': function( fn, ev, newVal, oldVal ) {
+					  var $spinner = this.element.find('.spinnerBottom');
+
+					  newVal ? $spinner.show() : $spinner.hide();
 				  },
 
 				  /*
@@ -278,7 +308,6 @@ steal('can',
 				  
 				  load: function( cb, params ) {
 					  clearTimeout(this.loadTimeout);
-
 					  this.loadTimeout = setTimeout( this.proxy( function () {
 						  Event.findAll( this.prepareParams(), this.proxy( cb ) );
 					  }) );
@@ -291,6 +320,7 @@ steal('can',
 					  } else {
 						  emptyReqCounter = 0;
 						  this.latestEvents.replace( events.latest() );
+						  this.options.spinner(false);
 					  }
 					  this.currentView( can.route.attr('view') );
 				  },
@@ -308,11 +338,13 @@ steal('can',
 							  buffer.push( day );
 						  }
 					  });					  
+					  this.options.spinnerBottom(false);
 					  this.latestEvents.replace( buffer );
 				  },
 				  
 				  updateGreatest: function( events ) {
 					  this.greatestEvents.replace( events );
+					  this.options.spinner(false);
 					  this.currentView( can.route.attr('view') );
 				  },
 				  
@@ -321,6 +353,7 @@ steal('can',
 					  events.forEach( function( event ) {
 						  buffer.push( event );
 					  });				  
+					  this.options.spinnerBottom(false);
 					  this.greatestEvents.replace( buffer );
 				  },
 

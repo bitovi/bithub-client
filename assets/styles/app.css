@@ -249,6 +249,22 @@ input:focus, textarea:focus {
 #events, #event-list, #content > .row {
 	position: relative;
 }
+
+#events-list .spinner {
+	position: absolute;
+	padding-top: 50px;
+	text-align: center;
+	width: 100%;
+	z-index: 1000;
+}
+
+#events-list .spinnerBottom {
+	padding: 10px 0px;
+	text-align: center;
+	width: 100%;
+	display: none;
+}
+
 #events h3  {
 	color: #666666;
 	font-size: 12px;
