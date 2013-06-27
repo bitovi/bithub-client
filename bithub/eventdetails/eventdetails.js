@@ -9,7 +9,7 @@ steal('can',
 				  init : function( elem, opts ){
 					  Bithub.Models.Event.findOne({ id: can.route.attr('id') }, function(event) {
 						  elem.html( initView({
-							  event: this.event
+							  event: event
 						  }));
 					  });
 				  }

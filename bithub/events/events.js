@@ -189,8 +189,10 @@ steal('can',
 				  },
 
 				  '.delete-event click': function( el, ev ) {
-					  ev.preventDefault();					  
-					  (can.data( el.closest('.event'), 'event' )).destroy();
+					  ev.preventDefault();
+					  var self = this;
+					  var event = can.data(el.closest('.event.list-element'), 'eventObj');
+					  event.destroy(function() { self.load(self.updateEvents) });
 				  },
 
 				  // can.route listeners
