@@ -3,6 +3,7 @@ steal('can',
 	'bithub/helpers/group.js',
 	'can/model/list',
 	'can/observe/validations',
+	'can/observe/lazy',
 	function (can, Upvote, helpers) {
 		var Event = can.Model('Bithub.Models.Event', {
 
@@ -26,8 +27,12 @@ steal('can',
 			findOne : 'GET /api/events/{id}',
 			create  : 'POST /api/events',
 			update  : 'PUT /api/events/{id}',
-			destroy : 'DELETE /api/events/{id}'
-
+			destroy : 'DELETE /api/events/{id}',
+			
+			model: function( attrs ) {
+				return attrs;
+			}
+			
 		}, {
 			upvote: function( success, error ) {
 				(new Upvote({event: this})).upvote();
@@ -57,6 +62,10 @@ steal('can',
 		});
 
 		can.Model.List('Bithub.Models.Event.List', {
+			Observe: function( data ) {
+				return new can.LazyMap( data );
+			}
+		}, {
 			latest: function () {
 				var days = [];
 
