@@ -1,6 +1,5 @@
 steal('can/view/mustache',
 	  'vendor/moment/moment.min.js',
-	  'vendor/markdown',
 	  'ui/more'
 	 ).then( function () {
 
@@ -81,19 +80,6 @@ steal('can/view/mustache',
 		 Mustache.registerHelper('substring', function( str, start, length, opts ) {
 			 str = (typeof(str) === 'function') ? str() : str;
 			 return str.substr( start, length );
-		 });
-
-		 Mustache.registerHelper('markdown', function( str, tags, opts ) {
-			 str = (typeof(str) === 'function') ? str() : str;
-			 tags = (typeof(tags) === 'function') ? tags() : tags;
-
-			 var whitelist = ['issue_comment_event', 'issues_event', 'commit_comment_event'];
-			 for (var i = 0; i < tags.length; i++) 
-				 if ( whitelist.indexOf( tags[i] ) >= 0 ) {
-					 return markdown.toHTML( str );
-				 }
-			 
-			 return str;
 		 });
 
 		 Mustache.registerHelper('capitalize', function( str, opts ) {
