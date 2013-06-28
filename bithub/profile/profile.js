@@ -17,19 +17,20 @@ steal(
 				self.countries = this.loadCountries();
 
 				// select current country on user load
-				opts.currentUser.bind('country.iso', function( ev, attr ) {
-					countryISO( attr.iso );
-				});
+				// opts.currentUser.bind('country.iso', function( ev, attr ) {
+				// 	countryISO( attr.iso );
+				// });
 
 				// init form
 				elem.html( initView({
-					user: opts.currentUser,
-					country: countryISO
+					user: self.options.currentUser,
+					country: countryISO,
+					profileRoute: can.route.url({page: 'profile'}),
+					activityListRoute: can.route.url({page: 'activities'})
 				}, {
 					helpers: {
 						'hasProvider': function( provider, opts ) {
-							var flag = false;
-
+							var flag = false
 							if ( self.options.currentUser.attr('loggedIn') ) {
 								self.options.currentUser.attr('identities').each( function (value) {
 									if (value.provider === provider) flag = true;

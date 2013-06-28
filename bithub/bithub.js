@@ -113,6 +113,7 @@ steal(
 			newpostVisibility: newpostVisibility
 		});
 		new Filterbar('#filterbar', {
+			currentUser: currentUser,
 			projects: projects,
 			categories: categories
 		});
@@ -133,7 +134,5 @@ steal(
 			projects.replace(data);
 		});
 
-		
 		new UI.Onbottom(document);
-
 	});
