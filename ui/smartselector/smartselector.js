@@ -1,6 +1,7 @@
 steal('can',
 	  './init.ejs',
 	  'jquerypp/dom/cookie',
+	  'can/observe/delegate',
 	  function(can, initView){
 		  var items = new can.Observe.List();
 		  
@@ -15,16 +16,21 @@ steal('can',
 		  return can.Control(
 			  /** @Static */
 			  {
-				  defaults : { orderingCookieName: 'foobar' }
+				  defaults : {
+					  orderingCookieName: 'smartFilterItemsOrdering',
+					  breakIdx: 3
+				  }
 			  },
 			  /** @Prototype */
 			  {
 				  init : function( elem, opts ){
 					  var self = this;
+					  
 					  self.element.html( initView( {
 						  htmlId: self.options.htmlId,
 						  defaultOption: self.options.defaultOption,
-						  items: self.options.items
+						  items: items,
+						  breakIdx: self.options.breakIdx
 					  }, {
 						  isSelected: function( item ) {
 							  var name = (typeof(item) === 'function') ? item() : item.name;
@@ -36,25 +42,45 @@ steal('can',
 					  }));
 				  },
 
-				  // "{can.route} change": function(el, ev, attr, how, newVal, oldVal) {
-					  // if (attr === "category" && (how === 'set' || how === 'add')) {
-						  // if (this.options.items.length > 0) {
-							  // var selectedItem;
-							  // can.each(this.options.items, function(item) {
-								  // if (item.name == newVal) selectedItem = newItem;
-							  // })
-							  // items.splice(items.indexOf(selectedItem), 1);
-							  // items.unshift(selectedItem);
-							  // this.saveOrderingToCookie();
-						  // }
-					  // }
-				  // },
+				  "{can.route} change": function(el, ev, attr, how, newVal, oldVal) {
+					  if (attr === "category" && (how === 'set' || how === 'add')) {
+						  if (items.length > 0) {
+							  var selectedItem;
 
-				  "{items} change": function() {
-					  this.options.items.forEach( function( item ) {
-						  items.push({name: item.attr('name'), display_name: item.attr('display_name') });
+							  // find selected item
+							  can.each(items, function(item) {
+								  if (item.name == newVal) selectedItem = item;
+							  })
+							  
+							  // .. if item is from dropdown do LRU
+							  if( items.indexOf(selectedItem) >= this.options.breakIdx ) {
+
+								  // push item to the head
+								  items.splice(items.indexOf(selectedItem), 1);
+								  items.unshift(selectedItem);
+								  // sort the rest and save to cookie
+								  this.sortItems(); 
+								  this.saveOrderingToCookie();
+							  }
+						  }
+					  }
+				  },
+
+				  "{categories} change": function() {
+					  this.options.categories.forEach( function( item ) {
+						  items.push({name: item.name, display_name: item.display_name });
 					  });
 					  this.loadOrderingFromCookie();
+					  this.sortItems();
+				  },
+
+				  sortItems: function() {
+					  var idx = this.options.breakIdx,
+						  length = items.length;
+
+					  items.replace( items.concat(items.splice(idx, length-idx).sort( function( a, b ) {
+						  return a.name > b.name;
+					  })) );
 				  },
 
 				  saveOrderingToCookie: function( cookieName ) {

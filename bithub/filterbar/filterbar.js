@@ -4,17 +4,11 @@ steal('can',
 	  'ui/dropdownselector',
 	  'ui/smartselector',
 	  function(can, initView, OptionSelector, DropdownSelector, SmartSelector){
-		  /**
-		   * @class filterbar
-		   * @alias Filterbar   
-		   */
+
 		  return can.Control(
-			  /** @Static */
 			  {
 				  defaults : {}
-			  },
-			  /** @Prototype */
-			  {
+			  }, {
 				  init : function( element, options ) {
 					  var self = this;
 					  
@@ -43,7 +37,7 @@ steal('can',
 					  });
 
 					  new SmartSelector('#categoryFilter', {
-						  items: options.categories,
+						  categories: options.categories,
 						  defaultOption: {
 							  name: 'all',
 							  display_name: 'All'
