@@ -25,7 +25,7 @@ steal('can',
 			  {
 				  init : function( elem, opts ){
 					  var self = this;
-					  
+					  self.options.defaultOption = new can.Observe(self.options.defaultOption);
 					  self.element.html( initView( {
 						  htmlId: self.options.htmlId,
 						  defaultOption: self.options.defaultOption,
