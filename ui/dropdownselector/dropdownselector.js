@@ -10,9 +10,9 @@ steal('can',
 		  var dropdownItemRoute = can.compute(function(item) {
 			  return can.route.url({
 				  project: item.name,
-				  category: can.route.attr('category'),
-				  view: can.route.attr('view')
-			  }, true);
+				  category: can.route.attr('category') || 'all',
+				  view: can.route.attr('view') || 'all'
+			  }, false);
 		  });
 
 		  return can.Control(

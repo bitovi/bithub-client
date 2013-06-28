@@ -9,7 +9,9 @@ steal(
 			init : function( elem, opts ){
 
 				this.element.html(initView({
-					currentUser: opts.currentUser
+					currentUser: opts.currentUser,
+					profileRoute: can.route.url({page: 'profile'}),
+					activityListRoute: can.route.url({page: 'activities'})
 				}, {
 					helpers: {
 						getPoints: function( opts ) {

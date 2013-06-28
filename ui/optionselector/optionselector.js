@@ -8,10 +8,10 @@ steal('can',
 		  
 		  var optionsSelectorItemRoute = can.compute(function(item) {
 			  return can.route.url({
-				  category: can.route.attr('category'),
-				  project: can.route.attr('project'),
+				  category: can.route.attr('category') || 'all',
+				  project: can.route.attr('project') || 'all',
 				  view: item.name
-			  }, true);
+			  }, false);
 		  })
 
 		  return can.Control(

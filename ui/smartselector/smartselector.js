@@ -7,9 +7,9 @@ steal('can',
 		  var smartSelectorItemRoute = can.compute(function(item) {
 			  return can.route.url({
 				  category: item.name,
-				  project: can.route.attr('project'),
-				  view: can.route.attr('view')
-			  }, true);
+				  project: can.route.attr('project') || 'all',
+				  view: can.route.attr('view') || 'all'
+			  }, false);
 		  });
 
 		  return can.Control(
