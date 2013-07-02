@@ -129,7 +129,7 @@ steal(
 					var loadingImage = window.loadImage(
 						data.files[0],
 						function (img) {
-							el.find('.image-preview').html(img);
+							el.find('.image-uploader .image-preview').html(img);
 						}, {
 							maxWidth: 150,
 							maxHeight: 120

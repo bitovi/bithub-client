@@ -9,15 +9,17 @@
 
 			<div class="span left">
 
-			  <input type="hidden" name="event[project]">
-			  <input type="hidden" name="event[category]">
-			  <input type="hidden" name="event[feed]" value="bithub">
+			  <input type="hidden" name="event[project]"/>
+			  <input type="hidden" name="event[category]"/>
+			  <input type="hidden" name="event[feed]" value="bithub"/>
 
 			  <div class="image-uploader">
 				<span>Add An <br>Image</span>
 				<div class="image-preview"></div>
-				<div class="progress hidden"><div class="bar" style="width: 0%;"></div></div>
-				<input id="event-image" type="file" name="event[image]">
+				<div class="progress hidden">
+					<div class="bar" style="width: 0%;"></div>
+				</div>
+				<label><input type="file" name="event[image]" size="1"/></label>
 			  </div>
 
 			  <div class="btn-group control-group" id="newpost-form-project">
@@ -56,7 +58,7 @@
 			  </div>
 
 			  <div class="control-group">
-				<input name="event[url]" type="text" class="url span3" placeholder="URL:"/>
+				  <input name="event[url]" type="text" class="url span3" placeholder="URL:"/>
 			  </div>
 
 			  <div class="control-group" id="newpost-form-body">
@@ -67,14 +69,14 @@
 			  <div class="control-group {{^ifAdmin}}hidden{{/ifAdmin}}" id="newpost-form-post-as">
 				  <p class="text-error hidden"></p>
 				  <label style="float: left; width: 50px;">
-					  <input type="radio" name="postas_feed" value="twitter" CHECKED>TW
+					  <input type="radio" name="postas_feed" value="twitter" CHECKED/>TW
 				  </label>
 				  <label style="float: left; width: 50px;">
-					  <input type="radio" name="postas_feed" value="github">GH
+					  <input type="radio" name="postas_feed" value="github"/>GH
 				  </label>
 				  <input name="postas" type="text" class="title span1 typeahead" data-toggle="toggle" placeholder="Post as:"/>
-				  <input name="event[origin_author_feed]" type="hidden" class="postas_feed" value="" />
-				  <input name="event[origin_author_id]" type="hidden" class="postas_id" value="" />
+				  <input name="event[origin_author_feed]" type="hidden" class="postas_feed" value=""/>
+				  <input name="event[origin_author_id]" type="hidden" class="postas_id" value=""/>
 				  <img class="postas avatar float-right" src="" alt="" />
 			  </div>
 
