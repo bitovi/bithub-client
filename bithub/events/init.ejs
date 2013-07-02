@@ -1,0 +1,17 @@
+<div id="events-list">
+
+  <div class="spinner"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>
+
+  <div class="events-container">
+
+	<% if (partial() === 'latest') { %>
+	<%== latestView.render({days: latestIndex, events: latestEvents, categories: categories, eventPartial: eventPartial, eventChildrenPartial: eventChildrenPartial, digestPartial: digestPartial}) %>
+	<% } else { %>
+	<%== greatestView.render({events: greatestEvents, eventPartial: eventPartial, eventChildrenPartial: eventChildrenPartial}) %>
+	<% } %>
+	
+  <div class="spinnerBottom"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>
+
+  </div>  
+
+</div>

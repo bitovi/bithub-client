@@ -1,0 +1,3 @@
+<% list( events, function( event ) { %>
+<%== eventPartial( event.attr('tags') ).render({event: event, eventChildrenPartial: eventChildrenPartial}) %>
+<% }) %>

@@ -1,0 +1,24 @@
+<div class="replies row">
+  <span class="replies-caret"></span>
+  <% list(events, function( event ) { %>
+  <div class="reply-event row"  {{data 'event'}}>
+	<% if( event.attr('props.awarded') ) { %><div class="awarded-badge"></div><% } %>
+	<% if( !event.attr('award_closed') ) { %><div class="award-btn"><a href="#"><span class="caret"></span>Award</a></div><% } %>
+	
+	<div class="votes">
+	  <div class="uparrow"></div>
+	  <div class="count"><%= event.attr('upvotes') %></div>
+	</div>
+	<div class="body reply">
+	  <% if( event.attr('body') ) { %>
+	  <%== event.attr('body') %>
+	  <% } else { %>
+	  <%== event.attr('title') %>
+	  <% } %>
+	  <div class="event-metadata pull-right">
+		<a href="#">__author</a> / <%= event.attr('origin_ts') %>
+	  </div>
+	</div>
+  </div>
+  <% }) %>
+</div>

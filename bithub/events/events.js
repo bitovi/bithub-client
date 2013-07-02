@@ -1,19 +1,18 @@
 steal('can',
-	  './init.mustache',
-	  './latest.mustache',
-	  './greatest.mustache',
-	  './_digest.mustache',
-	  './_event.mustache',
-	  './_event_children.mustache',
-	  './_event_code.mustache',
-	  './_event_twitter.mustache',
-	  './_event_irc.mustache',
+	  './init.ejs',
+	  './latest.ejs',
+	  './greatest.ejs',
+	  './_event.ejs',
+	  './_event_children.ejs',
+	  './_event_code.ejs',
+	  './_event_twitter.ejs',
+	  './_digest.ejs',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
 	  'bithub/models/award.js',
 	  'can/construct/proxy',
-	  'bithub/helpers/mustacheHelpers.js',
-	  function(can, initView, latestView, greatestView, digestPartial, eventPartial, eventChildrenPartial, eventCodePartial, eventTwitterPartial, eventIRCPartial, Event, Upvote, Award){
+	  'bithub/helpers/ejsHelpers.js',
+	  function(can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, eventCodePartial, eventTwitterPartial, digestPartial, Event, Upvote, Award){
 
 		  var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),
 			  
@@ -56,41 +55,33 @@ steal('can',
 				  }, {
 					  template: eventTwitterPartial,
 					  tags: ['status_event']
-				  }, {
-					  template: eventIRCPartial,
-					  tags: ['irc']
 				  }
 			  ],
 			  
 			  // used for ordering categories on latest view
 			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'],
 
-
-			  // template helpers
-			  mustacheHelpers = {
-				  isLatest: function( partial, opts ) {
-					  return partial() === 'latest' ? opts.fn(this) : '';
-				  },
-				  isGreatest: function( partial, opts ) {
-					  return partial() === 'greatest' ? opts.fn(this) : '';
-				  },
-				  iterCategories: function( opts ) {
-					  var self = this;
-					  var buffer = "";
-					  can.each(latestCategories, function (category) {
-						  if (self.attr(category)) {
-							  buffer += opts.fn( {category: category, events: self.attr(category)} );
-						  }
-					  });
-					  return buffer;
-				  },
-				  eventUrl: function( opts ) {
-					  if (this.url) {
-						return "<a href=\""+this.url+"\">"+this.title+"</a>";
+			  ejsHelpers = {
+				  eventUrl: function( event ) {
+					  if (event.attr('url')) {
+						  return "<a href=\"" + event.attr('url') + "\">" + event.attr('title') + "</a>";
 					  } else {
-						return can.route.link(this.title, {id: this.id}, {})
+						  return can.route.link( event.attr('title'), {id: event.attr('id')}, {} )
 					  }
-				  }
+				  },
+				  getAuthorName: function( event ) {
+					  return event.attr('author.name') || event.attr('props.origin_author_name') || '';
+				  },
+				  award_sum: function( event ) {
+					  return event.attr('award_value') + event.attr('upvotes') + event.attr('anteups');
+				  },
+				  award_closed: function( event ) {
+					  var closed = false;
+					  event.attr('children').forEach( function( child ) {
+						  if (child.attr('props').attr('awarded')) closed = true;
+					  });
+					  return closed;
+				  }				  
 			  };
 		  
 		  return can.Control(
@@ -100,11 +91,11 @@ steal('can',
 					  spinnerBottom: can.compute(false)
 				  }
 			  }, {
-
 				  init : function( elem, opts ){
 					  var self = this;
 
 					  window.LATEST = this.latestEvents = new Bithub.Models.Event.List(),
+					  window.LATEST_IDX = this.latestIndex = new can.Observe.List([]);
 					  window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List(),			
 					  this.currentView = can.compute('latest');
 					  
@@ -113,28 +104,26 @@ steal('can',
 						  console.log( event );
 					  });
 					   */
+
+					  can.extend(can.EJS.Helpers.prototype, ejsHelpers);
+					  
+					  can.extend(can.EJS.Helpers.prototype, {
+						  isAdmin: function() {
+							  return opts.currentUser.attr('admin');
+						  }
+					  });
 					  
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
+						  latestIndex: self.latestIndex,
 						  greatestEvents: self.greatestEvents,
-						  partial: this.currentView
-					  }, {
-						  'partials': {
-							  latestView: latestView,
-							  greatestView: greatestView,
-							  digestPartial: digestPartial,
-							  eventChildrenPartial: eventChildrenPartial,
-							  eventPartial: function( data, helpers ) {
-								  data.categories = opts.categories;
-								  data.projects = opts.projects;
-								  return (self.determineEventPartial(data)).render( data, helpers );
-							  }
-						  },
-						  'helpers': can.extend({}, mustacheHelpers, {
-							  ifAdmin: function( opts ) {
-								  return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
-							  }
-						  })
+						  partial: this.currentView,
+						  latestView: latestView,
+						  greatestView: greatestView,
+						  eventPartial: this.determineEventPartial,
+						  eventChildrenPartial: eventChildrenPartial,
+						  digestPartial: digestPartial,
+						  categories: latestCategories
 					  }) );
 
 					  self.options.spinner(true);
@@ -151,12 +140,12 @@ steal('can',
 				  },
 				  
 				  '.voteup click': function( el, ev ) {
-					  this.upvote( can.data(el.closest('.event'), 'event') );
+					  this.upvote( can.data(el.closest('.event'), 'eventObj') );
 					  //can.data(el.closest('.event'), 'event').upvote();
 				  },
 
 				  '.replies .votes click': function( el, ev ) {
-					  this.upvote( can.data(el.closest('.reply-event'), 'event') );
+					  this.upvote( can.data(el.closest('.reply-event'), 'eventObj') );
 					  //var event = can.data(el.closest('.reply-event'), 'event');
 					  //(new Upvote({event: event})).upvote();
 				  },
@@ -164,7 +153,7 @@ steal('can',
 				  '.award-btn click': function( el, ev ) {
 					  ev.preventDefault();
 
-					  var event = can.data(el.closest('.reply-event'), 'event');
+					  var event = can.data(el.closest('.reply-event'), 'eventObj');
 					  (new Award({event: event})).award();
 				  },
 
@@ -176,7 +165,7 @@ steal('can',
 				  '.manage-bar .tag-action click': function( el, ev ) {
 					  ev.preventDefault();
 
-					  var event = can.data(el.closest('.event'), 'event');
+					  var event = can.data(el.closest('.event'), 'eventObj');
 					  var tag = el.data('tag');
 					  var tags = event.attr('tags');
 
@@ -187,7 +176,7 @@ steal('can',
 				  '.manage-bar .category-action click': function( el, ev ) {
 					  ev.preventDefault();
 
-					  var event = can.data(el.closest('.event'), 'event');
+					  var event = can.data(el.closest('.event'), 'eventObj');
 
 					  event.attr('category', el.data('category'));
 					  event.save();
@@ -261,14 +250,14 @@ steal('can',
 				   * Functions
 				   */
 
-				  determineEventPartial: function( event ) {
+				  determineEventPartial: function( tags ) {
 					  var template = eventPartial, //default
 						  bestScore = 0;
 
 					  can.each( eventPartialsLookup, function( partial ) {
 						  var score = 0;
 						  
-						  event.attr('tags').each(function( tag ) {
+						  can.each(tags, function( tag ) {
 							  if (partial.tags.indexOf(tag) >= 0) score++;
 						  });
 						  
@@ -325,14 +314,17 @@ steal('can',
 						  this.load( this.updateLatest );
 					  } else {
 						  emptyReqCounter = 0;
-						  this.latestEvents.replace( events.latest() );
-						  this.options.spinner(false);
+						  //this.latestEvents.replace( events.latest() );
+						  this.latestEvents.replace( events );
+						  this.latestIndex.replace( events.latest() );
+						  this.options.spinner( false );
 					  }
 					  this.currentView( can.route.attr('view') );
 				  },
 				  
 				  appendLatest: function( events ) {
-					  var buffer = new Bithub.Models.Event.List( this.latestEvents );
+					  var self = this;
+					  var buffer = new can.Observe.List( this.latestIndex );
 					  
 					  $.each(events.latest(), function( i, day ) {
 						  // merge with previous day or push new day
@@ -344,8 +336,11 @@ steal('can',
 							  buffer.push( day );
 						  }
 					  });					  
-					  this.options.spinnerBottom(false);
-					  this.latestEvents.replace( buffer );
+
+					  $.each(events, function( i, event ) {
+						  self.latestEvents.push( event );
+					  });
+					  this.latestIndex.replace( buffer );
 				  },
 				  
 				  updateGreatest: function( events ) {

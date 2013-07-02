@@ -1,0 +1,90 @@
+<div class="event list-element" <%= (el) -> el.data('eventObj', event)  %> >
+  <% if( isAdmin() ) { %>
+  <div class="toolbar">
+	<a href="#" class="delete-event close">&times;</a>
+  </div>
+  <% } %>
+  
+  <!-- upvotes -->
+  <div class="span1 votes">
+	<div class="uparrow"></div>
+	<div class="count"><%= event.attr('upvotes') %></div>
+	<div class="voteup "><span class="upvote-caret"></span>Vote up</div>
+	<% if ( award_closed( event ) ) { %><div class="awarded">awarded</div><% } %>
+	<div class="clearfix"></div>
+  </div>
+
+  <!-- content -->
+  <div class="span7 content">
+
+	<!-- title & body -->
+	<div class="row">
+	  <% if (event.attr('image_url')) { %><img src="<%= event.attr('image_url') %>" class="thumb" alt="post image" ><% } %>
+	  <h5>
+		<%== eventUrl( event ) %>
+		<% if( event.attr('award_value') ) { %><span class='badge'>+<%= award_sum( event ) %></span><% } %>
+	  </h5>
+	  <div class="body"><%== event.attr('body') %></div>
+	  <div class="clearfix"></div>	  
+	</div>
+	
+	<!-- status -->
+	<div class="status row">
+	  <div class="metadata-container pull-right">
+		<div class="event-metadata pull-right">
+		  <small>
+			<% if( getAuthorName( event ) ) { %><a href="#"><%== getAuthorName( event ) %></a> /<% } %>
+			<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
+			via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
+		</div>
+	  </div>
+	  <% if (event.attr('children').length) { %>
+	  <a class="expand-replies"><span class="icon"></span>Earlier (<%= event.attr('children').length %>)</a>
+	  <% } %>
+	  <ul class="tag-list nav">
+		<% can.each(event.attr('tags'), function( tag ) { %>
+		<li class="tag-name <%= tag %>"><a href="#"><small><%= tag %></small></a></li>
+		<% }) %>
+	  </ul>
+
+	  <% if( isAdmin() ) { %>
+	  <!-- ADMIN -->
+	  <a href="#" class="expand-manage-bar"></a>	  
+	  <!-- /ADMIN -->
+	  <% } %>
+
+	  <div class="clearfix"></div>
+	</div>
+
+	<% if( isAdmin() ) { %>
+	<!-- ADMIN -->
+	<div class="manage-bar row">
+	  <ul class="nav">
+		{{#projects}}
+		<li data-tag="{{name}}" class="tag-action present_remove"><a href="#" ><small>{{name}}</small></a></li>
+		{{/projects}}
+		<li class="dropdown">
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><small>{{category}}</small><b class="caret"></b></a>
+		  <ul class="dropdown-menu">
+			{{#categories}}
+			<li class="category-action" data-category="{{name}}"><a href="#">{{name}}</a></li>
+			{{/categories}}
+		  </ul>
+		</li>
+	  </ul>
+	  <input type="text" class="transfer-ownership typeahead" placeholder="Transfer ownership">
+	</div>
+	<!-- /ADMIN -->
+	<% } %>
+
+	<% if (event.attr('children').length) { %>
+	  <%== eventChildrenPartial.render({events: event.attr('children')}); %>
+    <% } %>
+
+  </div>
+
+  
+  <div class="clearfix"></div>
+</div>
+
+
