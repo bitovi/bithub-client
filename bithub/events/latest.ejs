@@ -11,19 +11,19 @@
   <div class="category-digest">
 	<div class="truncated">
 	  <% if( day.digest ) { %>
-	  <%== digestPartial.render({events: events, digest: day.digest }) %>
+	  <%== digestPartial.render({events: latestEvents, digest: day.digest }) %>
 	  <% } %>
 	</div>
   </div>
   <!-- /DIGEST -->
 
-  <% list(categories, function( category ) { %>
+  <% list(latestCategories, function( category ) { %>
     <% if ( day[category] ) { %>
     <div class="category-<%= category %>">
 	  <h3 class="<%= category %>-icon"><%= category %></h3>
 	  <div class="truncated">
 		<% list( day[category], function( idx ) { %>
-		<%== eventPartial( events[idx].attr('tags') ).render({event: events[idx], eventChildrenPartial: eventChildrenPartial}) %>
+		<%== eventPartial( latestEvents[idx].attr('tags') ).render({event: latestEvents[idx], eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories}) %>
 		<% }) %>
 	  </div>
     </div>
@@ -36,7 +36,7 @@
 	</div>
 	<div class="truncated irc-chat-container">
 	  <% list(day['chat'], function( idx ) { %>
-	  <div><span class="username"><%= events[idx].attr('actor') %></span>: <%= events[idx].attr('title') %></div>
+	  <div><span class="username"><%= latestEvents[idx].attr('actor') %></span>: <%= latestEvents[idx].attr('title') %></div>
 	  <% }) %>
 	</div>
   <% } %>

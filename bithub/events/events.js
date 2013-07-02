@@ -105,8 +105,7 @@ steal('can',
 					  });
 					   */
 
-					  can.extend(can.EJS.Helpers.prototype, ejsHelpers);
-					  
+					  can.extend(can.EJS.Helpers.prototype, ejsHelpers);					  
 					  can.extend(can.EJS.Helpers.prototype, {
 						  isAdmin: function() {
 							  return opts.currentUser.attr('admin');
@@ -115,7 +114,7 @@ steal('can',
 					  
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
-						  latestIndex: self.latestIndex,
+						  days: self.latestIndex,
 						  greatestEvents: self.greatestEvents,
 						  partial: this.currentView,
 						  latestView: latestView,
@@ -123,7 +122,9 @@ steal('can',
 						  eventPartial: this.determineEventPartial,
 						  eventChildrenPartial: eventChildrenPartial,
 						  digestPartial: digestPartial,
-						  categories: latestCategories
+						  latestCategories: latestCategories,
+						  projects: opts.projects,
+						  categories: opts.categories
 					  }) );
 
 					  self.options.spinner(true);
