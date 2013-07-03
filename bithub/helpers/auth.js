@@ -17,7 +17,8 @@ steal(
 			},
 
 			logout: function() {
-				window.location('/api/auth/logout');
+				//console.log(" logout " );
+				//window.location('/api/auth/logout');
 			}
 		};
 	});

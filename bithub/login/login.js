@@ -8,8 +8,11 @@ steal(
 			init: function( element, options ) {
 				element.html(initView({
 					user: options.currentUser,
-					profileRoute: can.route.url({page: 'profile'}, false),
-					activityListRoute: can.route.url({page: 'activities'}, false)
+					routes: {
+						'profile': can.route.url({page: 'profile'}, false),
+						'activity': can.route.url({page: 'activities'}, false),
+						'logout': '/'
+					}
 				}));
 			},
 
@@ -23,8 +26,13 @@ steal(
 				this.options.currentUser.login('twitter');
 			},
 
-			'#show-newpost-form-btn click': function( el, ev) {
+			'#show-newpost-form-btn click': function( el, ev ) {
 				this.options.newpostVisibility( !this.options.newpostVisibility() );
+			},
+
+			'#logout-btn click': function( el, ev ) {
+				//ev.preventDefault();
+				this.options.currentUser.logout();
 			}
 		});
 	});

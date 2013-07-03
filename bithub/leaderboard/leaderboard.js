@@ -61,8 +61,8 @@ steal('can',
 					  this.updateLeaderboard();
 				  },
 
-				  '{currentUser} loggedIn change': function( ) {
-					  this.determineRank();
+				  '{currentUser} loggedIn change': function( foo, ev, attr, how, newVal, oldVal ) {
+					  newVal == true ? this.determineRank() : rank(0);
 				  },
 
 				  '{users} length': function () {
@@ -74,7 +74,7 @@ steal('can',
 					  
 					  this.options.users.each(function (user, i) {							  
 						  if (self.options.currentUser.attr('id') === user.attr('id')) {
-							  user.attr('loggedIn', true);
+							  user.attr('loggedIn', true); // otherwise won't mark user on first login
 							  rank( i );
 						  }
 					  });

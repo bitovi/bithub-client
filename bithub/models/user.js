@@ -17,7 +17,7 @@ steal(
 			create  : 'POST /api/users',
 			update  : 'PUT /api/users/{id}',
 			destroy : 'DELETE /api/users/{id}'
-
+			
 		}, {
 			fromSession: function() {
 				var self = this;
@@ -38,7 +38,15 @@ steal(
 			},
 
 			logout: function() {
-				auth.logout();
+				var self = this;
+
+				$.get('/api/auth/logout', function () {
+
+					// remove attrs from current user
+					for(var key in self.attr()) {
+						self.removeAttr( key );
+					}
+				});
 			}
 		});
 
