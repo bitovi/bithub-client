@@ -1,0 +1,3 @@
+<% list( greatestEvents, function( event ) { %>
+<%== eventPartial( event.attr('tags') ).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories }) %>
+<% }) %>

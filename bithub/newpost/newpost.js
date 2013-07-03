@@ -147,11 +147,13 @@ steal(
 				},
 
 				'#newpost-form-project a click': function( el, ev ) {
+					ev.preventDefault();
 					el.closest('.btn-group').find('.btn.select').html(el.html());
 					el.closest('form').find("input[name='event[project]']").val(can.data(el, 'project').name);
 				},
 				
 				'#newpost-form-category a click': function( el, ev ) {
+					ev.preventDefault();
 					el.closest('.btn-group').find('.btn.select').html(el.html());
 					el.closest('form').find("input[name='event[category]']").val(can.data(el, 'category').name);
 				},

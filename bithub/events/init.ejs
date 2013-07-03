@@ -1,0 +1,17 @@
+<div id="events-list">
+
+  <div class="spinner"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>
+
+  <div class="events-container">
+
+	<% if (partial() === 'latest') { %>
+	<%== latestView.render(this) %>
+	<% } else { %>
+	<%== greatestView.render(this) %>
+	<% } %>
+	
+  <div class="spinnerBottom"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>
+
+  </div>  
+
+</div>

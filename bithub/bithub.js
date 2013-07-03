@@ -43,7 +43,7 @@ steal(
 			views = ['greatest'];		
 
 		// ROOT route
-		can.route(routePrefix + '', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route(routePrefix + '/', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		can.route(routePrefix + '/profile', { page: 'profile' });
 		can.route(routePrefix + '/profile/activities', { page: 'activities' });
 		can.route(routePrefix + '/eventdetails/:id', { page: 'eventdetails' });
