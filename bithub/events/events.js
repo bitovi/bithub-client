@@ -324,10 +324,11 @@ steal('can',
 				  },
 				  
 				  appendLatest: function( events ) {
-					  var self = this;
-					  var buffer = new can.Observe.List( this.latestIndex );
-					  
-					  $.each(events.latest(), function( i, day ) {
+					  var self = this,
+						  buffer = new can.Observe.List( this.latestIndex ),
+						  offset = this.latestEvents.length;
+
+					  $.each(events.latest( offset ), function( i, day ) {
 						  // merge with previous day or push new day
 						  if (buffer[buffer.length-1].attr('date') === day.date) {
 							  for( var category in day ) {
@@ -338,9 +339,7 @@ steal('can',
 						  }
 					  });					  
 
-					  $.each(events, function( i, event ) {
-						  self.latestEvents.push( event );
-					  });
+					  this.latestEvents.push.apply(this.latestEvents, events );					  
 					  this.latestIndex.replace( buffer );
 				  },
 				  
@@ -351,12 +350,8 @@ steal('can',
 				  },
 				  
 				  appendGreatest: function( events ) {
-					  var buffer = new Bithub.Models.Event.List( this.greatestEvents );
-					  events.forEach( function( event ) {
-						  buffer.push( event );
-					  });				  
+					  this.greatestEvents.push.apply(this.greatestEvents, events );
 					  this.options.spinnerBottom(false);
-					  this.greatestEvents.replace( buffer );
 				  },
 
 				  updateEvents: function( events ) {					  

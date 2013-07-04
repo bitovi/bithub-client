@@ -30,7 +30,6 @@ steal('can',
 			destroy : 'DELETE /api/events/{id}',
 
 			model: function( attrs ) {
-				// instance props are missing
 				return attrs;
 			}
 		}, {
@@ -55,18 +54,27 @@ steal('can',
 			}
 		});
 
+		var LazyEvent = function( data ) {
+			$.extend(this, (new can.LazyMap(data)) );
+		}
+		LazyEvent.prototype = Event.prototype;
+		
+
 		can.Model.List('Bithub.Models.Event.List', {
 			Observe: function( data ) {
-				return new can.LazyMap( data );
+				//return new LazyEvent( data );
+				return new can.LazyMap( data );				
 			}
 		}, {
-			latest: function () {
+			latest: function ( offset ) {
 				var self = this;
 				var days = [];
 
 				// group into days and categories
 				this.each( function( event, index ) {
 					var flag = false;
+
+					index += offset || 0;
 					
 					$.each( days, function( i, day ) {
 						if ( day.date === event.attr('origin_date') ) {
