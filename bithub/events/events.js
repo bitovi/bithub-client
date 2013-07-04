@@ -12,6 +12,7 @@ steal('can',
 	  'bithub/models/award.js',
 	  'can/construct/proxy',
 	  'bithub/helpers/ejsHelpers.js',
+	  'ui/more',
 	  function(can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, eventCodePartial, eventTwitterPartial, digestPartial, Event, Upvote, Award){
 
 		  var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),
@@ -319,6 +320,7 @@ steal('can',
 						  this.latestEvents.replace( events );
 						  this.latestIndex.replace( events.latest() );
 						  this.options.spinner( false );
+						  this.applyMore();
 					  }
 					  this.currentView( can.route.attr('view') );
 				  },
@@ -341,17 +343,20 @@ steal('can',
 
 					  this.latestEvents.push.apply(this.latestEvents, events );					  
 					  this.latestIndex.replace( buffer );
+					  this.applyMore();
 				  },
 				  
 				  updateGreatest: function( events ) {
 					  this.greatestEvents.replace( events );
 					  this.options.spinner(false);
 					  this.currentView( can.route.attr('view') );
+					  this.applyMore();
 				  },
 				  
 				  appendGreatest: function( events ) {
 					  this.greatestEvents.push.apply(this.greatestEvents, events );
 					  this.options.spinnerBottom(false);
+					  this.applyMore();
 				  },
 
 				  updateEvents: function( events ) {					  
@@ -369,6 +374,13 @@ steal('can',
 					  } else {
 						  this.options.modals.showLogin();
 					  }
+				  },
+
+				  applyMore: function() {
+					  this.element.find('.event .body').more({
+						  moreWidth: 30,
+						  lines: 4
+					  });
 				  }
 
 			  });

@@ -1,6 +1,5 @@
 steal('can/view/mustache',
-	  'vendor/moment/moment.min.js',
-	  'ui/more'
+	  'vendor/moment/moment.min.js'
 	 ).then( function () {
 
 	  	 Mustache.registerHelper('prettifyTs', function( ts, opts ) {
