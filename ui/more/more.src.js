@@ -19,6 +19,11 @@
 			
 	    this.each(function(el){
 			var $el = $(this);
+
+			// skip if there is no content
+			if ( $el.context.innerText.length == 0 ) {
+				return;
+			}
 			
 			// save current HTML for later
 			$el.data('originalHTML', $el.html())
@@ -32,8 +37,9 @@
 				// the current line's first character's coordinates
 				prevRect = start.rect(),
 				// how many lines we've come across
-				lines = 0;
-			
+				lines = 0,
+				prevStart;
+
 			// go until we reach the end of the body 
 			while(range.compare("START_TO_START",end) != 0){
 				range.end("+1").start("+1");
