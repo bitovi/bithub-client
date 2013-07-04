@@ -2,12 +2,16 @@ steal(
 	'can',
 	'./init.mustache',
 	function(can, initView) {
+
 		return can.Control({
-			defaults: {}
-		}, {
-			init: function( element, options ) {
+			defaults: {
+				loggedInDelayed: can.compute()
+			}
+		},{
+			init: function( element, opts ) {
+
 				element.html(initView({
-					user: options.currentUser,
+					user: opts.currentUser,
 					routes: {
 						'profile': can.route.url({page: 'profile'}, false),
 						'activity': can.route.url({page: 'activities'}, false),

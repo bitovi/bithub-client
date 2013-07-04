@@ -84,9 +84,23 @@ steal(
 			projects = new can.Model.List(),
 			categories = new can.Model.List(),
 			currentUser = new User({loggedIn: false});
-		
+
 		currentUser.fromSession();
 
+		// move this somewhere else
+		currentUser.bind('change', function(ev, attr, how, newVal, oldVal) {
+			var self = this,
+				speed = 300;
+
+			if( attr === 'loggedIn' ) {
+				newVal === true ? $('.logged-out').fadeOut( speed ) : $('.logged-in').fadeOut( speed );
+				setTimeout(function() {
+					self.attr('loggedInDelayed', newVal );
+					newVal === true ? $('.logged-in').fadeIn( speed ) : $('.logged-out').fadeIn( speed );
+				}, speed - 10 );
+			}
+		});
+		
 		// Init Controllers
 		var modals = new Modals('#bootstrapModals', {
 			currentUser: currentUser

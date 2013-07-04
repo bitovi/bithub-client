@@ -38,13 +38,15 @@ steal(
 			},
 
 			logout: function() {
-				var self = this;
+				var self = this,
+					blacklist = ['loggedInDelayed'];
 
 				$.get('/api/auth/logout', function () {
-
 					// remove attrs from current user
 					for(var key in self.attr()) {
-						self.removeAttr( key );
+						if( blacklist.indexOf( key ) < 0 ) {
+							self.removeAttr( key );
+						}
 					}
 				});
 			}
