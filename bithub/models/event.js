@@ -57,13 +57,23 @@ steal('can',
 		var LazyEvent = function( data ) {
 			$.extend(this, (new can.LazyMap(data)) );
 		}
-		LazyEvent.prototype = Event.prototype;
 		
+		LazyEvent.prototype = {
+			destroy: function( success, error ) {
+				return can.ajax({
+					url: '/api/events/' + this.attr('id'),
+					type: 'DELETE',
+					async: false,
+					dataType: 'json',
+					success: success,
+					error: error
+				})
+			}
+		}
 
 		can.Model.List('Bithub.Models.Event.List', {
 			Observe: function( data ) {
-				//return new LazyEvent( data );
-				return new can.LazyMap( data );				
+				return new LazyEvent( data );
 			}
 		}, {
 			latest: function ( offset ) {

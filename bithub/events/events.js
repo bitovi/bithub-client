@@ -376,7 +376,6 @@ steal('can',
 				  },
 				  
 				  applyMore: function() {
-					  console.log("!!!");
 					  this.element.find('.event .body:not(.reply)').more();
 				  }
 
