@@ -374,13 +374,10 @@ steal('can',
 						  this.options.modals.showLogin();
 					  }
 				  },
-
+				  
 				  applyMore: function() {
-					  /*
-					  this.element.find('.event .body').more({
-						  moreWidth: 30,
-						  lines: 4
-					  });*/
+					  console.log("!!!");
+					  this.element.find('.event .body:not(.reply)').more();
 				  }
 
 			  });
