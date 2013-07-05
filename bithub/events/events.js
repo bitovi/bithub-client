@@ -316,7 +316,6 @@ steal('can',
 						  this.load( this.updateLatest );
 					  } else {
 						  emptyReqCounter = 0;
-						  //this.latestEvents.replace( events.latest() );
 						  this.latestEvents.replace( events );
 						  this.latestIndex.replace( events.latest() );
 						  this.options.spinner( false );
@@ -377,10 +376,11 @@ steal('can',
 				  },
 
 				  applyMore: function() {
+					  /*
 					  this.element.find('.event .body').more({
 						  moreWidth: 30,
 						  lines: 4
-					  });
+					  });*/
 				  }
 
 			  });

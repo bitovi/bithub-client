@@ -67,29 +67,31 @@ steal('can',
 			}
 		}, {
 			latest: function ( offset ) {
-				var self = this;
-				var days = [];
+				var self = this,
+					days = [];
+				
+				offset = offset || 0;
 
 				// group into days and categories
-				this.each( function( event, index ) {
+				this.each( function( event, idx ) {
 					var flag = false;
 
-					index += offset || 0;
-					
+					idx += offset;
+
 					$.each( days, function( i, day ) {
 						if ( day.date === event.attr('origin_date') ) {
 							flag = true;
 							if ( day[event.attr('category')] ) {
-								day[event.attr('category')].push( index );
+								day[event.attr('category')].push( idx );
 							} else {
-								day[event.attr('category')] = [index];
+								day[event.attr('category')] = [idx];
 							}
 						}
 					});
 
 					if (!flag) {
 						var day = {date: event.attr('origin_date')};
-						day[event.attr('category')] = [index];
+						day[event.attr('category')] = [idx];
 						days.push( day );
 					}
 				});
@@ -104,24 +106,26 @@ steal('can',
 						}, prop;
 						
 						$.each(day.digest, function( i, idx ) {
+							idx -= offset;
+							
 							var tags = self[idx].attr('tags');
 							
 							if ( tags.indexOf('follow_event') >= 0 ) {
 								prop = self[idx].attr('props.target');
 								
 								if( digestGrouped.followers[ prop ] ) {
-									digestGrouped.followers[ prop ].push( idx );
+									digestGrouped.followers[ prop ].push( idx+offset );
 								} else {
-									digestGrouped.followers[ prop ] = [idx];
+									digestGrouped.followers[ prop ] = [idx+offset ];
 									digestGrouped.followers._keys.push( prop );
 								}
 							} else 	if ( tags.indexOf('watch_event') >= 0 ) {
 								prop = self[idx].attr('props.repo');
 								
 								if( digestGrouped.watchers[ prop ] ) {
-									digestGrouped.watchers[ prop ].push( idx );
+									digestGrouped.watchers[ prop ].push( idx+offset );
 								} else {
-									digestGrouped.watchers[ prop ] = [idx];
+									digestGrouped.watchers[ prop ] = [idx+offset];
 									digestGrouped.watchers._keys.push( prop );
 								}
 								
@@ -129,9 +133,9 @@ steal('can',
 								prop = self[idx].attr('props.repo');
 								
 								if( digestGrouped.forkers[ prop ] ) {
-									digestGrouped.forkers[ prop ].push( idx );
+									digestGrouped.forkers[ prop ].push( idx+offset );
 								} else {
-									digestGrouped.forkers[ prop ] = [idx];
+									digestGrouped.forkers[ prop ] = [idx+offset];
 									digestGrouped.forkers._keys.push( prop );
 								}
 								
@@ -142,36 +146,6 @@ steal('can',
 					}
 				});
 
-				// group digest for every day
-				/*
-				$.each(days, function( i, day) {
-					if (day.digest) {
-						var digestGrouped = {
-							followers: [],
-							watchers: [],
-							forkers: []
-						};
-
-						$.each(day.digest, function( i, event ) {							
-							if ( event.attr('tags').indexOf('follow_event') >= 0 ) {
-								digestGrouped.followers.push(event);
-							}
-							if ( event.attr('tags').indexOf('watch_event') >= 0 ) {
-								digestGrouped.watchers.push(event);
-							}
-							if ( event.attr('tags').indexOf('fork_event') >= 0 ) {
-								digestGrouped.forkers.push(event);
-							}
-						});
-
-						digestGrouped.followers = helpers.groupIntoArray( digestGrouped.followers, ['props.target'] );
-						digestGrouped.watchers = helpers.groupIntoArray( digestGrouped.watchers, ['props.repo'] );
-						digestGrouped.forkers = helpers.groupIntoArray( digestGrouped.forkers, ['props.repo'] );
-						day.digest = digestGrouped;
-					}
-				});
-				*/
-				
 				return days;				
 			}
 		});
