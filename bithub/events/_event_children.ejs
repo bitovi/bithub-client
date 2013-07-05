@@ -1,7 +1,7 @@
 <div class="replies row">
   <span class="replies-caret"></span>
   <% list(events, function( event ) { %>
-  <div class="reply-event row"  {{data 'event'}}>
+  <div class="reply-event row" <%= (el) -> el.data('eventObj', event)  %> >
 	<% if( event.attr('props.awarded') ) { %><div class="awarded-badge"></div><% } %>
 	<% if( !event.attr('award_closed') ) { %><div class="award-btn"><a href="#"><span class="caret"></span>Award</a></div><% } %>
 	
@@ -16,7 +16,8 @@
 	  <%== event.attr('title') %>
 	  <% } %>
 	  <div class="event-metadata pull-right">
-		<a href="#">__author</a> / <%= event.attr('origin_ts') %>
+		<% if( getAuthorName( event ) ) { %><a href="#"><%== getAuthorName( event ) %></a> /<% } %>
+		<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
 	  </div>
 	</div>
   </div>
