@@ -10,7 +10,7 @@
 	<div class="uparrow"></div>
 	<div class="count"><%= event.attr('upvotes') %></div>
 	<div class="voteup "><span class="upvote-caret"></span>Vote up</div>
-	<% if ( award_closed( event ) ) { %><div class="awarded">awarded</div><% } %>
+	<% if ( event.award_closed() ) { %><div class="awarded">awarded</div><% } %>
 	<div class="clearfix"></div>
   </div>
 
@@ -20,8 +20,8 @@
 	<!-- title & body -->
 	<div class="row">
 	  <h5>
-		<%== eventUrl( event ) %>
-		<% if( event.attr('award_value') ) { %><span class='badge'>+<%= award_sum( event ) %></span><% } %>
+		<%== event.eventUrl() %>
+		<% if( event.attr('award_value') ) { %><span class='badge'>+<%= event.award_sum() %></span><% } %>
 	  </h5>
 	  <div class="body">
 		<% list( event.attr('props.commits'), function( commit ) { %>
@@ -36,7 +36,7 @@
 	  <div class="metadata-container pull-right">
 		<div class="event-metadata pull-right">
 		  <small>
-			<% if( getAuthorName( event ) ) { %><a href="#"><%== getAuthorName( event ) %></a> /<% } %>
+			<% if( event.getAuthorName() ) { %><a href="#"><%== event.getAuthorName() %></a> /<% } %>
 			<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
 			via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 		</div>

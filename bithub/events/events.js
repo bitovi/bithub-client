@@ -60,30 +60,7 @@ steal('can',
 			  ],
 			  
 			  // used for ordering categories on latest view
-			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'],
-
-			  ejsHelpers = {
-				  eventUrl: function( event ) {
-					  if (event.attr('url')) {
-						  return "<a href=\"" + event.attr('url') + "\">" + event.attr('title') + "</a>";
-					  } else {
-						  return can.route.link( event.attr('title'), {id: event.attr('id')}, {} )
-					  }
-				  },
-				  getAuthorName: function( event ) {
-					  return event.attr('author.name') || event.attr('props.origin_author_name') || '';
-				  },
-				  award_sum: function( event ) {
-					  return event.attr('award_value') + event.attr('upvotes') + event.attr('anteups');
-				  },
-				  award_closed: function( event ) {
-					  var closed = false;
-					  event.attr('children').forEach( function( child ) {
-						  if (child.attr('props').attr('awarded')) closed = true;
-					  });
-					  return closed;
-				  }				  
-			  };
+			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'];
 		  
 		  return can.Control(
 			  {
@@ -95,9 +72,10 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  window.LATEST = this.latestEvents = new Bithub.Models.Event.List(),
-					  window.LATEST_IDX = this.latestIndex = new can.Observe.List([]);
-					  window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List(),			
+					  window.LATEST     = this.latestEvents   = new Bithub.Models.Event.List();
+					  window.LATEST_IDX = this.latestIndex    = new can.Observe.List([]);
+					  window.GREATEST   = this.greatestEvents = new Bithub.Models.Event.List();
+					  
 					  this.currentView = can.compute('latest');
 					  
 					  /* TODO: live updating
@@ -106,7 +84,6 @@ steal('can',
 					  });
 					   */
 
-					  can.extend(can.EJS.Helpers.prototype, ejsHelpers);					  
 					  can.extend(can.EJS.Helpers.prototype, {
 						  isAdmin: function() {
 							  return opts.currentUser.attr('admin');

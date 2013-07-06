@@ -16,7 +16,7 @@
 	  <%== event.attr('title') %>
 	  <% } %>
 	  <div class="event-metadata pull-right">
-		<% if( getAuthorName( event ) ) { %><a href="#"><%== getAuthorName( event ) %></a> /<% } %>
+		<a href="#"><%== event.attr('author.name') || event.attr('props.origin_author_name') %></a> / 
 		<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
 	  </div>
 	</div>

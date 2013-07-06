@@ -24,7 +24,7 @@
 	  </div>
 	  
 	  <h5>
-		<a href="#"><%== getAuthorName( event ) %></a>
+		<a href="#"><%== event.getAuthorName() %></a>
 		<a href="http://twitter.com/<%= event.attr('props.origin_author_name') %>"><small>@<%= event.attr('props.origin_author_name') %></small></a>
 	  </h5>
 	  <div class="body"><%== event.attr('title') %></div>

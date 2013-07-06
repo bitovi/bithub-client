@@ -5,6 +5,39 @@ steal('can',
 	'can/observe/validations',
 	'can/observe/lazy',
 	function (can, Upvote, helpers) {
+
+		// methods shared by 'regular' Event model and LazyEvent object
+		var prototypeMethods = {
+			upvote: function( success, error ) {
+				(new Upvote({event: this})).upvote();
+			},
+			
+			award_sum: function() {
+				return this.attr('award_value') + this.attr('upvotes') + this.attr('anteups');
+			},
+
+			award_closed: function() {
+				var closed = false;
+				this.attr('children').forEach( function( child ) {
+					if (child.attr('props').attr('awarded')) closed = true;
+				});
+				return closed;
+			},
+			
+			getAuthorName: function() {
+				return this.attr('author.name') || this.attr('props.origin_author_name') || '';
+			},
+
+			eventUrl: function() {
+				if (this.attr('url')) {
+					return "<a href=\"" + this.attr('url') + "\">" + this.attr('title') + "</a>";
+				} else {
+					return can.route.link( this.attr('title'), {id: this.attr('id')}, {} )
+				}
+			}			
+		}
+
+		// 'regular' Event model
 		var Event = can.Model('Bithub.Models.Event', {
 
 			init: function () {
@@ -29,51 +62,38 @@ steal('can',
 			update  : 'PUT /api/events/{id}',
 			destroy : 'DELETE /api/events/{id}',
 
+			// overriden b/c can.Model would return new can.Observe,
+			// so we are here returing only plain object
 			model: function( attrs ) {
 				return attrs;
 			}
-		}, {
-			upvote: function( success, error ) {
-				(new Upvote({event: this})).upvote();
-			},
-			
-			award_sum: function() {
-				return this.award_value + this.attr('upvotes') + this.attr('anteups');
-			},
+		}, prototypeMethods );
 
-			award_closed: function() {
-				var closed = false;
-				this.attr('children').forEach( function( child ) {
-					if (child.attr('props').attr('awarded')) closed = true;
-				});
-				return closed;
-			},
-			
-			getAuthorName: function() {
-				return this.attr('author.name') || this.attr('props.origin_author_name') || '';
-			}
-		});
-
-		var LazyEvent = function( data ) {
-			$.extend(this, (new can.LazyMap(data)) );
-		}
-		
-		LazyEvent.prototype = {
-			destroy: function( success, error ) {
-				return can.ajax({
-					url: '/api/events/' + this.attr('id'),
-					type: 'DELETE',
-					async: false,
-					dataType: 'json',
-					success: success,
-					error: error
-				})
-			}
-		}
-
+		// Event model list with LazyEvent
 		can.Model.List('Bithub.Models.Event.List', {
+
+			// creates new event of LazyMap and extends it with instance props from Event model
 			Observe: function( data ) {
-				return new LazyEvent( data );
+				var event = new can.LazyMap( data );
+
+				can.extend(
+					event,
+					prototypeMethods,
+					{
+						destroy: function( success, error ) {
+							return can.ajax({
+								url: '/api/events/' + this.attr('id'),
+								type: 'DELETE',
+								async: false,
+								dataType: 'json',
+								success: success,
+								error: error
+							});
+							   }
+					}
+				);
+				
+				return event;
 			}
 		}, {
 			latest: function ( offset ) {
