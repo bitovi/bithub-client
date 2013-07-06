@@ -1,13 +1,10 @@
 <div class="row">
+  <% if (event.attr('image_url')) { %><img src="<%= event.attr('image_url') %>" class="thumb" alt="post image" ><% } %>
   <h5>
 	<%== event.eventUrl() %>
 	<% if( event.attr('award_value') ) { %><span class='badge'>+<%= event.award_sum() %></span><% } %>
   </h5>
-  <div class="body">
-	<% list( event.attr('props.commits'), function( commit ) { %>
-	<div>- <a href="<%= event.attr('url') %>"><%= commit.attr('sha').substring(0, 6) %></a> <%== commit.attr('message') %></div>		
-	<% }) %>
-  </div>
+  <div class="body"><%== event.attr('body') %></div>
   <div class="clearfix"></div>	  
 </div>
 

@@ -4,6 +4,7 @@ steal('can',
 	  './greatest.ejs',
 	  './_event.ejs',
 	  './_event_children.ejs',
+	  './_event_default.ejs',
 	  './_event_code.ejs',
 	  './_event_twitter.ejs',
 	  './_digest.ejs',
@@ -13,7 +14,7 @@ steal('can',
 	  'can/construct/proxy',
 	  'bithub/helpers/ejsHelpers.js',
 	  'ui/more',
-	  function(can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, eventCodePartial, eventTwitterPartial, digestPartial, Event, Upvote, Award){
+	  function(can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, eventDefaultPartial, eventCodePartial, eventTwitterPartial, digestPartial, Event, Upvote, Award){
 
 		  var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),
 			  
@@ -97,7 +98,8 @@ steal('can',
 						  partial: this.currentView,
 						  latestView: latestView,
 						  greatestView: greatestView,
-						  eventPartial: this.determineEventPartial,
+						  eventPartial: eventPartial,
+						  determineEventPartial: this.determineEventPartial,
 						  eventChildrenPartial: eventChildrenPartial,
 						  digestPartial: digestPartial,
 						  latestCategories: latestCategories,
@@ -230,7 +232,7 @@ steal('can',
 				   */
 
 				  determineEventPartial: function( tags ) {
-					  var template = eventPartial, //default
+					  var template = eventDefaultPartial, //default
 						  bestScore = 0;
 
 					  can.each( eventPartialsLookup, function( partial ) {

@@ -23,7 +23,7 @@
 	  <h3 class="<%= category %>-icon"><%= category %></h3>
 	  <div class="truncated">
 		<% list( day[category], function( idx ) { %>
-		<%== eventPartial( latestEvents[idx].attr('tags') ).render({event: latestEvents[idx], eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories}) %>
+		<%== eventPartial.render({event: latestEvents[idx], determineEventPartial: determineEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories}) %>
 		<% }) %>
 	  </div>
     </div>
