@@ -4,9 +4,7 @@ steal(
 	function(can, initView) {
 
 		return can.Control({
-			defaults: {
-				loggedInDelayed: can.compute()
-			}
+			defaults: {}
 		},{
 			init: function( element, opts ) {
 

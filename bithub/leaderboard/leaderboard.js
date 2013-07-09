@@ -4,10 +4,6 @@ steal('can',
 	  'can/observe/delegate',
 	  'bithub/helpers/mustacheHelpers.js',
 	  function(can, initView, User){
-		  /**
-		   * @class bithub/leaderboard
-		   * @alias Leaderboard
-		   */
 
 		  var defaultParams = {
 			  cached: true
@@ -36,14 +32,11 @@ steal('can',
 		  });
 		  
 		  return can.Control(
-			  /** @Static */
 			  {
 				  defaults : {
 					  users: new Bithub.Models.User.List()
 				  }
-			  },
-			  /** @Prototype */
-			  {
+			  }, {
 				  init : function( elem, opts ) {
 					  var self = this;
 
@@ -61,7 +54,7 @@ steal('can',
 					  this.updateLeaderboard();
 				  },
 
-				  '{currentUser} loggedIn change': function( foo, ev, attr, how, newVal, oldVal ) {
+				  '{currentUser} loggedInDelayed change': function( user, ev, attr, how, newVal, oldVal ) {
 					  newVal == true ? this.determineRank() : rank(0);
 				  },
 
