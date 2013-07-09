@@ -1,11 +1,10 @@
 steal('can',
 	'./upvote.js',
-	'bithub/helpers/group.js',
+	'vendor/moment',
 	'can/model/list',
 	'can/observe/validations',
 	'can/observe/lazy',
-	function (can, Upvote, helpers) {
-
+	function (can, Upvote) {
 		// methods shared by 'regular' Event model and LazyEvent object
 		var prototypeMethods = {
 			upvote: function( success, error ) {
@@ -45,14 +44,22 @@ steal('can',
 					if (!title) { return "Title can't blank" }
 				});
 				this.validate('category', function(category) {
-					var validCategories = ['app', 'article', 'plugin'];
 					if (!category) { return "Category can't be blank" }
-					if (validCategories.indexOf(category) < 0) { return "Picked category doesn't exist" }
+					if (Bithub.Models.Tag.allowedCategoriesForNewPost.indexOf(category) < 0) { return "Picked category doesn't exist" }
 				});
 				this.validate('project', function(project) {
-					var validProjects = ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui'];
 					if (!project) { return "Project can't be blank" }
-					if (validProjects.indexOf(project) < 0) { return "Picked project doesn't exist" }
+					if (Bithub.Models.Tag.allowedProjectsForNewPost.indexOf(project) < 0) { return "Picked project doesn't exist" }
+				});
+				this.validate('datetime', function(datetimeStr) {
+					if (datetimeStr) {
+						var dt = datetimeStr.split('T'),
+						date = dt[0], time = dt[1],
+						datetime = moment(datetimeStr, "YYYY-MM-DDTHH:mm:ss.S Z");
+
+						if (!time) { return "Time can't be blank" }
+						if (!datetime || !datetime.isValid()) { return "Time format invalid.<br/>Should be 'hh:mm AM/PM'" }
+					}
 				});
 			},
 

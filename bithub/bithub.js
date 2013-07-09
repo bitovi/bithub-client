@@ -15,8 +15,10 @@ steal(
 	'bithub/helpers/loadtime.js',
 	'ui/onbottom.js',
 	'can/route/pushstate',
-	'vendor/bootstrap/bootstrap.js',
+	'vendor/bootstrap',
+	'vendor/bootstrap-datepicker',
 	'assets/styles/bootstrap.css',
+	'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
 	//'vendor/socketio/socket.io.js',
 	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, Modals, Tag, User, loadtime) {

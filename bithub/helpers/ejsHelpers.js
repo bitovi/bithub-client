@@ -1,5 +1,5 @@
 steal('can',
-	  'vendor/moment/moment.min.js'
+	  'vendor/moment'
 	 ).then( function() {
 
 		 can.extend( can.EJS.Helpers.prototype, {

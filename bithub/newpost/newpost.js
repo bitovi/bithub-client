@@ -9,8 +9,28 @@ steal(
 		 * @alias Newpost   
 		 */
 
+		function constructDateTimeString(rawDateString, rawTimeString) {
+			var date = moment(rawDateString, "DD-MM-YYYY"),
+				time = moment(rawTimeString, ["hh:mm a"]);
+
+			if (date && time && date.isValid() && time.isValid()) {
+				date.hours(time.hours()); date.minutes(time.minutes());
+				return date.toISOString();
+			} else if (date && date.isValid() && (!time || !time.isValid())) {
+				return date.format("YYYY-MM-DD")+"T"+rawTimeString;
+			} else if (time && time.isValid() && (!date || !date.isValid())) {
+				return rawDateString+"T"+time.format("HH:mm");
+			} else {
+				return rawDateString+"T"+rawTimeString;
+			}
+		}
+
 		function errorElementName(name) {
-			return '#newpost-form-' + name + ' p.text-error'
+			if (name == 'datetime') {
+				return '#newpost-form-date p.text-error'
+			} else {
+				return '#newpost-form-' + name + ' p.text-error'
+			}
 		}
 
 		function progress(data){
@@ -34,13 +54,12 @@ steal(
 			return (item && item.toLowerCase().indexOf(query.trim().toLowerCase()) > -1)
 		}
 
+		var currentCategory = new can.Observe({displayName: "Pick a category", name: "none"}),
+			currentProject = new can.Observe({displayName: "Pick a project", name: "none"});
+
 		return can.Control('Bithub.Newpost',
 			/** @Static */
-			{
-				defaults : {
-					allowedCategories: ['article', 'app', 'plugin']
-				}
-			},
+			{ },
 			/** @Prototype */
 			{
 				init : function( el, options ){
@@ -48,24 +67,35 @@ steal(
 
 					el.html(initView({
 						projects: options.projects,
-						categories: options.categories
+						categories: options.categories,
+						currentProject: currentProject,
+						currentCategory: currentCategory
 					}, {
 						categoryFilter: function(categories, opts) {
 							var buffer = "";
 							categories.each(function(el) {
-								if (self.options.allowedCategories.indexOf(el.attr('name')) > -1) {
+								if (Bithub.Models.Tag.allowedCategoriesForNewPost.indexOf(el.attr('name')) > -1) {
 									buffer += opts.fn(el);
 								}
 							});
 							return buffer;
 						},
-						ifAdmin: function( opts ) {
+						today: function() {
+							return moment().format("DD-MM-YYYY");
+						},
+						ifAdmin: function(opts) {
 							return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
+						},
+						isOfEventContentType: function(opts) {
+							return (currentCategory.attr('name') === 'event') ? opts.fn(this) : opts.inverse(this);
+						},
+						displayName: function(currObsObj) {
+							return currObsObj.attr('displayName');
+						},
+						name: function(currObsObj) {
+							return currObsObj.attr('name');
 						}
 					}));
-
-					el.find("input[name='event[project]']").val(el.find('#newpost-form-project .btn.select').html());
-					el.find("input[name='event[category]']").val(el.find('#newpost-form-category .btn.select').html());
 
 					el.fileupload({
 						datatype: 'json',
@@ -75,7 +105,7 @@ steal(
 						}
 					});
 
-					el.find('input.typeahead').typeahead({
+					el.find('#newpost-form-post-as input.typeahead').typeahead({
 						minLength: 3,
 						source: function(query, process) {
 							var	feed = self.element.find('input[name=postas_feed]:checked').val(),
@@ -122,6 +152,8 @@ steal(
 							return item;
 						}
 					});
+
+					$('.newpost-datepicker').datepicker();
 					
 				},
 
@@ -147,17 +179,15 @@ steal(
 				},
 
 				'#newpost-form-project a click': function( el, ev ) {
-					ev.preventDefault();
-					el.closest('.btn-group').find('.btn.select').html(el.html());
-					el.closest('form').find("input[name='event[project]']").val(can.data(el, 'project').name);
+					currentProject.attr('name', (can.data(el, 'project')).name);
+					currentProject.attr('displayName', el.html());
 				},
 				
 				'#newpost-form-category a click': function( el, ev ) {
-					ev.preventDefault();
-					el.closest('.btn-group').find('.btn.select').html(el.html());
-					el.closest('form').find("input[name='event[category]']").val(can.data(el, 'category').name);
+					currentCategory.attr('name', (can.data(el, 'category')).name);
+					currentCategory.attr('displayName', el.html());
 				},
-
+				
 				'#hide-newpost-form-btn click': function( el, ev ) {
 					ev.preventDefault();
 					this.options.visibility( !this.options.visibility() );
@@ -178,6 +208,11 @@ steal(
 				' submit': function( el, ev ) {
 					var self = this;
 					ev.preventDefault();
+
+					/* Set hidden datetime field */
+					var rawDateString = el.find('.control-group.date input').val(),
+						rawTimeString = el.find('.control-group.time input').val();
+					el.find("input[name='event[datetime]']").val(constructDateTimeString(rawDateString, rawTimeString));
 
 					var eventToCheck = new Bithub.Models.Event(el.formParams().event)
 					var errors = eventToCheck.errors()
