@@ -31,8 +31,10 @@ steal('can',
 			eventUrl: function() {
 				if (this.attr('url')) {
 					return "<a href=\"" + this.attr('url') + "\">" + this.attr('title') + "</a>";
-				} else {
+				} else if (this.attr('feed') === 'bithub') {
 					return can.route.link( this.attr('title'), {id: this.attr('id')}, {} )
+				} else {
+					return "<a>" + this.attr('title') + "</a>";
 				}
 			}			
 		}
