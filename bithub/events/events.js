@@ -167,7 +167,10 @@ steal('can',
 					  ev.preventDefault();
 					  var self = this;
 					  var event = can.data(el.closest('.event.list-element'), 'eventObj');
-					  event.destroy(function() { self.load(self.updateEvents) });
+					  event.destroy( function() {
+						  el.closest('.event.list-element').fadeOut();
+						  //self.load(self.updateEvents)
+					  });
 				  },
 
 				  // can.route listeners
@@ -312,7 +315,11 @@ steal('can',
 						  // merge with previous day or push new day
 						  if (buffer[buffer.length-1].attr('date') === day.date) {
 							  for( var category in day ) {
-								  can.merge( buffer[buffer.length-1][category], day[category] );
+								  if (buffer[buffer.length-1][category]) {
+									  can.merge( buffer[buffer.length-1][category], day[category] );
+								  } else {
+									  buffer[buffer.length-1].attr(category, day[category])
+								  }
 							  };
 						  } else {
 							  buffer.push( day );
@@ -355,7 +362,7 @@ steal('can',
 				  },
 				  
 				  applyMore: function() {
-					  this.element.find('.event .body:not(.reply)').more();
+					  //this.element.find('.event .body:not(.reply)').more();
 				  }
 
 			  });

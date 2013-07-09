@@ -37,7 +37,7 @@ ul.well li {
 	margin-left: 20px!important;
 }
 
-.logged-in {
+.logged-in, .logged-out {
 	display: none;
 }
 

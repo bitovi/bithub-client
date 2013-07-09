@@ -18,8 +18,8 @@
 
 	<div class="retweets-container pull-left">
 	  <!--<img class='retweet-icon' src="/img/icon-retweet.png" />-->
-	  <% list(event.children, function( child ) { %>
-	  <a href='https://twitter.com/<%= event.attr('props.origin_author_name') %>'><img class='profile-icon' src='<%= event.attr('props.origin_author_avatar_url') %>'/></a>
+	  <% list(event.attr('children'), function( child ) { %>
+	  <a href='https://twitter.com/<%= child.attr('props.origin_author_name') %>'><img class='profile-icon' src='<%= child.attr('props.origin_author_avatar_url') %>'/></a>
 	  <% }) %>
 	</div>
 	
