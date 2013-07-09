@@ -167,7 +167,10 @@ steal('can',
 					  ev.preventDefault();
 					  var self = this;
 					  var event = can.data(el.closest('.event.list-element'), 'eventObj');
-					  event.destroy(function() { self.load(self.updateEvents) });
+					  event.destroy( function() {
+						  el.closest('.event.list-element').fadeOut();
+						  //self.load(self.updateEvents)
+					  });
 				  },
 
 				  // can.route listeners
