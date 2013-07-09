@@ -29,6 +29,7 @@ steal(
 					self.attr( data );
 					self.attr('loggedIn', true);
 				}).fail(function(response) {
+					self.attr('loggedIn', false);
 					console.error(response);
 				});
 			},

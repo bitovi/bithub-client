@@ -83,9 +83,7 @@ steal(
 		var	newpostVisibility = can.compute(false),
 			projects = new can.Model.List(),
 			categories = new can.Model.List(),
-			currentUser = new User({loggedIn: false});
-
-		currentUser.fromSession();
+			currentUser = new User({loggedIn: undefined});
 
 		// move this somewhere else
 		currentUser.bind('change', function(ev, attr, how, newVal, oldVal) {
@@ -100,6 +98,9 @@ steal(
 				}, speed - 10 );
 			}
 		});
+
+		currentUser.fromSession();
+
 		
 		// Init Controllers
 		var modals = new Modals('#bootstrapModals', {
