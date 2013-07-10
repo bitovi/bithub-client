@@ -16,6 +16,12 @@ steal(
 				
 				new Events( elem.find('#events'), opts );
 				new Leaderboard( elem.find('#leaderboard'), opts );
+
+				// sometimes responses from /auth/session comes before this control is initialized
+				var loggedIn = opts.currentUser.attr('loggedIn');
+				if( loggedIn != undefined ) {
+					opts.currentUser._triggerChange('loggedIn', 'change', loggedIn, loggedIn);
+				}
 			},
 			
 			'#show-new-post-form-btn click': function( el, ev ) {
