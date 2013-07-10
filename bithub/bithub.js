@@ -41,7 +41,7 @@ steal(
 		var routePrefix = '';
 		
 	    var projects = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
-			categories = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin'],
+			categories = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin', 'event'],
 			views = ['greatest'];		
 
 		// ROOT route

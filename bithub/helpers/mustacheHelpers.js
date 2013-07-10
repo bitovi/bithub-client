@@ -5,12 +5,15 @@ steal('can/view/mustache',
 	  	 Mustache.registerHelper('prettifyTs', function( ts, opts ) {
 			 ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
 
+
 			 var formats = {
 				 date: {
 					 today: "[Today]",
+					 nextDay: "[Tomorrow]",
 					 yesterday: "[Yesterday]",
 					 thisweek: "dddd",
 					 lastweek: "[Last] dddd",
+					 nextWeek: "dddd",
 					 _default: "L"
 				 },
 				 time: {
@@ -23,8 +26,10 @@ steal('can/view/mustache',
 				 datetime: {
 					 today: "[Today at] LT",
 					 yesterday: "[Yesterday at] LT",
+					 nextDay: "[Tomorrow at] LT",
 					 thisweek: "dddd [at] LT",
 					 lastweek: "[Last] dddd [at] LT",
+					 nextWeek: "dddd [at] LT",
 					 _default: "L [at] LT"
 				 }
 			 };

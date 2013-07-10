@@ -153,7 +153,9 @@ steal(
 						}
 					});
 
-					$('.newpost-datepicker').datepicker();
+					currentCategory.bind('name', function ( ev, newVal, oldVal ) {
+						if (newVal == 'event') { $('.newpost-datepicker').datepicker() };
+					});
 					
 				},
 

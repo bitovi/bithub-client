@@ -7,6 +7,7 @@ steal('can',
 	  './_event_default.ejs',
 	  './_event_code.ejs',
 	  './_event_twitter.ejs',
+	  './_event_event.ejs',
 	  './_digest.ejs',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
@@ -14,7 +15,20 @@ steal('can',
 	  'can/construct/proxy',
 	  'bithub/helpers/ejsHelpers.js',
 	  'ui/more',
-	  function(can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, eventDefaultPartial, eventCodePartial, eventTwitterPartial, digestPartial, Event, Upvote, Award){
+	  function(can,
+			   initView,
+			   latestView,
+			   greatestView,
+			   eventPartial,
+			   eventChildrenPartial,
+			   eventDefaultPartial,
+			   eventCodePartial,
+			   eventTwitterPartial,
+			   eventEventPartial,
+			   digestPartial,
+			   Event,
+			   Upvote,
+			   Award) {
 
 		  var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),
 			  
@@ -57,11 +71,14 @@ steal('can',
 				  }, {
 					  template: eventTwitterPartial,
 					  tags: ['status_event']
+				  }, {
+					  template: eventEventPartial,
+					  tags: ['event']
 				  }
 			  ],
 			  
 			  // used for ordering categories on latest view
-			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code'];
+			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'];
 		  
 		  return can.Control(
 			  {
