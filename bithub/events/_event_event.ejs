@@ -1,0 +1,37 @@
+<div class="row">
+  <% if (event.attr('image_url')) { %>
+	<img src="<%= event.attr('image_url') %>" class="thumb" alt="post image" >
+  <% } %>
+  <h5><%== event.eventUrl() %></h5>
+  <div class="location-time"><%= event.attr('props.location') %> / <%= prettifyTs(event.attr('props.scheduled_for'), 'datetime', true) %></div>
+  <div class="body"><%== event.attr('body') %></div>
+  <div class="clearfix"></div>	  
+</div>
+
+<!-- status -->
+<div class="status row">
+  <div class="metadata-container pull-right">
+	<div class="event-metadata pull-right">
+	  <small>
+		<% if( event.getAuthorName() ) { %><a href="#"><%== event.getAuthorName() %></a> /<% } %>
+		<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
+		via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
+	</div>
+  </div>
+  <% if (event.attr('children').length) { %>
+  <a class="expand-replies"><span class="icon"></span>Earlier (<%= event.attr('children').length %>)</a>
+  <% } %>
+  <ul class="tag-list nav">
+	<% can.each(event.attr('tags'), function( tag ) { %>
+	<li class="tag-name <%= tag %>"><a href="#"><small><%= tag %></small></a></li>
+	<% }) %>
+  </ul>
+
+  <% if( isAdmin() ) { %>
+  <!-- ADMIN -->
+  <a href="#" class="expand-manage-bar"></a>	  
+  <!-- /ADMIN -->
+  <% } %>
+
+  <div class="clearfix"></div>
+</div>
