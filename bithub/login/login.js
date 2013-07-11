@@ -33,7 +33,6 @@ steal(
 			},
 
 			'#logout-btn click': function( el, ev ) {
-				//ev.preventDefault();
 				this.options.currentUser.logout();
 			}
 		});

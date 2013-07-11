@@ -139,13 +139,14 @@ steal('can',
 				  
 				  '.voteup click': function( el, ev ) {
 					  this.upvote( can.data(el.closest('.event'), 'eventObj') );
-					  //can.data(el.closest('.event'), 'event').upvote();
+				  },
+
+				  '.event-metadata a click': function( el, ev ) {
+					  windowl.location = el.attr('href');
 				  },
 
 				  '.replies .votes click': function( el, ev ) {
 					  this.upvote( can.data(el.closest('.reply-event'), 'eventObj') );
-					  //var event = can.data(el.closest('.reply-event'), 'event');
-					  //(new Upvote({event: event})).upvote();
 				  },
 
 				  '.award-btn click': function( el, ev ) {
@@ -186,7 +187,6 @@ steal('can',
 					  var event = can.data(el.closest('.event.list-element'), 'eventObj');
 					  event.destroy( function() {
 						  el.closest('.event.list-element').fadeOut();
-						  //self.load(self.updateEvents)
 					  });
 				  },
 
@@ -379,8 +379,8 @@ steal('can',
 				  },
 				  
 				  applyMore: function() {
-					  //this.element.find('.event .body:not(.reply)').more();
+					  /* Disabled because it sometimes breaks on certain types of content */
+					  /* this.element.find('.event .body:not(.reply)').more(); */
 				  }
-
 			  });
 	  });
