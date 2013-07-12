@@ -79,7 +79,7 @@ steal('can',
 			  
 			  // used for ordering categories on latest view
 			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'];
-		  
+
 		  return can.Control(
 			  {
 				  defaults : {

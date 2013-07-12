@@ -102,7 +102,6 @@ steal(
 		});
 
 		currentUser.fromSession();
-
 		
 		// Init Controllers
 		var modals = new Modals('#bootstrapModals', {
