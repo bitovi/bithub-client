@@ -1,4 +1,5 @@
 steal('can',
+	  'can/observe/sort',
 	  'vendor/moment'
 	 ).then( function() {
 
@@ -67,8 +68,28 @@ steal('can',
 
 				 return ts.format( format );
 				 // return ts.calendar();
+			 },
+			 sortChildren: function(collection, attribute, direction) {
+				 var dateAttributes = ['origin_ts', 'origin_date', 'thread_updated_at'],
+					 numericAttributes = ['points'],
+					 isSmaller = (direction === 'asc') ? -1 : 1,
+					 isLarger = (direction === 'asc') ? 1 : -1;
+
+				 if (dateAttributes.indexOf(attribute) > -1) {
+					 collection.sort(function(a,b) {
+						 return (moment(a.attr(attribute)).isBefore(b.attr(attribute)) ? isSmaller : isLarger);
+					 })
+				 } else if (numericAttributes.indexOf(attribute)) {
+					 collection.sort(function(a,b) {
+						 return (parseInt(a.attr(attribute),10) <= parseInt(b.attr(attribute), 10) ? isSmaller : isLarger);
+					 })
+				 } else {
+					 collection.sort(function(a,b) {
+						 return (a.attr(attribute) <= b.attr(attribute) ? isSmaller : isLarger);
+					 })
+				 }
+
+				 return collection;
 			 }
-			 
 		 });
-		 
 	 });
