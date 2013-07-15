@@ -105,52 +105,55 @@ steal(
 						}
 					});
 
-					el.find('#newpost-form-post-as input.typeahead').typeahead({
-						minLength: 3,
-						source: function(query, process) {
-							var	feed = self.element.find('input[name=postas_feed]:checked').val(),
-							queryStr = '/api/users/' + feed + '/' + query
+					// Only when admin attr changes, bind the post-as input field as typeahead
+					self.options.currentUser.bind('admin', function ( ev, newVal, oldVal ) {
+						el.find('#newpost-form-post-as input.typeahead').typeahead({
+							minLength: 3,
+							source: function(query, process) {
+								var	feed = self.element.find('input[name=postas_feed]:checked').val(),
+								queryStr = '/api/users/' + feed + '/' + query;
 
-							if (this.timeout) {
-								clearTimeout(this.timeout);
-							}
+								if (this.timeout) {
+									clearTimeout(this.timeout);
+								}
 
-							this.timeout = setTimeout(function () {					
-								$.get(queryStr, function(data) {
-									autocompleteUsers = [];
-									mappedResponse = {};
-									$.each(data, function (i, user) {
-										if (feed === 'twitter') {
-											mappedResponse[user.name + '_' + user.screen_name] = user;
-											autocompleteUsers.push(user.name + " / " + user.screen_name);
-										} else if (feed == 'github') {
-											mappedResponse[user.name + '_' + user.username] = user;
-											autocompleteUsers.push(user.name + " / " + user.username);
-										}
+								this.timeout = setTimeout(function () {					
+									$.get(queryStr, function(data) {
+										autocompleteUsers = [];
+										mappedResponse = {};
+										$.each(data, function (i, user) {
+											if (feed === 'twitter') {
+												mappedResponse[user.name + '_' + user.screen_name] = user;
+												autocompleteUsers.push(user.name + " / " + user.screen_name);
+											} else if (feed == 'github') {
+												mappedResponse[user.name + '_' + user.username] = user;
+												autocompleteUsers.push(user.name + " / " + user.username);
+											}
+										});
+										process(autocompleteUsers);
 									});
-									process(autocompleteUsers);
-								});
-							}, 500);
-						},
-						matcher: function(item) {
-							return itemIsPartOfQueryString(this.query, item);
-						},
-						updater: function (item) {
-							var key = item.replace(' / ', '_');
-							selectedUser = mappedResponse[key];
-							var	feed = self.element.find('input[name=postas_feed]:checked').val();
-							if (feed == 'twitter') {
-								el.find('input.postas_id').val(selectedUser.id); 
-								el.find('img.postas.avatar').attr('src', selectedUser.profile_image_url);
-							} else if (feed == 'github') {
-								el.find('input.postas_id').val(selectedUser.id.replace('user-', '')); 
-								$.get('https://api.github.com/users/' + item.id, function (data) {
-									el.find('img.postas.avatar').attr('src', 'http://www.gravatar.com/avatar/' + data.gravatar_id + '?s=48'); 
-								});
+								}, 500);
+							},
+							matcher: function(item) {
+								return itemIsPartOfQueryString(this.query, item);
+							},
+							updater: function (item) {
+								var key = item.replace(' / ', '_');
+								selectedUser = mappedResponse[key];
+								var	feed = self.element.find('input[name=postas_feed]:checked').val();
+								if (feed == 'twitter') {
+									el.find('input.postas_id').val(selectedUser.id); 
+									el.find('img.postas.avatar').attr('src', selectedUser.profile_image_url);
+								} else if (feed == 'github') {
+									el.find('input.postas_id').val(selectedUser.id.replace('user-', '')); 
+									$.get('https://api.github.com/users/' + item.id, function (data) {
+										el.find('img.postas.avatar').attr('src', 'http://www.gravatar.com/avatar/' + data.gravatar_id + '?s=48'); 
+									});
+								}
+								el.find('input.postas_feed').val(feed); 
+								return item;
 							}
-							el.find('input.postas_feed').val(feed); 
-							return item;
-						}
+						});
 					});
 
 					currentCategory.bind('name', function ( ev, newVal, oldVal ) {
