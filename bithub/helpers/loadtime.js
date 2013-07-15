@@ -4,7 +4,7 @@ steal(
 
 		return function( opts ) {
 			var count = 0,
-				startTs = START_TIME || new Date(),
+				startTs = window.START_TIME || new Date(),
 				verbose = (opts && opts.verbose) || false;
 			
 			$(document)
