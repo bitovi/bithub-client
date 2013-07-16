@@ -1821,7 +1821,6 @@ h4.handwriting {
 	width:150px;
 	height:120px;
 
-	-moz-margin-start:-60px;
 	-moz-opacity:0 ;filter:alpha(opacity: 0);opacity: 0;
 }
 
@@ -1844,6 +1843,10 @@ h4.handwriting {
 	bottom: 0px;
 	left: 0px;
 	z-index: 100;
+}
+
+.newpost-form .image-uploader .image-preview img {
+	z-index: 105;
 }
 
 .newpost-sidebar h4 {
