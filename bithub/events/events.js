@@ -45,7 +45,7 @@ steal('can',
 					  byDate: new can.Observe({
 						  order: 'thread_updated_at:desc',
 						  exclude: 'source_data',
-						  origin_date: latestDateFilter,
+						  thread_updated_date: latestDateFilter,
 						  limit: 1000 // override default 50
 					  }),
 					  byLimit: new can.Observe({

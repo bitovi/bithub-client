@@ -117,7 +117,8 @@ steal('can',
 
 					idx += offset;
 
-					$.each( days, function( i, day ) {
+					for(var i=0; i<days.length; i++) {
+						var day = days[i];
 						if ( day.date === moment(event.attr('thread_updated_at')).format("YYYY-MM-DD") ) {
 							flag = true;
 							if ( day[event.attr('category')] ) {
@@ -125,8 +126,9 @@ steal('can',
 							} else {
 								day[event.attr('category')] = [idx];
 							}
+							break;
 						}
-					});
+					};
 
 					if (!flag) {
 						var day = {date: moment(event.attr('thread_updated_at')).format("YYYY-MM-DD") };
