@@ -169,7 +169,8 @@ steal(
 							el.find('.image-uploader .image-preview').html(img);
 						}, {
 							maxWidth: 150,
-							maxHeight: 120
+							maxHeight: 120,
+							noRevoke: true
 						}
 					);
 				},
