@@ -100,8 +100,16 @@ steal(
 					el.fileupload({
 						datatype: 'json',
 						limitMultiFileUploads: 1,
+						//acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
 						add: function(el, data) {
-							self.options.fileData = data;
+
+							// check file names manually, `acceptFileTypes` seems not to be working
+							for( var i=0; i < data.files.length; i++ ) {
+								if( !data.files[i].name.match( /(\.|\/)(gif|jpe?g|png)$/i ) ) {
+									return;
+								}
+							}
+							self.options.fileData = data;							
 						}
 					});
 
