@@ -44,10 +44,11 @@ steal(
 				view: 'latest',
 				category: eventObj.category,
 				project: self.options.recentProject
-			})
+			});
 			setTimeout(function() {
 				self.options.visibility(false);
 			}, 1000);
+			setTimeout(function () { self.resetForm.call(self) }, 1500);
 		}
 
 		function itemIsPartOfQueryString(query, item) {
@@ -109,7 +110,7 @@ steal(
 									return;
 								}
 							}
-							self.options.fileData = data;							
+							self.options.fileData = data;
 						}
 					});
 
@@ -193,11 +194,13 @@ steal(
 				},
 
 				'#newpost-form-project a click': function( el, ev ) {
+					ev.preventDefault();
 					currentProject.attr('name', (can.data(el, 'project')).name);
 					currentProject.attr('displayName', el.html());
 				},
 				
 				'#newpost-form-category a click': function( el, ev ) {
+					ev.preventDefault();
 					currentCategory.attr('name', (can.data(el, 'category')).name);
 					currentCategory.attr('displayName', el.html());
 				},
@@ -234,17 +237,38 @@ steal(
 					self.element.find('p.text-error').hide()
 					self.options.recentProject = el.formParams().event.project;
 					if (this.options.fileData && !errors) {
-						this.options.fileData.submit()
+						this.options.fileData.submit();
 					} else if (!this.options.fileData && !errors){
 						var event = new Bithub.Models.Event(el.formParams())
 						event.save(function(newEvent) {
-							closeNewPostForm.call(self, newEvent)
+							closeNewPostForm.call(self, newEvent);
 						});
 					} else {
 						for (e in errors) {
 							self.element.find(errorElementName(e)).html(errors[e]).show();
 						}
 					}
+				},
+
+				resetForm: function() {
+					var el = this.element;
+
+					// clear input fields (including hidden ones)
+					el.find('input').val('');
+					el.find('textarea').val('');
+
+					// hide post-as avatar
+					el.find('.postas.avatar').attr('src','');
+					
+					// reset category and project dropdown
+					currentCategory.attr({displayName: "Pick a category", name: "none"});
+					currentProject.attr({displayName: "Pick a project", name: "none"});
+
+					// clear image
+					delete this.options.fileData;
+					el.find('.progress').hide().find('.bar').width('0%');
+					el.find('.image-uploader .image-preview').html('');
 				}
+				
 			});
 	});
