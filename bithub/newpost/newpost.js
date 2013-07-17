@@ -10,11 +10,13 @@ steal(
 		 */
 
 		function constructDateTimeString(rawDateString, rawTimeString) {
-			var date = moment(rawDateString, "DD-MM-YYYY"),
+			var date = moment(rawDateString, "YYYY-MM-DD"),
 				longTime = moment(rawTimeString, "hh:mm a"),
-				shortTime = moment(rawTimeString, "hh a");
+				shortTime = moment(rawTimeString, "hh a"),
+				time;
 
-			var time = longTime.isValid() ? longTime : shortTime;
+			if (longTime || shortTime)
+				time = longTime.isValid() ? longTime : shortTime;
 
 			if (date && time && date.isValid() && time.isValid()) {
 				date.hours(time.hours()); date.minutes(time.minutes());
@@ -48,10 +50,8 @@ steal(
 				category: eventObj.category,
 				project: self.options.recentProject
 			});
-			setTimeout(function() {
-				self.options.visibility(false);
-			}, 1000);
-			setTimeout(function () { self.resetForm.call(self) }, 1500);
+			setTimeout(function() { self.options.visibility(false) }, 1000);
+			setTimeout(function() { self.resetForm.call(self) }, 1500);
 		}
 
 		function itemIsPartOfQueryString(query, item) {
@@ -63,7 +63,9 @@ steal(
 			currentDateTime = new can.Observe({}),
 
 			currentDateTimeStamp = can.compute(function() {
-				var combinedDateTime = constructDateTimeString(currentDateTime.attr('date'), currentDateTime.attr('time'));
+				var date = moment(currentDateTime.attr('date'), "MM/DD/YYYY").format("YYYY-MM-DD"),
+					time = currentDateTime.attr('time'),
+					combinedDateTime = constructDateTimeString(date, time);
 				return combinedDateTime;
 			});
 
@@ -93,7 +95,7 @@ steal(
 							return buffer;
 						},
 						today: function() {
-							return moment().format("DD-MM-YYYY");
+							return moment().format("MM/DD/YYYY");
 						},
 						ifAdmin: function(opts) {
 							return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
@@ -179,7 +181,7 @@ steal(
 					currentCategory.bind('name', function ( ev, newVal, oldVal ) {
 						if (newVal == 'event') { 
 							$datepicker = $('.newpost-datepicker');
-							$datepicker.datepicker();
+							$datepicker.datepicker({format: 'mm/dd/yyyy', weekStart: 0});
 							currentDateTime.attr('date', $datepicker.find('input').val());
 						};
 					});
@@ -223,14 +225,14 @@ steal(
 
 				'#newpost-form-date changeDate': function( el, ev ) {
 					currentDateTime.attr('date', el.find('input').val());
+					el.find('.newpost-datepicker').datepicker('hide');
 				},
 
 				'#newpost-form-time input blur': function( el, ev ) {
 					currentDateTime.attr('time', el.val());
 					
 					var errors = new Bithub.Models.Event(this.element.formParams().event).errors();
-					if (errors.hasOwnProperty('datetime')) {
-						console.log(errors);
+					if (errors && errors.hasOwnProperty('datetime')) {
 						el.closest('.control-group').find('p.text-error').html(errors['datetime']).show();
 					} else {
 						el.closest('.control-group').find('p.text-error').html("").hide();
