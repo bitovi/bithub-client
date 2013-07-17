@@ -9,7 +9,9 @@ steal(
 	'bithub/login',
 	'bithub/newpost',
 	'bithub/eventdetails',
+	'bithub/events/prepare_params.js',
 	'bithub/modals',
+	'bithub/models/event.js',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
 	'bithub/helpers/loadtime.js',
@@ -21,7 +23,7 @@ steal(
 	'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
 	//'vendor/socketio/socket.io.js',
-	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, Modals, Tag, User, loadtime) {
+	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, prepareParams, Modals, Event, Tag, User, loadtime) {
 		var self = this;
 
 		// display load time 
@@ -83,10 +85,28 @@ steal(
 		can.route(routePrefix + '/:page/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		
 		var	newpostVisibility = can.compute(false),
-			projects = new can.Model.List(),
-			categories = new can.Model.List(),
-			currentUser = new User({loggedIn: undefined});
+			projects          = new can.Model.List(),
+			categories        = new can.Model.List(),
+			currentUser       = new User({loggedIn: undefined}),
+			preloadedEvents   = new Bithub.Models.Event.List();
 
+
+		// Preload events on route init
+		window.EVENTS_PRELOADED = false;
+		var routeInitialized = false;
+		
+		can.route.bind('change', function() {			
+			//console.log( "Route initialized after ", (new Date()) - window.START_TIME );			
+			if( !routeInitialized ) {				
+				routeInitialized = true;
+				Event.findAll( prepareParams.prepareParams(), function( events ) {
+					// this prevents events control to trigger on initial can.route change
+					window.EVENTS_PRELOADED = true;
+					preloadedEvents.replace(events);
+				});
+			}
+		});
+		
 		// move this somewhere else
 		currentUser.bind('change', function(ev, attr, how, newVal, oldVal) {
 			var self = this,
@@ -116,6 +136,8 @@ steal(
 				'profile': Profile,
 				'activities': Activities
 			},
+			preloadedEvents: preloadedEvents,
+			prepareParams: prepareParams,
 			currentUser: currentUser,
 			categories: categories,
 			projects: projects,

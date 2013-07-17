@@ -28,41 +28,12 @@ steal('can',
 			   digestPartial,
 			   Event,
 			   Upvote,
-			   Award) {
+			   Award
+			  ) {
 
-		  var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),
-			  
-			  latestDateFilter = can.compute(function () {
-				  return latestTimespan.attr('startDate').format('YYYY-MM-DD') + ':' + latestTimespan.attr('endDate').format('YYYY-MM-DD');
-			  }),
-
-			  emptyReqCounter = 0,
+		  var emptyReqCounter = 0,
 			  emptyReqTreshold = 5,
 			  
-			  // lookup dict with default query params for loading events
-			  views = {
-				  latest: {
-					  byDate: new can.Observe({
-						  order: 'thread_updated_at:desc',
-						  exclude: 'source_data',
-						  thread_updated_date: latestDateFilter,
-						  limit: 1000 // override default 50
-					  }),
-					  byLimit: new can.Observe({
-						  order: 'thread_updated_at:desc',
-						  exclude: 'source_data',
-						  offset: 0,
-						  limit: 25
-					  })
-				  },
-				  greatest: new can.Observe({
-					  order: 'upvotes:desc',
-					  exclude: 'source_data',
-					  offset: 0,
-					  limit: 25
-				  })
-			  },
-
 			  // lookup table for dynamic loading of event partials 
 			  eventPartialsLookup = [
 				  {
@@ -90,9 +61,9 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  window.LATEST     = this.latestEvents   = new Bithub.Models.Event.List();
-					  window.LATEST_IDX = this.latestIndex    = new can.Observe.List([]);
-					  window.GREATEST   = this.greatestEvents = new Bithub.Models.Event.List();
+					  window.LATEST        = this.latestEvents   = new Bithub.Models.Event.List();
+					  window.LATEST_IDX    = this.latestIndex    = new can.Observe.List([]);
+					  window.GREATEST      = this.greatestEvents = new Bithub.Models.Event.List();
 					  
 					  this.currentView = can.compute('latest');
 					  
@@ -125,8 +96,6 @@ steal('can',
 					  }) );
 
 					  self.options.spinner(true);
-
-					  this.load();
 				  },
 
 				  /*
@@ -142,7 +111,7 @@ steal('can',
 				  },
 
 				  '.event-metadata a click': function( el, ev ) {
-					  windowl.location = el.attr('href');
+					  window.location = el.attr('href');
 				  },
 
 				  '.replies .votes click': function( el, ev ) {
@@ -190,22 +159,27 @@ steal('can',
 					  });
 				  },
 
+				  // preload
+				  '{preloadedEvents} change': function() {
+					  this.updateEvents( this.options.preloadedEvents );
+				  },
+				  
 				  // can.route listeners
 
 				  '{can.route} view': function( data, ev, newVal, oldVal ) {
-					  this.resetFilter();
+					  this.options.prepareParams.resetFilter();
 					  this.options.spinner(true);
 					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} project': function( data, ev, newVal, oldVal ) {
-					  this.resetFilter();
+					  this.options.prepareParams.resetFilter();
 					  this.options.spinner(true);
 					  this.load( this.updateEvents );
 				  },
 				  
 				  '{can.route} category': function( data, ev, newVal, oldVal ) {
-					  this.resetFilter();
+					  this.options.prepareParams.resetFilter();
 					  this.options.spinner(true);
 					  this.load( this.updateEvents );
 				  },
@@ -213,11 +187,13 @@ steal('can',
 				  // infinite scroll
 				  
 				  '{window} onbottom': function( el, ev ) {
+					  var views = this.options.prepareParams.views;
+					  
 					  if (can.route.attr('view') === 'latest') {
 						  if (can.route.attr('project') !== 'all' || can.route.attr('category') !== 'all') {
 							  views.latest.byLimit.attr('offset', views.latest.byLimit.offset + views.latest.byLimit.limit);
 						  } else {
-							  this.decrementLatestDate();
+							  this.options.prepareParams.decrementLatestDate();
 						  }
 					  } else {
 						  views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
@@ -270,45 +246,14 @@ steal('can',
 					  
 					  return template;
 				  },
-				  
-				  decrementLatestDate: function() {
-					  latestTimespan.attr({
-						  endDate: latestTimespan.attr('endDate').subtract('days', 2),
-						  startDate: latestTimespan.attr('startDate').subtract('days', 2)
-					  });
-				  },
 
-				  resetFilter: function() {
-					  latestTimespan.attr({
-						  endDate: moment(),
-						  startDate: moment().subtract('days', 1)
-					  });
-					  views.latest.byLimit.attr('offset', 0);
-					  views.greatest.attr('offset', 0);
-				  },
-
-				  prepareParams: function( params ) {
-
-					  // determine view
-					  var view = views.greatest;
-					  if( can.route.attr('view') === 'latest' ) {
-						  view = (can.route.attr('project') !== 'all' || can.route.attr('category') !== 'all' ) ? views.latest.byLimit : views.latest.byDate;
-					  }
-
-					  // build query
-					  var query = can.extend({}, view.attr(), params || {});
-
-					  // append filters
-					  if (can.route.attr('project') !== 'all') query.tag = can.route.attr('project');
-					  if (can.route.attr('category') !== 'all') query.category = can.route.attr('category');
-
-					  return query;
-				  },
-				  
 				  load: function( cb, params ) {
-					  clearTimeout(this.loadTimeout);
+					  // events are preloaded in bithub.js immediately after can.route is initalized
+					  if( !window.EVENTS_PRELOADED ) return;
+					  
+					  clearTimeout( this.loadTimeout );
 					  this.loadTimeout = setTimeout( this.proxy( function () {
-						  Event.findAll( this.prepareParams(), this.proxy( cb ) );
+						  Event.findAll( this.options.prepareParams.prepareParams(), this.proxy( cb ) );
 					  }) );
 				  },
 
@@ -344,7 +289,7 @@ steal('can',
 						  } else {
 							  buffer.push( day );
 						  }
-					  });					  
+					  });
 
 					  this.latestEvents.push.apply(this.latestEvents, events );					  
 					  this.latestIndex.replace( buffer );
