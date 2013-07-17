@@ -10,8 +10,13 @@ steal(
 		 */
 
 		function constructDateTimeString(rawDateString, rawTimeString) {
-			var date = moment(rawDateString, "DD-MM-YYYY"),
-				time = moment(rawTimeString, ["hh:mm a"]);
+			var date = moment(rawDateString, "YYYY-MM-DD"),
+				longTime = moment(rawTimeString, "hh:mm a"),
+				shortTime = moment(rawTimeString, "hh a"),
+				time;
+
+			if (longTime || shortTime)
+				time = longTime.isValid() ? longTime : shortTime;
 
 			if (date && time && date.isValid() && time.isValid()) {
 				date.hours(time.hours()); date.minutes(time.minutes());
@@ -27,7 +32,7 @@ steal(
 
 		function errorElementName(name) {
 			if (name == 'datetime') {
-				return '#newpost-form-date p.text-error'
+				return '#newpost-form-time p.text-error'
 			} else {
 				return '#newpost-form-' + name + ' p.text-error'
 			}
@@ -45,10 +50,8 @@ steal(
 				category: eventObj.category,
 				project: self.options.recentProject
 			});
-			setTimeout(function() {
-				self.options.visibility(false);
-			}, 1000);
-			setTimeout(function () { self.resetForm.call(self) }, 1500);
+			setTimeout(function() { self.options.visibility(false) }, 1000);
+			setTimeout(function() { self.resetForm.call(self) }, 1500);
 		}
 
 		function itemIsPartOfQueryString(query, item) {
@@ -56,7 +59,16 @@ steal(
 		}
 
 		var currentCategory = new can.Observe({displayName: "Pick a category", name: "none"}),
-			currentProject = new can.Observe({displayName: "Pick a project", name: "none"});
+			currentProject = new can.Observe({displayName: "Pick a project", name: "none"}),
+			currentDateTime = new can.Observe({}),
+
+			currentDateTimeStamp = can.compute(function() {
+				var date = moment(currentDateTime.attr('date'), "MM/DD/YYYY").format("YYYY-MM-DD"),
+					time = currentDateTime.attr('time'),
+					combinedDateTime = constructDateTimeString(date, time);
+				return combinedDateTime;
+			});
+
 
 		return can.Control('Bithub.Newpost',
 			/** @Static */
@@ -70,7 +82,8 @@ steal(
 						projects: options.projects,
 						categories: options.categories,
 						currentProject: currentProject,
-						currentCategory: currentCategory
+						currentCategory: currentCategory,
+						currentDateTimeStamp: currentDateTimeStamp
 					}, {
 						categoryFilter: function(categories, opts) {
 							var buffer = "";
@@ -82,7 +95,7 @@ steal(
 							return buffer;
 						},
 						today: function() {
-							return moment().format("DD-MM-YYYY");
+							return moment().format("MM/DD/YYYY");
 						},
 						ifAdmin: function(opts) {
 							return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
@@ -166,7 +179,11 @@ steal(
 					});
 
 					currentCategory.bind('name', function ( ev, newVal, oldVal ) {
-						if (newVal == 'event') { $('.newpost-datepicker').datepicker() };
+						if (newVal == 'event') { 
+							$datepicker = $('.newpost-datepicker');
+							$datepicker.datepicker({format: 'mm/dd/yyyy', weekStart: 0});
+							currentDateTime.attr('date', $datepicker.find('input').val());
+						};
 					});
 					
 				},
@@ -204,6 +221,23 @@ steal(
 					currentCategory.attr('name', (can.data(el, 'category')).name);
 					currentCategory.attr('displayName', el.html());
 				},
+
+
+				'#newpost-form-date changeDate': function( el, ev ) {
+					currentDateTime.attr('date', el.find('input').val());
+					el.find('.newpost-datepicker').datepicker('hide');
+				},
+
+				'#newpost-form-time input blur': function( el, ev ) {
+					currentDateTime.attr('time', el.val());
+					
+					var errors = new Bithub.Models.Event(this.element.formParams().event).errors();
+					if (errors && errors.hasOwnProperty('datetime')) {
+						el.closest('.control-group').find('p.text-error').html(errors['datetime']).show();
+					} else {
+						el.closest('.control-group').find('p.text-error').html("").hide();
+					}
+				},
 				
 				'#hide-newpost-form-btn click': function( el, ev ) {
 					ev.preventDefault();
@@ -225,11 +259,6 @@ steal(
 				' submit': function( el, ev ) {
 					var self = this;
 					ev.preventDefault();
-
-					/* Set hidden datetime field */
-					var rawDateString = el.find('.control-group.date input').val(),
-						rawTimeString = el.find('.control-group.time input').val();
-					el.find("input[name='event[datetime]']").val(constructDateTimeString(rawDateString, rawTimeString));
 
 					var eventToCheck = new Bithub.Models.Event(el.formParams().event)
 					var errors = eventToCheck.errors()

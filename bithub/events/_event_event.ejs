@@ -3,7 +3,7 @@
 	<img src="<%= event.attr('image_url') %>" class="thumb" alt="post image" >
   <% } %>
   <h5><%== event.eventUrl() %></h5>
-  <div class="location-time"><%= event.attr('props.location') %> / <%= prettifyTs(event.attr('props.scheduled_for'), 'datetime', true) %></div>
+  <div class="location-time"><%= event.attr('props.location') %> / <%= prettifyTs(event.attr('props.scheduled_for'), 'datetime') %></div>
   <div class="body"><%== event.attr('body') %></div>
   <div class="clearfix"></div>	  
 </div>

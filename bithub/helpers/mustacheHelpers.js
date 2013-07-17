@@ -5,7 +5,6 @@ steal('can/view/mustache',
 	  	 Mustache.registerHelper('prettifyTs', function( ts, opts ) {
 			 ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
 
-
 			 var formats = {
 				 date: {
 					 today: "[Today]",
@@ -51,7 +50,7 @@ steal('can/view/mustache',
 				 format = formats[format]._default;
 			 }
 
-			 return ts.format( format );
+			 return ts.local().format(format);
 		 });
 		 
 		 Mustache.registerHelper('loop', function( collection, opts ) {

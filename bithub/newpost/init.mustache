@@ -9,9 +9,8 @@
 			  <input type="hidden" name="event[project]" value="{{name currentProject}}"/>
 			  <input type="hidden" name="event[category]" value="{{name currentCategory}}"/>
 			  <input type="hidden" name="event[feed]" value="bithub"/>
-
 			  {{#isOfEventContentType}}
-			  <input type="hidden" name="event[datetime]"/>
+			  <input type="hidden" name="event[datetime]" value="{{currentDateTimeStamp}}"/>
 			  {{/isOfEventContentType}}
 
 			<div class="span left">
@@ -52,16 +51,16 @@
 			  
 			  {{#isOfEventContentType}}
 			  <div class="btn-group control-group date" id="newpost-form-date" style="margin-left: 0px;">
-				  <p class="text-error hidden"></p>
-				  <div class="input-append date newpost-datepicker" data-date-format="dd-mm-yyyy">
+				  <div class="input-append date newpost-datepicker">
 					  <input class="span2" type="text" value="{{today}}" readonly>
 					  <span class="add-on"><i class="icon-calendar"></i></span>
 				  </div>
 			  </div>
 
 			  <div class="btn-group control-group time" id="newpost-form-time" style="margin-left: 0px;">
+				  <p class="text-error hidden"></p>
 				  <div class="input-append time newpost-timepicker">
-					  <input class="span2" type="text">
+					  <input class="span2" type="text" placeholder="12:30 PM">
 					  <span class="add-on"><i class="icon-time"></i></span>
 				  </div>
 			  </div>
