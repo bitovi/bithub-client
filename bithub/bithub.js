@@ -1,6 +1,6 @@
 // Load all of the plugin dependencies
 steal(
-	'can',
+  'can',
 	'bithub/pageswitcher',
 	'bithub/homepage',
 	'bithub/profile',
@@ -25,6 +25,8 @@ steal(
 	//'vendor/socketio/socket.io.js',
 	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, prepareParams, Modals, Event, Tag, User, loadtime) {
 		var self = this;
+
+		can.route.ready(false);
 
 		// display load time 
 		loadtime();
@@ -83,6 +85,8 @@ steal(
 
 		// Page WTF
 		can.route(routePrefix + '/:page/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+
+		can.route.ready(true);
 		
 		var	newpostVisibility = can.compute(false),
 			projects          = new can.Model.List(),
@@ -93,18 +97,11 @@ steal(
 
 		// Preload events on route init
 		window.EVENTS_PRELOADED = false;
-		var routeInitialized = false;
-		
-		can.route.bind('change', function() {			
-			//console.log( "Route initialized after ", (new Date()) - window.START_TIME );			
-			if( !routeInitialized ) {				
-				routeInitialized = true;
-				Event.findAll( prepareParams.prepareParams(), function( events ) {
-					// this prevents events control to trigger on initial can.route change
-					window.EVENTS_PRELOADED = true;
-					preloadedEvents.replace(events);
-				});
-			}
+
+		Event.findAll( prepareParams.prepareParams(), function( events ) {
+			// this prevents events control to trigger on initial can.route change
+			window.EVENTS_PRELOADED = true;
+			preloadedEvents.replace(events);
 		});
 		
 		// move this somewhere else

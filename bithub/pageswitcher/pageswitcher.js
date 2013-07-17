@@ -9,7 +9,8 @@ steal(
 		}, {
 			init: function( elem, opts ){
 				elem.html( initView({}) );
-				//this.initControl( 'homepage' );
+
+				this.initControl( can.route.attr( opts.routeAttr ) );
 			},
 
 			'{can.route} {routeAttr}': function( route, ev, newVal, oldVal ) {
