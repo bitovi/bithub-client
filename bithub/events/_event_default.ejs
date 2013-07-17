@@ -1,5 +1,7 @@
 <div class="row">
-  <% if (event.attr('image_url')) { %><img src="<%= event.attr('image_url') %>" class="thumb" alt="post image" ><% } %>
+  <% if (event.attr('image_url')) { %>
+  <img class="thumb" <%= event.attr('image_url') ? "src='" + event.attr('image_url') + "'" : "" %> alt="Thumb" />
+  <% } %>
   <h5>
 	<%== event.eventUrl() %>
 	<% if( event.attr('award_value') ) { %><span class='badge'>+<%= event.award_sum() %></span><% } %>

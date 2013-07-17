@@ -69,7 +69,7 @@
 	  <div class="span2">
 		{{#if user.avatar_url}}
 		<div class="avatar">
-		  <img src="{{user.avatar_url}}" alt="avatar">
+		  {{#user.avatar_url}}<img src="{{.}}" alt="avatar">{{/user.avatar_url}}
 		</div>
 		{{/if}}
 

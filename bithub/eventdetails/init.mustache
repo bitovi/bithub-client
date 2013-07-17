@@ -12,7 +12,7 @@
   <!-- content -->
   <div class="span8 content">
 	<div class="row">
-	  {{#if image_url}}<img src="{{image_url}}" class="thumb" alt="post image" >{{/if}}
+	  {{#if image_url}}<img {{#image_url}}src="{{.}}"{{/image_url}} class="thumb" alt="post image" >{{/if}}
 	  <h4 class="title">
 		<a {{#if url}}href="{{url}}"{{/if}}>{{title}}</a>
 		{{#if award_value}}<span class='badge'>+{{award_sum}}</span>{{/if}}

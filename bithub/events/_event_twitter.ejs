@@ -1,6 +1,8 @@
 <div class="row">
   <div class="twitter-profile-pic pull-left">
-	<a href="https://twitter.com/<%= event.attr('props.origin_author_name') %>"><img src="<%= event.attr('props.origin_author_avatar_url') %>" alt="avatar" /></a>
+	<a href="https://twitter.com/<%= event.attr('props.origin_author_name') %>">
+	  <img <%= event.attr('props.origin_author_avatar_url') ? "src='" + event.attr('props.origin_author_avatar_url') + "'" : "" %> alt="Avatar" />
+	</a>
   </div>
   
   <h5>
@@ -17,11 +19,12 @@
 
 	<div class="retweets-container pull-left">
 	  <!--<img class='retweet-icon' src="/img/icon-retweet.png" />-->
-	  <% list(event.attr('children'), function( child ) { %>
-	  <a href='https://twitter.com/<%= child.attr('props.origin_author_name') %>'><img class='profile-icon' src='<%= child.attr('props.origin_author_avatar_url') %>'/></a>
+	  <% list(event.attr('children'), function( child ) { %>	
+	  <a href='https://twitter.com/<%= child.attr('props.origin_author_name') %>'>
+		<img class="profile-icon" <%= child.attr('props.origin_author_avatar_url') ? "src='" + child.attr('props.origin_author_avatar_url') + "'" : "" %> alt="Avatar" />
+	  </a>
 	  <% }) %>
 	</div>
-	
 	<div class="event-metadata pull-right">
 	  <small><%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %> via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 	</div>

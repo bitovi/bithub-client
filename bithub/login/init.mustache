@@ -10,7 +10,7 @@
 <li id="profile-dropdown" class="dropdown logged-in">
   <button class="dropdown-toggle" data-toggle="dropdown">
 	<div class="gradient-border-wrapper">
-	  <img class="avatar" src="{{user.avatar_url}}" alt="gravtar">
+	  {{#user.avatar_url}}<img class="avatar" src="{{.}}" alt="gravtar">{{/user.avatar_url}}
 	</div>
 	<b class="caret"></b>
   </button>
