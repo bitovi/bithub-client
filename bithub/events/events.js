@@ -266,7 +266,7 @@ steal('can',
 						  this.latestEvents.replace( events );
 						  this.latestIndex.replace( events.latest() );
 						  this.options.spinner( false );
-						  this.applyMore();
+						  this.postRendering();
 					  }
 					  this.currentView( can.route.attr('view') );
 				  },
@@ -293,20 +293,20 @@ steal('can',
 
 					  this.latestEvents.push.apply(this.latestEvents, events );					  
 					  this.latestIndex.replace( buffer );
-					  this.applyMore();
+					  this.postRendering();
 				  },
 				  
 				  updateGreatest: function( events ) {
 					  this.greatestEvents.replace( events );
 					  this.options.spinner(false);
 					  this.currentView( can.route.attr('view') );
-					  this.applyMore();
+					  this.postRendering();
 				  },
 				  
 				  appendGreatest: function( events ) {
 					  this.greatestEvents.push.apply(this.greatestEvents, events );
 					  this.options.spinnerBottom(false);
-					  this.applyMore();
+					  this.postRendering();
 				  },
 
 				  updateEvents: function( events ) {					  
@@ -325,10 +325,29 @@ steal('can',
 						  this.options.modals.showLogin();
 					  }
 				  },
+
+				  postRendering: function() {
+					  this.applyMore();
+					  this.adjustChatboxHeight();
+				  },
 				  
 				  applyMore: function() {
 					  /* Disabled because it sometimes breaks on certain types of content */
 					  /* this.element.find('.event .body:not(.reply)').more(); */
+				  },
+
+				  adjustChatboxHeight: function() {					  
+					  this.element.find('.irc-chat-container').each(function (i, chat) {
+						  var calcHeight = 0;
+						  $(chat).find('div.message').each(function (i, msg) {
+							  calcHeight += $(msg).height();
+						  });
+						  if (calcHeight < $(chat).height()) {
+							  $(chat).height(calcHeight);
+						  }
+						  chat.scrollTop = chat.scrollHeight;
+					  });
+					  
 				  }
 			  });
 	  });

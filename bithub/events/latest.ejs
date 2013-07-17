@@ -35,9 +35,9 @@
 	  <h3 class="irc-icon">Chat <a class="pull-right" href="http://webchat.freenode.net/?channels=canjs"><img src="/assets/images/icon-popout.png" alt="popout"></a></h3>
 	</div>
 	<div class="truncated irc-chat-container">
-	  <% list(day['chat'], function( idx ) { %>
-	  <div><span class="username"><%= latestEvents[idx].attr('actor') %></span>: <%= latestEvents[idx].attr('title') %></div>
-	  <% }) %>
+	  <% for( var i = day.chat.length-1; i >= 0; i-- ) { %>
+	  <div class="message"><span class="username"><%= latestEvents[ day.chat[i] ].attr('actor') %></span>: <%= latestEvents[ day.chat[i] ].attr('title') %></div>
+	  <% } %>
 	</div>
   <% } %>
 	
