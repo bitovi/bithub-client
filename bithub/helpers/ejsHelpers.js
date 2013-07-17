@@ -4,8 +4,8 @@ steal('can',
 	 ).then( function() {
 
 		 can.extend( can.EJS.Helpers.prototype, {
-	  		 prettifyTs: function( ts, format, show ) {
-				 ts = moment(typeof(ts) === 'function' ? ts() : ts);
+	  		 prettifyTs: function( ts, format) {
+				 ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
 
 				 var formats = {
 					 date: {
@@ -42,8 +42,6 @@ steal('can',
 				 // calculate diff from date
 				 var diff = moment.utc().second(0).minute(0).hour(0).diff( moment.utc(ts).second(0).minute(0).hour(0), 'days', true );
 				
-				 if (show) console.log(diff);
-
 				 if (diff > 0) {
 					 if (diff < 1) {
 						 format = formats[format].today;
@@ -66,11 +64,10 @@ steal('can',
 					 }
 				 }
 
-				 return ts.format( format );
-				 // return ts.calendar();
+				 return ts.local().format(format);
 			 },
 			 sortChildren: function(collection, attribute, direction) {
-				 var dateAttributes = ['origin_ts', 'origin_date', 'thread_updated_at'],
+				 var dateAttributes = ['origin_ts', 'origin_date', 'thread_updated_at', 'thread_updated_date'],
 					 numericAttributes = ['points'],
 					 isSmaller = (direction === 'asc') ? -1 : 1,
 					 isLarger = (direction === 'asc') ? 1 : -1;
