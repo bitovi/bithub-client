@@ -119,7 +119,7 @@ steal('can',
 
 					for(var i=0; i<days.length; i++) {
 						var day = days[i];
-						if ( day.date === moment(event.attr('thread_updated_at')).format("YYYY-MM-DD") ) {
+						if ( day.date === event.attr('thread_updated_date')) {
 							flag = true;
 							if ( day[event.attr('category')] ) {
 								day[event.attr('category')].push( idx );
@@ -131,7 +131,7 @@ steal('can',
 					};
 
 					if (!flag) {
-						var day = {date: moment(event.attr('thread_updated_at')).format("YYYY-MM-DD") };
+						var day = {date: event.attr('thread_updated_date')};
 						day[event.attr('category')] = [idx];
 						days.push( day );
 					}
