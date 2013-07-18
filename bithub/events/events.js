@@ -259,7 +259,7 @@ steal('can',
 
 				  updateLatest: function( events ) {
 					  if (events.length == 0 && ++emptyReqCounter < emptyReqTreshold) {
-						  this.decrementLatestDate();
+						  this.options.prepareParams.decrementLatestDate();
 						  this.load( this.updateLatest );
 					  } else {
 						  emptyReqCounter = 0;
