@@ -995,8 +995,8 @@ a.btn.connect {
 .sidebar .leaderboard ul li .position, .sidebar .leaderboard ul li .points {
 	position: relative;
 	color: #666;
-	font-size: 24px;
-	top: 5px;
+	font-size: 20px;
+	top: 2px;
 }
 .sidebar .leaderboard .btn-tiny {
 	float: none;
@@ -1123,7 +1123,7 @@ h4.handwriting {
 	text-align: center;
 	width: 75px;
 	margin: 0!important;
-	margin-left: 10px!important;
+	margin-left: 9px!important;
 	background-image: none;
 }
 .free-stuff li:first-child {
