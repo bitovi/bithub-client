@@ -223,7 +223,7 @@ steal('can',
 						  preservedHeight = el.css('height'); // To prevent content bobbing (caused by removing of scrollbar in FF);
 					  
 					  if( newVal ) {
-						  $('body').scrollTop(0);
+						  $(document).scrollTop(0);
 						  el.css('height', preservedHeight);
 						  el.find('.events-container').hide();
 						  el.find('.spinner').show()
