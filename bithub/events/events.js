@@ -61,9 +61,9 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this;
 
-					  window.LATEST        = this.latestEvents   = new Bithub.Models.Event.List();
-					  window.LATEST_IDX    = this.latestIndex    = new can.Observe.List([]);
-					  window.GREATEST      = this.greatestEvents = new Bithub.Models.Event.List();
+					  window.LATEST        = this.latestEvents   = new Bithub.Models.Event.List([{}]);
+					  window.LATEST_IDX    = this.latestIndex    = new can.Observe.List([{}]);
+					  window.GREATEST      = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 					  
 					  this.currentView = can.compute('latest');
 					  
@@ -160,6 +160,7 @@ steal('can',
 				  },
 
 				  // preload
+				  
 				  '{preloadedEvents} change': function() {
 					  this.updateEvents( this.options.preloadedEvents );
 				  },
@@ -259,7 +260,7 @@ steal('can',
 
 				  updateLatest: function( events ) {
 					  if (events.length == 0 && ++emptyReqCounter < emptyReqTreshold) {
-						  this.decrementLatestDate();
+						  this.options.prepareParams.decrementLatestDate();
 						  this.load( this.updateLatest );
 					  } else {
 						  emptyReqCounter = 0;
@@ -332,8 +333,7 @@ steal('can',
 				  },
 				  
 				  applyMore: function() {
-					  /* Disabled because it sometimes breaks on certain types of content */
-					  /* this.element.find('.event .body:not(.reply)').more(); */
+					  this.element.find('.event .body:not(.reply)').more();
 				  },
 
 				  adjustChatboxHeight: function() {					  

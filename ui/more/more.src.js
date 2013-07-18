@@ -21,7 +21,7 @@
 			var $el = $(this);
 
 			// skip if there is no content
-			if ( $el.context.innerText.length == 0 ) {
+			if ( can.trim($el.text()).length == 0 ) {
 				return;
 			}
 			
