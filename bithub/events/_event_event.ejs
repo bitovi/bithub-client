@@ -1,6 +1,6 @@
 <div class="row">
   <% if (event.attr('image_url')) { %>
-	<img src="<%= event.attr('image_url') %>" class="thumb" alt="post image" >
+  <img class="thumb" <%= event.attr('image_url') ? "src='" + event.attr('image_url') + "'" : "" %> alt="Thumb" />
   <% } %>
   <h5><%== event.eventUrl() %></h5>
   <div class="location-time"><%= event.attr('props.location') %> / <%= prettifyTs(event.attr('props.scheduled_for'), 'datetime') %></div>
