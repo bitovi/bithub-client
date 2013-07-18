@@ -95,7 +95,7 @@ steal(
 			projects          = new can.Model.List(),
 			categories        = new can.Model.List(),
 			currentUser       = new User({loggedIn: undefined}),
-			preloadedEvents   = new Bithub.Models.Event.List();
+			preloadedEvents   = new Bithub.Models.Event.List([{}]);
 
 
 		// Preload events on route init

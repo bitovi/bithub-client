@@ -6,7 +6,7 @@
 	<%== event.eventUrl() %>
 	<% if( event.attr('award_value') ) { %><span class='badge'>+<%= event.award_sum() %></span><% } %>
   </h5>
-  <div class="body"><%== event.attr('body') %></div>
+  <div class="body" <%= applyMore() %>><%== event.attr('body') %></div>
   <div class="clearfix"></div>	  
 </div>
 

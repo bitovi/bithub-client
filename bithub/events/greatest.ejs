@@ -1,3 +1,5 @@
-<% list( greatestEvents, function( event ) { %>
+<div>
+<%== each( greatestEvents, function( event ) { %>
 <%== eventPartial.render({event: event, determineEventPartial: determineEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, orderChildrenBy: 'upvotes'}) %>
 <% }) %>
+</div>

@@ -3,7 +3,7 @@
 	<%== event.eventUrl() %>
 	<% if( event.attr('award_value') ) { %><span class='badge'>+<%= event.award_sum() %></span><% } %>
   </h5>
-  <div class="body">
+  <div class="body" <%= applyMore() %>>
 	<% list( event.attr('props.commits'), function( commit ) { %>
 	<div>- <a href="<%= event.attr('url') %>"><%= commit.attr('sha').substring(0, 6) %></a> <%== commit.attr('message') %></div>		
 	<% }) %>
