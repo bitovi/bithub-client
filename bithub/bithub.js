@@ -1,6 +1,6 @@
 // Load all of the plugin dependencies
 steal(
-  'can',
+	'can',
 	'bithub/pageswitcher',
 	'bithub/homepage',
 	'bithub/profile',
@@ -26,6 +26,9 @@ steal(
 	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, prepareParams, Modals, Event, Tag, User, loadtime) {
 		var self = this;
 
+		if( steal.isBuilding ) {
+			return
+		}
 		can.route.ready(false);
 
 		// display load time 
