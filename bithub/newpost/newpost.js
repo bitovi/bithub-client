@@ -117,6 +117,7 @@ steal(
 						limitMultiFileUploads: 1,
 						//acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
 						add: function(el, data) {
+							console.log("ADDED");
 
 							// check file names manually, `acceptFileTypes` seems not to be working
 							for( var i=0; i < data.files.length; i++ ) {
@@ -190,6 +191,12 @@ steal(
 				},
 
 				' fileuploadadd': function( el, ev, data ) {
+					for( var i=0; i < data.files.length; i++ ) {
+						if( !data.files[i].name.match( /(\.|\/)(gif|jpe?g|png)$/i ) ) {
+							return;
+						}
+					}
+					
 					var loadingImage = window.loadImage(
 						data.files[0],
 						function (img) {
