@@ -141,14 +141,14 @@ steal(
 							minLength: 3,
 							source: function(query, process) {
 								var	feed = self.element.find('input[name=postas_feed]:checked').val(),
-								queryStr = '/api/users/' + feed + '/' + query;
+								queryStr = '/api/users/' + feed;
 
 								if (this.timeout) {
 									clearTimeout(this.timeout);
 								}
 
 								this.timeout = setTimeout(function () {					
-									$.get(queryStr, function(data) {
+									$.get(queryStr, {user: query}, function(data) {
 										autocompleteUsers = [];
 										mappedResponse = {};
 										$.each(data, function (i, user) {
