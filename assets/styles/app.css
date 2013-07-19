@@ -1713,7 +1713,7 @@ h4.handwriting {
 #newpost-form-wrapper {
 	position: fixed;
 	top: 62px;
-	z-index: 900;
+	z-index: 1001;
 	width: 100%;
 }
 
