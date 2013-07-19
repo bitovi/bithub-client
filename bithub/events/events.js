@@ -179,19 +179,13 @@ steal('can',
 				  
 				  // can.route listeners
 
-				  '{can.route} view': function( data, ev, newVal, oldVal ) {
-					  this.options.prepareParams.resetFilter();
-					  this.options.spinner(true);
-					  this.load( this.updateEvents );
-				  },
-				  
-				  '{can.route} project': function( data, ev, newVal, oldVal ) {
-					  this.options.prepareParams.resetFilter();
-					  this.options.spinner(true);
-					  this.load( this.updateEvents );
-				  },
-				  
-				  '{can.route} category': function( data, ev, newVal, oldVal ) {
+				  '{can.route} view': "reload",				  
+				  '{can.route} project': "reload",
+				  '{can.route} category': "reload",
+
+				  '{Bithub.Models.Event} reload': "reload",
+
+				  reload: function() {
 					  this.options.prepareParams.resetFilter();
 					  this.options.spinner(true);
 					  this.load( this.updateEvents );

@@ -43,13 +43,21 @@ steal(
 		}
 
 		function closeNewPostForm(eventObj) {
-			var self = this;
-			can.route.attr({
-				page: 'homepage',
-				view: 'latest',
-				category: eventObj.category,
-				project: self.options.recentProject
-			});
+			var self = this,
+				attrs = can.route.attr();
+
+			// if can.route remains the same trigger reload
+			if( attrs.category === eventObj.category && attrs.project === self.options.recentProject ) {
+				$([Bithub.Models.Event]).trigger('reload');
+			} else {
+				can.route.attr({
+					page: 'homepage',
+					view: 'latest',
+					category: eventObj.category,
+					project: self.options.recentProject
+				});
+			}
+
 			setTimeout(function() { self.options.visibility(false) }, 1000);
 			setTimeout(function() { self.resetForm.call(self) }, 1500);
 		}
