@@ -7,7 +7,7 @@ steal(
 			twitter: { url: '/api/auth/twitter' },
 			github: { url: '/api/auth/github' }			
 		};
-		
+
 		var User = can.Model('Bithub.Models.User', {
 			init: function () {},
 
@@ -44,10 +44,9 @@ steal(
 
 				$.get('/api/auth/logout', function () {
 					// remove attrs from current user
+					setTimeout(function() { self.attr('loggedInDelayed', false) }, 500);
 					for(var key in self.attr()) {
-						if( blacklist.indexOf( key ) < 0 ) {
-							self.removeAttr( key );
-						}
+						if (blacklist.indexOf(key) < 0) self.removeAttr(key);
 					}
 				});
 			}

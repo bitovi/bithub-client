@@ -12,8 +12,7 @@ steal(
 					user: opts.currentUser,
 					routes: {
 						'profile': can.route.url({page: 'profile'}, false),
-						'activity': can.route.url({page: 'activities'}, false),
-						'logout': '/'
+						'activity': can.route.url({page: 'activities'}, false)
 					}
 				}));
 			},

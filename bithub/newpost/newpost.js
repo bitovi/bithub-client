@@ -81,6 +81,7 @@ steal(
 					el.html(initView({
 						projects: options.projects,
 						categories: options.categories,
+						currentUser: options.currentUser,
 						currentProject: currentProject,
 						currentCategory: currentCategory,
 						currentDateTimeStamp: currentDateTimeStamp
@@ -242,6 +243,10 @@ steal(
 				'#hide-newpost-form-btn click': function( el, ev ) {
 					ev.preventDefault();
 					this.options.visibility( !this.options.visibility() );
+				},
+
+				'{currentUser} loggedIn change': function( wat, ev, attr, how, newVal, oldVal) {
+					if (!newVal || newVal === false) this.element.slideUp();
 				},
 
 				'{visibility} change': function( el, ev ) {
