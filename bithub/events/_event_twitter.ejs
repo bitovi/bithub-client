@@ -1,13 +1,13 @@
 <div class="row">
   <div class="twitter-profile-pic pull-left">
-	<a href="https://twitter.com/<%= event.attr('props.origin_author_name') %>">
+	  <a href="<%= linkToTwitterProfile(event.attr('props.origin_author_name')) %>">
 	  <img <%= event.attr('props.origin_author_avatar_url') ? "src='" + event.attr('props.origin_author_avatar_url') + "'" : "" %> alt="Avatar" />
 	</a>
   </div>
   
   <h5>
-	<a href="#"><%== event.getAuthorName() %></a>
-	<a href="http://twitter.com/<%= event.attr('props.origin_author_name') %>"><small>@<%= event.attr('props.origin_author_name') %></small></a>
+	<%== event.getAuthorName() %>
+	<a href="<%= linkToTwitterProfile(event.attr('props.origin_author_name')) %>"><small>@<%= event.attr('props.origin_author_name') %></small></a>
   </h5>
   <div class="body"><%== event.attr('title') %></div>
   <div class="clearfix"></div>	  

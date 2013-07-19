@@ -66,6 +66,11 @@ steal('can',
 
 				 return ts.local().format(format);
 			 },
+
+			 linkToTwitterProfile: function(username) {
+				 return "https://twitter.com/" + username;
+			 },
+
 			 sortChildren: function(collection, attribute, direction) {
 				 var dateAttributes = ['origin_ts', 'origin_date', 'thread_updated_at', 'thread_updated_date'],
 					 numericAttributes = ['points'],
