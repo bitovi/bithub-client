@@ -109,6 +109,7 @@ input:focus, textarea:focus {
 	display: inline-block;
 	margin-right: 5px;
 	line-height: 20px;
+	float: left;
 }
 .login-github {
 	background-position: 0px -20px;
