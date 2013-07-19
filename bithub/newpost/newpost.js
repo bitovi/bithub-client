@@ -176,9 +176,7 @@ steal(
 									el.find('img.postas.avatar').attr('src', selectedUser.profile_image_url);
 								} else if (feed == 'github') {
 									el.find('input.postas_id').val(selectedUser.id.replace('user-', '')); 
-									$.get('https://api.github.com/users/' + item.id, function (data) {
-										el.find('img.postas.avatar').attr('src', 'http://www.gravatar.com/avatar/' + data.gravatar_id + '?s=48'); 
-									});
+									el.find('img.postas.avatar').attr('src', 'https://www.gravatar.com/avatar/' + selectedUser.gravatar_id + '?s=48'); 
 								}
 								el.find('input.postas_feed').val(feed); 
 								return item;
