@@ -264,7 +264,7 @@ input:focus, textarea:focus {
 	padding-top: 50px;
 	text-align: center;
 	width: 100%;
-	z-index: 1000;
+	z-index: 900;
 }
 
 #events-list .spinnerBottom {
@@ -1374,6 +1374,7 @@ h4.handwriting {
 }
 
 .event .status {
+	position: relative;
 	margin-bottom: 6px;
 	height: 10px;
 	margin-top: 6px;
@@ -1387,9 +1388,17 @@ h4.handwriting {
 	height: 14px;
 	margin-right: 5px;
 }
-.event ul.tag-list, .event ul.manage-bar {
+.event ul.tag-list, .event ul.manage-bar {	
+	position: relative;
+	z-index: 1;
 	display: inline-block;
 	margin: 0px;
+}
+
+.event ul.tag-list:hover {
+	background-color: white;
+	z-index: 3;
+	box-shadow: 5px 0px 5px white;
 }
 
 .event ul.tag-list li, .event .manage-bar ul.nav > li {	
@@ -1559,6 +1568,18 @@ h4.handwriting {
 	top: 5px;
 }
 
+.event .metadata-container {
+	position: absolute;
+	right: 0px;
+	z-index: 2;
+	background-color: white;
+	height: 20px;
+	padding-left: 3px;
+	box-shadow: -5px 0px 5px white;
+	padding-top: 1px;
+	margin-top: -1px;
+}
+
 .event .event-metadata, .event-metadata strong, .event-metadata small, .event-metadata a {
 	color: #999;
 	font-size: 11px;
@@ -1713,7 +1734,7 @@ h4.handwriting {
 #newpost-form-wrapper {
 	position: fixed;
 	top: 62px;
-	z-index: 1001;
+	z-index: 901;
 	width: 100%;
 }
 
