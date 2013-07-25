@@ -48,8 +48,11 @@
 			  <input type="text" name="postal" value="{{user.postal}}">
 			</label>
 			
-			<input type="hidden" name="countryISO" value="{{country}}">			
-			<div id="country-container" style="display: inline-block"></div>
+			<select id="countryISO" name="countryISO">
+			  {{#countries}}
+			  <option value="{{iso}}">{{name}}</option>
+			  {{/countries}}
+			</select>
 		  </div>
 
 		  <div class="control-group">
