@@ -198,7 +198,7 @@ steal('can',
 					  
 					  if (can.route.attr('view') === 'latest') {
 						  if (can.route.attr('project') !== 'all' || can.route.attr('category') !== 'all') {
-							  views.latest.byLimit.attr('offset', views.latest.byLimit.offset + views.latest.byLimit.limit);
+							  views.latest.attr('offset', views.latest.offset + views.latest.limit);
 						  } else {
 							  this.options.prepareParams.decrementLatestDate();
 						  }

@@ -11,20 +11,12 @@ steal(
 			
 			// lookup dict with default query params for loading events
 			views = {
-				latest: {
-					byDate: new can.Observe({
-						order: 'thread_updated_at:desc',
-						exclude: 'source_data',
-						thread_updated_date: latestDateFilter,
-						limit: 1000 // override default 50
-					}),
-					byLimit: new can.Observe({
-						order: 'thread_updated_at:desc',
-						exclude: 'source_data',
-						offset: 0,
-						limit: 25
-					})
-				},
+				latest: new can.Observe({
+					order: ['thread_updated_date:desc', 'categories:asc', 'thread_updated_at:desc'],
+					exclude: 'source_data',
+					offset: 0,
+					limit: 25
+				}),
 				greatest: new can.Observe({
 					order: 'upvotes:desc',
 					exclude: 'source_data',
@@ -45,17 +37,14 @@ steal(
 					endDate: moment(),
 					startDate: moment().subtract('days', 1)
 				});
-				views.latest.byLimit.attr('offset', 0);
+				views.latest.attr('offset', 0);
 				views.greatest.attr('offset', 0);
 			},
 			
 			prepareParams =  function( params ) {
 				
 				// determine view
-				var view = views.greatest;
-				if( can.route.attr('view') === 'latest' ) {
-					view = (can.route.attr('project') !== 'all' || can.route.attr('category') !== 'all' ) ? views.latest.byLimit : views.latest.byDate;
-				}
+				var view = views[can.route.attr('view')];
 
 				// build query
 				var query = can.extend({}, view.attr(), params || {});
