@@ -26,12 +26,21 @@ steal(
 					type: 'GET'
 				}).done(function(data) {
 					//self.attr(can.Model.model(data).attr());
-					self.attr( data );
+					self.attr( self.cleanupData(data) );
 					self.attr('loggedIn', true);
 				}).fail(function(response) {
 					self.attr('loggedIn', false);
 					console.error(response);
 				});
+			},
+
+			cleanupData: function( data ) {
+				for( var key in data ) {
+					if( data[key] === 'null' || data[key] === 'undefined' ) {
+						data[key] = '';
+					}
+				}
+				return data;
 			},
 
 			login: function(provider) {
