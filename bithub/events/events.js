@@ -9,6 +9,7 @@ steal('can',
 	  './_event_twitter.ejs',
 	  './_event_event.ejs',
 	  './_digest.ejs',
+	  'bithub/flagsnapper',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
 	  'bithub/models/award.js',
@@ -26,6 +27,7 @@ steal('can',
 			   eventTwitterPartial,
 			   eventEventPartial,
 			   digestPartial,
+			   FlagSnapper,
 			   Event,
 			   Upvote,
 			   Award
@@ -107,6 +109,8 @@ steal('can',
 						  categories: opts.categories
 					  }) );
 
+					  this.FlagSnapper = new FlagSnapper( elem, {} );
+					  
 					  self.options.spinner(true);
 				  },
 
@@ -339,6 +343,9 @@ steal('can',
 					  setTimeout(function() {
 						  self.applyMore();
 						  self.adjustChatboxHeight();
+
+						  // recalc flags
+						  self.FlagSnapper.onscroll();
 					  }, 0);
 				  },
 				  

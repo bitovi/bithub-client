@@ -2,9 +2,8 @@ steal(
 	'can',
 	'./init.mustache',
 	'bithub/events',
-	'bithub/flagsnapper',
 	'bithub/leaderboard',
-	function(can, initView, Events, FlagSnapper, Leaderboard) {
+	function(can, initView, Events, Leaderboard) {
 		return can.Control({
 			defaults : {}
 		}, {
@@ -16,7 +15,6 @@ steal(
 				}) );
 				
 				new Events( elem.find('#events'), opts );
-				new FlagSnapper( elem.find('#events'), opts );
 				new Leaderboard( elem.find('#leaderboard'), opts );
 
 				// sometimes responses from /auth/session comes before this control is initialized
