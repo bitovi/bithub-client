@@ -4,14 +4,14 @@ steal('can',
 	  './greatest.ejs',
 	  './_event.ejs',
 	  './_event_children.ejs',
-	  './_event_default.ejs',
-	  './_event_code.ejs',
-	  './_event_twitter.ejs',
-	  './_event_event.ejs',
 	  './_digest.ejs',
+	  './determine_event_partial.js',
 	  'bithub/models/event.js',
 	  'bithub/models/upvote.js',
 	  'bithub/models/award.js',
+	  'bithub/events/handlers',
+	  'bithub/events/spinner',
+	  'bithub/events/post_render',
 	  'can/construct/proxy',
 	  'bithub/helpers/ejsHelpers.js',
 	  'ui/more',
@@ -21,32 +21,21 @@ steal('can',
 			   greatestView,
 			   eventPartial,
 			   eventChildrenPartial,
-			   eventDefaultPartial,
-			   eventCodePartial,
-			   eventTwitterPartial,
-			   eventEventPartial,
 			   digestPartial,
+			   determineEventPartial,
 			   Event,
 			   Upvote,
-			   Award
+			   Award,
+			   Handlers,
+			   Spinner,
+			   PostRendering
 			  ) {
 
 		  var emptyReqCounter = 0,
 			  emptyReqTreshold = 5,
 			  
 			  // lookup table for dynamic loading of event partials 
-			  eventPartialsLookup = [
-				  {
-					  template: eventCodePartial,
-					  tags: ['push_event']
-				  }, {
-					  template: eventTwitterPartial,
-					  tags: ['status_event']
-				  }, {
-					  template: eventEventPartial,
-					  tags: ['event']
-				  }
-			  ],
+			  
 			  
 			  // used for ordering categories on latest view
 			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'];
@@ -65,13 +54,12 @@ steal('can',
 				  
 		  return can.Control(
 			  {
-				  defaults : {
-					  spinner: can.compute(false),
-					  spinnerBottom: can.compute(false)
-				  }
 			  }, {
 				  init : function( elem, opts ){
 					  var self = this;
+
+					  this.spinner = can.compute(false);
+					  this.spinnerBottom = can.compute(false);
 
 					  window.LATEST        = this.latestEvents   = new Bithub.Models.Event.List([{}]);
 					  window.LATEST_IDX    = this.latestIndex    = new can.Observe.List([{}]);
@@ -99,7 +87,7 @@ steal('can',
 						  latestView: latestView,
 						  greatestView: greatestView,
 						  eventPartial: eventPartial,
-						  determineEventPartial: this.determineEventPartial,
+						  determineEventPartial: determineEventPartial,
 						  eventChildrenPartial: eventChildrenPartial,
 						  digestPartial: digestPartial,
 						  latestCategories: latestCategories,
@@ -107,72 +95,21 @@ steal('can',
 						  categories: opts.categories
 					  }) );
 
-					  self.options.spinner(true);
-				  },
-
-				  /*
-				   * Event handlers
-				   */
-
-				  '.expand-replies click': function( el, ev ) {
-					  el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
-				  },
-				  
-				  '.voteup click': function( el, ev ) {
-					  this.upvote( can.data(el.closest('.event'), 'eventObj') );
-				  },
-
-				  '.event-metadata a click': function( el, ev ) {
-					  window.location = el.attr('href');
-				  },
-
-				  '.replies .votes click': function( el, ev ) {
-					  this.upvote( can.data(el.closest('.reply-event'), 'eventObj') );
-				  },
-
-				  '.award-btn click': function( el, ev ) {
-					  ev.preventDefault();
-
-					  var event = can.data(el.closest('.reply-event'), 'eventObj');
-					  (new Award({event: event})).award();
-				  },
-
-				  '.expand-manage-bar click': function( el, ev ) {
-					  ev.preventDefault();
-					  el.closest('.event').find('.manage-bar').slideToggle();
-				  },
-
-				  '.manage-bar .tag-action click': function( el, ev ) {
-					  ev.preventDefault();
-
-					  var event = can.data(el.closest('.event'), 'eventObj');
-					  var tag = el.data('tag');
-					  var tags = event.attr('tags');
-
-					  (tags.indexOf(tag) >= 0) ? tags.splice(tags.indexOf(tag), 1) : tags.push(tag);
-					  event.save();
-				  },
-
-				  '.manage-bar .category-action click': function( el, ev ) {
-					  ev.preventDefault();
-
-					  var event = can.data(el.closest('.event'), 'eventObj');
-
-					  event.attr('category', el.data('category'));
-					  event.save();
-				  },
-
-				  '.delete-event click': function( el, ev ) {
-					  ev.preventDefault();
-					  var self = this;
-					  var event = can.data(el.closest('.event.list-element'), 'eventObj');
-					  event.destroy( function() {
-						  el.closest('.event.list-element').fadeOut();
+					  new Handlers(this.element, {
+					  	currentUser : this.options.currentUser,
+					  	modals      : this.options.modals
 					  });
+
+					  new Spinner(this.element, {
+					  	spinner : this.spinner,
+					  	spinnerBottom : this.spinnerBottom
+					  });
+
+					  new PostRendering(this.element);
+
+					  this.spinner(true);
 				  },
 
-				  // preload
-				  
 				  '{preloadedEvents} change': function() {
 					  this.updateEvents( this.options.preloadedEvents );
 				  },
@@ -187,7 +124,7 @@ steal('can',
 
 				  reload: function() {
 					  this.options.prepareParams.resetFilter();
-					  this.options.spinner(true);
+					  this.spinner(true);
 					  this.load( this.updateEvents );
 				  },
 
@@ -206,54 +143,13 @@ steal('can',
 						  views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
 					  }
 
-					  this.options.spinnerBottom(true);
+					  this.spinnerBottom(true);
 					  this.load( this.appendEvents );
-				  },
-
-				  // spinner
-
-				  '{spinner} change': function( fn, ev, newVal, oldVal ) {
-					  var el = this.element,
-						  preservedHeight = el.css('height'); // To prevent content bobbing (caused by removing of scrollbar in FF);
-					  
-					  if( newVal ) {
-						  $(document).scrollTop(0);
-						  el.css('height', preservedHeight);
-						  el.find('.events-container').hide();
-						  el.find('.spinner').show()
-					  } else {
-						  el.css('height', 'auto');
-						  el.find('.spinner').hide()
-						  el.find('.events-container').show();
-					  }
-				  },
-
-				  '{spinnerBottom} change': function( fn, ev, newVal, oldVal ) {
-					  var $spinner = this.element.find('.spinnerBottom');
-
-					  newVal ? $spinner.show() : $spinner.hide();
 				  },
 
 				  /*
 				   * Functions
 				   */
-
-				  determineEventPartial: function( tags ) {
-					  var template = eventDefaultPartial, //default
-						  bestScore = 0;
-
-					  can.each( eventPartialsLookup, function( partial ) {
-						  var score = 0;
-						  
-						  can.each(tags, function( tag ) {
-							  if (partial.tags.indexOf(tag) >= 0) score++;
-						  });
-						  
-						  if (score > bestScore) template = partial.template;
-					  } );
-					  
-					  return template;
-				  },
 
 				  load: function( cb, params ) {
 					  // events are preloaded in bithub.js immediately after can.route is initalized
@@ -266,6 +162,9 @@ steal('can',
 				  },
 
 				  updateLatest: function( events ) {
+				  	console.log(can.map(events, function(e){
+				  		return e.attr('thread_updated_at')
+				  	}))
 					  if (events.length == 0 && ++emptyReqCounter < emptyReqTreshold) {
 						  this.options.prepareParams.decrementLatestDate();
 						  this.load( this.updateLatest );
@@ -273,7 +172,7 @@ steal('can',
 						  emptyReqCounter = 0;
 						  this.latestEvents.replace( events );
 						  this.latestIndex.replace( events.latest() );
-						  this.options.spinner( false );
+						  this.spinner( false );
 						  this.postRendering();
 					  }
 					  this.currentView( can.route.attr('view') );
@@ -306,14 +205,14 @@ steal('can',
 				  
 				  updateGreatest: function( events ) {
 					  this.greatestEvents.replace( events );
-					  this.options.spinner(false);
+					  this.spinner(false);
 					  this.currentView( can.route.attr('view') );
 					  this.postRendering();
 				  },
 				  
 				  appendGreatest: function( events ) {
 					  this.greatestEvents.push.apply(this.greatestEvents, events );
-					  this.options.spinnerBottom(false);
+					  this.spinnerBottom(false);
 					  this.postRendering();
 				  },
 
@@ -326,41 +225,10 @@ steal('can',
 					  (can.route.attr('view') === 'latest') ? this.appendLatest( events ) : this.appendGreatest( events );
 				  },
 
-				  upvote: function( event ) {
-					  if ( this.options.currentUser.attr('loggedIn') ) {
-						  (new Upvote({event: event})).upvote();
-					  } else {
-						  this.options.modals.showLogin();
-					  }
-				  },
-
-				  postRendering: function() {
-					  var self = this;
-					  setTimeout(function() {
-						  self.applyMore();
-						  self.adjustChatboxHeight();
-					  }, 0);
-				  },
-				  
-				  applyMore: function() {
-					  this.element.find('.no-more').removeClass('no-more').more();
-				  },
-
-				  adjustChatboxHeight: function() {			  
-					  this.element.find('.no-chat-height').each(function (i, chat) {
-						  var $chat = $(chat);
-						  $chat.removeClass('no-chat-height');
-						  
-						  var calcHeight = 0;
-						  $chat.find('div.message').each(function (i, msg) {
-							  calcHeight += $(msg).height();
-						  });
-						  if (calcHeight < $chat.height()) {
-							  $chat.height(calcHeight);
-						  }
-						  chat.scrollTop = chat.scrollHeight;
-					  });
-					  
+				  postRendering : function(){
+				  	this.element.trigger('rendered');
 				  }
+
+				  
 			  });
 	  });
