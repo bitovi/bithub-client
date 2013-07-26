@@ -327,7 +327,7 @@ input:focus, textarea:focus {
 }
 .sep-wrapper, .wrapper {
 	width: 100%;
-	z-index: 1;
+	z-index: 900;
 	padding: 0;
 	position: relative;
 }
