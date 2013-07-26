@@ -12,6 +12,7 @@ steal('can',
 	  'bithub/events/handlers',
 	  'bithub/events/spinner',
 	  'bithub/events/post_render',
+	  './latest_events.js',
 	  'can/construct/proxy',
 	  'bithub/helpers/ejsHelpers.js',
 	  'ui/more',
@@ -28,17 +29,15 @@ steal('can',
 			   Award,
 			   Handlers,
 			   Spinner,
-			   PostRendering
+			   PostRendering,
+			   LatestEvents
 			  ) {
-
-		  var emptyReqCounter = 0,
-			  emptyReqTreshold = 5,
 			  
 			  // lookup table for dynamic loading of event partials 
 			  
 			  
 			  // used for ordering categories on latest view
-			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'];
+			var latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'];
 
 		  can.EJS.Helpers.prototype.applyMore = function() {
 			  return function(el) {
@@ -79,6 +78,8 @@ steal('can',
 						  }
 					  });
 					  
+					  this.latestEvents = new LatestEvents;
+
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
 						  days: self.latestIndex,
@@ -110,7 +111,7 @@ steal('can',
 					  this.spinner(true);
 				  },
 
-				  '{preloadedEvents} change': function() {
+				  '{preloadedEvents} add': function() {
 					  this.updateEvents( this.options.preloadedEvents );
 				  },
 				  
@@ -134,11 +135,7 @@ steal('can',
 					  var views = this.options.prepareParams.views;
 					  
 					  if (can.route.attr('view') === 'latest') {
-						  if (can.route.attr('project') !== 'all' || can.route.attr('category') !== 'all') {
-							  views.latest.attr('offset', views.latest.offset + views.latest.limit);
-						  } else {
-							  this.options.prepareParams.decrementLatestDate();
-						  }
+						  views.latest.attr('offset', views.latest.offset + views.latest.limit);
 					  } else {
 						  views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
 					  }
@@ -158,13 +155,20 @@ steal('can',
 					  clearTimeout( this.loadTimeout );
 					  this.loadTimeout = setTimeout( this.proxy( function () {
 						  Event.findAll( this.options.prepareParams.prepareParams(), this.proxy( cb ) );
-					  }) );
+					  }), 10 );
 				  },
 
 				  updateLatest: function( events ) {
-				  	console.log(can.map(events, function(e){
-				  		return e.attr('thread_updated_at')
-				  	}))
+				  	console.log('UPDATE LATEST')
+				  	this.latestEvents.appendEvents(events)
+				  	this.spinner( false );
+				  	this.postRendering();
+				  	return
+
+
+
+
+				  	/*return
 					  if (events.length == 0 && ++emptyReqCounter < emptyReqTreshold) {
 						  this.options.prepareParams.decrementLatestDate();
 						  this.load( this.updateLatest );
@@ -175,10 +179,18 @@ steal('can',
 						  this.spinner( false );
 						  this.postRendering();
 					  }
-					  this.currentView( can.route.attr('view') );
+					  this.currentView( can.route.attr('view') );*/
 				  },
 				  
 				  appendLatest: function( events ) {
+				  	console.log('APPEND LATEST')
+				  	this.latestEvents.appendEvents(events)
+				  	this.spinner( false );
+				  	this.postRendering();
+				  	return
+
+
+
 					  var self = this,
 						  buffer = new can.Observe.List( this.latestIndex ),
 						  offset = this.latestEvents.length;
@@ -216,9 +228,10 @@ steal('can',
 					  this.postRendering();
 				  },
 
-				  updateEvents: function( events ) {					  
-					  (can.route.attr('view') === 'latest') ? this.updateLatest( events ) : this.updateGreatest( events );
-					  window.scrollTo(0, 0);
+				  updateEvents: function( events ) {
+				  	var updateFn = can.capitalize(can.route.attr('view'));
+					this['update' + updateFn](events)
+					window.scrollTo(0, 0);
 				  },
 
 				  appendEvents: function( events ) {
