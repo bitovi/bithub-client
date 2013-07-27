@@ -77,7 +77,7 @@ steal('can',
 					  this.spinner = can.compute(false);
 					  this.spinnerBottom = can.compute(false);
 
-					  window.LATEST        = this.latestEvents   = new Bithub.Models.Event.List([{}]);
+					  window.LATEST        = this.latestEvents   = new LatestEvents;
 					  window.LATEST_IDX    = this.latestIndex    = new can.Observe.List([{}]);
 					  window.GREATEST      = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 					  
@@ -95,7 +95,6 @@ steal('can',
 						  }
 					  });
 					  
-					  this.latestEvents = new LatestEvents;
 
 					  this.element.html( initView({
 						  latestEvents: self.latestEvents,
