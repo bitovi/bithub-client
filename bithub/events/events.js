@@ -37,7 +37,24 @@ steal('can',
 			  
 			  
 			  // used for ordering categories on latest view
-			var latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'];
+		var latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'],
+			digestDict = {
+				actions : {
+					fork   : 'forked',
+					follow : 'followed',
+					watch  : 'started watching'
+				},
+				targetUrl : {
+					fork   : 'http://github.com/',
+					watch  : 'http://github.com/',
+					follow : 'http://twitter.com/'
+				},
+				actorUrl : {
+					fork   : 'http://github.com/',
+					watch  : 'http://github.com/',
+					follow : 'http://twitter.com/'
+				}
+			}
 
 		  can.EJS.Helpers.prototype.applyMore = function() {
 			  return function(el) {
@@ -93,7 +110,8 @@ steal('can',
 						  digestPartial: digestPartial,
 						  latestCategories: latestCategories,
 						  projects: opts.projects,
-						  categories: opts.categories
+						  categories: opts.categories,
+						  digestDict : digestDict
 					  }) );
 
 					  new Handlers(this.element, {
@@ -159,7 +177,6 @@ steal('can',
 				  },
 
 				  updateLatest: function( events ) {
-				  	console.log('UPDATE LATEST')
 				  	this.latestEvents.appendEvents(events)
 				  	this.spinner( false );
 				  	this.postRendering();
@@ -183,7 +200,6 @@ steal('can',
 				  },
 				  
 				  appendLatest: function( events ) {
-				  	console.log('APPEND LATEST')
 				  	this.latestEvents.appendEvents(events)
 				  	this.spinner( false );
 				  	this.postRendering();
