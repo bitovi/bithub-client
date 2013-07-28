@@ -1,9 +1,8 @@
 steal(
-
-'./_event_default.ejs',
-'./_event_code.ejs',
-'./_event_twitter.ejs',
-'./_event_event.ejs',
+'./views/_event_default.ejs',
+'./views/_event_code.ejs',
+'./views/_event_twitter.ejs',
+'./views/_event_event.ejs',
 function( eventDefaultPartial, eventCodePartial, eventTwitterPartial, eventEventPartial){
 	var eventPartialsLookup = [
 	{
