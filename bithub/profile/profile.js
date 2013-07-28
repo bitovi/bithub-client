@@ -12,19 +12,12 @@ steal(
 		}, {
 			init : function( elem, opts ){
 				var self = this,
-					countryISO = can.compute();
-				
-				self.countries = this.loadCountries();
-
-				// select current country on user load
-				// opts.currentUser.bind('country.iso', function( ev, attr ) {
-				// 	countryISO( attr.iso );
-				// });
+					countries = this.loadCountries();
 
 				// init form
 				elem.html( initView({
 					user: self.options.currentUser,
-					country: countryISO,
+					countries: countries,
 					profileRoute: can.route.url({page: 'profile'}),
 					activityListRoute: can.route.url({page: 'activities'})
 				}, {
@@ -43,29 +36,18 @@ steal(
 						navbarPartial: NavbarPartial
 					}
 				}) );
-
-				// init country dropdown menu
-				new Dropdown( elem.find('#country-container' ), {
-					items: self.countries,
-					selected: countryISO
-				});
 			},
 
 			loadCountries: function() {
-				var countries = new can.Model.List();
+				var self = this,
+					countries = new can.Observe.List();
 				
-				Country.findAll({}, function( data ) {
-					var buffer = new can.Model.List();
-						data.each( function( item, index ) {
-							buffer.push( new can.Observe({
-								key: item.attr('iso'),
-								value: item.attr('display_name')
-							}));
-						});
-					countries.replace( buffer );
+				Country.findAll({order: 'name'}, function( data ) {
+					countries.replace( data );
+					self.element.find('#countryISO').val( self.options.currentUser.attr('country.iso') );
 				});
 				
-				return countries;			
+				return countries;	
 			},
 
 			'form#edit-profile-form submit': function( el, ev ) {

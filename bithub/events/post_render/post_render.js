@@ -1,10 +1,14 @@
-steal('can/control', function(Control){
+steal('can/control', 'bithub/flagsnapper', function(Control, FlagSnapper){
 	return Control({
+		init : function(){
+			this.FlagSnapper = new FlagSnapper( this.element, {} );
+		},
 		" rendered": function() {
 			var self = this;
 			setTimeout(function() {
 				self.applyMore();
 				self.adjustChatboxHeight();
+				self.FlagSnapper.onscroll();
 			}, 0);
 		},
 
