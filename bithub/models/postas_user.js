@@ -4,18 +4,20 @@ steal(
 	function (can) {
 		var PostasUser = can.Model('Bithub.Models.PostasUser', {
 			findAll : 'GET /api/users/{feed}',
-			models : function(data){
-				for(var i = 0; i < data.length; i++){
-					data[i].id   = data[i].screen_name || data[i].username;
-					data[i]['type'] = data[i].screen_name ? 'twitter' : 'github';
-				}
+			model : function(data){
+				data.from = data.screen_name ? 'twitter' : 'github';
+				data.username = data.screen_name || data.username;
+				data.id = (data.from == 'github') ? parseInt(data.id.replace('user-', ''), 10) : data.id; 
 				return this._super(data);
 			}
 		}, {
-			fullName : function(){
-				return [this.id, this.name].join('/')
+			fullName : function() {
+				return [this.username, this.name].join(' / ');
+			},
+			profileImageUrl: function() {
+				var githubUrl = function (gravatarId) { return 'https://www.gravatar.com/avatar/' + gravatarId + '?s=48' };
+				return (this.from === 'github') ? githubUrl(this.gravatar_id) : this.profile_image_url;
 			}
 		});
-		
 		return PostasUser;
 	});

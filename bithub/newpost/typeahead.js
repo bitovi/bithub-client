@@ -1,19 +1,14 @@
 steal('bithub/models/postas_user.js', function(PostasUser){
-	return function(self){
-
-		function itemIsPartOfQueryString(query, item) {
-			return (item && item.toLowerCase().indexOf(query.trim().toLowerCase()) > -1)
-		}
+	return function(controllerElem){
 
 		var users;
-
-		return function(){
+		return function(){ // helper
 			return function(elem){
 				var el = $(elem);
 				el.typeahead({
 					minLength: 3,
 					source: function(query, process) {
-						var feed     = self.element.find('input[name=postas_feed]:checked').val();
+						var feed = controllerElem.find('input[name=postas_feed]:checked').val();
 						clearTimeout(this.timeout);
 						this.timeout = setTimeout(function () {					
 							PostasUser.findAll({user : query, feed: feed}).then(function(list){
@@ -25,24 +20,17 @@ steal('bithub/models/postas_user.js', function(PostasUser){
 						}, 200);
 					},
 					matcher: function(item) {
-						return itemIsPartOfQueryString(this.query, item);
+						return (item && item.toLowerCase().indexOf(this.query.trim().toLowerCase()) > -1)
 					},
 					updater: function (item) {
-						var key = item.split('/')[0];
-
+						var key = item.split('/')[0].trim();
 						selectedUser = can.grep(users, function(user){
-							return user.id === key;
+							return user.username === key;
 						})[0];
 
-						var	feed = self.element.find('input[name=postas_feed]:checked').val();
-						if (feed == 'twitter') {
-							self.element.find('input.postas_id').val(selectedUser.id); 
-							self.element.find('img.postas.avatar').attr('src', selectedUser.profile_image_url);
-						} else if (feed == 'github') {
-							self.element.find('input.postas_id').val(selectedUser.id.replace('user-', '')); 
-							self.element.find('img.postas.avatar').attr('src', 'https://www.gravatar.com/avatar/' + selectedUser.gravatar_id + '?s=48'); 
-						}
-						self.element.find('input.postas_feed').val(feed); 
+						controllerElem.find('input.postas_id').val(selectedUser.id); 
+						controllerElem.find('img.postas.avatar').attr('src', selectedUser.profileImageUrl());
+						controllerElem.find('input.postas_feed').val(selectedUser.from);
 						return item;
 					}
 				});

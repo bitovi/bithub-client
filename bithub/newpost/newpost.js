@@ -116,7 +116,7 @@ steal(
 						name: function(currObsObj) {
 							return currObsObj.attr('name');
 						},
-						typeahead : initTypeahead(this),
+						typeahead : initTypeahead(this.element),
 						datepicker : function(){
 							return function(el){
 								$datepicker = $(el);
