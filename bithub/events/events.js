@@ -1,373 +1,223 @@
 steal('can',
-	  './init.ejs',
-	  './latest.ejs',
-	  './greatest.ejs',
-	  './_event.ejs',
-	  './_event_children.ejs',
-	  './_event_default.ejs',
-	  './_event_code.ejs',
-	  './_event_twitter.ejs',
-	  './_event_event.ejs',
-	  './_digest.ejs',
-	  'bithub/flagsnapper',
-	  'bithub/models/event.js',
-	  'bithub/models/upvote.js',
-	  'bithub/models/award.js',
-	  'can/construct/proxy',
-	  'bithub/helpers/ejsHelpers.js',
-	  'ui/more',
-	  function(can,
-			   initView,
-			   latestView,
-			   greatestView,
-			   eventPartial,
-			   eventChildrenPartial,
-			   eventDefaultPartial,
-			   eventCodePartial,
-			   eventTwitterPartial,
-			   eventEventPartial,
-			   digestPartial,
-			   FlagSnapper,
-			   Event,
-			   Upvote,
-			   Award
-			  ) {
+	'./views/init.ejs',
+	'./views/latest.ejs',
+	'./views/greatest.ejs',
+	'./views/_event.ejs',
+	'./views/_event_children.ejs',
+	'./views/_digest.ejs',
+	'./determine_event_partial.js',
+	'bithub/models/event.js',
+	'bithub/models/upvote.js',
+	'bithub/models/award.js',
+	'bithub/events/handlers',
+	'bithub/events/spinner',
+	'bithub/events/post_render',
+	'./latest_events.js',
+	'can/construct/proxy',
+	'bithub/helpers/ejsHelpers.js',
+	'ui/more',
+	'can/observe/delegate',
+	function (can,
+		initView,
+		latestView,
+		greatestView,
+		eventPartial,
+		eventChildrenPartial,
+		digestPartial,
+		determineEventPartial,
+		Event,
+		Upvote,
+		Award,
+		Handlers,
+		Spinner,
+		PostRendering,
+		LatestEvents
+	) {
 
-		  var emptyReqCounter = 0,
-			  emptyReqTreshold = 5,
-			  
-			  // lookup table for dynamic loading of event partials 
-			  eventPartialsLookup = [
-				  {
-					  template: eventCodePartial,
-					  tags: ['push_event']
-				  }, {
-					  template: eventTwitterPartial,
-					  tags: ['status_event']
-				  }, {
-					  template: eventEventPartial,
-					  tags: ['event']
-				  }
-			  ],
-			  
-			  // used for ordering categories on latest view
-			  latestCategories = ['twitter','bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'];
+		// lookup table for dynamic loading of event partials 
 
-		  can.EJS.Helpers.prototype.applyMore = function() {
-			  return function(el) {
-				  $(el).addClass('no-more');
-			  }
-		  }
-				  
-		  can.EJS.Helpers.prototype.applyChatHeight = function() {
-			  return function(el) {
-				  $(el).addClass('no-chat-height');
-			  }
-		  }
-				  
-		  return can.Control(
-			  {
-				  defaults : {
-					  spinner: can.compute(false),
-					  spinnerBottom: can.compute(false)
-				  }
-			  }, {
-				  init : function( elem, opts ){
-					  var self = this;
 
-					  window.LATEST        = this.latestEvents   = new Bithub.Models.Event.List([{}]);
-					  window.LATEST_IDX    = this.latestIndex    = new can.Observe.List([{}]);
-					  window.GREATEST      = this.greatestEvents = new Bithub.Models.Event.List([{}]);
-					  
-					  this.currentView = can.compute('latest');
-					  
-					  /* TODO: live updating
-					  opts.socket && opts.socket.on('new_event', function( event ) {
-						  console.log( event );
-					  });
-					   */
+		// used for ordering categories on latest view
+		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'],
+			digestDict = {
+				actions: {
+					fork: 'forked',
+					follow: 'followed',
+					watch: 'started watching'
+				},
+				targetUrl: {
+					fork: 'http://github.com/',
+					watch: 'http://github.com/',
+					follow: 'http://twitter.com/'
+				},
+				actorUrl: {
+					fork: 'http://github.com/',
+					watch: 'http://github.com/',
+					follow: 'http://twitter.com/'
+				}
+			}
 
-					  can.extend(can.EJS.Helpers.prototype, {
-						  isAdmin: function() {
-							  return opts.currentUser.attr('admin');
-						  }
-					  });
-					  
-					  this.element.html( initView({
-						  latestEvents: self.latestEvents,
-						  days: self.latestIndex,
-						  greatestEvents: self.greatestEvents,
-						  partial: this.currentView,
-						  latestView: latestView,
-						  greatestView: greatestView,
-						  eventPartial: eventPartial,
-						  determineEventPartial: this.determineEventPartial,
-						  eventChildrenPartial: eventChildrenPartial,
-						  digestPartial: digestPartial,
-						  latestCategories: latestCategories,
-						  projects: opts.projects,
-						  categories: opts.categories
-					  }) );
+		var ChatScroll = can.Control({
+			init : function(){
+				//setTimeout(this.proxy('adjustScroll'), 0);
+			},
+			'{day} types.chat add' : function(){
+				setTimeout(this.proxy('adjustScroll'), 0);
+			},
+			adjustScroll : function(){
+				this.element[0].scrollTop = this.element[0].scrollHeight;
+			}
+		})
 
-					  this.FlagSnapper = new FlagSnapper( elem, {} );
-					  
-					  self.options.spinner(true);
-				  },
+		can.EJS.Helpers.prototype.applyMore = function () {
+			return function (el) {
+				$(el).addClass('no-more');
+			}
+		}
 
-				  /*
-				   * Event handlers
-				   */
+		can.EJS.Helpers.prototype.applyChatHeight = function (day) {
+			return function (el) {
+				new ChatScroll(el, {day: day})
+			}
+		}
 
-				  '.expand-replies click': function( el, ev ) {
-					  el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
-				  },
-				  
-				  '.voteup click': function( el, ev ) {
-					  this.upvote( can.data(el.closest('.event'), 'eventObj') );
-				  },
+		return can.Control({}, {
+			init: function (elem, opts) {
+				var self = this;
 
-				  '.event-metadata a click': function( el, ev ) {
-					  window.location = el.attr('href');
-				  },
+				this.spinner = can.compute(false);
+				this.spinnerBottom = can.compute(false);
 
-				  '.replies .votes click': function( el, ev ) {
-					  this.upvote( can.data(el.closest('.reply-event'), 'eventObj') );
-				  },
+				window.LATEST = this.latestEvents = new LatestEvents;
+				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
+				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 
-				  '.award-btn click': function( el, ev ) {
-					  ev.preventDefault();
+				this.currentView = can.compute('latest');
 
-					  var event = can.data(el.closest('.reply-event'), 'eventObj');
-					  (new Award({event: event})).award();
-				  },
+				/* TODO: live updating
+				opts.socket && opts.socket.on('new_event', function( event ) {
+				console.log( event );
+				});
+				*/
 
-				  '.expand-manage-bar click': function( el, ev ) {
-					  ev.preventDefault();
-					  el.closest('.event').find('.manage-bar').slideToggle();
-				  },
+				can.extend(can.EJS.Helpers.prototype, {
+					isAdmin: function () {
+						return opts.currentUser.attr('admin');
+					}
+				});
 
-				  '.manage-bar .tag-action click': function( el, ev ) {
-					  ev.preventDefault();
 
-					  var event = can.data(el.closest('.event'), 'eventObj');
-					  var tag = el.data('tag');
-					  var tags = event.attr('tags');
+				this.element.html(initView({
+					latestEvents: self.latestEvents,
+					days: self.latestIndex,
+					greatestEvents: self.greatestEvents,
+					partial: this.currentView,
+					latestView: latestView,
+					greatestView: greatestView,
+					eventPartial: eventPartial,
+					determineEventPartial: determineEventPartial,
+					eventChildrenPartial: eventChildrenPartial,
+					digestPartial: digestPartial,
+					latestCategories: latestCategories,
+					projects: opts.projects,
+					categories: opts.categories,
+					digestDict: digestDict
+				}));
 
-					  (tags.indexOf(tag) >= 0) ? tags.splice(tags.indexOf(tag), 1) : tags.push(tag);
-					  event.save();
-				  },
+				new Handlers(this.element, {
+					currentUser: this.options.currentUser,
+					modals: this.options.modals
+				});
 
-				  '.manage-bar .category-action click': function( el, ev ) {
-					  ev.preventDefault();
+				new Spinner(this.element, {
+					spinner: this.spinner,
+					spinnerBottom: this.spinnerBottom
+				});
 
-					  var event = can.data(el.closest('.event'), 'eventObj');
+				new PostRendering(this.element);
 
-					  event.attr('category', el.data('category'));
-					  event.save();
-				  },
+				this.spinner(true);
+			},
 
-				  '.delete-event click': function( el, ev ) {
-					  ev.preventDefault();
-					  var self = this;
-					  var event = can.data(el.closest('.event.list-element'), 'eventObj');
-					  event.destroy( function() {
-						  el.closest('.event.list-element').fadeOut();
-					  });
-				  },
+			'{preloadedEvents} add': function () {
+				this.updateEvents(this.options.preloadedEvents);
+			},
 
-				  // preload
-				  
-				  '{preloadedEvents} change': function() {
-					  this.updateEvents( this.options.preloadedEvents );
-				  },
-				  
-				  // can.route listeners
+			// can.route listeners
 
-				  '{can.route} view': "reload",				  
-				  '{can.route} project': "reload",
-				  '{can.route} category': "reload",
+			'{can.route} view': "reload",
+			'{can.route} project': "reload",
+			'{can.route} category': "reload",
 
-				  '{Bithub.Models.Event} reload': "reload",
+			'{Bithub.Models.Event} reload': "reload",
 
-				  reload: function() {
-					  this.options.prepareParams.resetFilter();
-					  this.options.spinner(true);
-					  this.load( this.updateEvents );
-				  },
+			reload: function () {
+				this.options.prepareParams.resetFilter();
+				this.spinner(true);
+				this.load(this.updateEvents);
+			},
 
-				  // infinite scroll
-				  
-				  '{window} onbottom': function( el, ev ) {
-					  var views = this.options.prepareParams.views;
-					  
-					  if (can.route.attr('view') === 'latest') {
-						  if (can.route.attr('project') !== 'all' || can.route.attr('category') !== 'all') {
-							  views.latest.byLimit.attr('offset', views.latest.byLimit.offset + views.latest.byLimit.limit);
-						  } else {
-							  this.options.prepareParams.decrementLatestDate();
-						  }
-					  } else {
-						  views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
-					  }
+			// infinite scroll
 
-					  this.options.spinnerBottom(true);
-					  this.load( this.appendEvents );
-				  },
+			'{window} onbottom': function (el, ev) {
+				var views = this.options.prepareParams.views;
 
-				  // spinner
+				if (can.route.attr('view') === 'latest') {
+					views.latest.attr('offset', views.latest.offset + views.latest.limit);
+				} else {
+					views.greatest.attr('offset', views.greatest.offset + views.greatest.limit);
+				}
 
-				  '{spinner} change': function( fn, ev, newVal, oldVal ) {
-					  var el = this.element,
-						  preservedHeight = el.css('height'); // To prevent content bobbing (caused by removing of scrollbar in FF);
-					  
-					  if( newVal ) {
-						  $(document).scrollTop(0);
-						  el.css('height', preservedHeight);
-						  el.find('.events-container').hide();
-						  el.find('.spinner').show()
-					  } else {
-						  el.css('height', 'auto');
-						  el.find('.spinner').hide()
-						  el.find('.events-container').show();
-					  }
-				  },
+				this.spinnerBottom(true);
+				this.load(this.appendEvents);
+			},
 
-				  '{spinnerBottom} change': function( fn, ev, newVal, oldVal ) {
-					  var $spinner = this.element.find('.spinnerBottom');
+			/*
+			 * Functions
+			 */
 
-					  newVal ? $spinner.show() : $spinner.hide();
-				  },
+			load: function (cb, params) {
+				// events are preloaded in bithub.js immediately after can.route is initalized
+				if (!window.EVENTS_PRELOADED) return;
 
-				  /*
-				   * Functions
-				   */
+				clearTimeout(this.loadTimeout);
+				this.loadTimeout = setTimeout(this.proxy(function () {
+					Event.findAll(this.options.prepareParams.prepareParams(), this.proxy(cb));
+				}), 10);
+			},
 
-				  determineEventPartial: function( tags ) {
-					  var template = eventDefaultPartial, //default
-						  bestScore = 0;
+			updateEvents: function (events) {
+				var view = can.route.attr('view');
 
-					  can.each( eventPartialsLookup, function( partial ) {
-						  var score = 0;
-						  
-						  can.each(tags, function( tag ) {
-							  if (partial.tags.indexOf(tag) >= 0) score++;
-						  });
-						  
-						  if (score > bestScore) template = partial.template;
-					  } );
-					  
-					  return template;
-				  },
+				if (view === 'latest') {
+					this.latestEvents.replace(events)
+				} else if (view === 'greatest') {
+					this.greatestEvents.replace(events);
+				}
 
-				  load: function( cb, params ) {
-					  // events are preloaded in bithub.js immediately after can.route is initalized
-					  if( !window.EVENTS_PRELOADED ) return;
-					  
-					  clearTimeout( this.loadTimeout );
-					  this.loadTimeout = setTimeout( this.proxy( function () {
-						  Event.findAll( this.options.prepareParams.prepareParams(), this.proxy( cb ) );
-					  }) );
-				  },
+				this.currentView(can.route.attr('view'));
+				this.spinner(false);
+				this.postRendering();
+				window.scrollTo(0, 0);
+			},
 
-				  updateLatest: function( events ) {
-					  if (events.length == 0 && ++emptyReqCounter < emptyReqTreshold) {
-						  this.options.prepareParams.decrementLatestDate();
-						  this.load( this.updateLatest );
-					  } else {
-						  emptyReqCounter = 0;
-						  this.latestEvents.replace( events );
-						  this.latestIndex.replace( events.latest() );
-						  this.options.spinner( false );
-						  this.postRendering();
-					  }
-					  this.currentView( can.route.attr('view') );
-				  },
-				  
-				  appendLatest: function( events ) {
-					  var self = this,
-						  buffer = new can.Observe.List( this.latestIndex ),
-						  offset = this.latestEvents.length;
+			appendEvents: function (events) {
+				var view = can.route.attr('view');
 
-					  $.each(events.latest( offset ), function( i, day ) {
-						  // merge with previous day or push new day
-						  if (buffer[buffer.length-1].attr('date') === day.date) {
-							  for( var category in day ) {
-								  if (buffer[buffer.length-1][category]) {
-									  can.merge( buffer[buffer.length-1][category], day[category] );
-								  } else {
-									  buffer[buffer.length-1].attr(category, day[category])
-								  }
-							  };
-						  } else {
-							  buffer.push( day );
-						  }
-					  });
+				if (view === 'latest') {
+					this.latestEvents.appendEvents(events);
+					this.spinner(false);
+				} else if (view === 'greatest') {
+					this.greatestEvents.push.apply(this.greatestEvents, events);
+					this.spinnerBottom(false);
+				}
+				this.postRendering();
+			},
 
-					  this.latestEvents.push.apply(this.latestEvents, events );					  
-					  this.latestIndex.replace( buffer );
-					  this.postRendering();
-				  },
-				  
-				  updateGreatest: function( events ) {
-					  this.greatestEvents.replace( events );
-					  this.options.spinner(false);
-					  this.currentView( can.route.attr('view') );
-					  this.postRendering();
-				  },
-				  
-				  appendGreatest: function( events ) {
-					  this.greatestEvents.push.apply(this.greatestEvents, events );
-					  this.options.spinnerBottom(false);
-					  this.postRendering();
-				  },
+			postRendering: function () {
+				this.element.trigger('rendered');
+			}
 
-				  updateEvents: function( events ) {					  
-					  (can.route.attr('view') === 'latest') ? this.updateLatest( events ) : this.updateGreatest( events );
-					  window.scrollTo(0, 0);
-				  },
 
-				  appendEvents: function( events ) {
-					  (can.route.attr('view') === 'latest') ? this.appendLatest( events ) : this.appendGreatest( events );
-				  },
-
-				  upvote: function( event ) {
-					  if ( this.options.currentUser.attr('loggedIn') ) {
-						  (new Upvote({event: event})).upvote();
-					  } else {
-						  this.options.modals.showLogin();
-					  }
-				  },
-
-				  postRendering: function() {
-					  var self = this;
-					  setTimeout(function() {
-						  self.applyMore();
-						  self.adjustChatboxHeight();
-
-						  // recalc flags
-						  self.FlagSnapper.onscroll();
-					  }, 0);
-				  },
-				  
-				  applyMore: function() {
-					  this.element.find('.no-more').removeClass('no-more').more();
-				  },
-
-				  adjustChatboxHeight: function() {			  
-					  this.element.find('.no-chat-height').each(function (i, chat) {
-						  var $chat = $(chat);
-						  $chat.removeClass('no-chat-height');
-						  
-						  var calcHeight = 0;
-						  $chat.find('div.message').each(function (i, msg) {
-							  calcHeight += $(msg).height();
-						  });
-						  if (calcHeight < $chat.height()) {
-							  $chat.height(calcHeight);
-						  }
-						  chat.scrollTop = chat.scrollHeight;
-					  });
-					  
-				  }
-			  });
-	  });
+		});
+	});

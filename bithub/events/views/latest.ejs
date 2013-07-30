@@ -1,0 +1,55 @@
+<div>
+	<%== each(latestEvents.attr('days'), function(day){ %>
+		<div class="day">
+			<div class="sep-wrapper wrapper" style="height: 42px;">
+				<div class="sep blue">
+					<h4 class="flag blue"><%== prettifyTs(day.date, "date") %></h4>
+				</div>
+			</div>
+
+
+			<div class="category-digest">
+				<div class="truncated">
+					<% if( day.hasDigest() ) { %>
+						<%== digestPartial.render({ digest: day.digest(), dict : digestDict }) %>
+					<% } %>
+				</div>
+			</div>
+
+
+			<% list(latestCategories, function( category ) { %>
+				<% if ( day.attr('types.' + category) ) { %>
+				<div class="category-<%= category %>">
+					<h3 class="<%= category %>-icon"><%= category %></h3>
+					<div class="truncated">
+						<%== each( day.attr('types.' + category), function( event ) { %>
+							<%== eventPartial.render({event: event, determineEventPartial: determineEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, orderChildrenBy: 'origin_ts'}) %>
+						<% }) %>
+					</div>
+				</div>
+				<% } %>
+			<% }) %>
+
+
+			<% if( day.attr('types.chat') ) { %>
+			<div class="feed-header">
+				<h3 class="irc-icon">Chat <a class="pull-right" href="http://webchat.freenode.net/?channels=canjs"><img src="/assets/images/icon-popout.png" alt="popout"></a></h3>
+			</div>
+			<div class="truncated irc-chat-container" <%= applyChatHeight(day) %>>
+				<%== each(day.attr('types.chat'), function(event){ %>
+					<div class="message">
+						<span class="username">
+							<%== event.attr('actor') %>
+						</span>:
+						<%= event.attr('title') %>
+					</div>
+				<% }) %>
+			</div>
+			<% } %>
+
+
+		</div>
+	<% }) %>
+</div>
+
+

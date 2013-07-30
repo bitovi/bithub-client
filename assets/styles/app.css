@@ -1904,7 +1904,7 @@ h4.handwriting {
 	font-weight: bold;
 }
 .irc-chat-container {
-	height: 300px;
+	max-height: 300px;
 	border: 1px solid #969595;
 	overflow: scroll;
 	padding: 10px;
