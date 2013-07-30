@@ -1,4 +1,4 @@
-steal('can/control', function(Control){
+steal('can/control', 'bithub/models/upvote.js', function(Control, Upvote){
 	return Control({
 		'.expand-replies click': function( el, ev ) {
 			el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
