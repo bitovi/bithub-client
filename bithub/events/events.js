@@ -34,9 +34,6 @@ steal('can',
 		LatestEvents
 	) {
 
-		// lookup table for dynamic loading of event partials 
-
-
 		// used for ordering categories on latest view
 		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'],
 			digestDict = {
@@ -106,7 +103,6 @@ steal('can',
 						return opts.currentUser.attr('admin');
 					}
 				});
-
 
 				this.element.html(initView({
 					latestEvents: self.latestEvents,
@@ -206,7 +202,8 @@ steal('can',
 			},
 
 			appendEvents: function (events) {
-				var view = can.route.attr('view');
+				var view = can.route.attr('view'),
+					daysNum = this.latestEvents.days.length;
 				
 				if (events.length === 0) {
 					this.canLoad = false;
@@ -222,6 +219,14 @@ steal('can',
 					this.greatestEvents.push.apply(this.greatestEvents, events);
 					this.spinnerBottom(false);
 				}
+
+				// maybe to do this for any category?
+				if( can.route.attr('category') === 'chat' ) {
+					if (this.latestEvents.days.length === daysNum) {
+						$(window).trigger('onbottom');
+					}
+				}
+				
 				this.postRendering();
 			},
 
