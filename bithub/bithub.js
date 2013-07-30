@@ -172,5 +172,5 @@ steal(
 			projects.replace(data);
 		});
 
-		new UI.Onbottom(document);
+		new UI.Onbottom(document, {treshold: 200});
 	});
