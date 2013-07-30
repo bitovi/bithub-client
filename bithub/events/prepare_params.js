@@ -4,13 +4,8 @@ steal(
 	'vendor/moment',
 	function(can) {
 		
-		var latestTimespan = new can.Observe({ endDate: moment(), startDate: moment().subtract('days', 1) }),  
-			latestDateFilter = can.compute(function () {
-				return latestTimespan.attr('startDate').format('YYYY-MM-DD') + ':' + latestTimespan.attr('endDate').format('YYYY-MM-DD');
-			}),
-			
 			// lookup dict with default query params for loading events
-			views = {
+		var views = {
 				latest: new can.Observe({
 					order: ['thread_updated_date:desc', 'categories:asc', 'thread_updated_at:desc'],
 					exclude: 'source_data',
@@ -24,19 +19,8 @@ steal(
 					limit: 25
 				})
 			},
-
-			decrementLatestDate = function() {
-				latestTimespan.attr({
-					endDate: latestTimespan.attr('endDate').subtract('days', 2),
-					startDate: latestTimespan.attr('startDate').subtract('days', 2)
-				});
-			},
 			
 			resetFilter = function() {
-				latestTimespan.attr({
-					endDate: moment(),
-					startDate: moment().subtract('days', 1)
-				});
 				views.latest.attr('offset', 0);
 				views.greatest.attr('offset', 0);
 			},
@@ -60,7 +44,6 @@ steal(
 			views: views,
 			prepareParams: prepareParams,
 			resetFilter: resetFilter,
-			decrementLatestDate: decrementLatestDate
 		}
 		
 	});
