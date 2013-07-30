@@ -16,6 +16,7 @@ steal('can',
 	'can/construct/proxy',
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
+	'can/observe/delegate',
 	function (can,
 		initView,
 		latestView,
@@ -56,15 +57,27 @@ steal('can',
 				}
 			}
 
+		var ChatScroll = can.Control({
+			init : function(){
+				//setTimeout(this.proxy('adjustScroll'), 0);
+			},
+			'{day} types.chat add' : function(){
+				setTimeout(this.proxy('adjustScroll'), 0);
+			},
+			adjustScroll : function(){
+				this.element[0].scrollTop = this.element[0].scrollHeight;
+			}
+		})
+
 		can.EJS.Helpers.prototype.applyMore = function () {
 			return function (el) {
 				$(el).addClass('no-more');
 			}
 		}
 
-		can.EJS.Helpers.prototype.applyChatHeight = function () {
+		can.EJS.Helpers.prototype.applyChatHeight = function (day) {
 			return function (el) {
-				$(el).addClass('no-chat-height');
+				new ChatScroll(el, {day: day})
 			}
 		}
 
@@ -177,7 +190,7 @@ steal('can',
 				var view = can.route.attr('view');
 
 				if (view === 'latest') {
-					this.latestEvents.appendEvents(events)
+					this.latestEvents.replace(events)
 				} else if (view === 'greatest') {
 					this.greatestEvents.replace(events);
 				}

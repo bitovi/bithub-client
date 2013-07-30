@@ -53,8 +53,11 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 					what = digest.attr('props.repo');
 				}
 
-				grouped[type][what] = grouped[type][what] || [];
-				grouped[type][what].push(digest);
+				if(type){
+					grouped[type][what] = grouped[type][what] || [];
+					grouped[type][what].push(digest);
+				}
+
 			}
 			return grouped;
 		}
@@ -77,6 +80,10 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				}
 				lastDay.addEvent(event)
 			}
+		},
+		replace : function(events){
+			this.attr('days').splice(0);
+			this.appendEvents(events);
 		}
 	})
 })
