@@ -55,7 +55,7 @@ steal('can',
 					watch: 'http://github.com/',
 					follow: 'http://twitter.com/'
 				}
-			}
+			};
 
 		var ChatScroll = can.Control({
 			init : function(){
@@ -87,6 +87,7 @@ steal('can',
 
 				this.spinner = can.compute(false);
 				this.spinnerBottom = can.compute(false);
+				this.canLoad = true;
 
 				window.LATEST = this.latestEvents = new LatestEvents;
 				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
@@ -153,6 +154,7 @@ steal('can',
 
 			reload: function () {
 				this.options.prepareParams.resetFilter();
+				this.canLoad = true;
 				this.spinner(true);
 				this.load(this.updateEvents);
 			},
@@ -161,6 +163,8 @@ steal('can',
 
 			'{window} onbottom': function (el, ev) {
 				var views = this.options.prepareParams.views;
+
+				if (!this.canLoad) { return; }				
 
 				if (can.route.attr('view') === 'latest') {
 					views.latest.attr('offset', views.latest.offset + views.latest.limit);
@@ -203,10 +207,17 @@ steal('can',
 
 			appendEvents: function (events) {
 				var view = can.route.attr('view');
+				
+				if (events.length === 0) {
+					this.canLoad = false;
+					this.spinner(false);
+					this.spinnerBottom(false);
+					return;
+				}
 
 				if (view === 'latest') {
 					this.latestEvents.appendEvents(events);
-					this.spinner(false);
+					this.spinnerBottom(false);
 				} else if (view === 'greatest') {
 					this.greatestEvents.push.apply(this.greatestEvents, events);
 					this.spinnerBottom(false);
