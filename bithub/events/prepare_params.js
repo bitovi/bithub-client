@@ -43,7 +43,7 @@ steal(
 		return {
 			views: views,
 			prepareParams: prepareParams,
-			resetFilter: resetFilter,
+			resetFilter: resetFilter
 		}
 		
 	});
