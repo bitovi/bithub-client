@@ -5,9 +5,9 @@
   <div class="events-container">
 
 	<% if (partial() === 'latest') { %>
-	<%== latestView.render(this) %>
+		<%== latestView.render(this) %>
 	<% } else { %>
-	<%== greatestView.render(this) %>
+		<%== greatestView.render(this) %>
 	<% } %>
 	
   <div class="spinnerBottom"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>

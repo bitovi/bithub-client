@@ -2,8 +2,10 @@ steal(
 	'can',
 	'./init.mustache',
 	'vendor/fileupload',
+	'bithub/models/postas_user.js',
+	'./typeahead',
 	'jquerypp/dom/form_params',
-	function(can, initView, fileUpload){
+	function(can, initView, fileUpload, PostasUser, initTypeahead){
 		/**
 		 * @class bithub/newpost
 		 * @alias Newpost   
@@ -62,10 +64,6 @@ steal(
 			setTimeout(function() { self.resetForm.call(self) }, 1500);
 		}
 
-		function itemIsPartOfQueryString(query, item) {
-			return (item && item.toLowerCase().indexOf(query.trim().toLowerCase()) > -1)
-		}
-
 		var currentCategory = new can.Observe({displayName: "Pick a category", name: "none"}),
 			currentProject = new can.Observe({displayName: "Pick a project", name: "none"}),
 			currentDateTime = new can.Observe({}),
@@ -117,6 +115,14 @@ steal(
 						},
 						name: function(currObsObj) {
 							return currObsObj.attr('name');
+						},
+						typeahead : initTypeahead(this),
+						datepicker : function(){
+							return function(el){
+								$datepicker = $(el);
+								$datepicker.datepicker({format: 'mm/dd/yyyy', weekStart: 0});
+								currentDateTime.attr('date', $datepicker.find('input').val());
+							}
 						}
 					}));
 
@@ -135,63 +141,6 @@ steal(
 						}
 					});
 
-					// Only when admin attr changes, bind the post-as input field as typeahead
-					self.options.currentUser.bind('admin', function ( ev, newVal, oldVal ) {
-						el.find('#newpost-form-post-as input.typeahead').typeahead({
-							minLength: 3,
-							source: function(query, process) {
-								var	feed = self.element.find('input[name=postas_feed]:checked').val(),
-								queryStr = '/api/users/' + feed;
-
-								if (this.timeout) {
-									clearTimeout(this.timeout);
-								}
-
-								this.timeout = setTimeout(function () {					
-									$.get(queryStr, {user: query}, function(data) {
-										autocompleteUsers = [];
-										mappedResponse = {};
-										$.each(data, function (i, user) {
-											if (feed === 'twitter') {
-												mappedResponse[user.name + '_' + user.screen_name] = user;
-												autocompleteUsers.push(user.name + " / " + user.screen_name);
-											} else if (feed == 'github') {
-												mappedResponse[user.name + '_' + user.username] = user;
-												autocompleteUsers.push(user.name + " / " + user.username);
-											}
-										});
-										process(autocompleteUsers);
-									});
-								}, 500);
-							},
-							matcher: function(item) {
-								return itemIsPartOfQueryString(this.query, item);
-							},
-							updater: function (item) {
-								var key = item.replace(' / ', '_');
-								selectedUser = mappedResponse[key];
-								var	feed = self.element.find('input[name=postas_feed]:checked').val();
-								if (feed == 'twitter') {
-									el.find('input.postas_id').val(selectedUser.id); 
-									el.find('img.postas.avatar').attr('src', selectedUser.profile_image_url);
-								} else if (feed == 'github') {
-									el.find('input.postas_id').val(selectedUser.id.replace('user-', '')); 
-									el.find('img.postas.avatar').attr('src', 'https://www.gravatar.com/avatar/' + selectedUser.gravatar_id + '?s=48'); 
-								}
-								el.find('input.postas_feed').val(feed); 
-								return item;
-							}
-						});
-					});
-
-					currentCategory.bind('name', function ( ev, newVal, oldVal ) {
-						if (newVal == 'event') { 
-							$datepicker = $('.newpost-datepicker');
-							$datepicker.datepicker({format: 'mm/dd/yyyy', weekStart: 0});
-							currentDateTime.attr('date', $datepicker.find('input').val());
-						};
-					});
-					
 				},
 
 				' fileuploadadd': function( el, ev, data ) {

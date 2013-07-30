@@ -18,7 +18,6 @@ steal('can/control', function(Control){
 
 		'{spinnerBottom} change': function( fn, ev, newVal, oldVal ) {
 			var $spinner = this.element.find('.spinnerBottom');
-
 			newVal ? $spinner.show() : $spinner.hide();
 		}
 	})
