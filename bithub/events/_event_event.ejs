@@ -2,7 +2,7 @@
   <% if (event.attr('image_url')) { %>
   <img class="thumb" <%= event.attr('image_url') ? "src='" + event.attr('image_url') + "'" : "" %> alt="Thumb" />
   <% } %>
-  <h5><%== event.eventUrl() %></h5>
+  <h5 class="title"><%== event.eventUrl() %></h5>
   <div class="location-time"><%= event.attr('props.location') %> / <%= prettifyTs(event.attr('props.scheduled_for'), 'datetime') %></div>
   <div class="body"><%== event.attr('body') %></div>
   <div class="clearfix"></div>	  
