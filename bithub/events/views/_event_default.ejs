@@ -24,9 +24,7 @@
   <a class="expand-replies"><span class="icon"></span>Earlier (<%= event.attr('children').length %>)</a>
   <% } %>
   <ul class="tag-list nav">
-	<% can.each(event.attr('tags'), function( tag ) { %>
-	<li class="tag-name <%= tag %>"><a href="#"><small><%= tag %></small></a></li>
-	<% }) %>
+	<%== renderEventTags( event ) %>
   </ul>
 
   <% if( isAdmin() ) { %>

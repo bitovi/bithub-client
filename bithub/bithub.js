@@ -94,6 +94,7 @@ steal(
 		var	newpostVisibility = can.compute(false),
 			projects          = new can.Model.List(),
 			categories        = new can.Model.List(),
+			feeds             = new can.Model.List(),
 			currentUser       = new User({loggedIn: undefined}),
 			preloadedEvents   = new Bithub.Models.Event.List([{}]);
 
@@ -141,6 +142,7 @@ steal(
 			currentUser: currentUser,
 			categories: categories,
 			projects: projects,
+			feeds: feeds,
 			newpostVisibility: newpostVisibility,
 			modals: modals
 			//socket: socket
@@ -170,6 +172,11 @@ steal(
 		// Load project tags
 		Tag.findAll({type: 'project'}, function (data) {
 			projects.replace(data);
+		});
+
+		// Load feed tags
+		Tag.findAll({type: 'feed'}, function (data) {
+			feeds.replace(data);
 		});
 
 		new UI.Onbottom(document, {treshold: 200});

@@ -53,7 +53,9 @@ steal('can',
 					follow: 'http://twitter.com/'
 				}
 			};
-
+		
+		var visibleTags = new can.Observe.List();				
+		
 		var ChatScroll = can.Control({
 			init : function(){
 				//setTimeout(this.proxy('adjustScroll'), 0);
@@ -76,6 +78,20 @@ steal('can',
 			return function (el) {
 				new ChatScroll(el, {day: day})
 			}
+		}
+
+		var count = 0;
+		
+		can.EJS.Helpers.prototype.renderEventTags = function (event) {
+			var buffer = "";
+			
+			can.each(visibleTags, function( tag ) {
+				if( event.attr('tags').indexOf( tag.attr('name') ) >= 0 ) {
+					buffer += "<li class=\"tag-name " + tag.attr('name') +  "\"><a href=\"#\"><small>" + tag.attr('display_name') + "</small></a></li>";
+					
+				}				
+			});
+			return buffer;
 		}
 
 		return can.Control({}, {
@@ -118,6 +134,7 @@ steal('can',
 					latestCategories: latestCategories,
 					projects: opts.projects,
 					categories: opts.categories,
+					visibleTags: visibleTags,
 					digestDict: digestDict
 				}));
 
@@ -155,6 +172,16 @@ steal('can',
 				this.load(this.updateEvents);
 			},
 
+			// only "meaningful" event tags should be displayed
+			
+			'{categories} change': "updateTagList",
+			'{projects} change': "updateTagList",
+			'{feeds} change': "updateTagList",
+
+			updateTagList: function( tags ) {
+				visibleTags.push.apply(visibleTags, tags);
+			},
+			
 			// infinite scroll
 
 			'{window} onbottom': function (el, ev) {
