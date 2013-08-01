@@ -1,9 +1,9 @@
 <% if (can.route.attr('view') === 'greatest') { %>
 <div id="greatestTimespanFilter" style="padding: 10px 0px; border-bottom: 2px solid #ccc; margin-bottom: 8px">
-  <a href="#" <%= (el) -> el.data('value', 'day') %>>Day</a> | 
-  <a href="#" <%= (el) -> el.data('value', 'week') %>>Week</a> |
-  <a href="#" <%= (el) -> el.data('value', 'month') %>>Month</a> |
-  <a href="#" <%= (el) -> el.data('value', 'all') %>>All time</a>
+  <a href="<%= filterUrl({timespan: 'day'}) %>" <%= (el) -> el.data('value', 'day') %>>Day</a> | 
+  <a href="<%= filterUrl({timespan: 'week'}) %>" <%= (el) -> el.data('value', 'week') %>>Week</a> |
+  <a href="<%= filterUrl({timespan: 'month'}) %>" <%= (el) -> el.data('value', 'month') %>>Month</a> |
+  <a href="<%= filterUrl({timespan: 'all'}) %>" <%= (el) -> el.data('value', 'all') %>>All time</a>
   <span style="color:#ccc" class="pull-right">timespan filter &mdash; design to be applied</span>
 </div>
 <% } %>
