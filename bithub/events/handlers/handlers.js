@@ -56,6 +56,11 @@ steal('can/control', 'bithub/models/upvote.js', function(Control, Upvote){
 			});
 		},
 
+		'#greatestTimespanFilter a click': function( el, ev ) {
+			ev.preventDefault();
+			can.route.attr('timespan', can.data(el, 'value') );
+		},
+
 		upvote: function( event ) {
 			if ( this.options.currentUser.attr('loggedIn') ) {
 				(new Upvote({event: event})).upvote();

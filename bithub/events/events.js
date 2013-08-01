@@ -162,6 +162,7 @@ steal('can',
 			'{can.route} view': "reload",
 			'{can.route} project': "reload",
 			'{can.route} category': "reload",
+			'{can.route} timespan': "reload",
 
 			'{Bithub.Models.Event} reload': "reload",
 

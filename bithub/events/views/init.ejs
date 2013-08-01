@@ -1,3 +1,13 @@
+<% if (can.route.attr('view') === 'greatest') { %>
+<div id="greatestTimespanFilter" style="padding: 10px 0px; border-bottom: 2px solid #ccc; margin-bottom: 8px">
+  <a href="#" <%= (el) -> el.data('value', 'day') %>>Day</a> | 
+  <a href="#" <%= (el) -> el.data('value', 'week') %>>Week</a> |
+  <a href="#" <%= (el) -> el.data('value', 'month') %>>Month</a> |
+  <a href="#" <%= (el) -> el.data('value', 'all') %>>All time</a>
+  <span style="color:#ccc" class="pull-right">timespan filter &mdash; design to be applied</span>
+</div>
+<% } %>
+
 <div id="events-list">
 
   <div class="spinner"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>

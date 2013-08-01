@@ -11,7 +11,8 @@ steal('can',
 			  return can.route.url({
 				  project: item.name,
 				  category: can.route.attr('category') || 'all',
-				  view: can.route.attr('view') || 'all'
+				  view: can.route.attr('view') || 'all',
+				  timespan: can.route.attr('timespan') || 'all'
 			  }, false);
 		  });
 
