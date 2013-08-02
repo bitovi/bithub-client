@@ -18,11 +18,7 @@ steal('can',
 					  new ViewSelector('#viewFilter', {
 						  state: function (newVal) {
 							return can.route.attr('view');
-						  },
-						  items: [
-							  { name: 'latest', display_name: 'Latest' },
-							  { name: 'greatest', display_name: 'Greatest' }
-						  ]
+						  }
 					  });
 
 					  new ProjectSelector('#projectFilter', {
