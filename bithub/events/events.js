@@ -84,13 +84,18 @@ steal('can',
 
 		can.EJS.Helpers.prototype.renderEventTags = function (event) {
 			var buffer = "";
-			
-			can.each(visibleTags, function( tag ) {
-				if( event.attr('tags').indexOf( tag.attr('name') ) >= 0 ) {
-					buffer += "<li class=\"tag-name " + tag.attr('name') +  "\"><a href=\"#\"><small>" + tag.attr('display_name') + "</small></a></li>";
-					
-				}				
+
+			can.each(event.attr('tags'), function( eventTag ) {
+				var matched = false;
+				
+				visibleTags.each(function( visibleTag ) {					
+					if( visibleTag.attr('name') == eventTag && !matched ) {
+						buffer += "<li class=\"tag-name " + visibleTag.attr('name') +  "\"><a href=\"#\"><small>" + visibleTag.attr('display_name') + "</small></a></li>";
+						matched = true;
+					}
+				});
 			});
+			
 			return buffer;
 		}
 
