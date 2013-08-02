@@ -122,6 +122,9 @@ steal(
 			// this prevents events control to trigger on initial can.route change
 			window.EVENTS_PRELOADED = true;
 			preloadedEvents.replace(events);
+
+			// trigger change manually if there are no events
+			events.length == 0 && preloadedEvents._triggerChange('length', 'add');
 		});
 		
 		// move this somewhere else

@@ -14,6 +14,10 @@
 	
   <div class="spinnerBottom"><img src="/assets/images/ajax-loader.gif" alt="loading..."></div>
 
+  <% if( !canLoad() ) { %>
+  <div class="noMoreContent">... that would be all ...</div>
+  <% } %>
+  
   </div>  
 
 </div>

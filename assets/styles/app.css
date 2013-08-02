@@ -275,6 +275,15 @@ input:focus, textarea:focus {
 	display: none;
 }
 
+#events-list .noMoreContent {
+	text-align: center;
+	padding: 20px 0px;
+	color: #ccc;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 15px;
+}
+
 #events h3  {
 	color: #666666;
 	font-size: 12px;

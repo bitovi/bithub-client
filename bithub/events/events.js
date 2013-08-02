@@ -100,7 +100,7 @@ steal('can',
 
 				this.spinner = can.compute(false);
 				this.spinnerBottom = can.compute(false);
-				this.canLoad = true;
+				this.canLoad = can.compute(true);
 
 				window.LATEST = this.latestEvents = new LatestEvents;
 				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
@@ -135,7 +135,8 @@ steal('can',
 					projects: opts.projects,
 					categories: opts.categories,
 					visibleTags: visibleTags,
-					digestDict: digestDict
+					digestDict: digestDict,
+					canLoad: this.canLoad
 				}));
 
 				new Handlers(this.element, {
@@ -152,11 +153,11 @@ steal('can',
 
 				new TimespanFilter( this.element.find('#timespan-filter') );
 				
-				this.spinner(true);
+				this.spinner(true);					
 			},
 
 			'{preloadedEvents} add': function () {
-				this.updateEvents(this.options.preloadedEvents);
+				this.updateEvents(this.options.preloadedEvents);				
 			},
 
 			// can.route listeners
@@ -170,7 +171,7 @@ steal('can',
 
 			reload: function () {
 				this.options.prepareParams.resetFilter();
-				this.canLoad = true;
+				this.canLoad(true);
 				this.spinner(true);
 				this.load(this.updateEvents);
 			},
@@ -190,7 +191,7 @@ steal('can',
 			'{window} onbottom': function (el, ev) {
 				var views = this.options.prepareParams.views;
 
-				if (!this.canLoad) { return; }				
+				if (!this.canLoad()) { return; }				
 
 				if (can.route.attr('view') === 'latest') {
 					views.latest.attr('offset', views.latest.offset + views.latest.limit);
@@ -219,6 +220,8 @@ steal('can',
 			updateEvents: function (events) {
 				var view = can.route.attr('view');
 
+				events.length == 0 && this.canLoad(false);
+
 				if (view === 'latest') {
 					this.latestEvents.replace(events)
 				} else if (view === 'greatest') {
@@ -236,7 +239,7 @@ steal('can',
 					daysNum = this.latestEvents.days.length;
 				
 				if (events.length === 0) {
-					this.canLoad = false;
+					this.canLoad(false);
 					this.spinner(false);
 					this.spinnerBottom(false);
 					return;
