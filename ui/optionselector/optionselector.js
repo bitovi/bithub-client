@@ -6,14 +6,6 @@ steal('can',
 		   * @alias Optionselector   
 		   */
 		  
-		  var optionsSelectorItemRoute = can.compute(function(item) {
-			  return can.route.url({
-				  category: can.route.attr('category') || 'all',
-				  project: can.route.attr('project') || 'all',
-				  view: item.name
-			  }, false);
-		  })
-
 		  return can.Control(
 			  /** @Static */
 			  {
@@ -30,9 +22,6 @@ steal('can',
 						  isSelected: function( item ) {
 							  var name = (typeof(item) === 'function') ? item() : item.name;
 							  return (self.options.state() === name) ? 'active' : '';
-						  },
-						  itemUrl: function (item) {
-							  return optionsSelectorItemRoute(item);
 						  }
 					  }));
 				  }

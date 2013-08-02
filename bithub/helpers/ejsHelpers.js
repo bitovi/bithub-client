@@ -92,6 +92,15 @@ steal('can',
 				 }
 
 				 return collection;
+			 },
+
+			 filterUrl: function ( item ) {			
+				 return can.route.url( can.extend({}, {
+					 category: can.route.attr('category') || 'all',
+					 project: can.route.attr('project') || 'all',
+					 view: can.route.attr('view') || 'all',
+					 timespan: can.route.attr('timespan') || 'all'
+				 }, item), false );
 			 }
 		 });
 	 });

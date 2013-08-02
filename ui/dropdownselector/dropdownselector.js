@@ -7,15 +7,6 @@ steal('can',
 		   * @alias Dropdownselector   
 		   */
 
-		  var dropdownItemRoute = can.compute(function(item) {
-			  return can.route.url({
-				  project: item.name,
-				  category: can.route.attr('category') || 'all',
-				  view: can.route.attr('view') || 'all',
-				  timespan: can.route.attr('timespan') || 'all'
-			  }, false);
-		  });
-
 		  return can.Control(
 			  /** @Static */
 			  {
@@ -38,9 +29,6 @@ steal('can',
 								  }
 							  });
 							  return selected;
-						  },
-						  itemUrl: function (item) {
-							  return dropdownItemRoute(item);
 						  }
 					  }));
 				  }

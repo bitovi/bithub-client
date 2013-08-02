@@ -5,15 +5,6 @@ steal('can',
 	  function(can, initView){
 		  var items = new can.Observe.List();
 		  
-		  var smartSelectorItemRoute = can.compute(function(item) {
-			  return can.route.url({
-				  category: item.name,
-				  project: can.route.attr('project') || 'all',
-				  view: can.route.attr('view') || 'all',
-				  timespan: can.route.attr('timespan') || 'all'
-			  }, false);
-		  });
-
 		  return can.Control(
 			  /** @Static */
 			  {
@@ -36,9 +27,6 @@ steal('can',
 						  isSelected: function( item ) {
 							  var name = (typeof(item) === 'function') ? item() : item.name;
 							  return (self.options.state() === name) ? 'active' : '';
-						  },
-						  itemUrl: function (item) {
-							  return smartSelectorItemRoute(item);
 						  }
 					  }));
 				  },
