@@ -1,9 +1,9 @@
 steal('can',
 	  './init.mustache',
-	  'ui/optionselector',
-	  'ui/dropdownselector',
-	  'ui/smartselector',
-	  function(can, initView, OptionSelector, DropdownSelector, SmartSelector){
+	  './view_selector/view_selector.js',
+	  './project_selector/project_selector.js',
+	  './category_selector/category_selector.js',	  
+	  function(can, initView, ViewSelector, ProjectSelector, CategorySelector){
 
 		  return can.Control(
 			  {
@@ -15,7 +15,7 @@ steal('can',
 					  self.element.html(initView({}));
 
 					  // init UI controls
-					  new OptionSelector('#viewFilter', {
+					  new ViewSelector('#viewFilter', {
 						  state: function (newVal) {
 							return can.route.attr('view');
 						  },
@@ -25,7 +25,7 @@ steal('can',
 						  ]
 					  });
 
-					  new DropdownSelector('#projectFilter', {
+					  new ProjectSelector('#projectFilter', {
 						  items: options.projects,
 						  defaultOption: {
 							  name: 'all',
@@ -36,7 +36,7 @@ steal('can',
 						  }
 					  });
 
-					  new SmartSelector('#categoryFilter', {
+					  new CategorySelector('#categoryFilter', {
 						  categories: options.categories,
 						  defaultOption: {
 							  name: 'all',
