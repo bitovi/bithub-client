@@ -203,6 +203,12 @@ steal('can',
 				this.load(this.appendEvents);
 			},
 
+			fillDocumentHeight: function() {
+				if( $(document).height() <= $(window).height() + 200 ) {
+					this.canLoad() && $(window).trigger('onbottom');
+				}				
+			},
+
 			/*
 			 * Functions
 			 */
@@ -232,6 +238,9 @@ steal('can',
 				this.spinner(false);
 				this.postRendering();
 				window.scrollTo(0, 0);
+
+				// load events until document height exceeds window height
+				this.fillDocumentHeight();
 			},
 
 			appendEvents: function (events) {
@@ -247,13 +256,16 @@ steal('can',
 
 				if (view === 'latest') {
 					this.latestEvents.appendEvents(events);
-					this.spinnerBottom(false);
 				} else if (view === 'greatest') {
 					this.greatestEvents.push.apply(this.greatestEvents, events);
-					this.spinnerBottom(false);
 				}
 
-				// maybe to do this for any category?
+				this.spinnerBottom(false);
+
+				// load events until document height exceeds window height
+				this.fillDocumentHeight();
+
+				// always load entire day for chat
 				if( can.route.attr('category') === 'chat' ) {
 					if (this.latestEvents.days.length === daysNum) {
 						$(window).trigger('onbottom');
