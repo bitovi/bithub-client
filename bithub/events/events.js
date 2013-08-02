@@ -12,6 +12,7 @@ steal('can',
 	'bithub/events/handlers',
 	'bithub/events/spinner',
 	'bithub/events/post_render',
+	'bithub/events/timespan_filter',
 	'./latest_events.js',
 	'can/construct/proxy',
 	'bithub/helpers/ejsHelpers.js',
@@ -31,6 +32,7 @@ steal('can',
 		Handlers,
 		Spinner,
 		PostRendering,
+		TimespanFilter,
 		LatestEvents
 	) {
 
@@ -66,7 +68,7 @@ steal('can',
 			adjustScroll : function(){
 				this.element[0].scrollTop = this.element[0].scrollHeight;
 			}
-		})
+		});
 
 		can.EJS.Helpers.prototype.applyMore = function () {
 			return function (el) {
@@ -157,6 +159,8 @@ steal('can',
 
 				new PostRendering(this.element);
 
+				new TimespanFilter( this.element.find('#timespan-filter') );
+				
 				this.spinner(true);
 			},
 
