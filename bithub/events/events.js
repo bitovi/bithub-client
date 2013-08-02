@@ -88,9 +88,12 @@ steal('can',
 			can.each(event.attr('tags'), function( eventTag ) {
 				var matched = false;
 				
-				visibleTags.each(function( visibleTag ) {					
-					if( visibleTag.attr('name') == eventTag && !matched ) {
-						buffer += "<li class=\"tag-name " + visibleTag.attr('name') +  "\"><a href=\"#\"><small>" + visibleTag.attr('display_name') + "</small></a></li>";
+				visibleTags.each(function( visibleTag ) {
+					var name = visibleTag.attr('name'),
+						display_name = visibleTag.attr('display_name') || visibleTag.attr('name');
+					
+					if( name == eventTag && !matched ) {
+						buffer += "<li class=\"tag-name " + name +  "\"><a href=\"#\"><small>" + display_name + "</small></a></li>";
 						matched = true;
 					}
 				});
