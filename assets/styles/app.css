@@ -253,14 +253,16 @@ input:focus, textarea:focus {
 .btn-bigass.plus.activated::before {
 	background-position-x: 0px;
 }
+
 #show-newpost {
 	display: block;
 }
-#events, #event-list, #content > .row {
+
+#pages, .event-list-container, .event-list {
 	position: relative;
 }
 
-#events-list .spinner {
+.event-list-container .spinner-top {
 	position: absolute;
 	padding-top: 50px;
 	text-align: center;
@@ -268,14 +270,15 @@ input:focus, textarea:focus {
 	z-index: 900;
 }
 
-#events-list .spinnerBottom {
+.event-list .spinner-bottom {
 	padding: 10px 0px;
+	margin: 0 0 20px 0;
 	text-align: center;
 	width: 100%;
 	display: none;
 }
 
-#events-list .noMoreContent {
+.event-list .noMoreContent {
 	text-align: center;
 	padding: 20px 0px;
 	color: #ccc;
@@ -284,7 +287,7 @@ input:focus, textarea:focus {
 	margin-top: 15px;
 }
 
-#events h3  {
+.event-list h3  {
 	color: #666666;
 	font-size: 12px;
 	font-weight: normal;
@@ -299,14 +302,14 @@ input:focus, textarea:focus {
 	background: url(/assets/images/glyph-categories.png) no-repeat 0px 1px;
 	text-shadow: 0 -1px 0 #ffffff;
 }
-#events h3.bug-icon { background-position: 0px -22px; text-transform: capitalize; }
-#events h3.comment-icon { background-position: 0px -46px; text-transform: capitalize; }
-#events h3.code-icon { background-position: 0px -68px; text-transform: capitalize; }
-#events h3.irc-icon {	background-position: 0px -91px; text-transform: capitalize; }
-#events h3.twitter-icon { background-position: 0px -114px; text-transform: capitalize; }
-#events h3.plugin-icon { background-position: 0px -138px; text-transform: capitalize; }
-#events h3.app-icon { background-position: 0px -160px; text-transform: capitalize; }
-#events h3.question-icon { background-position: 0px -183px; text-transform: capitalize; }
+.event-list h3.bug-icon { background-position: 0px -22px; text-transform: capitalize; }
+.event-list h3.comment-icon { background-position: 0px -46px; text-transform: capitalize; }
+.event-list h3.code-icon { background-position: 0px -68px; text-transform: capitalize; }
+.event-list h3.irc-icon {	background-position: 0px -91px; text-transform: capitalize; }
+.event-list h3.twitter-icon { background-position: 0px -114px; text-transform: capitalize; }
+.event-list h3.plugin-icon { background-position: 0px -138px; text-transform: capitalize; }
+.event-list h3.app-icon { background-position: 0px -160px; text-transform: capitalize; }
+.event-list h3.question-icon { background-position: 0px -183px; text-transform: capitalize; }
 
 .flag {
 	font-weight: bold;
@@ -352,7 +355,7 @@ input:focus, textarea:focus {
 	margin-left: -2000px;
 	padding-left: 2000px;
 	position: static;
-	width: 3000px;
+	/* width: 3000px; */
 }
 .sep.blue {
 	background-color: #71bee5;
@@ -1300,7 +1303,7 @@ h4.handwriting {
 
 /* Events --------------------------------------------------------- */
 
-#event-list.top-rated {
+.event-list.top-rated {
 	margin-top: 20px;
 }
 
@@ -1351,7 +1354,7 @@ h4.handwriting {
 	overflow: hidden;
 }
 .event .title a {
-	color: #000;
+	/* color: #000; */
 	font-size: 14px;
 	margin: 0;
 	line-height: 18px;
@@ -2084,10 +2087,9 @@ only screen and (-webkit-device-pixel-ratio:1.5) {
 		background-size: 78px 30px;
 	}
 	/*
-	#event-list h3 {
+	.event-list h3 {
 		background-image: url(/assets/images/follow-glyphs-x2.png);
 		background-size: 38px 418px;
 	}
 	*/
 }
-
