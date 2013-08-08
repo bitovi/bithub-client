@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Users</title>
+	</head>
+	<body>
+    		<h1>Users Demo</h1>
+		<div id='users'></div>
+		<script src='../../../steal/steal.js'></script>
+		<script>
+		steal('bithub/admin/users',function(Users){
+			new Users('#users');
+		});
+		</script>
+	</body>
+</html>
