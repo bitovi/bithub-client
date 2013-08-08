@@ -1,7 +1,7 @@
 steal(
 	'can',
-	'./info/info.js',
-	'./activities/activities.js',
+	'bithub/profile/info',
+	'bithub/profile/activities',
 	function(can, ProfileInfoControl, ProfileActivitiesControl){
 
 		return can.Control.extend({
@@ -30,6 +30,7 @@ steal(
 			},
 
 			initView : function (currentView) {
+				console.log(currentView);
 				var control = this.options.views[currentView],
 					$div = $('<div/>');
 

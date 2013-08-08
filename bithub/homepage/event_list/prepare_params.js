@@ -20,6 +20,15 @@ steal(
 				}),
 				details: new can.Observe({
 				})
+			},
+			profile: {
+				info: new can.Observe(),
+				activities:  new can.Observe(),
+			},
+			admin: {
+				users: new can.Observe(),
+				tags: new can.Observe(),
+				rewards: new can.Observe()
 			}
 		},
 

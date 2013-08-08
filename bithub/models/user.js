@@ -2,13 +2,28 @@ steal(
 	'can',
 	'../helpers/auth.js',
 	function (can, auth) {
+		var parse10 = function(str) { return parseInt(str, 10) };
+		var existy = function(x) { return x!==null && x!==undefined }
+		var isStringNully = function(x) { return x==='null' || x==='undefined' }
+
+		var cleanupData = function (data) {
+			data.activities = _.filter(data.activities, function(el) {
+				return parse10(el.value || el.authorship_value) !== 0;
+			});
+
+			_.each(data.keys, function(key) {
+				if (isStringNully(data[key])) data[key] = ''
+			});
+
+			return data;
+		}
 
 		var providers = {
 			twitter: { url: '/api/auth/twitter' },
 			github: { url: '/api/auth/github' }			
 		};
 
-		var User = can.Model('Bithub.Models.User', {
+		var User = can.Model.extend('Bithub.Models.User', {
 			init: function () {},
 
 			// CRUD
@@ -16,7 +31,7 @@ steal(
 			findOne : 'GET /api/users/{id}',
 			create  : 'POST /api/users',
 			update  : 'PUT /api/users/{id}',
-			
+
 		}, {
 			fromSession: function() {
 				var self = this;
@@ -25,21 +40,12 @@ steal(
 					type: 'GET'
 				}).done(function(data) {
 					//self.attr(can.Model.model(data).attr());
-					self.attr( self.cleanupData(data) );
+					self.attr(cleanupData(data));
 					self.attr('loggedIn', true);
 				}).fail(function(response) {
 					self.attr('loggedIn', false);
 					console.error(response);
 				});
-			},
-
-			cleanupData: function( data ) {
-				for( var key in data ) {
-					if( data[key] === 'null' || data[key] === 'undefined' ) {
-						data[key] = '';
-					}
-				}
-				return data;
 			},
 
 			isAdmin: function() {

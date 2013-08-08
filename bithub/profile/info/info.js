@@ -18,8 +18,8 @@ steal(
 
 				element.html(profileInfoView({
 					countries: countries,
-					user: this.options.currentUser,
-					routes: this.options.subpageRoutes
+					user: opts.currentUser,
+					routes: opts.subpageRoutes
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {
