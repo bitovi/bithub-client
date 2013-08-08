@@ -1,6 +1,6 @@
 <li class="divider-vertical"></li>
 
-{{#if user.loggedInDelayed}}
+{{#isLoggedIn user}}
 
 {{#notInAdminUI}}
 <li class="logged-in">
@@ -37,4 +37,4 @@
   </ul>
 </li>
 
-{{/if}}
+{{/isLoggedIn}}

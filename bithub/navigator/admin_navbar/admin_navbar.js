@@ -1,7 +1,7 @@
 steal(
 	'can',
-	'ui/optionselector',
-	function(can, OptionSelector){
+	'ui/radio_selector',
+	function(can, RadioSelector){
 
 		return can.Control.extend('Bithub.Controls.Navigator.AdminNavbar', {
 			pluginName: 'admin-navbar',
@@ -27,7 +27,7 @@ steal(
 		}, {
 			init : function(element, options) {
 				var $ul = $('<ul/>').addClass('nav');
-				new OptionSelector($ul, this.options);
+				new RadioSelector($ul, this.options);
 				element.html($ul);
 			}
 		});

@@ -1,12 +1,12 @@
 <div id="timespan-filter"></div>
 
-<div id="event-list-container" class="span8 left-content">
+<div class="event-list-container" class="span8 left-content">
 
 	<div class="spinner-top">
 		<img src="/assets/images/ajax-loader.gif" alt="loading...">
 	</div>
 
-	<div id="event-list" class="event-list">
+	<div class="event-list">
 		<% if (partial() === 'latest') { %>
 			<%== latestView.render(this) %>
 		<% } else { %>

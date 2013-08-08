@@ -9,12 +9,12 @@ steal(
 				if( newVal ) {
 					$(document).scrollTop(0);
 					el.css('height', preservedHeight);
-					el.find('#event-list').hide();
+					el.find('.event-list').hide();
 					el.find('.spinner-top').show()
 				} else {
 					el.css('height', 'auto');
 					el.find('.spinner-top').hide()
-					el.find('#event-list').show();
+					el.find('.event-list').show();
 				}
 			},
 

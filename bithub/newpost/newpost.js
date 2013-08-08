@@ -104,8 +104,8 @@ steal(
 						today: function() {
 							return moment().format("MM/DD/YYYY");
 						},
-						ifAdmin: function(opts) {
-							return self.options.currentUser.attr('admin') ? opts.fn(this) : opts.inverse(this);
+						ifAdmin: function(arg, opts) {
+							return arg.isAdmin() ? opts.fn(this) : opts.inverse(this);
 						},
 						isOfEventContentType: function(opts) {
 							return (currentCategory.attr('name') === 'event') ? opts.fn(this) : opts.inverse(this);

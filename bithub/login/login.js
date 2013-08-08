@@ -18,6 +18,9 @@ steal(
 				}, {
 					notInAdminUI: function(opts) { 
 						return (can.route.attr('page') !== 'admin') ? opts.fn(this) : opts.inverse(this);
+					},
+					isloggedIn: function(arg, opts) {
+						return arg.loggedIn() ? opts.fn(this) : opts.inverse(this);
 					}
 				}));
 			},
@@ -40,4 +43,5 @@ steal(
 				this.options.currentUser.logout();
 			}
 		});
-	});
+	}
+);
