@@ -20,18 +20,24 @@ steal(
 				}),
 				details: new can.Observe({
 				})
-			},
-			admin: {
-				users: new can.Observe({
-					limit: 25
-				})
 			}
+		},
+
+		timespanFilter = function( timespan ) {						
+			var	format = 'YYYY-MM-DD';
+
+			var timespans = {
+				day: moment.utc().format(format),
+				week: moment.utc().subtract('days', 7).format(format) + ":" + moment.utc().format(format),
+				month: moment.utc().subtract('months', 1).format(format) + ":" + moment.utc().format(format)
+			}
+
+			return timespans[timespan];
 		},
 
 		resetFilter = function() {
 			queryTracker.homepage.latest.attr('offset', 0);
 			queryTracker.homepage.greatest.attr('offset', 0);
-			queryTracker.admin.users.attr('offset', 0);
 		},
 
 		prepareParams = function( params ) {
@@ -47,6 +53,7 @@ steal(
 			// append filters
 			if (can.route.attr('project') !== 'all') query.tag = can.route.attr('project');
 			if (can.route.attr('category') !== 'all') query.category = can.route.attr('category');
+			if (can.route.attr('timespan') !== 'all') query.thread_updated_date = timespanFilter(can.route.attr('timespan'));
 
 			return query;
 		};
@@ -57,5 +64,5 @@ steal(
 			resetFilter: resetFilter
 		}
 
-	});
-
+	}
+);

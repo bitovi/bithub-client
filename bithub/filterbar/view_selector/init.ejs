@@ -1,5 +1,0 @@
-<% can.each(items, function(item) { %>
-<li>
-<a href="<%= filterUrl({view: item.name, timespan: 'all'}) %>" class="<%= item.name %> boxed item <%= isSelected(item) %>"><span class="glyph"></span><%= item.display_name %></a>
-</li>  
-<% }); %>

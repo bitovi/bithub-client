@@ -1,10 +1,10 @@
 steal(
 	'can',
 	'./filterbar.mustache',
-	'ui/optionselector',
-	'ui/dropdownselector',
-	'ui/smartselector',
-	function(can, filterbarView, OptionSelector, DropdownSelector, SmartSelector){
+	'ui/radio_selector',
+	'ui/dropdown_selector',
+	'ui/lru_selector',
+	function(can, filterbarView, RadioSelector, DropdownSelector, LRUSelector){
 
 		return can.Control.extend({
 			pluginName: 'filterbar',
@@ -14,7 +14,7 @@ steal(
 			init: function( elem, options ) {
 				elem.html(filterbarView());
 
-				new OptionSelector(elem.find('#viewFilter'), {
+				new RadioSelector(elem.find('#viewFilter'), {
 					items: [{ 
 						name: 'latest',
 						display_name: 'Latest'
@@ -34,7 +34,7 @@ steal(
 					}
 				});
 
-				new SmartSelector(elem.find('#categoryFilter'), {
+				new LRUSelector(elem.find('#categoryFilter'), {
 					categories: options.categories,
 					state: function (newVal) {
 						return can.route.attr('category');
