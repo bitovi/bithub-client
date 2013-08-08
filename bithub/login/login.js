@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./init.mustache',
+	'./login.mustache',
 	function(can, initView) {
 
 		return can.Control({
@@ -11,8 +11,13 @@ steal(
 				element.html(initView({
 					user: opts.currentUser,
 					routes: {
-						'profile': can.route.url({page: 'profile'}, false),
-						'activity': can.route.url({page: 'activities'}, false)
+						profile: can.route.url({page: 'profile'}, false),
+						activities: can.route.url({page: 'profile', view: 'activities'}, false),
+						admin: can.route.url({page: 'admin'}, false)
+					}
+				}, {
+					notInAdminUI: function(opts) { 
+						return (can.route.attr('page') !== 'admin') ? opts.fn(this) : opts.inverse(this);
 					}
 				}));
 			},

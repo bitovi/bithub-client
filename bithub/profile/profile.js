@@ -1,82 +1,42 @@
 steal(
 	'can',
-	'./init.mustache',
-	'./_navbar.mustache',
-	'ui/bootstrap_dropdown',
-	'bithub/models/country.js',
-	'can/model/list',
-	'jquerypp/dom/form_params',
-	function(can, initView, NavbarPartial, Dropdown, Country){
-		return can.Control({
-			defaults : {}
-		}, {
-			init : function( elem, opts ){
-				var self = this,
-					countries = this.loadCountries();
+	'./info/info.js',
+	'./activities/activities.js',
+	function(can, ProfileInfoControl, ProfileActivitiesControl){
 
-				// init form
-				elem.html( initView({
-					user: self.options.currentUser,
-					countries: countries,
-					profileRoute: can.route.url({page: 'profile'}),
-					activityListRoute: can.route.url({page: 'activities'})
-				}, {
-					helpers: {
-						'hasProvider': function( provider, opts ) {
-							var flag = false
-							if ( self.options.currentUser.attr('loggedIn') ) {
-								self.options.currentUser.attr('identities').each( function (value) {
-									if (value.provider === provider) flag = true;
-								});
-							}
-							return flag ? opts.fn(this) : opts.inverse(this);
-						}
-					},
-					partials: {
-						navbarPartial: NavbarPartial
-					}
-				}) );
-			},
-
-			loadCountries: function() {
-				var self = this,
-					countries = new can.Observe.List();
-				
-				Country.findAll({order: 'name'}, function( data ) {
-					countries.replace( data );
-					self.element.find('#countryISO').val( self.options.currentUser.attr('country.iso') );
-				});
-				
-				return countries;	
-			},
-
-			'form#edit-profile-form submit': function( el, ev ) {
-				ev.preventDefault();
-
-				el.find('.form-status .loading').show();
-				
-				this.options.currentUser
-					.attr( el.formParams() )
-					.save(
-						function( user ) {
-							el.find('.form-status .loading').hide();
-							el.find('.form-status .success').show().delay(1000).fadeOut();
-						},
-						function( xhr ) {
-							el.find('.form-status .loading').hide();
-							el.find('.form-status .error').show().delay(1000).fadeOut();
-						});
-			},
-
-			'#login-github-link click': function( el, ev ) {
-				ev.preventDefault();
-				this.options.currentUser.login({url: '/api/auth/github' });
-			},
-			
-			'#login-twitter-link click': function( el, ev ) {
-				ev.preventDefault();
-				this.options.currentUser.login({url: '/api/auth/twitter' });
+		return can.Control.extend({
+			pluginName: 'profile',
+			defaults : {
+				views: {
+					info: ProfileInfoControl,
+					activities: ProfileActivitiesControl
+				},
+				subpageRoutes: {
+					info: can.route.url({page: 'profile', view: 'info'}, false),
+					activities: can.route.url({page: 'profile', view: 'activities'}, false)
+				}
 			}
+		}, {
+			init : function (elem, opts) {
+				this.initView(can.route.attr('view'), opts);
+			},
+
+			'{can.route} change' : function (fn, ev, newVal, oldVal) {
+				this.initView(newVal);
+			},
 			
+			'{currentUser} loggedIn' : function (fn, ev, newVal, oldVal) {
+				if (newVal == false) can.route.attr({'page': 'homepage', 'view': 'latest'});
+			},
+
+			initView : function (currentView) {
+				var control = this.options.views[currentView],
+					$div = $('<div/>');
+
+				new control($div, this.options);
+				this.element.html($div);
+			}
+
 		});
-	});
+	}
+);

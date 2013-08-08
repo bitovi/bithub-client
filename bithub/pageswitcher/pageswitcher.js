@@ -1,36 +1,49 @@
 steal(
 	'can',
-	'./init.mustache',
-	function(can, initView){
-		return can.Control({
-			defaults : {
-				buffers: {}
+	'bithub/homepage',
+	'bithub/profile',
+	'bithub/rewards',
+	'bithub/admin',
+	'./no_permissions.ejs',
+	'bithub/helpers/permission_checker.js',
+	function(can, Homepage, Profile, Rewards, AdminPanels, noPermsView, pc) {
+		
+		var delay = function (fn) { setTimeout(fn, 0) };
+
+		return can.Control.extend({
+			defaults : { 
+				pages: {
+					'homepage': Homepage,
+					'profile': Profile,
+					'rewards': Rewards,
+					'admin': AdminPanels
+				}
 			}
 		}, {
-			init: function( elem, opts ){
-				elem.html( initView({}) );
 
-				this.initControl( can.route.attr( opts.routeAttr ) );
+			init: function( elem, opts ){
+				this.initControl( can.route.attr('page') );
 			},
 
-			'{can.route} {routeAttr}': function( route, ev, newVal, oldVal ) {
-				var self = this;
+			'{can.route} page': function( route, ev, newVal, oldVal ) {
+				this.initControl( newVal );
+			},
 
-				this.options.buffers[oldVal] = this.element.find(" > div").detach();
-				
-				if( this.options.buffers[newVal] ) {
-					this.element.html( this.options.buffers[newVal] );
-				} else {
-					this.initControl( newVal );
+			initControl: function(currentPage) {
+				var control = this.options.pages[currentPage],
+					$div = $('<div/>');
+
+				if (!pc.hasPermissions(this.options.currentUser, control)) {
+					this.element.html(noPermsView());
+				} else if (!_.isEqual(currentPage, this._currentPage)) {
+					new control($div, this.options);
+					this.element.html( $div );
+					this._currentPage = currentPage;
 				}
 			},
 
-			initControl: function( controlName ) {
-				var control = this.options.controls[controlName],
-					$div = $('<div/>');
-
-				new control( $div, this.options );
-				this.element.html( $div );
+			'{currentUser} loggedIn' : function () {
+				delay(this.initControl(can.route.attr('page')));
 			}
 		});
 	});

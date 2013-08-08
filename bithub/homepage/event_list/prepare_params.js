@@ -1,0 +1,61 @@
+steal(
+	'can',
+	'can/route',
+	'vendor/moment',
+	function(can) {
+
+		var queryTracker = {
+			homepage: {
+				latest: new can.Observe({
+					order: ['thread_updated_date:desc', 'categories:asc', 'thread_updated_at:desc'],
+					exclude: 'source_data',
+					offset: 0,
+					limit: 25
+				}),
+				greatest: new can.Observe({
+					order: 'upvotes:desc',
+					exclude: 'source_data',
+					offset: 0,
+					limit: 25
+				}),
+				details: new can.Observe({
+				})
+			},
+			admin: {
+				users: new can.Observe({
+					limit: 25
+				})
+			}
+		},
+
+		resetFilter = function() {
+			queryTracker.homepage.latest.attr('offset', 0);
+			queryTracker.homepage.greatest.attr('offset', 0);
+			queryTracker.admin.users.attr('offset', 0);
+		},
+
+		prepareParams = function( params ) {
+
+			// determine current page/view combo
+			var currentPage = can.route.attr('page'),
+				currentView = can.route.attr('view'),
+				currentQuery = queryTracker[currentPage][currentView];
+
+			// build query
+			var query = can.extend({}, currentQuery.attr() || {}, params || {});
+
+			// append filters
+			if (can.route.attr('project') !== 'all') query.tag = can.route.attr('project');
+			if (can.route.attr('category') !== 'all') query.category = can.route.attr('category');
+
+			return query;
+		};
+
+		return {
+			queryTracker: queryTracker,
+			prepareParams: prepareParams,
+			resetFilter: resetFilter
+		}
+
+	});
+

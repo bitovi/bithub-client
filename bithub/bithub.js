@@ -2,14 +2,10 @@
 steal(
 	'can',
 	'bithub/pageswitcher',
-	'bithub/homepage',
-	'bithub/profile',
-	'bithub/activities',
-	'bithub/filterbar',
+	'bithub/navigator',
 	'bithub/login',
 	'bithub/newpost',
-	'bithub/eventdetails',
-	'bithub/events/prepare_params.js',
+	'bithub/homepage/event_list/prepare_params.js',
 	'bithub/modals',
 	'bithub/models/event.js',
 	'bithub/models/tag.js',
@@ -19,11 +15,12 @@ steal(
 	'can/route/pushstate',
 	'vendor/bootstrap',
 	'vendor/bootstrap-datepicker',
+	'vendor/lodash',
 	'assets/styles/bootstrap.css',
 	'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
 	//'vendor/socketio/socket.io.js',
-	function(can, PageSwitcher, Homepage, Profile, Activities, Filterbar, Login, Newpost, EventDetails, prepareParams, Modals, Event, Tag, User, loadtime) {
+	function(can, PageSwitcher, Navigator, Login, Newpost, prepareParams, Modals, Event, Tag, User, loadtime) {
 		var self = this;
 
 		if( steal.isBuilding ) {
@@ -45,50 +42,70 @@ steal(
 		
 		// routes - events
 
-		var routePrefix = '';
+		var routePrefix = '/bithub';
 		
-	    var projects = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
-			categories = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin', 'event'],
-			views = ['greatest'],
-			timespans = ['day', 'week', 'month'];
+	    var projectNames = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
+			categoryNames = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin', 'event'],
+			viewNames = ['greatest'],
+			timespanNames = ['day', 'week', 'month'];
 
 		// ROOT route
-		can.route(routePrefix + '/', { page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'all' });
-		can.route(routePrefix + '/profile', { page: 'profile' });
-		can.route(routePrefix + '/profile/activities', { page: 'activities' });
-		can.route(routePrefix + '/eventdetails/:id', { page: 'eventdetails' });
+		can.route(routePrefix + '', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		can.route(routePrefix + '/', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 
-		for (var v in views) {
-			can.route(routePrefix + '/'+views[v], { page: 'homepage', category:'all', project: 'all', timespan: 'all', view: views[v] });
+		can.route(routePrefix + '/profile', { page: 'profile', view: 'info' });
+		can.route(routePrefix + '/profile/activities', { page: 'profile', view: 'activities' });
 
-			for (var ts in timespans) {
-				can.route(routePrefix + '/'+views[v]+'/'+timespans[ts], { page: 'homepage', view: views[v], project: 'all', category: 'all', timespan: timespans[ts] });
+		can.route(routePrefix + '/admin', { page: 'admin', view: 'users', action: 'list' });
+
+		can.route(routePrefix + '/admin/tags', { page: 'admin', view: 'tags', action: 'list' });
+		can.route(routePrefix + '/admin/tags/edit', { page: 'admin', view: 'tags', action: 'edit' });
+		can.route(routePrefix + '/admin/tags/new', { page: 'admin', view: 'tags', action: 'new' });
+
+		can.route(routePrefix + '/admin/users', { page: 'admin', view: 'users', action: 'list' });
+		can.route(routePrefix + '/admin/users/edit', { page: 'admin', view: 'users', action: 'edit' });
+		can.route(routePrefix + '/admin/users/new', { page: 'admin', view: 'users', action: 'new' });
+
+		can.route(routePrefix + '/admin/rewards', { page: 'admin', view: 'rewards', action: 'list' });
+		can.route(routePrefix + '/admin/rewards/edit', { page: 'admin', view: 'rewards', action: 'edit' });
+		can.route(routePrefix + '/admin/rewards/new', { page: 'admin', view: 'rewards', action: 'new' });
+
+
+		can.route(routePrefix + '/events/:id', { page: 'homepage', view: 'details' });
+		can.route(routePrefix + '/rewards', { page: 'homepage', view: 'rewards' });
+
+		for (var v in viewNames) {
+			can.route(routePrefix + '/'+viewNames[v], { page: 'homepage', category:'all', project: 'all', timespan: 'all', view: viewNames[v] });
+
+			for (var ts in timespanNames) {
+				can.route(routePrefix + '/'+viewNames[v]+'/'+timespanNames[ts], { page: 'homepage', view: viewNames[v], project: 'all', category: 'all', timespan: timespanNames[ts] });
 			}
 
-			for (var p in projects) {
-				can.route(routePrefix + '/'+projects[p], { page: 'homepage', view: 'latest', category: 'all', timespan: 'all', project: projects[p]});
-				can.route(routePrefix + '/'+views[v]+'/'+projects[p], { page: 'homepage', category: 'all', timespan: 'all', view: views[v], project: projects[p]});
+			for (var p in projectNames) {
+				can.route(routePrefix + '/'+projectNames[p], { page: 'homepage', view: 'latest', category: 'all', timespan: 'all', project: projectNames[p]});
+				can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p], { page: 'homepage', category: 'all', timespan: 'all', view: viewNames[v], project: projectNames[p]});
 
-				for (var ts in timespans) {
-					can.route(routePrefix + '/'+views[v]+'/'+projects[p]+'/'+timespans[ts], { page: 'homepage', view: views[v], project: projects[p], category: 'all', timespan: timespans[ts] });
+				for (var ts in timespanNames) {
+					can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p]+'/'+timespanNames[ts], { page: 'homepage', view: viewNames[v], project: projectNames[p], category: 'all', timespan: timespanNames[ts] });
 				}
 				
-				for (var c in categories) {
-					can.route(routePrefix + '/'+categories[c], { page: 'homepage', view: 'latest', project: 'all', timespan: 'all', category: categories[c] })
-					can.route(routePrefix + '/'+projects[p]+'/'+categories[c], { page: 'homepage', view: 'latest', timespan: 'all', project: projects[p], category: categories[c] })
-					can.route(routePrefix + '/'+views[v]+'/'+categories[c], { page: 'homepage', project: 'all', timespan: 'all', view: views[v], category: categories[c] });
-					can.route(routePrefix + '/'+views[v]+'/'+projects[p]+'/'+categories[c], { page: 'homepage', timespan: 'all', view: views[v], project: projects[p], category: categories[c]});
+				for (var c in categoryNames) {
+					can.route(routePrefix + '/'+categoryNames[c], { page: 'homepage', view: 'latest', project: 'all', timespan: 'all', category: categoryNames[c] })
+					can.route(routePrefix + '/'+projectNames[p]+'/'+categoryNames[c], { page: 'homepage', view: 'latest', timespan: 'all', project: projectNames[p], category: categoryNames[c] })
+					can.route(routePrefix + '/'+viewNames[v]+'/'+categoryNames[c], { page: 'homepage', project: 'all', timespan: 'all', view: viewNames[v], category: categoryNames[c] });
+					can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p]+'/'+categoryNames[c], { page: 'homepage', timespan: 'all', view: viewNames[v], project: projectNames[p], category: categoryNames[c]});
 
-					for (var ts in timespans) {
-						can.route(routePrefix + '/'+views[v]+'/'+categories[c]+'/'+timespans[ts], { page: 'homepage', view: views[v], project: 'all', category: categories[c], timespan: timespans[ts]});
-						can.route(routePrefix + '/'+views[v]+'/'+projects[p]+'/'+categories[c]+'/'+timespans[ts], { page: 'homepage', view: views[v], project: projects[p], category: categories[c], timespan: timespans[ts]});
+					for (var ts in timespanNames) {
+						can.route(routePrefix + '/'+viewNames[v]+'/'+categoryNames[c]+'/'+timespanNames[ts], { page: 'homepage', view: viewNames[v], project: 'all', category: categoryNames[c], timespan: timespanNames[ts]});
+						can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p]+'/'+categoryNames[c]+'/'+timespanNames[ts], { page: 'homepage', view: viewNames[v], project: projectNames[p], category: categoryNames[c], timespan: timespanNames[ts]});
 					}
 					
-					if (categories[c] !== 'twitter' && categories[c] !== 'code') {
-						can.route(routePrefix + '/'+categories[c]+'s', { page: 'homepage', view: 'latest', project: 'all', timespan: 'all', category: categories[c] })
-						can.route(routePrefix + '/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', view: 'latest', timespan: 'all', project: projects[p], category: categories[c] })
-						can.route(routePrefix + '/'+views[v]+'/'+categories[c]+'s', { page: 'homepage', project: 'all', timespan: 'all', view: views[v], category: categories[c] });
-						can.route(routePrefix + '/'+views[v]+'/'+projects[p]+'/'+categories[c]+'s', { page: 'homepage', timespan: 'all', view: views[v], project: projects[p], category: categories[c]});
+					if (categoryNames[c] !== 'twitter' && categoryNames[c] !== 'code') {
+						can.route(routePrefix + '/'+categoryNames[c]+'s', { page: 'homepage', view: 'latest', project: 'all', timespan: 'all', category: categoryNames[c] })
+						can.route(routePrefix + '/'+projectNames[p]+'/'+categoryNames[c]+'s', { page: 'homepage', view: 'latest', timespan: 'all', project: projectNames[p], category: categoryNames[c] })
+						can.route(routePrefix + '/'+viewNames[v]+'/'+categoryNames[c]+'s', { page: 'homepage', project: 'all', timespan: 'all', view: viewNames[v], category: categoryNames[c] });
+						can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p]+'/'+categoryNames[c]+'s', { page: 'homepage', timespan: 'all', view: viewNames[v], project: projectNames[p], category: categoryNames[c]});
+
 					}
 				}
 			}
@@ -101,9 +118,6 @@ steal(
 		can.route(routePrefix + '/:view/:project', { page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'all' });
 		can.route(routePrefix + '/:view/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'all' });
 		can.route(routePrefix + '/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'all' });
-
-		// Page WTF
-		can.route(routePrefix + '/:page/:view/:project/:category', { page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'all' });
 
 		can.route.ready(true);
 		
@@ -141,7 +155,11 @@ steal(
 			}
 		});
 
+		// Initialize the current user (if there is one)
 		currentUser.fromSession();
+
+		// Set the brand to point to root url
+		$('.container .brand').attr('href', can.route.url({ page: 'homepage', view: 'latest', project: 'all', category: 'all' }));
 		
 		// Init Controllers
 		var modals = new Modals('#bootstrapModals', {
@@ -149,33 +167,28 @@ steal(
 		});
 		
 		new PageSwitcher('#pages', {
-			routeAttr: 'page',
-			controls: {
-				'homepage': Homepage,
-				'eventdetails': EventDetails,
-				'profile': Profile,
-				'activities': Activities
-			},
+			currentUser: currentUser,
 			preloadedEvents: preloadedEvents,
 			prepareParams: prepareParams,
-			currentUser: currentUser,
-			categories: categories,
 			projects: projects,
 			feeds: feeds,
+			categories: categories,
 			newpostVisibility: newpostVisibility,
 			modals: modals
 			//socket: socket
+		});
+
+		new Navigator('#navigator', {
+			currentUser: currentUser,
+			projects: projects,
+			categories: categories
 		});
 
 		new Login('#login', {
 			currentUser: currentUser,
 			newpostVisibility: newpostVisibility
 		});
-		new Filterbar('#filterbar', {
-			currentUser: currentUser,
-			projects: projects,
-			categories: categories
-		});
+
 		new Newpost('#newpost-form-container', {
 			currentUser: currentUser,
 			projects: projects,
@@ -200,3 +213,4 @@ steal(
 
 		new UI.Onbottom(document, {treshold: 200});
 	});
+

@@ -16,7 +16,6 @@ steal(
 			findOne : 'GET /api/users/{id}',
 			create  : 'POST /api/users',
 			update  : 'PUT /api/users/{id}',
-			destroy : 'DELETE /api/users/{id}'
 			
 		}, {
 			fromSession: function() {
@@ -43,8 +42,27 @@ steal(
 				return data;
 			},
 
+			isAdmin: function() {
+				return _.include(this.attr('roles'), 'admin');
+			},
+
+			loggedIn: function() {
+				return this.attr('loggedIn');
+			},
+
 			login: function(provider) {
 				auth.login.apply(this, [ providers[provider] ]);
+			},
+
+			manageRoles: function(action, role) {
+				var self = this;
+				can.ajax({
+					url: '/api/users/'+self.id+'/'+action+'role',
+					data: { role: role },
+					type: 'PUT'
+				}).done(function(data) {
+					self.attr('roles', data.roles);
+				})
 			},
 
 			logout: function() {
@@ -62,4 +80,5 @@ steal(
 		});
 
 		return User;
-	});
+	}
+);

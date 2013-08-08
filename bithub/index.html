@@ -1,57 +1,44 @@
 <!DOCTYPE HTML>
 <html lang="en">
-  <head>
-	<script type="text/javascript">
-	  START_TIME = new Date();
-	</script>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>BitHub | activity on our open-source projects</title>
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
-	<link href="http://fonts.googleapis.com/css?family=Just+Another+Hand" rel="stylesheet" type="text/css">
-  </head>
-  <body>
+<head>
+<script type="text/javascript">
+START_TIME = new Date();
+</script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>BitHub | activity on our open-source projects</title>
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Just+Another+Hand" rel="stylesheet" type="text/css">
+</head>
+<body>
 
-	<div id="container">
+<div id="container">
 
-	  <!-- NAVBAR -->
-	  <div id="navbar" class="navbar">
+	<div id="navbar" class="navbar">
 		<div class="navbar-inner">
-		  <div class="container">
-
-			<a class="brand" href="/">BitHub</a>
-			<div id="filterbar" class="nav-collapse"></div>
-			<ul id="login" class="nav"></ul>
-
-		  </div>
+			<div class="container inner-navbar-container">
+				<a class="brand" href="/">BitHub</a>
+				<div id="navigator" class="nav-collapse"></div>
+				<ul id="login" class="nav pull-right"></ul>
+			</div>
 		</div>
-	  </div>
-	  <!-- /NAVBAR -->
-	  
-	  <!-- NEW POST -->
-	  <div id="newpost-form-wrapper">
-		<div id="newpost-form-container" class="hidden">
-		</div>
-		<div id="newpost-bottom-separator"></div>
-	  </div>
-	  <!-- /NEW POST -->
-	  
-	  <!-- CONTENT -->
-	  <div id="content" class="container">
-		<div class="row">
-
-		  <div id="pages"></div>
-		  
-		</div>
-	  </div>
-	  <!-- /CONTENT -->
-
 	</div>
 
-	<div id="bootstrapModals"></div>
-	
-	<div id="statusbar"></div>
-	
-	<script type="text/javascript" src="/steal/steal.js?bithub"></script>		  
+	<div id="newpost-form-wrapper">
+		<div id="newpost-form-container" class="hidden"></div>
+		<div id="newpost-bottom-separator"></div>
+	</div>
 
-  </body>
+	<div id="content" class="container content-container">
+		<div id="pages" class="row"></div>
+	</div>
+
+</div>
+
+<div id="bootstrapModals"></div>
+
+<div id="statusbar"></div>
+
+<script type="text/javascript" src="/steal/steal.js?bithub"></script>		  
+
+</body>
 </html>
