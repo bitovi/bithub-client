@@ -68,13 +68,21 @@ steal(
 
 		can.EJS.Helpers.prototype.renderEventTags = function (event) {
 			var buffer = "";
-			
-			can.each(visibleTags, function( tag ) {
-				if( event.attr('tags').indexOf( tag.attr('name') ) >= 0 ) {
-					buffer += "<li class=\"tag-name " + tag.attr('name') +  "\"><a href=\"#\"><small>" + tag.attr('display_name') + "</small></a></li>";
+
+			can.each(event.attr('tags'), function( eventTag ) {
+				var matched = false;
+				
+				visibleTags.each(function( visibleTag ) {
+					var name = visibleTag.attr('name'),
+						display_name = visibleTag.attr('display_name') || visibleTag.attr('name');
 					
-				}				
+					if( name == eventTag && !matched ) {
+						buffer += "<li class=\"tag-name " + name +  "\"><a href=\"#\"><small>" + display_name + "</small></a></li>";
+						matched = true;
+					}
+				});
 			});
+			
 			return buffer;
 		}
 
@@ -181,6 +189,12 @@ steal(
 				this.load(this.appendEvents);
 			},
 
+			fillDocumentHeight: function() {
+				if( $(document).height() <= $(window).height() + 200 ) {
+					this.canLoad() && $(window).trigger('onbottom');
+				}				
+			},
+
 			/*
 			 * Functions
 			 */
@@ -210,6 +224,9 @@ steal(
 				this.spinnerTop(false);
 				this.postRendering();
 				window.scrollTo(0, 0);
+
+				// load events until document height exceeds window height
+				this.fillDocumentHeight();
 			},
 
 			appendEvents: function (events) {
@@ -225,13 +242,16 @@ steal(
 
 				if (view === 'latest') {
 					this.latestEvents.appendEvents(events);
-					this.spinnerBottom(false);
 				} else if (view === 'greatest') {
 					this.greatestEvents.push.apply(this.greatestEvents, events);
-					this.spinnerBottom(false);
 				}
 
-				// maybe to do this for any category?
+				this.spinnerBottom(false);
+
+				// load events until document height exceeds window height
+				this.fillDocumentHeight();
+
+				// always load entire day for chat
 				if( can.route.attr('category') === 'chat' ) {
 					if (this.latestEvents.days.length === daysNum) {
 						$(window).trigger('onbottom');
