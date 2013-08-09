@@ -8,8 +8,13 @@ steal(
 		}, {
 			init : function (el, opts) {
 				Reward.findAll({}, function(rewards) {
+
 					el.html(rewardsView({
 						rewards: rewards
+					}, {
+						rewardThumb: function(arg) {
+							return arg.image.thumb.url;
+						}
 					}));
 				});
 			}
