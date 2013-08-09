@@ -3,14 +3,16 @@ steal(
 	'bithub/homepage/homepage.ejs',
 	'bithub/homepage/event_list',
 	'bithub/homepage/event_details',
+	'bithub/homepage/rewards',
 	'bithub/homepage/sidebar',
 	'bithub/helpers/fun_helpers.js',
-	function(can, homepageView, EventList, EventDetails, Sidebar, f) {
+	function(can, homepageView, EventList, EventDetails, Rewards, Sidebar, f) {
 
 		var defined = _.compose(_.isUndefined, f.complement);
 
 		var pickControl = function (currentView) {
-			if (currentView === 'details') return EventDetails;
+			if (currentView === 'details') return EventDetails
+			else if (currentView === 'rewards') return Rewards
 			return EventList;
 		}
 
@@ -37,18 +39,6 @@ steal(
 			},
 
 			'{can.route} view' : function (route, ev, newVal, oldVal) {
-				// this.options.buffers[oldVal] = this.element.find("#main-container > div").detach();
-
-				// console.log(this.options.buffers);
-				// if (this.options.buffers[newVal]) {
-				// 	this.element.find('#main-container > div')
-				// 		.removeClass('clean')
-				// 		.addClass('buffered')
-				// 		.html(this.options.buffers[newVal]);
-				// } else if (switchingControls(newVal, oldVal)) {
-				// 	this.initView(newVal)
-				// }
-				
 				if (switchingControls(newVal, oldVal)) {
 					this.initControl(newVal)
 				}
@@ -66,3 +56,17 @@ steal(
 		});
 	}
 );
+
+
+/* BUFFERING ON ROUTE CHANGE */
+// this.options.buffers[oldVal] = this.element.find("#main-container > div").detach();
+
+// console.log(this.options.buffers);
+// if (this.options.buffers[newVal]) {
+// 	this.element.find('#main-container > div')
+// 		.removeClass('clean')
+// 		.addClass('buffered')
+// 		.html(this.options.buffers[newVal]);
+// } else if (switchingControls(newVal, oldVal)) {
+// 	this.initView(newVal)
+// }

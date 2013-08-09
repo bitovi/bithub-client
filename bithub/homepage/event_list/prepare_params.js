@@ -18,12 +18,12 @@ steal(
 					offset: 0,
 					limit: 25
 				}),
-				details: new can.Observe({
-				})
+				details: new can.Observe({}),
+				rewards: new can.Observe({})
 			},
 			profile: {
 				info: new can.Observe(),
-				activities:  new can.Observe(),
+				activities:  new can.Observe()
 			},
 			admin: {
 				users: new can.Observe(),

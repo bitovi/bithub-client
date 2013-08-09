@@ -10,7 +10,8 @@ steal(
 		}, {
 			init : function( elem, opts ) {
 				elem.html(sidebarView({
-					user: opts.currentUser
+					user: opts.currentUser,
+					rewardsUrl: can.route.url({page: 'homepage', view: 'rewards'}, false)
 				}));
 				new Leaderboard(elem.find('#leaderboard'), opts);
 			},

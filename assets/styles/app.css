@@ -1297,7 +1297,7 @@ h4.handwriting {
 	background: url(/assets/images/carets.png) no-repeat left 0;
 }
 
-/* Events --------------------------------------------------------- */
+/* Event list and events --------------------------------------------------------- */
 
 .event-list.top-rated {
 	margin-top: 20px;
@@ -2008,6 +2008,12 @@ h4.handwriting {
 
 .twitter-hashtag, .twitter-mention {
 	font-weight: bold;
+}
+
+
+/* Reward list and rewards ------------------------------- */
+.reward-list {
+	margin: 10px;
 }
 
 /* For Retina Displays */

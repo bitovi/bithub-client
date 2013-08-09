@@ -2,11 +2,10 @@ steal(
 	'can',
 	'bithub/homepage',
 	'bithub/profile',
-	'bithub/rewards',
 	'bithub/admin',
 	'./no_permissions.ejs',
 	'bithub/helpers/permission_checker.js',
-	function(can, Homepage, Profile, Rewards, AdminPanels, noPermsView, pc) {
+	function(can, Homepage, Profile, AdminPanels, noPermsView, pc) {
 		
 		var delay = function (fn) { setTimeout(fn, 0) };
 
@@ -15,7 +14,6 @@ steal(
 				pages: {
 					'homepage': Homepage,
 					'profile': Profile,
-					'rewards': Rewards,
 					'admin': AdminPanels
 				}
 			}
