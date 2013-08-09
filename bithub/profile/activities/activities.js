@@ -11,8 +11,8 @@ steal(
 			init : function(element, options){
 
 				element.html(activitiesView({
-					routes: options.subpageRoutes,
-					user: options.currentUser
+					user: options.currentUser,
+					links: options.links
 				}, {
 					helpers: {
 						getPoints: function (opts) {

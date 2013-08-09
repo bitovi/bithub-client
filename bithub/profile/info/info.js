@@ -19,7 +19,7 @@ steal(
 				element.html(profileInfoView({
 					countries: countries,
 					user: opts.currentUser,
-					routes: opts.subpageRoutes
+					links: opts.links
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {
@@ -40,10 +40,10 @@ steal(
 
 			loadCountries: function() {
 				var self = this,
-				countries = new can.Observe.List();
+					countries = new can.Observe.List();
 
-				Country.findAll({order: 'name'}, function( data ) {
-					countries.replace( data );
+				Country.findAll({order: 'name'}, function (data) {
+					countries.replace(data);
 					self.element.find('#countryISO').val( self.options.currentUser.attr('country.iso') );
 				});
 

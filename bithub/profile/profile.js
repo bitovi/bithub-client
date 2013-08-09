@@ -11,9 +11,9 @@ steal(
 					info: ProfileInfoControl,
 					activities: ProfileActivitiesControl
 				},
-				subpageRoutes: {
-					info: can.route.url({page: 'profile', view: 'info'}, false),
-					activities: can.route.url({page: 'profile', view: 'activities'}, false)
+				links: {
+					info: can.route.link("Profile", {page: 'profile', view: 'info'}),
+					activities: can.route.link("Points & Activity", {page: 'profile', view: 'activities'})
 				}
 			}
 		}, {
@@ -21,7 +21,7 @@ steal(
 				this.initView(can.route.attr('view'), opts);
 			},
 
-			'{can.route} change' : function (fn, ev, newVal, oldVal) {
+			'{can.route} view' : function (fn, ev, newVal, oldVal) {
 				this.initView(newVal);
 			},
 			
@@ -30,7 +30,6 @@ steal(
 			},
 
 			initView : function (currentView) {
-				console.log(currentView);
 				var control = this.options.views[currentView],
 					$div = $('<div/>');
 
