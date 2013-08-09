@@ -6,21 +6,19 @@ steal(
 		return can.Control({
 			defaults: {}
 		},{
-			init: function( element, opts ) {
+			init: function (element, opts) {
+
 
 				element.html(initView({
 					user: opts.currentUser,
 					routes: {
-						profile: can.route.url({page: 'profile'}, false),
+						profile: can.route.url({page: 'profile', view: 'info'}, false),
 						activities: can.route.url({page: 'profile', view: 'activities'}, false),
 						admin: can.route.url({page: 'admin'}, false)
 					}
 				}, {
-					notInAdminUI: function(opts) { 
-						return (can.route.attr('page') !== 'admin') ? opts.fn(this) : opts.inverse(this);
-					},
-					isloggedIn: function(arg, opts) {
-						return arg.loggedIn() ? opts.fn(this) : opts.inverse(this);
+					isLoggedIn: function(arg, opts) {
+						return (arg.attr('isLoggedIn')) ? opts.fn(this) : opts.inverse(this);
 					}
 				}));
 			},

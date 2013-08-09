@@ -41,19 +41,15 @@ steal(
 				}).done(function(data) {
 					//self.attr(can.Model.model(data).attr());
 					self.attr(cleanupData(data));
-					self.attr('loggedIn', true);
+					self.attr('isLoggedIn', true);
 				}).fail(function(response) {
-					self.attr('loggedIn', false);
+					self.attr('isLoggedIn', false);
 					console.error(response);
 				});
 			},
 
 			isAdmin: function() {
 				return _.include(this.attr('roles'), 'admin');
-			},
-
-			loggedIn: function() {
-				return this.attr('loggedIn');
 			},
 
 			login: function(provider) {

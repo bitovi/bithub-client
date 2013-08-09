@@ -44,8 +44,8 @@ steal(
 					breakAt: breakAt,
 					topLength: topLength
 				}, {
-					isLoggedin: function (opts) {
-						return (this.loggedIn() ? 'active' : '');
+					isLoggedIn: function (opts) {
+						return (this.attr('isLoggedIn') === true)  ? 'active' : '';
 					}
 				}));
 
@@ -65,7 +65,7 @@ steal(
 
 				this.options.users.each(function (user, i) {							  
 					if (self.options.currentUser.attr('id') === user.attr('id')) {
-						user.attr('loggedIn', true); // otherwise won't mark user on first login
+						user.attr('isLoggedIn', true); // otherwise won't mark user on first login
 						rank( i );
 					}
 				});

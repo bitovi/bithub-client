@@ -116,7 +116,7 @@ steal(
 			projects          = new can.Model.List(),
 			categories        = new can.Model.List(),
 			feeds             = new can.Model.List(),
-			currentUser       = new User({loggedIn: undefined}),
+			currentUser       = new User({isLoggedIn: undefined}),
 			preloadedEvents   = new Bithub.Models.Event.List([{}]);
 
 
@@ -137,7 +137,7 @@ steal(
 			var self = this,
 				speed = 300;
 
-			if( attr === 'loggedIn' ) {
+			if( attr === 'isLoggedIn' ) {
 				newVal === true ? $('.logged-out').fadeOut( speed ) : $('.logged-in').fadeOut( speed );
 				setTimeout(function() {
 					self.attr('loggedInDelayed', newVal );

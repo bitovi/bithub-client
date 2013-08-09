@@ -42,7 +42,7 @@ steal(
 				}
 			},
 
-			'{currentUser} loggedIn' : function () {
+			'{currentUser} isLoggedIn' : function () {
 				delay(this.initControl(can.route.attr('page')));
 			}
 		});

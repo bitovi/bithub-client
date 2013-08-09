@@ -205,7 +205,7 @@ steal(
 					this.options.visibility( !this.options.visibility() );
 				},
 
-				'{currentUser} loggedIn change': function( wat, ev, attr, how, newVal, oldVal) {
+				'{currentUser} isLoggedIn': function( wat, ev, attr, how, newVal, oldVal) {
 					if (!newVal || newVal === false) this.element.slideUp();
 				},
 

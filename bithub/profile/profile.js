@@ -25,7 +25,7 @@ steal(
 				this.initView(newVal);
 			},
 			
-			'{currentUser} loggedIn' : function (fn, ev, newVal, oldVal) {
+			'{currentUser} isLoggedIn' : function (fn, ev, newVal, oldVal) {
 				if (newVal == false) can.route.attr({'page': 'homepage', 'view': 'latest'});
 			},
 
