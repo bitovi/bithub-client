@@ -4,7 +4,10 @@ steal(
 	'bithub/homepage/event_list',
 	'bithub/homepage/event_details',
 	'bithub/homepage/sidebar',
-	function(can, homepageView, EventList, EventDetails, Sidebar) {
+	'bithub/helpers/fun_helpers.js',
+	function(can, homepageView, EventList, EventDetails, Sidebar, f) {
+
+		var defined = _.compose(_.isUndefined, f.complement);
 
 		var pickControl = function (currentView) {
 			if (currentView === 'details') return EventDetails;
@@ -27,9 +30,9 @@ steal(
 				new Sidebar(elem.find('#sidebar-container'), this.options);
 
 				// sometimes responses from /auth/session comes before this control is initialized
-				var loggedIn = opts.currentUser.attr('loggedIn');
-				if( loggedIn != undefined ) {
-					opts.currentUser._triggerChange('loggedIn', 'change', loggedIn, loggedIn);
+				var isLoggedIn = opts.currentUser.attr('isLoggedIn');
+				if (defined(isLoggedIn)) {
+					opts.currentUser._triggerChange('isLoggedIn', 'change', loggedIn, loggedIn);
 				}
 			},
 

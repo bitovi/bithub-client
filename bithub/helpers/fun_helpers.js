@@ -2,7 +2,6 @@ steal(
 	'vendor/lodash',
 	function (_) {
 		return {
-
 			checker: function (/* validators */) {
 				var validators = _.toArray(arguments);
 
@@ -14,13 +13,19 @@ steal(
 				};
 			},
 
-			validator: function (message, fun) {
-				var f = function (/* args */) {
-					return fun.apply(fun, arguments);
+			validator: function (message, fn) {
+				var _f = function (/* args */) {
+					return fn.apply(fn, arguments);
 				};
 
-				f['message'] = message;
-				return f;
+				_f['message'] = message;
+				return _f;
+			},
+
+			complement: function (fn) {
+				return function() {
+					return !pred.apply(null, _.toArray(arguments));
+				}
 			}
 		}
 	}

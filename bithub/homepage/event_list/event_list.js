@@ -15,13 +15,15 @@ steal(
 	'bithub/models/event.js',
 	'bithub/models/upvote.js',
 	'bithub/models/award.js',
+	'bithub/helpers/fun_helpers.js',
 	'can/construct/proxy',
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
 	'can/observe/delegate',
-	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, determineEventPartial, Handlers, TimespanFilter, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award) {
+	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, determineEventPartial, Handlers, TimespanFilter, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var visibleTags = new can.Observe.List();				
+		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
 		// used for ordering categories on latest view
 		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'],
@@ -103,7 +105,14 @@ steal(
 
 				can.extend(can.EJS.Helpers.prototype, {
 					isAdmin: function () {
-						return opts.currentUser.attr('admin');
+						var roles = opts.currentUser.attr('roles');
+						return areNotEmpty(roles) && _.contains(roles, 'admin');
+					}
+				});
+
+				can.extend(can.EJS.Helpers.prototype, {
+					isLoggedIn: function () {
+						return opts.currentUser.attr('isLoggedIn');
 					}
 				});
 
