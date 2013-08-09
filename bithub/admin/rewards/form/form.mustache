@@ -1,1 +1,34 @@
-<div id="new-reward" class="row">	<form class="form-horizontal">		<div class="control-group">			<label class="control-label" for="title">Title</label>			<div class="controls">				<input type="text" name="reward[title]" placeholder="Title" value="{{reward.title}}" />			</div>		</div>		<div class="control-group">			<label class="control-label" for="point-mimimum">Point minimum</label>			<div class="controls">				<input type="text" name="reward[point_minimum]" placeholder="Point minimum" value="{{reward.point_minimum}}" />			</div>		</div>		<div class="control-group">			<label class="control-label" for="description">Description</label>			<div class="controls">				<textarea name="reward[description]" placeholder="Description..."/>				</textarea>			</div>		</div>		<div class="control-group">			<label class="control-label" for="point-value">Image</label>			<div class="controls">				<input type="file" name="reward[image]" />			</div>		</div>		<div class="control-group">			<div class="controls">				<button type="submit" name="submit" class="btn">Submit</button>			</div>		</div>	</form></div>
+<div id="new-reward" class="row">
+	<form class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="reward-title">Title</label>
+			<div class="controls">
+				<input type="text" id="reward-title" name="reward[title]" placeholder="Title" value="{{reward.title}}" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="reward-point-mimimum">Point minimum</label>
+			<div class="controls">
+				<input type="text" id="reward-point-mimimum" name="reward[point_minimum]" placeholder="Point minimum" value="{{reward.point_minimum}}" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="reward-description">Description</label>
+			<div class="controls">
+				<textarea id="reward-description" name="reward[description]" placeholder="Description..."/>
+				</textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="reward-image">Image</label>
+			<div class="controls">
+				<input type="file" id=reward-image" name="reward[image]" />
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" name="submit" class="btn">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>

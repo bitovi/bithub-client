@@ -16,6 +16,7 @@ steal(
 					url: '/api/rewards',
 					datatype: 'json',
 					limitMultiFileUploads: 1,
+					replaceFileInput: false,
 					acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
 					add: function(el, data) {
 						self.options.fileData = data;
@@ -36,7 +37,7 @@ steal(
 					reward.save();
 				}
 			},
-			
+
 			'{Reward} created' : function(el, ev) {
 				can.route.attr({ page: 'admin', view: 'rewards', action: 'list' });
 			},
