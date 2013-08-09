@@ -31,9 +31,10 @@ steal(
 				if (!pc.hasPermissions(this.options.currentUser, control)) {
 					new Filterbar($div, this.options);
 					this.element.html($div);
-				} else {
+				} else if (!_.isEqual(currentPage, this._currentPage)) {
 					new control($div, this.options);
 					this.element.html($div);
+					this._currentPage = currentPage;
 				}
 			},
 
