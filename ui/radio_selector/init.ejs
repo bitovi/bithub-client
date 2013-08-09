@@ -1,7 +1,5 @@
+<% can.each(items, function(item) { %>
 <li>
-<a href="<%= filterUrl({view: 'latest', timespan: 'all'}) %>" class="latest boxed item <%= isSelected('latest') %>"><span class="glyph"></span>Latest</a>
+<a href="<%= itemUrl(item) %>" class="<%= item.name %> boxed item <%= isSelected(item) %>"><span class="glyph"></span><%= item.display_name %></a>
 </li>  
-
-<li>
-<a href="<%= filterUrl({view: 'greatest', timespan: 'week'}) %>" class="greatest boxed item <%= isSelected('greatest') %>"><span class="glyph"></span>Greatest</a>
-</li>  
+<% }); %>
