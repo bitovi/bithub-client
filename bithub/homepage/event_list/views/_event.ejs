@@ -8,9 +8,26 @@
   <!-- upvotes -->
   <div class="span1 votes">
 	<div class="uparrow"></div>
-	<div class="count"><%= event.attr('upvotes') %></div>
-	<div class="voteup "><span class="upvote-caret"></span>Vote up</div>
-	<% if ( event.award_closed() ) { %><div class="awarded">awarded</div><% } %>
+	<div class="count">
+		<%= event.attr('upvotes') %>
+	</div>
+
+	<div class="voteup-btn">
+		<span class="upvote-caret"></span>Vote up
+	</div>
+
+	<% if (!event.award_closed() && isLoggedIn() && isAdmin()) { %>
+	<div class="award-btn">
+		<div class="word"><span>Award</span></div>
+		<div class="caret-right"></div>
+		<div class="clearfix"></div>
+	</div>
+	<% } %>
+
+	<% if (event.award_closed()) { %>
+	<div class="awarded">Awarded</div>
+	<% } %>
+
 	<div class="clearfix"></div>
   </div>
 

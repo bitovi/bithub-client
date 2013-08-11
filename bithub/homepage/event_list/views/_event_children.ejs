@@ -1,25 +1,40 @@
 <div class="replies row">
-  <span class="replies-caret"></span>
-  <% list(events, function( event ) { %>
-  <div class="reply-event row" <%= (el) -> el.data('eventObj', event)  %> >
-	<% if( event.attr('props.awarded') ) { %><div class="awarded-badge"></div><% } %>
-	<% if( !event.attr('award_closed') ) { %><div class="award-btn"><a href="#"><span class="caret"></span>Award</a></div><% } %>
-	
-	<div class="votes">
-	  <div class="uparrow"></div>
-	  <div class="count"><%= event.attr('upvotes') %></div>
-	</div>
-	<div class="body reply">
-	  <% if( event.attr('body') ) { %>
-	  <%== event.attr('body') %>
-	  <% } else { %>
-	  <%== event.attr('title') %>
-	  <% } %>
-	  <div class="event-metadata pull-right">
-		<a href="#"><%== event.attr('author.name') || event.attr('props.origin_author_name') %></a> / 
-		<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
-	  </div>
-	</div>
-  </div>
-  <% }) %>
-</div>
+	<span class="replies-caret"></span>
+	<% list(events, function( event ) { %>
+
+		<div class="reply-event row" <%= (el) -> el.data('eventObj', event)  %> >
+
+			<% if (event.attr('props.awarded')) { %>
+				<div class="awarded-badge"></div>
+			<% } %>
+
+			<% if (!event.attr('award_closed')) { %>
+				<div class="award-btn">
+					<a href="#"><span class="caret"></span>Award</a>
+				</div>
+			<% } %>
+
+			<div class="votes vote-btn">
+				<div class="uparrow"></div>
+				<div class="count"><%= event.attr('upvotes') %></div>
+			</div>
+
+			<div class="body reply">
+
+				<% if( event.attr('body') ) { %>
+					<%== event.attr('body') %>
+				<% } else { %>
+					<%== event.attr('title') %>
+				<% } %>
+
+				<div class="event-metadata pull-right">
+					<a href="#"><%== event.attr('author.name') || event.attr('props.origin_author_name') %></a> / 
+					<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
+				</div>
+
+			</div> <!-- /.body -->
+
+		</div> <!-- /.reply-event -->
+
+	<% }) %>
+</div> <!-- /.replies -->

@@ -16,11 +16,11 @@ steal('can',
 			},
 
 			award_closed: function() {
-				var closed = false;
+				var chlClosed = false, parClosed = this.attr('props').attr('awarded');
 				this.attr('children').forEach( function( child ) {
-					if (child.attr('props').attr('awarded')) closed = true;
+					if (child.attr('props').attr('awarded')) chlClosed = true;
 				});
-				return closed;
+				return parClosed || chlClosed;
 			},
 			
 			getAuthorName: function() {

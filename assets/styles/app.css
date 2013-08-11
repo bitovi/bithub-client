@@ -1485,7 +1485,7 @@ h4.handwriting {
 	color: #000;
 }
 
-.event .votes .voteup {
+.event .votes .voteup-btn {
 	border-radius: 3px;
 	display: none;
 	color: #fff;
@@ -1498,17 +1498,17 @@ h4.handwriting {
 	background: url(/assets/images/carets.png) no-repeat -9999px 0 #169410;
 }
 
-.event .votes .voteup.upvoted {
+.event .votes .voteup-btn.upvoted {
 	background-color: #7b7b7b;
 }
 
-.event:hover .votes .voteup {
+.event:hover .votes .voteup-btn {
 	display: block;
 	z-index: 10;
 	width: 100%;
 }
 
-.event .votes .voteup .upvote-caret {
+.event .votes .voteup-btn .upvote-caret {
 	display: block;
 	height: 4px;
 	margin-left: 4px;
@@ -1516,7 +1516,7 @@ h4.handwriting {
 	width: 8px;
 	background: url(/assets/images/carets.png) no-repeat -9px 0;
 }
-.event .votes .voteup.upvoted .upvote-caret {
+.event .votes .voteup-btn.upvoted .upvote-caret {
 	background: url(/assets/images/carets.png) no-repeat -17px 0;
 }
 .event .votes .awarded {
@@ -1681,6 +1681,37 @@ h4.handwriting {
 	height: 37px;
 	position: absolute;
 	left: -34px;
+}
+
+.event:hover .votes .award-btn { display: block; }
+.event .votes .award-btn {
+	display: none;
+	position: absolute;
+	top: 43px;
+	color: #fff;
+	height: 20px;
+	width: 54px;
+}
+
+.event .votes .award-btn .word {
+	position: relative;
+	text-align: center;
+	background-color: #ff8d1a;
+	font-size: 11px;
+	width: 93%;
+	border-radius: 3px;
+	float: left;
+}
+
+.event .votes .award-btn .caret-right {
+	background-image: url(/assets/images/carets.png);
+	background-position: -23px 7px;
+	background-size: 30px 6px;
+	background-repeat: no-repeat;
+	position: absolute;
+	right: 0px;
+	width: 7px;
+	height: 100%;
 }
 
 .reply-event .award-btn {
