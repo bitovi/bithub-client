@@ -63,6 +63,7 @@ steal(
 			if (can.route.attr('project') !== 'all') query.tag = can.route.attr('project');
 			if (can.route.attr('category') !== 'all') query.category = can.route.attr('category');
 			if (can.route.attr('timespan') !== 'all') query.thread_updated_date = timespanFilter(can.route.attr('timespan'));
+			if (can.route.attr('state') !== 'both') query.state = can.route.attr('state');
 
 			return query;
 		};

@@ -9,6 +9,7 @@ steal(
 	'bithub/homepage/event_list/determine_event_partial.js',
 	'bithub/homepage/event_list/handlers',
 	'bithub/homepage/event_list/timespan_filter',
+	'bithub/homepage/event_list/issue_state_filter',
 	'bithub/homepage/event_list/spinner',
 	'bithub/homepage/event_list/post_render',
 	'bithub/homepage/event_list/latest_events_sorter.js',
@@ -20,7 +21,7 @@ steal(
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
 	'can/observe/delegate',
-	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, determineEventPartial, Handlers, TimespanFilter, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
+	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, determineEventPartial, Handlers, TimespanFilter, IssueStateFilter, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var visibleTags = new can.Observe.List();				
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
@@ -146,7 +147,8 @@ steal(
 				});
 
 				new PostRendering(this.element);
-				new TimespanFilter( this.element.find('#timespan-filter') );
+				new TimespanFilter(this.element.find('#timespan-filter'));
+				new IssueStateFilter(this.element.find('#issue-state-filter'));
 
 				this.spinnerTop(true);
 			},
@@ -161,6 +163,7 @@ steal(
 			'{can.route} project': "reload",
 			'{can.route} category': "reload",
 			'{can.route} timespan': "reload",
+			'{can.route} state': "reload",
 
 			'{Bithub.Models.Event} reload': "reload",
 
