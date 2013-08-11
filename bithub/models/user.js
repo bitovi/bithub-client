@@ -3,8 +3,8 @@ steal(
 	'../helpers/auth.js',
 	function (can, auth) {
 		var parse10 = function(str) { return parseInt(str, 10) };
-		var existy = function(x) { return x!==null && x!==undefined }
-		var isStringNully = function(x) { return x==='null' || x==='undefined' }
+		var existy = function(x) { return x!==null && x!==undefined };
+		var isStringNully = function(x) { return x==='null' || x==='undefined' };
 
 		var cleanupData = function (data) {
 			data.activities = _.filter(data.activities, function(el) {
@@ -12,7 +12,7 @@ steal(
 			});
 
 			_.each(data.keys, function(key) {
-				if (isStringNully(data[key])) data[key] = ''
+				if (isStringNully(data[key])) data[key] = '';
 			});
 
 			return data;
@@ -30,7 +30,7 @@ steal(
 			findAll : 'GET /api/users',
 			findOne : 'GET /api/users/{id}',
 			create  : 'POST /api/users',
-			update  : 'PUT /api/users/{id}',
+			update  : 'PUT /api/users/{id}'
 
 		}, {
 			fromSession: function() {

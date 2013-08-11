@@ -19,7 +19,6 @@ steal(
 	'assets/styles/bootstrap.css',
 	'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
-	//'vendor/socketio/socket.io.js',
 	function(can, PageSwitcher, Navigator, Login, Newpost, prepareParams, Modals, Event, Tag, User, loadtime) {
 		var self = this;
 
@@ -33,7 +32,7 @@ steal(
 		
 		// Routes
 
-		var routePrefix = '/bithub';
+		var routePrefix = '';
 		
 	    var projectNames = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
 			categoryNames = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin', 'event'],

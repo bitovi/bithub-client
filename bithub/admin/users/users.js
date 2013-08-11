@@ -57,7 +57,7 @@ steal(
 				} else {
 					this.loadList();
 				}
-			},
+			}
 		});
 	}
 );

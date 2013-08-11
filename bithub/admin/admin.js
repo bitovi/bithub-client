@@ -13,7 +13,7 @@ steal(
 					users: UsersControl,
 					rewards: RewardsControl,
 					tags: TagsControl
-				},
+				}
 			},
 			pluginName : 'admin'
 		}, {

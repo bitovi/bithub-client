@@ -25,7 +25,7 @@ steal(
 				defaultOption: {
 					name: 'all',
 					display_name: 'All'
-				},
+				}
 			}
 		}, {
 			init : function( elem, opts ){
