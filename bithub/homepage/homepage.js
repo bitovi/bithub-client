@@ -39,10 +39,7 @@ steal(
 			},
 
 			'{can.route} view' : function (route, ev, newVal, oldVal) {
-				if (switchingControls(newVal, oldVal)) {
-					this.initControl(newVal)
-				}
-				
+				this.initControl(newVal)
 			},
 
 			initControl : function (newView) {
@@ -56,17 +53,3 @@ steal(
 		});
 	}
 );
-
-
-/* BUFFERING ON ROUTE CHANGE */
-// this.options.buffers[oldVal] = this.element.find("#main-container > div").detach();
-
-// console.log(this.options.buffers);
-// if (this.options.buffers[newVal]) {
-// 	this.element.find('#main-container > div')
-// 		.removeClass('clean')
-// 		.addClass('buffered')
-// 		.html(this.options.buffers[newVal]);
-// } else if (switchingControls(newVal, oldVal)) {
-// 	this.initView(newVal)
-// }

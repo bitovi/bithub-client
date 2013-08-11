@@ -6,11 +6,15 @@ steal(
 	function(can, initView){
 		var items = new can.Observe.List();
 
+		var forceViewChange = function (newView) {
+			if (!_.contains(['latest', 'greatest'], newView)) return 'latest';
+		}
+
 		var smartSelectorItemRoute = can.compute(function(item) {
 			return can.route.url({
 				category: item.name,
 				project: can.route.attr('project') || 'all',
-				view: can.route.attr('view') || 'all'
+				view: forceViewChange(can.route.attr('view'))
 			}, false);
 		});
 

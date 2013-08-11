@@ -3,11 +3,16 @@ steal(
 	'./init.ejs',
 	'vendor/bootstrap',
 	function(can, initView){
-		var makeRouteForOption = can.compute(function(item) {
+
+		var forceViewChange = function (newView) {
+			if (!_.contains(['latest', 'greatest'], newView)) return 'latest';
+		}
+				
+		var dropdownItemRoute = can.compute(function(item) {
 			return can.route.url({
 				project: item.name,
 				category: can.route.attr('category') || 'all',
-				view: can.route.attr('view') || 'all'
+				view: forceViewChange(can.route.attr('view'))
 			}, false);
 		});
 
@@ -36,7 +41,7 @@ steal(
 						return selected;
 					},
 					itemUrl: function (item) {
-						return item.url || makeRouteForOption(item);
+						return dropdownItemRoute(item);
 					}
 				}));
 			}

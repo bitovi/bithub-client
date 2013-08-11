@@ -26,7 +26,7 @@ steal(
 			'{can.route} page': function( route, ev, newVal, oldVal ) {
 				this.initControl( newVal );
 			},
-
+			
 			initControl: function(currentPage) {
 				var control = this.options.pages[currentPage],
 					$div = $('<div/>');
@@ -44,4 +44,5 @@ steal(
 				delay(this.initControl(can.route.attr('page')));
 			}
 		});
-	});
+	}
+);

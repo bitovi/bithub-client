@@ -35,6 +35,9 @@ steal(
 		timespanFilter = function( timespan ) {						
 			var	format = 'YYYY-MM-DD';
 
+			if (can.route.attr('view') !== 'greatest')
+				return undefined;
+
 			var timespans = {
 				day: moment.utc().format(format),
 				week: moment.utc().subtract('days', 7).format(format) + ":" + moment.utc().format(format),
@@ -51,13 +54,14 @@ steal(
 
 		prepareParams = function( params ) {
 
+
 			// determine current page/view combo
-			var currentPage = can.route.attr('page'),
-				currentView = can.route.attr('view'),
-				currentQuery = queryTracker[currentPage][currentView];
+			var currentPage = can.route.attr('page') || 'homepage',
+				currentView = can.route.attr('view') || 'latest',
+				cq = queryTracker[currentPage][currentView];
 
 			// build query
-			var query = can.extend({}, currentQuery.attr() || {}, params || {});
+			var query = can.extend({}, (cq ? cq.attr() : {}), params || {});
 
 			// append filters
 			if (can.route.attr('project') !== 'all') query.tag = can.route.attr('project');

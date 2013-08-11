@@ -1,9 +1,9 @@
 <li><a class="disabled">Filter:</a></li>
-<li><a href="<%= filterUrl({category: defaultOption.name}) %>" class="item default <%= isSelected(defaultOption) %>"><%= defaultOption.attr('display_name') %></a></li>	
+<li><a href="<%= itemUrl(defaultOption) %>" class="item default <%= isSelected(defaultOption) %>"><%= defaultOption.attr('display_name') %></a></li>	
 
 <% can.each(items, function(item, idx) { %>
 <% if (idx < breakIdx) { %>
-<li><a href="<%= filterUrl({category: item.name}) %>" <%= (el) -> can.data(el, 'item', item) %> class="item <%= isSelected(item) %>"><%= item.display_name %></a></li>	
+<li><a href="<%= itemUrl(item) %>" <%= (el) -> can.data(el, 'item', item) %> class="item <%= isSelected(item) %>"><%= item.display_name %></a></li>	
 <% } %>
 <% }) %>
 
@@ -12,7 +12,7 @@
   <ul class="dropdown-menu">	
 	<% can.each(items, function(item, idx) { %>
 	<% if (idx >= breakIdx) { %>
-	<li><a href="<%= filterUrl({category: item.name}) %>" class="item"><%= item.display_name %></a></li>	
+	<li><a href="<%= itemUrl(item) %>" class="item"><%= item.display_name %></a></li>	
 	<% } %>
 	<% }) %>
   </ul>

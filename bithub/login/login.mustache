@@ -1,6 +1,6 @@
 <li class="divider-vertical"></li>
 
-{{#isLoggedIn user}}
+{{#if user.loggedInDelayed}}
 
 <li class="logged-in">
   <div class="gradient-border-wrapper">
@@ -35,4 +35,4 @@
   </ul>
 </li>
 
-{{/isLoggedIn}}
+{{/if}}

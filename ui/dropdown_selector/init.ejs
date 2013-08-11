@@ -1,9 +1,9 @@
 <li class="dropdown active" {{#if htmlId}}id="{{htmlId}}"{{/if}}>
   <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="title"><%= selected() %></span><b class="caret"></b></a>
   <ul class="dropdown-menu">
-	  <li><a href="<%= filterUrl({project: defaultOption.name}) %>" class="item"><%= defaultOption.display_name %></a></li>
+	  <li><a href="<%= itemUrl(defaultOption) %>" class="item"><%= defaultOption.display_name %></a></li>
 	  <% can.each(items, function(item) { %>
-		<li><a href="<%= filterUrl({project: item.name}) %>" class="item"><%= item.display_name %></a></li>	
+		<li><a href="<%= itemUrl(item) %>" class="item"><%= item.display_name %></a></li>	
 	  <% }); %>
   </ul>
 </li>
