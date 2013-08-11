@@ -2,9 +2,7 @@ steal(
 	'can',
 	'can/construct/proxy',
 	function(can) {
-
-		return can.Control(
-			{
+		return can.Control.extend({
 			defaults : {
 				offset: 70
 			}

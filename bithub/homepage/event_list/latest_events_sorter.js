@@ -20,8 +20,8 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 		},
 		addEvent : function(event){
 			var types = this.attr('types'),
-				category = event.attr('category'),
-				method   = category === 'chat' ? 'unshift' : 'push';
+			category = event.attr('category'),
+			method   = category === 'chat' ? 'unshift' : 'push';
 
 			if(!types[category]){
 				this.attr('types.' + category, []);
@@ -33,13 +33,13 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 		},
 		digest : function(){
 			var digests = this.attr('types.digest'),
-				length  = digests.attr('length'),
-				grouped = {
-					follow : {},
-					watch  : {},
-					fork   : {}
-				},
-				digest, what, type;
+			length  = digests.attr('length'),
+			grouped = {
+				follow : {},
+				watch  : {},
+				fork   : {}
+			},
+			digest, what, type;
 
 			for(var i = 0; i < length; i++){
 				digest = digests[i],
@@ -64,14 +64,14 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 	})
 
 
-	return Observe({
+	return Observe.extend({
 		init : function(){
 			this.attr('days', new List())
 		},
 		appendEvents : function(events){
 			var days = this.attr('days'),
-				lastDay = days.attr(days.length - 1),
-				event;
+			lastDay = days.attr(days.length - 1),
+			event;
 			for(var i = 0; i < events.length; i++){
 				event = events[i];
 				if(!lastDay || lastDay.date !== event.attr('thread_updated_date')){

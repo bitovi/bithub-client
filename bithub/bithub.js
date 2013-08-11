@@ -28,19 +28,10 @@ steal(
 		}
 		can.route.ready(false);
 
-		// display load time 
+		// Display load time 
 		loadtime();
 		
-		$.ajaxPrefilter( function( opts ) {
-			// opts.url = opts.url.replace(/^\/api\/(.*)/, "http://api.bithub.com/api/$1");
-		});
-
-		// connect to live service
-		// if( typeof(io) !== 'undefined' ) {
-		//	var socket = io.connect('http://localhost:3000');
-		// }
-		
-		// routes - events
+		// Routes
 
 		var routePrefix = '/bithub';
 		
@@ -49,7 +40,6 @@ steal(
 			viewNames = ['greatest'],
 			timespanNames = ['day', 'week', 'month'];
 
-		// ROOT route
 		can.route(routePrefix + '', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 		can.route(routePrefix + '/', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
 
@@ -111,6 +101,7 @@ steal(
 		}
 
 		can.route.ready(true);
+
 		
 		var	newpostVisibility = can.compute(false),
 			projects          = new can.Model.List(),

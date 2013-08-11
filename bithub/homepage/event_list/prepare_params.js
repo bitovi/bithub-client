@@ -23,7 +23,7 @@ steal(
 			},
 			profile: {
 				info: new can.Observe(),
-				activities:  new can.Observe()
+				activities: new can.Observe()
 			},
 			admin: {
 				users: new can.Observe(),
