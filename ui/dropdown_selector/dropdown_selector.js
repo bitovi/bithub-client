@@ -4,8 +4,10 @@ steal(
 	'vendor/bootstrap',
 	function(can, initView){
 
-		var forceViewChange = function (newView) {
-			if (!_.contains(['latest', 'greatest'], newView)) return 'latest';
+		var forceViewChange = function () {
+			var currentView = can.route.attr('view');
+			if (!_.contains(['latest', 'greatest'], currentView)) return 'latest';
+			else return currentView;
 		}
 				
 		var dropdownItemRoute = can.compute(function(item) {
