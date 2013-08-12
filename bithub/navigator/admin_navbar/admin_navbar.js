@@ -20,7 +20,7 @@ steal(
 					display_name: 'Tags'
 				}, {
 					name: 'rewards',
-					url: can.route.url({page: 'admin', action: 'list', view: 'rewards'}, false),
+					url: can.route.url({page: 'admin', view: 'rewards', action: 'list'}, false),
 					display_name: 'Rewards'
 				}]
 			}

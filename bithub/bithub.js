@@ -45,8 +45,6 @@ steal(
 		can.route(routePrefix + '/profile', { page: 'profile', view: 'info' });
 		can.route(routePrefix + '/profile/activities', { page: 'profile', view: 'activities' });
 
-		can.route(routePrefix + '/admin', { page: 'admin', view: 'users', action: 'list' });
-
 		can.route(routePrefix + '/admin/tags', { page: 'admin', view: 'tags', action: 'list' });
 		can.route(routePrefix + '/admin/tags/edit', { page: 'admin', view: 'tags', action: 'edit' });
 		can.route(routePrefix + '/admin/tags/new', { page: 'admin', view: 'tags', action: 'new' });

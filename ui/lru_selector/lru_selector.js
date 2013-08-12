@@ -5,18 +5,24 @@ steal(
 	'can/observe/delegate',
 	function(can, initView){
 		var items = new can.Observe.List();
+		
+		var filterCurrentView = function () {
+			var currentPage = can.route.attr('page'),
+				currentView = can.route.attr('view');
 
-		var forceViewChange = can.compute(function () {
-			var currentView = can.route.attr('view');
-			if (!_.contains(['latest', 'greatest'], currentView)) return 'latest';
-			else return currentView;
-		});
+			if (currentPage === 'admin')
+				return currentView
+			else if (currentPage !== 'homepage')
+				return 'latest';
+			else
+				return currentPage;
+		}
 
 		var smartSelectorItemRoute = can.compute(function(item) {
 			return can.route.url({
 				category: item.name,
 				project: can.route.attr('project') || 'all',
-				view: forceViewChange(can.route.attr('view'))
+				view: filterCurrentView(can.route.attr('view'))
 			}, false);
 		});
 

@@ -4,17 +4,23 @@ steal(
 	'vendor/bootstrap',
 	function(can, initView){
 
-		var forceViewChange = function () {
-			var currentView = can.route.attr('view');
-			if (!_.contains(['latest', 'greatest'], currentView)) return 'latest';
-			else return currentView;
+		var filterCurrentView = function () {
+			var currentPage = can.route.attr('page'),
+				currentView = can.route.attr('view');
+
+			if (currentPage === 'admin')
+				return currentView
+			else if (currentPage !== 'homepage')
+				return 'latest';
+			else
+				return currentPage;
 		}
 				
 		var dropdownItemRoute = can.compute(function(item) {
 			return can.route.url({
 				project: item.name,
 				category: can.route.attr('category') || 'all',
-				view: forceViewChange(can.route.attr('view'))
+				view: filterCurrentView(can.route.attr('view'))
 			}, false);
 		});
 
