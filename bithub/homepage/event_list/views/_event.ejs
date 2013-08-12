@@ -16,7 +16,7 @@
 		<span class="upvote-caret"></span>Vote up
 	</div>
 
-	<% if (!event.award_closed() && isLoggedIn() && isAdmin()) { %>
+	<% if (!event.thread_awarded() && isLoggedIn() && isAdmin()) { %>
 	<div class="award-btn">
 		<div class="word"><span>Award</span></div>
 		<div class="caret-right"></div>
@@ -24,7 +24,7 @@
 	</div>
 	<% } %>
 
-	<% if (event.award_closed()) { %>
+	<% if (event.thread_awarded()) { %>
 	<div class="awarded">Awarded</div>
 	<% } %>
 

@@ -139,9 +139,6 @@ steal(
 		// Initialize the current user (if there is one)
 		currentUser.fromSession();
 
-		// Set the brand to point to root url
-		$('.container .brand').attr('href', can.route.url({ page: 'homepage', view: 'latest', project: 'all', category: 'all' }));
-		
 		// Init Controllers
 		var modals = new Modals('#bootstrapModals', {
 			currentUser: currentUser

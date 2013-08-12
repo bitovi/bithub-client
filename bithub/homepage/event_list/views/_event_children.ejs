@@ -8,7 +8,7 @@
 				<div class="awarded-badge"></div>
 			<% } %>
 
-			<% if (!event.attr('award_closed')) { %>
+			<% if (!event.thread_awarded()) { %>
 				<div class="award-btn">
 					<a href="#"><span class="caret"></span>Award</a>
 				</div>

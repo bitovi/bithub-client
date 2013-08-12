@@ -7,20 +7,17 @@ steal('can',
 	function (can, Upvote) {
 		// methods shared by 'regular' Event model and LazyEvent object
 		var prototypeMethods = {
+
 			upvote: function( success, error ) {
 				(new Upvote({event: this})).upvote();
 			},
 			
-			award_sum: function() {
-				return this.attr('award_value') + this.attr('upvotes') + this.attr('anteups');
+			event_awarded: function() {
+				return this.attr('props').attr('awarded');
 			},
 
-			award_closed: function() {
-				var chlClosed = false, parClosed = this.attr('props').attr('awarded');
-				this.attr('children').forEach( function( child ) {
-					if (child.attr('props').attr('awarded')) chlClosed = true;
-				});
-				return parClosed || chlClosed;
+			thread_awarded: function() {
+				return this.attr('props').attr('thread_awarded');
 			},
 			
 			getAuthorName: function() {
