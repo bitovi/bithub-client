@@ -4,7 +4,7 @@ steal(
 
 		var parse10 = function(val) { return parseInt(val, 10) },
 			existy = function(val) { return (val != null && val != undefined) },
-		defaults = { limit: 20, offset: 0 };
+			defaults = { limit: 20, offset: 0 };
 
 		function Paginator (initialState) {
 			if (existy(initialState)) {
@@ -31,9 +31,15 @@ steal(
 			limit        : function () { return this.state.attr('limit') },
 			offset       : function () { return this.state.attr('offset') },
 			currentState : function () { return this.state.attr() },
-			prevOffset   : function () { var diff = this.offset() - this.limit(); return (diff >= 0) ? diff : 0 },
-			nextOffset   : function () { return this.offset() + this.limit() },
-			updateOffset : function (newVal) { this.state.attr('offset', parse10(newVal)) }
+			prevOffset   : function () { var diff = this.state.attr('offset') - this.state.attr('limit'); return (diff >= 0 ? diff : 0) },
+			nextOffset   : function () { return this.state.attr('offset') + this.state.attr('limit') },
+			updateOffset : function (newVal) {
+				if (existy(newVal) && _.isString(newVal))
+					this.state.attr('offset', parse10(newVal));
+				else
+					this.state.attr('offset', defaults.offset);
+			}
+
 		}
 
 		return Paginator;
