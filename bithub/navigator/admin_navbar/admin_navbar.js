@@ -12,15 +12,15 @@ steal(
 				},
 				items: [{
 					name: 'users',
-					url: can.route.url({page: 'admin', view: 'users', action: 'list'}, false),
+					url: function () { return can.route.url({page: 'admin', view: 'users', action: 'list'}, false) },
 					display_name: 'Users'
 				}, {
 					name: 'tags',
-					url: can.route.url({page: 'admin', view: 'tags', action: 'list'}, false),
+					url: function () { return can.route.url({page: 'admin', view: 'tags', action: 'list'}, false) },
 					display_name: 'Tags'
 				}, {
 					name: 'rewards',
-					url: can.route.url({page: 'admin', view: 'rewards', action: 'list'}, false),
+					url: function () { return can.route.url({page: 'admin', view: 'rewards', action: 'list'}, false) },
 					display_name: 'Rewards'
 				}]
 			}

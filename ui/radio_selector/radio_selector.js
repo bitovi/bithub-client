@@ -27,8 +27,10 @@ steal(
 						return (self.options.state() === itemName) ? 'active' : '';
 					},
 					itemUrl: function (item) {
-						console.log(item.url);
-						return item.url || makeRouteForOption(item);
+						if (item.url)
+							return (_.isFunction(item.url) ? item.url() : item.url);
+						else
+							return makeRouteForOption(item);
 					}
 				}));
 			}

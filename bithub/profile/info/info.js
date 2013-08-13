@@ -19,7 +19,7 @@ steal(
 				element.html(profileInfoView({
 					countries: countries,
 					user: opts.currentUser,
-					links: opts.links
+					routes: opts.routes
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {

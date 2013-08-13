@@ -11,9 +11,9 @@ steal(
 					info: ProfileInfoControl,
 					activities: ProfileActivitiesControl
 				},
-				links: {
-					info: can.route.link("Profile", {page: 'profile', view: 'info'}, false),
-					activities: can.route.link("Points & Activity", {page: 'profile', view: 'activities'}, false)
+				routes: {
+					info: function () { return can.route.url({page: 'profile', view: 'info'}, false) },
+					activities: function () { return can.route.url({page: 'profile', view: 'activities'}, false) }
 				}
 			}
 		}, {

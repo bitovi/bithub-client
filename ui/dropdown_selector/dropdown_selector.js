@@ -8,12 +8,10 @@ steal(
 			var currentPage = can.route.attr('page'),
 				currentView = can.route.attr('view');
 
-			if (currentPage === 'admin')
-				return currentView
-			else if (currentPage !== 'homepage')
+			if (currentPage !== 'homepage' || currentPage !=='admin')
 				return 'latest';
 			else
-				return currentPage;
+				return currentView;
 		}
 				
 		var dropdownItemRoute = can.compute(function(item) {

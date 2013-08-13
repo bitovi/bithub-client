@@ -12,7 +12,7 @@ steal(
 
 				element.html(activitiesView({
 					user: options.currentUser,
-					links: options.links
+					routes: options.routes
 				}, {
 					helpers: {
 						getPoints: function (opts) {
