@@ -45,14 +45,13 @@ steal(
 		can.route(routePrefix + '/profile', { page: 'profile', view: 'info' });
 		can.route(routePrefix + '/profile/activities', { page: 'profile', view: 'activities' });
 
+		can.route(routePrefix + '/admin', { page: 'admin', view: 'users', action: 'list' });
 		can.route(routePrefix + '/admin/tags', { page: 'admin', view: 'tags', action: 'list' });
 		can.route(routePrefix + '/admin/tags/edit', { page: 'admin', view: 'tags', action: 'edit' });
 		can.route(routePrefix + '/admin/tags/new', { page: 'admin', view: 'tags', action: 'new' });
-
 		can.route(routePrefix + '/admin/users', { page: 'admin', view: 'users', action: 'list' });
 		can.route(routePrefix + '/admin/users/edit', { page: 'admin', view: 'users', action: 'edit' });
 		can.route(routePrefix + '/admin/users/new', { page: 'admin', view: 'users', action: 'new' });
-
 		can.route(routePrefix + '/admin/rewards', { page: 'admin', view: 'rewards', action: 'list' });
 		can.route(routePrefix + '/admin/rewards/edit', { page: 'admin', view: 'rewards', action: 'edit' });
 		can.route(routePrefix + '/admin/rewards/new', { page: 'admin', view: 'rewards', action: 'new' });
