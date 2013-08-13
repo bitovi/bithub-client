@@ -12,14 +12,6 @@ steal('can',
 				(new Upvote({event: this})).upvote();
 			},
 			
-			event_awarded: function() {
-				return this.attr('props').attr('awarded');
-			},
-
-			thread_awarded: function() {
-				return this.attr('props').attr('thread_awarded');
-			},
-			
 			getAuthorName: function() {
 				return this.attr('author.name') || this.attr('props.origin_author_name') || '';
 			},

@@ -16,7 +16,7 @@
 		<span class="upvote-caret"></span>Vote up
 	</div>
 
-	<% if (!event.thread_awarded() && isLoggedIn() && isAdmin()) { %>
+	<% if (!event.attr('props.thread_awarded') && isLoggedIn() && isAdmin()) { %>
 	<div class="award-btn">
 		<div class="word"><span>Award</span></div>
 		<div class="caret-right"></div>
@@ -24,7 +24,7 @@
 	</div>
 	<% } %>
 
-	<% if (event.thread_awarded()) { %>
+	<% if (event.attr('props.thread_awarded')) { %>
 	<div class="awarded">Awarded</div>
 	<% } %>
 
@@ -35,7 +35,7 @@
   <div class="span7 content">
 
 	<!-- title & body -->
-	<%== determineEventPartial( event.attr('tags') ).render({event: event, eventChildrenPartial: eventChildrenPartial, visibleTags: visibleTags}) %>
+	<%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, visibleTags: visibleTags}) %>
 	
 	<% if( isAdmin() ) { %>
 	<!-- ADMIN -->
