@@ -17,8 +17,14 @@ steal(
 			},
 
 			logout: function() {
-				//console.log(" logout " );
-				//window.location('/api/auth/logout');
+				var self = this, blacklist = ['loggedInDelayed'];
+
+				$.get('/api/auth/logout', function () {
+					setTimeout(function() { self.attr('loggedInDelayed', false) }, 500);
+					for(var key in self.attr()) {
+						if (blacklist.indexOf(key) < 0) self.removeAttr(key);
+					}
+				});
 			}
 		};
 	});

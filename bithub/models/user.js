@@ -55,6 +55,10 @@ steal(
 				auth.login.apply(this, [ providers[provider] ]);
 			},
 
+			logout: function() {
+				auth.logout.apply(this);
+			},
+
 			manageRoles: function(action, role) {
 				var self = this;
 				can.ajax({
@@ -64,19 +68,6 @@ steal(
 				}).done(function(data) {
 					self.attr('roles', data.roles);
 				})
-			},
-
-			logout: function() {
-				var self = this,
-					blacklist = ['loggedInDelayed'];
-
-				$.get('/api/auth/logout', function () {
-					// remove attrs from current user
-					setTimeout(function() { self.attr('loggedInDelayed', false) }, 500);
-					for(var key in self.attr()) {
-						if (blacklist.indexOf(key) < 0) self.removeAttr(key);
-					}
-				});
 			}
 		});
 
