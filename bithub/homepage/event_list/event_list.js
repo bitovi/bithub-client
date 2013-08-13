@@ -57,37 +57,38 @@ steal(
 			}
 		});
 
-		can.EJS.Helpers.prototype.applyMore = function () {
-			return function (el) {
-				$(el).addClass('no-more');
-			}
-		}
+		/* Some event_list specific helpers */
+		can.extend(can.EJS.Helpers.prototype, {
+			applyMore: function () {
+				return function (el) {
+					$(el).addClass('no-more');
+				}
+			},
+			applyChatHeight: function (day) {
+				return function (el) {
+					new ChatScroll(el, {day: day})
+				}
+			},
+			renderEventTags: function (event) {
+				var buffer = "";
 
-		can.EJS.Helpers.prototype.applyChatHeight = function (day) {
-			return function (el) {
-				new ChatScroll(el, {day: day})
-			}
-		}
+				can.each(event.attr('tags'), function( eventTag ) {
+					var matched = false;
 
-		can.EJS.Helpers.prototype.renderEventTags = function (event) {
-			var buffer = "";
-
-			can.each(event.attr('tags'), function( eventTag ) {
-				var matched = false;
-				
-				visibleTags.each(function( visibleTag ) {
-					var name = visibleTag.attr('name'),
+					visibleTags.each(function( visibleTag ) {
+						var name = visibleTag.attr('name'),
 						display_name = visibleTag.attr('display_name') || visibleTag.attr('name');
-					
-					if( name == eventTag && !matched ) {
-						buffer += "<li class=\"tag-name " + name +  "\"><a href=\"#\"><small>" + display_name + "</small></a></li>";
-						matched = true;
-					}
+
+						if( name == eventTag && !matched ) {
+							buffer += "<li class=\"tag-name " + name +  "\"><a href=\"#\"><small>" + display_name + "</small></a></li>";
+							matched = true;
+						}
+					});
 				});
-			});
-			
-			return buffer;
-		}
+				return buffer;
+			}
+		});
+
 
 		return can.Control.extend({
 			defaults: { }
@@ -106,14 +107,11 @@ steal(
 
 				can.extend(can.EJS.Helpers.prototype, {
 					isAdmin: function () {
-						var roles = opts.currentUser.attr('roles');
-						return areNotEmpty(roles) && _.contains(roles, 'admin');
-					}
-				});
+						return opts.currentUser.isAdmin();
+					},
 
-				can.extend(can.EJS.Helpers.prototype, {
 					isLoggedIn: function () {
-						return opts.currentUser.attr('isLoggedIn');
+						return opts.currentUser.isLoggedIn();
 					}
 				});
 
