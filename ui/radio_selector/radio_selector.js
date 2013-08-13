@@ -5,8 +5,8 @@ steal(
 
 		var makeRouteForOption = function (item) {
 			return can.route.url({
-				category: can.route.attr('category') || 'all',
-				project: can.route.attr('project') || 'all',
+				category: can.route.attr('category'),
+				project: can.route.attr('project'),
 				view: item.name
 			}, false);
 		};

@@ -6,23 +6,23 @@ steal(
 	function(can, initView){
 		var items = new can.Observe.List();
 		
-		var filterCurrentView = function () {
+		var currentViewFiltered = function () {
 			var currentPage = can.route.attr('page'),
 				currentView = can.route.attr('view');
 
-			if (currentPage !== 'homepage' || currentPage !=='admin')
-				return 'latest';
-			else
+			if (currentPage === 'homepage' || currentPage === 'admin')
 				return currentView;
-		}
+			else
+				return 'latest';
+		};
 
-		var smartSelectorItemRoute = can.compute(function(item) {
+		var smartSelectorItemRoute = function (item) {
 			return can.route.url({
 				category: item.name,
 				project: can.route.attr('project') || 'all',
-				view: filterCurrentView(can.route.attr('view'))
+				view: currentViewFiltered()
 			}, false);
-		});
+		};
 
 		return can.Control.extend({
 			defaults : {

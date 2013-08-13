@@ -173,7 +173,7 @@ steal(
 			},
 
 			// only "meaningful" event tags should be displayed
-			
+
 			'{categories} change': "updateTagList",
 			'{projects} change': "updateTagList",
 			'{feeds} change': "updateTagList",
@@ -181,7 +181,7 @@ steal(
 			updateTagList: function( tags ) {
 				visibleTags.push.apply(visibleTags, tags);
 			},
-			
+
 			// infinite scroll
 
 			'{window} onbottom': function (el, ev) {

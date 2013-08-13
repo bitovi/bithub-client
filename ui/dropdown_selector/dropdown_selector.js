@@ -4,23 +4,23 @@ steal(
 	'vendor/bootstrap',
 	function(can, initView){
 
-		var filterCurrentView = function () {
+		var currentViewFiltered = function () {
 			var currentPage = can.route.attr('page'),
 				currentView = can.route.attr('view');
 
-			if (currentPage !== 'homepage' || currentPage !=='admin')
-				return 'latest';
-			else
+			if (currentPage === 'homepage' || currentPage === 'admin')
 				return currentView;
-		}
+			else
+				return 'latest';
+		};
 				
-		var dropdownItemRoute = can.compute(function(item) {
+		var dropdownItemRoute = function (item) {
 			return can.route.url({
 				project: item.name,
-				category: can.route.attr('category') || 'all',
-				view: filterCurrentView(can.route.attr('view'))
+				category: can.route.attr('category'),
+				view: currentViewFiltered()
 			}, false);
-		});
+		};
 
 		return can.Control.extend({
 			defaults : {
