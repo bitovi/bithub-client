@@ -46,6 +46,10 @@ steal(
 					console.error(response);
 				});
 			},
+			
+			isLoggedIn: function() {
+				return this.attr('isLoggedIn');
+			},
 
 			isAdmin: function() {
 				return _.include(this.attr('roles'), 'admin');
