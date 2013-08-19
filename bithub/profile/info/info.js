@@ -40,10 +40,15 @@ steal(
 
 			loadCountries: function() {
 				var self = this,
-					countries = new can.Observe.List();
+					blankCountry = {
+						iso:'',
+						name: '--',
+						display_name: '--'
+					};
+				var	countries = new can.Observe.List([ blankCountry ]);
 
 				Country.findAll({order: 'name'}, function (data) {
-					countries.replace(data);
+					countries.push.apply(countries, data);
 					self.element.find('#countryISO').val( self.options.currentUser.attr('country.iso') );
 				});
 
