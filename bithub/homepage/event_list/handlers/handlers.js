@@ -8,7 +8,7 @@ steal(
 				el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
 			},
 
-			'.votes .voteup-btn click': function( el, ev ) {
+			'.event > .votes click': function( el, ev ) {
 				this.upvote( can.data(el.closest('.event'), 'eventObj') );
 			},
 			
