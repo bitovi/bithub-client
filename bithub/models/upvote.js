@@ -14,10 +14,19 @@ steal(
 
 		}, {
 			upvote: function () {
-				return this.save().done(this.proxy( 'sum_upvotes' ));
+				var self = this,
+					timer;
+
+				clearTimeout(timer);				
+				timer = setTimeout(function() {
+					// updates DOM immediately, then wait for response and reduce on failure
+					self.sum_upvotes();
+					return self.save().fail( function() { self.sum_upvotes(-1) } );
+				}, 0);
 			},
-			sum_upvotes: function () {
-				this.event.attr('upvotes', this.event.attr('upvotes') + 1);
+			sum_upvotes: function ( value ) {
+				value = value || 1;
+				this.event.attr('upvotes', this.event.attr('upvotes') + value);
 			}
 		});
 	});
