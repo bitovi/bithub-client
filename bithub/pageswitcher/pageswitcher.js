@@ -7,8 +7,6 @@ steal(
 	'bithub/helpers/permission_checker.js',
 	function(can, Homepage, Profile, AdminPanels, noPermsView, pc) {
 		
-		var delay = function (fn) { setTimeout(fn, 0) };
-
 		return can.Control.extend({
 			defaults : { 
 				pages: {
@@ -41,7 +39,10 @@ steal(
 			},
 
 			'{currentUser} isLoggedIn' : function () {
-				delay(this.initControl(can.route.attr('page')));
+				var self = this;
+				setTimeout(function() {
+					self.initControl(can.route.attr('page'))
+				}, 0);
 			}
 		});
 	}
