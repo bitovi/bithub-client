@@ -1,133 +1,125 @@
 <div class="container">
-	<div class="row">
+  <div class="row">
 	<div class="span8 newpost-form">
 
-		<form id="newpost-form" class="form-horizontal" action="/api/events" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	  <form id="newpost-form" class="form-horizontal" action="/api/events" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 
 		<fieldset>
-			<div class="row">
-				<input type="hidden" name="event[project]" value="{{name currentProject}}"/>
-				<input type="hidden" name="event[category]" value="{{name currentCategory}}"/>
-				<input type="hidden" name="event[feed]" value="bithub"/>
-				{{#isOfEventContentType}}
-				<input type="hidden" name="event[datetime]" value="{{currentDateTimeStamp}}"/>
-				{{/isOfEventContentType}}
+		  <div class="row">
+			<input type="hidden" name="event[feed]" value="bithub"/>
+			{{#isOfEventContentType}}
+			<input type="hidden" name="event[datetime]" value="{{currentDateTimeStamp}}"/>
+			{{/isOfEventContentType}}
 
 			<div class="span left">
-				<div class="image-uploader">
+			  <div class="image-uploader">
 				<span>Add An <br>Image</span>
 				<div class="image-preview"></div>
 				<div class="progress hidden">
-					<div class="bar" style="width: 0%;"></div>
+				  <div class="bar" style="width: 0%;"></div>
 				</div>
 				<input type="file" name="event[image]" size="1"/>
-				</div>
+			  </div>
 
-				<div class="btn-group control-group project" id="newpost-form-project">
-					<p class="text-error hidden"></p>
-					<button class="btn select">{{displayName currentProject}}</button>
-					<button class="btn dropdown-toggle" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						{{#projects}}
-						<li><a href="javascript://" {{data 'project'}}>{{display_name}}</a></li>
-						{{/projects}}
-					</ul>
-				</div>
+			  <div class="control-group" id="newpost-form-project">
+				<p class="text-error hidden"></p>
+				<select  name="event[project]">
+				  <option value="">Pick a project</option>
+				  {{#projects}}
+				  <option value="{{name}}">{{display_name}}</option>
+				  {{/projects}}
+				</select>
+			  </div>
 
-				<div class="btn-group control-group category" id="newpost-form-category" style="margin-left: 0px;">
-					<p class="text-error hidden"></p>
-					<button class="btn select">{{displayName currentCategory}}</button>
-					<button class="btn dropdown-toggle" data-toggle="dropdown">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						{{#categoryFilter categories}}
-						<li><a href="javascript://" {{data 'category'}}>{{display_name}}</a></li>
-						{{/categoryFilter}}
-					</ul>
+			  <div class="control-group" style="margin-left: 0px;" id="newpost-form-category">
+				<p class="text-error hidden"></p>
+				<select name="event[category]">
+				  <option value="">Pick a category</option>
+				  {{#categoryFilter categories}}
+				  <option value="{{name}}">{{display_name}}</option>
+				  {{/categories}}
+				</select>
+			  </div>
+			  
+			  {{#isOfEventContentType}}
+			  <div class="btn-group control-group date" id="newpost-form-date" style="margin-left: 0px;">
+				<div class="input-append date newpost-datepicker" {{ datepicker }}>
+				  <input class="span2" type="text" value="{{today}}" readonly>
+				  <span class="add-on"><i class="icon-calendar"></i></span>
 				</div>
-				
-				{{#isOfEventContentType}}
-				<div class="btn-group control-group date" id="newpost-form-date" style="margin-left: 0px;">
-					<div class="input-append date newpost-datepicker" {{ datepicker }}>
-						<input class="span2" type="text" value="{{today}}" readonly>
-						<span class="add-on"><i class="icon-calendar"></i></span>
-					</div>
-				</div>
+			  </div>
 
-				<div class="btn-group control-group time" id="newpost-form-time" style="margin-left: 0px;">
-					<p class="text-error hidden"></p>
-					<div class="input-append time newpost-timepicker">
-						<input class="span2" type="text" placeholder="12:30 PM">
-						<span class="add-on"><i class="icon-time"></i></span>
-					</div>
+			  <div class="btn-group control-group time" id="newpost-form-time" style="margin-left: 0px;">
+				<p class="text-error hidden"></p>
+				<div class="input-append time newpost-timepicker">
+				  <input class="span2" type="text" placeholder="12:30 PM">
+				  <span class="add-on"><i class="icon-time"></i></span>
 				</div>
-				{{/isOfEventContentType}}
+			  </div>
+			  {{/isOfEventContentType}}
 
 			</div>
 
 			<div class="span right">
 
-				<div class="control-group title" id="newpost-form-title">
+			  <div class="control-group title" id="newpost-form-title">
 				<p class="text-error hidden"></p>
 				<input name="event[title]" type="text" class="title span3" data-toggle="toggle" placeholder="Title:"/>
-				</div>
+			  </div>
 
-				<div class="control-group url" id="newpost-form-url">
-					<input name="event[url]" type="text" class="url span3" placeholder="URL:"/>
-				</div>
-				
-				{{#isOfEventContentType}}
-				<div class="control-group location" id="newpost-form-location">
-					<input name="event[location]" type="text" class="url span3" placeholder="Location:"/>
-				</div>
-				{{/isOfEventContentType}}
+			  <div class="control-group url" id="newpost-form-url">
+				<input name="event[url]" type="text" class="url span3" placeholder="URL:"/>
+			  </div>
+			  
+			  {{#isOfEventContentType}}
+			  <div class="control-group location" id="newpost-form-location">
+				<input name="event[location]" type="text" class="url span3" placeholder="Location:"/>
+			  </div>
+			  {{/isOfEventContentType}}
 
-				<div class="control-group body" id="newpost-form-body">
+			  <div class="control-group body" id="newpost-form-body">
 				<p class="text-error hidden"></p>
 				<textarea name="event[body]" rows="6" class="body span5" placeholder="Write something:"></textarea>
-				</div>
+			  </div>
 
-				{{#ifAdmin currentUser}}
-				<div class="control-group post-as" id="newpost-form-post-as">
-					<p class="text-error hidden"></p>
-					<label style="float: left; width: 50px;">
-						<input type="radio" name="postas_feed" value="github" checked/>GH
-					</label>
-					<label style="float: left; width: 50px;">
-						<input type="radio" name="postas_feed" value="twitter"/>TW
-					</label>
-					<input name="postas" type="text" class="title span1 typeahead" data-toggle="toggle" placeholder="Post as:" {{typeahead}}/>
-					<input name="event[origin_author_feed]" type="hidden" class="postas_feed" value=""/>
-					<input name="event[origin_author_id]" type="hidden" class="postas_id" value=""/>
-					<img class="postas avatar float-right" src="" alt="" />
-				</div>
-				{{/ifAdmin}}
+			  {{#ifAdmin currentUser}}
+			  <div class="control-group post-as" id="newpost-form-post-as">
+				<p class="text-error hidden"></p>
+				<label style="float: left; width: 50px;">
+				  <input type="radio" name="postas_feed" value="github" checked/>GH
+				</label>
+				<label style="float: left; width: 50px;">
+				  <input type="radio" name="postas_feed" value="twitter"/>TW
+				</label>
+				<input name="postas" type="text" class="title span1 typeahead" data-toggle="toggle" placeholder="Post as:" {{typeahead}}/>
+				<input name="event[origin_author_feed]" type="hidden" class="postas_feed" value=""/>
+				<input name="event[origin_author_id]" type="hidden" class="postas_id" value=""/>
+				<img class="postas avatar float-right" src="" alt="" />
+			  </div>
+			  {{/ifAdmin}}
 
-				<div class="control-group">
+			  <div class="control-group">
 				<button id="newpost-form-submit" type="submit" class="btn-bigass light">Submit</button>
-				</div>
+			  </div>
 			</div>
 
-			</div>
+		  </div>
 		</fieldset>
-		</form>
+	  </form>
 
 	</div>
 
 	<div class="span4 newpost-sidebar">
-		<button id="hide-newpost-form-btn" class="close">&times;</button>
+	  <button id="hide-newpost-form-btn" class="close">&times;</button>
 
-		<h4 class="submit-your-app">Submit Your App, <br>Plugin, Blog or Link</h4>
-		<p>Earn an instant 50 points by sharing something you built, wrote, or found that would be useful to the community.</p>
+	  <h4 class="submit-your-app">Submit Your App, <br>Plugin, Blog or Link</h4>
+	  <p>Earn an instant 50 points by sharing something you built, wrote, or found that would be useful to the community.</p>
 
-		<hr>
-		
-		<h4>Need Help?</h4>
-		<p>If you're looking for help with any of our open source projects, head on over to our <a href="http://forum.javascriptmvc.com">forums</a> and post your question there.</p>
-		
+	  <hr>
+	  
+	  <h4>Need Help?</h4>
+	  <p>If you're looking for help with any of our open source projects, head on over to our <a href="http://forum.javascriptmvc.com">forums</a> and post your question there.</p>
+	  
 	</div>
-	</div>
+  </div>
 </div>

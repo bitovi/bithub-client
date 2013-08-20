@@ -64,8 +64,8 @@ steal(
 			setTimeout(function() { self.resetForm.call(self) }, 1500);
 		}
 
-		var currentCategory = new can.Observe({displayName: "Pick a category", name: "none"}),
-			currentProject = new can.Observe({displayName: "Pick a project", name: "none"}),
+		//var currentCategory = new can.Observe({displayName: "Pick a category", name: "none"}),
+		var currentCategory = new can.compute(''),
 			currentDateTime = new can.Observe({}),
 
 			currentDateTimeStamp = can.compute(function() {
@@ -88,8 +88,6 @@ steal(
 						projects: options.projects,
 						categories: options.categories,
 						currentUser: options.currentUser,
-						currentProject: currentProject,
-						currentCategory: currentCategory,
 						currentDateTimeStamp: currentDateTimeStamp
 					}, {
 						categoryFilter: function(categories, opts) {
@@ -108,7 +106,7 @@ steal(
 							return arg.isAdmin() ? opts.fn(this) : opts.inverse(this);
 						},
 						isOfEventContentType: function(opts) {
-							return (currentCategory.attr('name') === 'event') ? opts.fn(this) : opts.inverse(this);
+							return (currentCategory() === 'event') ? opts.fn(this) : opts.inverse(this);
 						},
 						displayName: function(currObsObj) {
 							return currObsObj.attr('displayName');
@@ -171,18 +169,10 @@ steal(
 					closeNewPostForm.call(this, newEvent)
 				},
 
-				'#newpost-form-project a click': function( el, ev ) {
+				'#newpost-form-category select change': function( el, ev ) {
 					ev.preventDefault();
-					currentProject.attr('name', (can.data(el, 'project')).name);
-					currentProject.attr('displayName', el.html());
+					currentCategory( el.val() );
 				},
-				
-				'#newpost-form-category a click': function( el, ev ) {
-					ev.preventDefault();
-					currentCategory.attr('name', (can.data(el, 'category')).name);
-					currentCategory.attr('displayName', el.html());
-				},
-
 
 				'#newpost-form-date changeDate': function( el, ev ) {
 					currentDateTime.attr('date', el.find('input').val());
@@ -250,13 +240,13 @@ steal(
 					// clear input fields (including hidden ones)
 					el.find('input').val('');
 					el.find('textarea').val('');
+					el.find('select').val('');
 
 					// hide post-as avatar
 					el.find('.postas.avatar').attr('src','');
 					
 					// reset category and project dropdown
-					currentCategory.attr({displayName: "Pick a category", name: "none"});
-					currentProject.attr({displayName: "Pick a project", name: "none"});
+					currentCategory('');
 
 					// clear image
 					delete this.options.fileData;
