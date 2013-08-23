@@ -18,6 +18,7 @@ steal(
 			return can.route.url({
 				project: item.name,
 				category: can.route.attr('category'),
+				timespan: can.route.attr('timespan') || 'week',
 				view: currentViewFiltered()
 			}, false);
 		};
