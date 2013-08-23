@@ -29,75 +29,116 @@ steal(
 
 		// Display load time 
 		loadtime();
+
 		
 		// Routes
 
-		var routePrefix = '';
-		
-	    var projectNames = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
-			categoryNames = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin', 'event'],
-			viewNames = ['greatest'],
-			timespanNames = ['day', 'week', 'month'];
+		var projects = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
+			categories = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin', 'event'],
+			timespans = ['day', 'week', 'month', 'all'];
 
-		can.route(routePrefix + '', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
-		can.route(routePrefix + '/', { page: 'homepage', view: 'latest', project: 'all', category: 'all' });
+		var routes = [{
+			params: ['admin'],
+			paramKey: 'page',
+			defaultProps: {view: 'users', action: 'list'},
+			childs: [{
+				params: ['tags', 'users', 'rewards'],
+				paramKey: 'view',
+				childs: [{
+					params: ['edit', 'new'],
+					paramKey: 'action'
+				}]
+			}]
+		},{
+			params: ['latest'],
+			paramKey: 'view',
+			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all'},	
+			childs: [{
+				params: categories,
+				paramKey: 'category'
+			},{
+				params: projects,
+				paramKey: 'project',
+				childs: [{
+					params: categories,
+					paramKey: 'category'
+				}]
+			}]
+		},{
+			params: ['greatest'],
+			paramKey: 'view',
+			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'week'},	
+			childs: [{
+				params: timespans,
+				paramKey: 'timespan'
+			},{
+				params: categories,
+				paramKey: 'category',
+				childs: [{
+					params: timespans,
+					paramKey: 'timespan'
+				}]
+			},{
+				params: projects,
+				paramKey: 'project',
+				childs: [{
+					params: timespans,
+					paramKey: 'timespan'
+				},{
+					params: categories,
+					paramKey: 'category',
+					childs: [{
+						params: timespans,
+						paramKey: 'timespan'
+					}]
+				}]
+			}]
+		}];
 
-		can.route(routePrefix + '/profile', { page: 'profile', view: 'info' });
-		can.route(routePrefix + '/profile/activities', { page: 'profile', view: 'activities' });
+		var declareRoute = function( coll, prefix, exclude ) {
+			prefix = prefix || '/';
+			exclude = exclude || [];
 
-		can.route(routePrefix + '/admin', { page: 'admin', view: 'users', action: 'list' });
-		can.route(routePrefix + '/admin/tags', { page: 'admin', view: 'tags', action: 'list' });
-		can.route(routePrefix + '/admin/tags/edit', { page: 'admin', view: 'tags', action: 'edit' });
-		can.route(routePrefix + '/admin/tags/new', { page: 'admin', view: 'tags', action: 'new' });
-		can.route(routePrefix + '/admin/users', { page: 'admin', view: 'users', action: 'list' });
-		can.route(routePrefix + '/admin/users/edit', { page: 'admin', view: 'users', action: 'edit' });
-		can.route(routePrefix + '/admin/users/new', { page: 'admin', view: 'users', action: 'new' });
-		can.route(routePrefix + '/admin/rewards', { page: 'admin', view: 'rewards', action: 'list' });
-		can.route(routePrefix + '/admin/rewards/edit', { page: 'admin', view: 'rewards', action: 'edit' });
-		can.route(routePrefix + '/admin/rewards/new', { page: 'admin', view: 'rewards', action: 'new' });
+			return (prefix + _.difference(coll, exclude).join('/')).replace('//','/');
+		};
 
-
-		can.route(routePrefix + '/events/:id', { page: 'homepage', view: 'details' });
-		can.route(routePrefix + '/rewards', { page: 'homepage', view: 'rewards' });
-
-		for (var v in viewNames) {
-			can.route(routePrefix + '/'+viewNames[v], { page: 'homepage', category:'all', project: 'all', timespan: 'week', view: viewNames[v] });
-
-			for (var ts in timespanNames) {
-				can.route(routePrefix + '/'+viewNames[v]+'/'+timespanNames[ts], { page: 'homepage', view: viewNames[v], project: 'all', category: 'all', timespan: timespanNames[ts] });
-			}
-
-			for (var p in projectNames) {
-				can.route(routePrefix + '/'+projectNames[p], { page: 'homepage', view: 'latest', category: 'all', timespan: 'week', project: projectNames[p]});
-				can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p], { page: 'homepage', category: 'all', timespan: 'week', view: viewNames[v], project: projectNames[p]});
-
-				for (var ts in timespanNames) {
-					can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p]+'/'+timespanNames[ts], { page: 'homepage', view: viewNames[v], project: projectNames[p], category: 'all', timespan: timespanNames[ts] });
-				}
+		var genRoutes = function( routes, prefix, props ) {
+			prefix = prefix || '/';
+			props = props || {};
+			
+			_.each(routes, function(v, k, l) {
+				var params = v.params,
+					childs = v.childs,
+					key = v.paramKey,
+					defaultProps = v.defaultProps;
 				
-				for (var c in categoryNames) {
-					can.route(routePrefix + '/'+categoryNames[c], { page: 'homepage', view: 'latest', project: 'all', timespan: 'week', category: categoryNames[c] })
-					can.route(routePrefix + '/'+projectNames[p]+'/'+categoryNames[c], { page: 'homepage', view: 'latest', timespan: 'week', project: projectNames[p], category: categoryNames[c] })
-					can.route(routePrefix + '/'+viewNames[v]+'/'+categoryNames[c], { page: 'homepage', project: 'all', timespan: 'week', view: viewNames[v], category: categoryNames[c] });
-					can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p]+'/'+categoryNames[c], { page: 'homepage', timespan: 'week', view: viewNames[v], project: projectNames[p], category: categoryNames[c]});
+				_.each(params, function(v, k, l) {
+					var exclude = (defaultProps && defaultProps[key]) || [];
+					var route = declareRoute( [v], prefix, exclude );
 
-					for (var ts in timespanNames) {
-						can.route(routePrefix + '/'+viewNames[v]+'/'+categoryNames[c]+'/'+timespanNames[ts], { page: 'homepage', view: viewNames[v], project: 'all', category: categoryNames[c], timespan: timespanNames[ts]});
-						can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p]+'/'+categoryNames[c]+'/'+timespanNames[ts], { page: 'homepage', view: viewNames[v], project: projectNames[p], category: categoryNames[c], timespan: timespanNames[ts]});
-					}
+					var newProps = {};
+					_.extend(newProps, defaultProps, props)
+					newProps[key] = v;
 					
-					if (categoryNames[c] !== 'twitter' && categoryNames[c] !== 'code') {
-						can.route(routePrefix + '/'+categoryNames[c]+'s', { page: 'homepage', view: 'latest', project: 'all', timespan: 'week', category: categoryNames[c] })
-						can.route(routePrefix + '/'+projectNames[p]+'/'+categoryNames[c]+'s', { page: 'homepage', view: 'latest', timespan: 'week', project: projectNames[p], category: categoryNames[c] })
-						can.route(routePrefix + '/'+viewNames[v]+'/'+categoryNames[c]+'s', { page: 'homepage', project: 'all', timespan: 'week', view: viewNames[v], category: categoryNames[c] });
-						can.route(routePrefix + '/'+viewNames[v]+'/'+projectNames[p]+'/'+categoryNames[c]+'s', { page: 'homepage', timespan: 'week', view: viewNames[v], project: projectNames[p], category: categoryNames[c]});
+					//console.log( route, newProps );
+					can.route( route, newProps );
+					
+					if( childs ) {
+						genRoutes( childs, route + '/', newProps );
 					}
-				}
-			}
-		}
+				});	
+			});
+		};
 
+		genRoutes( routes );
+
+		can.route('/profile', { page: 'profile', view: 'info' });
+		can.route('/profile/activities', { page: 'profile', view: 'activities' });
+
+		can.route('/events/:id', { page: 'homepage', view: 'details' });
+		can.route('/rewards', { page: 'homepage', view: 'rewards' });
+		
 		can.route.ready(true);
-
 		
 		var	newpostVisibility = can.compute(false),
 			projects          = new can.Model.List(),
