@@ -4,6 +4,8 @@ steal(
 	function(can, initView){
 
 		var makeRouteForOption = function (item) {
+			can.route.removeAttr('timespan');
+			
 			return can.route.url({
 				category: can.route.attr('category'),
 				project: can.route.attr('project'),
