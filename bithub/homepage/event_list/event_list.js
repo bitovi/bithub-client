@@ -80,7 +80,7 @@ steal(
 						display_name = visibleTag.attr('display_name') || visibleTag.attr('name');
 
 						if( name == eventTag && !matched ) {
-							buffer += "<li class=\"tag-name " + name +  "\"><a href=\"#\"><small>" + display_name + "</small></a></li>";
+							buffer += "<li class=\"tag-name " + name +  "\"><a href=\"#\"><small>" + name + "</small></a></li>";
 							matched = true;
 						}
 					});
