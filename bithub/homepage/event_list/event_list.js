@@ -146,7 +146,9 @@ steal(
 
 				new PostRendering(this.element);
 				new TimespanFilter(this.element.find('#timespan-filter'));
-				new IssueStateFilter(this.element.find('#issue-state-filter'));
+
+				// disabled for now, update routes first
+				//new IssueStateFilter(this.element.find('#issue-state-filter'));
 
 				this.spinnerTop(true);
 			},
