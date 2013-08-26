@@ -4,6 +4,8 @@ steal(
 	'bithub/profile/activities',
 	function(can, ProfileInfoControl, ProfileActivitiesControl){
 
+		var currentControl;
+		
 		return can.Control.extend({
 			pluginName: 'profile',
 			defaults : {
@@ -24,14 +26,25 @@ steal(
 			'{can.route} view' : function (fn, ev, newVal, oldVal) {
 				this.initView(newVal);
 			},
+
+			'{can.route} page': function(route, ev, newVal, oldVal) {
+				if (newVal != ' profile') currentControl = null;
+			},
 			
 			'{currentUser} isLoggedIn' : function (fn, ev, newVal, oldVal) {
 				if (newVal == false) can.route.attr({'page': 'homepage', 'view': 'latest'});
 			},
 
 			initView : function (currentView) {
-				var control = this.options.views[currentView],
-					$div = $('<div/>');
+				var control = this.options.views[currentView];
+
+				if( currentControl == control ) {
+					return;
+				} else {
+					currentControl = control;
+				}
+
+				var	$div = $('<div/>');
 
 				new control($div, this.options);
 				this.element.html($div);

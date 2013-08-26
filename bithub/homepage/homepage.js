@@ -20,6 +20,8 @@ steal(
 			return (pickControl(newView) !== pickControl(oldView));
 		}
 
+		var currentControl;
+		
 		return can.Control.extend({
 			pluginName: 'homepage',
 			defaults : {
@@ -34,17 +36,28 @@ steal(
 				// sometimes responses from /auth/session comes before this control is initialized
 				var isLoggedIn = opts.currentUser.attr('isLoggedIn');
 				if (defined(isLoggedIn)) {
-					opts.currentUser._triggerChange('isLoggedIn', 'change', loggedIn, loggedIn);
+					opts.currentUser._triggerChange('isLoggedIn', 'change', isLoggedIn, isLoggedIn);
 				}
 			},
 
 			'{can.route} view' : function (route, ev, newVal, oldVal) {
-				this.initControl(newVal)
+				this.initControl(newVal);
+			},
+
+			'{can.route} page': function(route, ev, newVal, oldVal) {
+				if (newVal != ' homepage') currentControl = null;
 			},
 
 			initControl : function (newView) {
-				var mainControl = pickControl(newView),
-					$div = $('<div/>').addClass('clean'),
+				var mainControl = pickControl(newView);
+
+				if( currentControl == mainControl ) {
+					return;
+				} else {
+					currentControl = mainControl;
+				}
+				
+				var $div = $('<div/>').addClass('clean'),
 					$mainContainer = this.element.find('#main-container').html($div)
 
 				new mainControl(this.element.find('#main-container > div'), this.options);
