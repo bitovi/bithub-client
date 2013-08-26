@@ -232,6 +232,7 @@ steal(
 
 				this.currentView(can.route.attr('view'));
 				this.spinnerTop(false);
+				this.spinnerBottom(false);
 				this.postRendering();
 				window.scrollTo(0, 0);
 
