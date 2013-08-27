@@ -207,11 +207,12 @@ steal(
 
 		new Newpost('#newpost-form-container', {
 			currentUser: currentUser,
+			modals: modals,
 			projects: projects,
 			categories: categories,
 			visibility: newpostVisibility,
 			project: can.route.attr('newpost_p') || '',
-			category: can.route.attr('newpost_c') || ''			
+			category: can.route.attr('newpost_c') || ''
 		});
 	
 		can.route.attr('newpost') && newpostVisibility(true);

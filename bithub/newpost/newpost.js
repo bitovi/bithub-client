@@ -237,8 +237,14 @@ steal(
 				},
 
 				' submit': function( el, ev ) {
-					var self = this;
 					ev.preventDefault();
+
+					if( !this.options.currentUser.isLoggedIn() ) {
+						this.options.modals.showLogin();
+						return;
+					}
+					
+					var self = this;
 
 					var eventToCheck = new Bithub.Models.Event(el.formParams().event)
 					var errors = eventToCheck.errors()
