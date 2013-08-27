@@ -85,8 +85,6 @@ steal(
 					options.category && currentCategory( options.category );
 					options.project && currentProject( options.project );
 
-					console.log( currentCategory(), currentProject());
-					
 					el.html(initView({
 						projects: options.projects,
 						categories: options.categories,
