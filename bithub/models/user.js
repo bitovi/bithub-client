@@ -56,7 +56,7 @@ steal(
 			},
 
 			login: function(provider) {
-				auth.login.apply(this, [ provider ]);
+				auth.login.call(this, providers[provider] );
 			},
 
 			logout: function() {

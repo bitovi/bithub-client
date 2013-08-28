@@ -64,8 +64,8 @@ steal(
 			setTimeout(function() { self.resetForm.call(self) }, 1500);
 		}
 
-		//var currentCategory = new can.Observe({displayName: "Pick a category", name: "none"}),
 		var currentCategory = new can.compute(''),
+			currentProject  = new can.compute(''),
 			currentDateTime = new can.Observe({}),
 
 			currentDateTimeStamp = can.compute(function() {
@@ -75,18 +75,21 @@ steal(
 				return combinedDateTime;
 			});
 
-
 		return can.Control('Bithub.Newpost',
-			/** @Static */
 			{ },
 			/** @Prototype */
 			{
 				init : function( el, options ){
 					var self = this, filteredCategories;
 
+					options.category && currentCategory( options.category );
+					options.project && currentProject( options.project );
+
 					el.html(initView({
 						projects: options.projects,
 						categories: options.categories,
+						category: currentCategory,
+						project: currentProject,
 						currentUser: options.currentUser,
 						currentDateTimeStamp: currentDateTimeStamp
 					}, {
@@ -138,7 +141,6 @@ steal(
 							self.options.fileData = data;
 						}
 					});
-
 				},
 
 				' fileuploadadd': function( el, ev, data ) {
@@ -169,6 +171,11 @@ steal(
 					closeNewPostForm.call(this, newEvent)
 				},
 
+				'#newpost-form-project select change': function( el, ev ) {
+					ev.preventDefault();
+					currentProject( el.val() );
+				},
+
 				'#newpost-form-category select change': function( el, ev ) {
 					ev.preventDefault();
 					currentCategory( el.val() );
@@ -196,7 +203,25 @@ steal(
 				},
 
 				'{currentUser} isLoggedIn': function( wat, ev, attr, how, newVal, oldVal) {
-					if (!newVal || newVal === false) this.element.slideUp();
+					//if (!newVal || newVal === false) this.element.slideUp();
+				},
+
+				'{projects} length': function() {
+					setTimeout(function() {
+						// trigger change on currentProject
+						var cur = currentProject();
+						currentProject('');
+						currentProject(cur);
+					}, 0);
+				},
+
+				'{categories} length': function() {
+					setTimeout(function() {
+						// trigger change on currentCategory
+						var cur = currentCategory();
+						currentCategory('');
+						currentCategory(cur);
+					}, 0);
 				},
 
 				'{visibility} change': function( el, ev ) {
@@ -212,8 +237,14 @@ steal(
 				},
 
 				' submit': function( el, ev ) {
-					var self = this;
 					ev.preventDefault();
+
+					if( !this.options.currentUser.isLoggedIn() ) {
+						this.options.modals.showLogin();
+						return;
+					}
+					
+					var self = this;
 
 					var eventToCheck = new Bithub.Models.Event(el.formParams().event)
 					var errors = eventToCheck.errors()

@@ -23,7 +23,7 @@
 
 			  <div class="control-group" id="newpost-form-project">
 				<p class="text-error hidden"></p>
-				<select  name="event[project]">
+				<select  name="event[project]" value="{{project}}">
 				  <option value="">Pick a project</option>
 				  {{#projects}}
 				  <option value="{{name}}">{{display_name}}</option>
@@ -33,7 +33,7 @@
 
 			  <div class="control-group" style="margin-left: 0px;" id="newpost-form-category">
 				<p class="text-error hidden"></p>
-				<select name="event[category]">
+				<select name="event[category]" value="{{category}}">
 				  <option value="">Pick a category</option>
 				  {{#categoryFilter categories}}
 				  <option value="{{name}}">{{display_name}}</option>
