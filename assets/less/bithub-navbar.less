@@ -1,3 +1,64 @@
+
+#profile-dropdown .dropdown-menu {
+	margin-top: 8px;
+	margin-right: 12px;
+}
+#login-dropdown .dropdown-menu li a,
+#profile-dropdown .dropdown-menu li a {
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	line-height: 20px;
+	height: 20px;
+	vertical-align: top;
+}
+/* user menu styles */
+#profileOptions {
+	background: url(/assets/images/account-glyphs.png) no-repeat -9999px;
+}
+#profileOptions .dropdown-menu {
+	margin-top: 5px;
+}
+#profileOptions .dropdown-menu > li > a {
+	vertical-align: top;
+	padding-left: 8px;
+	height: 20px;
+	padding-right: 35px;
+}
+.login-twitter, .login-github, .login-google, 
+.login-profile, .login-points, .login-logout {
+	background: url(/assets/images/account-glyphs.png) no-repeat;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	margin-right: 5px;
+	line-height: 20px;
+	float: left;
+}
+.login-github {
+	background-position: 0px -20px;
+}
+.login-google {
+	background-position: 0px -40px;
+}
+.login-profile {
+	background-position: 0px -60px;
+}
+.login-points {
+	background-position: 0px -80px;
+}
+.login-logout {
+	background-position: 0px -100px;
+}
+.dropdown-menu > li > a:hover .login-twitter, 
+.dropdown-menu > li > a:hover .login-google,
+.dropdown-menu > li > a:hover .login-github,
+.dropdown-menu > li > a:hover .login-profile,
+.dropdown-menu > li > a:hover .login-points,
+.dropdown-menu > li > a:hover .login-logout {
+	background-position-x: -20px;
+}
+
 /* Top Navigation Bar --------------------------------------------- */
 
 #navbar {
