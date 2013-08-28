@@ -52,6 +52,11 @@ steal('can',
 						if (!datetime || !datetime.isValid()) { return "Time format invalid.<br/>Should be 'hh:mm AM/PM'" }
 					}
 				});
+				this.validate('url', function(url) {
+					if( url ) {
+						if( !url.match("^http[s]?:\\/\\/(www\\.)?") ) { return "Invalid URL (don't forget 'http[s]://')" }
+					}
+				});
 			},
 
 			findAll : 'GET /api/events',
