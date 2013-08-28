@@ -1,0 +1,182 @@
+
+.flag {
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 15px;
+	margin: 0;
+	display: inline-block;
+	color: #fff;
+	padding: 5px 10px;
+	-webkit-border-bottom-right-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	position: relative;
+	top: 5px;
+	min-width: 120px;
+	text-align: center;
+	&.blue {
+		background-color: #71bee5;
+		text-shadow: 0 -1px 0 rgba(83, 148, 217, 1);
+		border-bottom: 1px solid #4995bb;
+		border-left: 1px solid #4995bb;
+		border-right: 1px solid #4995bb;
+	}
+}
+
+.sep-wrapper, .wrapper {
+	width: 100%;
+	z-index: 900;
+	padding: 0;
+	position: relative;
+}
+.sep {
+	height: 5px;
+	margin-bottom: 35px;
+	width: 100%;
+	position: absolute;
+	margin-left: -2000px;
+	padding-left: 2000px;
+	position: static;
+	&.blue {
+		background-color: #71bee5;
+		border-bottom: 1px solid #4995bb;
+		border-top: 1px solid #4995bb;
+		a {
+			color: #fff;
+		}
+	}
+}
+
+
+
+/* Status Bar ----------------------------------------------------- */
+
+#statusbar {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	padding: 8px 16px;
+	color: #ddd;
+	:hover { color: #222; }
+}
+
+/* Notification box ----------------------------------------------- */
+.bottombar {
+	position: fixed;
+	width: 100%;
+	display: block;
+	height: auto;
+	bottom: 0;
+	.container {
+		position: relative;
+	}
+	
+}
+.notification {
+	color: #71bee5;
+	display: none; 
+	position: absolute;
+	z-index: 1000;
+	width: 265px;
+	padding: 5px 10px;
+	border: 1px solid #71bee5;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;	
+
+	-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
+	-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
+	font-size: 12px;
+	background: #e9f8ff;
+	margin-bottom: 10px;
+	min-height: 15px;
+	right: 15px;
+	bottom: 0;
+	
+	.message a {
+		color: #71bee5;
+		text-overflow: ellipsis;
+		width: 230px;
+		max-height: 25px;
+		display: inline-block;
+	}
+	.close {
+		background: url(/assets/images/glyph-notices.png) no-repeat center bottom;
+		width: 15px;
+		height: 15px;
+		text-indent: -9999px;
+	}
+}
+ 
+
+/* Custom input - label+input wrapped together -------------------- */
+
+.wrapped-label-input {
+	background: #fff;
+	border: 1px solid #ccc;
+	-moz-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07) !important;
+	-webkit-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07) !important;
+	box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07) !important;	
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color: #ccc;
+	padding: 4px 6px; 
+	span {
+		display: inline-block;
+	}
+	input, input:focus {
+		background-color: #fff !important;
+		border: none !important;
+		-moz-box-shadow: none !important;
+		-webkit-box-shadow: none !important;
+		box-shadow: none !important;
+		
+		display: inline-block;
+		padding: 0px;
+		margin: 0px;
+		margin-top: -3px;
+	}
+}
+
+
+.spinner-top, .spinner-bottom {
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+	position: relative;
+	display: block;
+	background-color: #e9f8ff;
+	border: 1px solid #71bee5;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	z-index: 900;
+}
+
+.noMoreContent {
+	color: #d1d1d3;
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+	position: relative;
+	display: block;
+	background-color: #eeeeee;
+	border: 1px solid #d1d1d3;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
+/* Reward list and rewards ------------------------------- */
+.reward-list {
+	margin: 10px;
+}

@@ -1,0 +1,175 @@
+/* New post ------------------------------------------------------- */
+
+#newpost-form-wrapper {
+	position: fixed;
+	top: 62px;
+	z-index: 901;
+	width: 100%;
+}
+
+#newpost-bottom-separator {
+	background-color: #d5d8d8;
+	height: 8px;
+	width: 100%;
+	border-bottom: 1px solid #aeadad;
+}
+
+#newpost-form-container {
+	background-color: #fff;
+	/*
+	-moz-box-shadow: inset 0px -3px 3px rgba(0, 0, 0, 0.17);
+	-webkit-box-shadow: inset 0px -3px 3px rgba(0, 0, 0, 0.17);
+	box-shadow: inset 0px -3px 3px rgba(0, 0, 0, 0.17);
+	border-bottom: 1px solid #fff;
+	*/
+}
+
+.newpost-form {
+	margin-top: 20px;
+}
+
+.newpost-form form {
+	margin-bottom: 0px;
+}
+
+.newpost-form .left {
+	width: 150px;
+	margin-left: 10px;
+}
+
+.newpost-form .left .btn.select {
+	width: 124px;
+	text-align: left;
+}
+
+.newpost-form .left .btn {
+	margin-top: 0px;
+}
+
+.newpost-form .left .newpost-datepicker input, .newpost-form .left .newpost-timepicker input {
+	width: 111px;
+}
+
+.newpost-form .right {
+	width: 480px;
+}
+
+.newpost-form .right input[type=text], .newpost-form .right textarea {
+	width: 480px;
+}
+
+.newpost-form .right input[name=postas] {
+	width: 280px;
+}
+
+.newpost-sidebar {
+	background-color: #f3f4f4;
+	position: relative;
+	width: 270px;
+	margin-bottom: 20px;
+	padding: 0px 20px 9px;
+}
+
+.newpost-form .image-uploader {
+	-moz-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07);
+	-webkit-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07);
+	box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07);
+	border: 1px solid #ccc;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color: #ccc;
+	font-weight: bold;
+	height: 60px;
+	margin-bottom: 20px;
+	padding-top: 60px;
+	position: relative;
+	text-align: center;
+	width: 150px;
+	background: url(/assets/images/image-upload.png) no-repeat center 20px #fffef2;
+	line-height: 15px;
+	z-index: 10;
+}
+
+.newpost-form .image-uploader:hover, .newpost-form .image-uploader.active {
+	border: 1px solid #969595;
+	color: #969595;
+	cursor:pointer;
+}
+ 
+.newpost-form .image-uploader input {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;	
+	z-index: 101;
+	display:block;
+
+	background:green;
+	font-size: 2em;
+	width:150px;
+	height:120px;
+
+	-moz-opacity:0;
+	/* filter:alpha(opacity: 0); */
+	opacity: 0;
+}
+
+.newpost-form .image-uploader:focus {
+	border: 1px solid #969595;
+}
+
+.newpost-form .image-uploader .progress {
+	position: relative;
+	width: 80%;
+	margin: 15px auto 0px auto;
+	height: 5px;
+	z-index: 102;
+}
+
+.newpost-form .image-uploader .image-preview {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	z-index: 100;
+}
+
+.newpost-form .image-uploader .image-preview img {
+	z-index: 105;
+}
+
+.newpost-sidebar h4 {
+	color: #666;
+}
+
+.newpost-sidebar h4.submit-your-app {
+	padding-right: 65px;	
+	padding-top: 4px;
+	min-height: 42px;
+	background: url(/assets/images/points-50.png) no-repeat right center;
+}
+
+.newpost-sidebar p {
+	font-size: 12px;
+	line-height: 1.4em;
+}
+#newpost-form-submit {
+	padding-right: 30px;
+	padding-left: 30px;
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+}
+#hide-newpost-form-btn {
+	position: absolute;
+	right: 6px;
+	top: 0px;
+}
+.text-error {
+	font-size: 11px;
+	margin: 0;
+	font-weight: bold;
+}
