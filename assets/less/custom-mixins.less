@@ -1,0 +1,91 @@
+.truncate {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.border {
+	border: 1px solid #ccc;
+}
+.icon-font {
+	 font-family: "bitstrap";
+	 font-style: normal;
+	 font-weight: normal;
+	 speak: none;
+	 display: inline-block;
+	 text-decoration: inherit;
+	 width: 1em;
+	 margin-right: .2em;
+	 text-align: center;
+	 font-variant: normal;
+	 text-transform: none;
+	 text-indent: 0;
+}
+.underlined-heading {
+	border-bottom: solid #eee 1px;
+	padding-bottom: 5px;
+}
+.label-size {
+	font-size: 11px;
+}
+.box-shadow {
+	-moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.no-box-shadow {
+	-moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0) !important;
+	-webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0) !important;
+	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0) !important;
+}
+.box-sizing, .border-box { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	-ms-box-sizing: border-box;
+	box-sizing: border-box; 
+}
+.text-smoothing, .font-smoothing {
+	-webkit-font-smoothing: antialiased;
+}
+.border-radius (@radius: @baseBorderRadius) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-left (@radius: @baseBorderRadius) {
+	-webkit-border-top-left-radius: @radius;
+	-webkit-border-bottom-left-radius: @radius;
+	-moz-border-radius-topleft: @radius;
+	-moz-border-radius-bottomleft: @radius;
+	border-top-left-radius: @radius;
+	border-bottom-left-radius: @radius;
+}
+.border-radius-right (@radius: @baseBorderRadius) {
+	-webkit-border-top-right-radius: @radius;
+	-webkit-border-bottom-right-radius: @radius;
+	-moz-border-radius-topright: @radius;
+	-moz-border-radius-bottomright: @radius;
+	border-top-right-radius: @radius;
+	border-bottom-right-radius: @radius;
+}
+.text-shadow-light(@opacity: .5) {
+	text-shadow: 0 1px 0 rgba(255, 255, 255, @opacity);
+}
+.text-shadow(@opacity: .5) {
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, @opacity);
+}
+.hide, #fields, #newContact, #searchResults {
+	display: none;
+}
+br, .clear {
+	float: none;
+	clear: both;
+}
+.hidden {
+	display: none;
+}
+.leftalign {
+	text-align: left;
+}
+.rightalign {
+	text-align: right;
+}

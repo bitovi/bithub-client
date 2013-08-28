@@ -1,0 +1,564 @@
+/* Event list and events --------------------------------------------------------- */
+
+.event-list h3  {
+	color: #666666;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+	line-height: 14px;
+	margin: 0 0 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 5px 10px 5px 20px;
+	background: url(/assets/images/glyph-categories.png) no-repeat 0px 1px;
+	text-shadow: 0 -1px 0 #ffffff;
+}
+.event-list h3.bug-icon { background-position: 0px -22px; text-transform: capitalize; }
+.event-list h3.comment-icon { background-position: 0px -46px; text-transform: capitalize; }
+.event-list h3.code-icon { background-position: 0px -68px; text-transform: capitalize; }
+.event-list h3.irc-icon {	background-position: 0px -91px; text-transform: capitalize; }
+.event-list h3.twitter-icon { background-position: 0px -114px; text-transform: capitalize; }
+.event-list h3.plugin-icon { background-position: 0px -138px; text-transform: capitalize; }
+.event-list h3.app-icon { background-position: 0px -160px; text-transform: capitalize; }
+.event-list h3.question-icon { background-position: 0px -183px; text-transform: capitalize; }
+
+.event-list.top-rated {
+	margin-top: 20px;
+}
+
+.event {
+	position: relative;
+	padding: 10px 0px;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+}
+
+.event:hover {
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+}
+
+.event.notified {
+	background-color: #e9f8ff;
+	border: 1px solid #71bee5;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;	
+	/*
+	-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
+	-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;	
+	*/
+	padding: 10px;
+	margin: 10px -10px;
+}
+
+.event:hover .toolbar {
+	display: block;
+}
+
+.event .toolbar {
+	display: none;
+	position: absolute;
+	float: right;
+	color: #000;
+	top: 2px;
+	right: 3px;
+}
+
+.event .title {
+	margin: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.event .title a {
+	/* color: #000; */
+	font-size: 14px;
+	margin: 0;
+	line-height: 18px;
+}
+
+.event .title .expand-body {
+	color: #777;
+	margin-left: 10px;
+
+}
+
+.event .body {
+	color: #333333;
+	font-size: 12px;
+	line-height: 17px;
+}
+
+.event .replies .body {
+	display: block;
+}
+
+.event:hover .body {
+	color: #000;
+}
+
+.event img.thumb {
+	float: left;
+	width: 120px;
+	margin: 5px 15px 10px 0px;
+}
+
+.event .status {
+	position: relative;
+	margin-bottom: 6px;
+	height: 10px;
+	margin-top: 6px;
+}
+
+.event .status, .event .status a, .event .manage-bar > ul.nav > li > a {
+	color: #999;
+}
+
+.event .status .user-icon {
+	height: 14px;
+	margin-right: 5px;
+}
+.event ul.tag-list, .event ul.manage-bar {	
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 0px;
+}
+
+.event ul.tag-list:hover {
+	background-color: white;
+	z-index: 3;
+	box-shadow: 5px 0px 5px white;
+}
+
+.event ul.tag-list li, .event .manage-bar ul.nav > li {	
+	background-color: #ecebeb;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color: #666666;
+	float: left;
+	margin-right: 5px;
+	font-size: 12px;
+	line-height: 14px;
+	padding: 0px 5px 2px;
+}
+
+.event .manage-bar ul > li.tag-action.present {
+	background-color: purple;
+}
+
+.event:hover ul.tag-list li a, .event:hover .manage-bar > ul.nav > li > a {	
+	color: #3b3b3b;
+}
+
+.event ul.tag-list li:hover a, .event .manage-bar > ul.nav > li:hover > a {
+	background: none;
+	color: #A80E14;
+}
+
+.event ul.twitter-actions-list li {
+	display: inline;
+	margin-left: 5px;
+}
+
+.event ul.twitter-actions-list li i {
+	margin-top: 3px;
+}
+
+.event .votes:hover {
+	cursor: pointer;
+}
+
+.event .votes { 
+	margin: 0px;
+	position: relative;
+}
+
+.event .votes .uparrow {
+	background-image: url(/assets/images/vote-up.png);
+	height: 14px;
+	position: absolute;
+	top: 1px;
+	width: 15px;
+}
+
+.event:hover > .votes .uparrow, .event .upvoted .upvote {
+	background-position: 0px -14px;
+}
+
+.reply-event:hover > .votes .uparrow, .reply-event .upvoted .upvote {
+	background-position: 0px -14px;
+}
+
+.event .votes .count {
+	left: 12px;
+	font-size: 14px;
+	font-weight: bold;
+	position: absolute;
+	top: -1px;
+	text-align: center;
+	width: 36px;
+	color: #000;
+}
+
+.event .upvoted .count {
+	color: #000;
+}
+
+.event .votes .voteup-btn {
+	border-radius: 3px;
+	display: none;
+	color: #fff;
+	font-size: 11px;
+	height: 20px;
+	position: absolute;
+	width: 54px;
+	text-align: center;
+	top: 22px;
+	background: url(/assets/images/carets.png) no-repeat -9999px 0 #169410;
+}
+
+.event .votes .voteup-btn.upvoted {
+	background-color: #7b7b7b;
+}
+
+.event:hover .votes .voteup-btn {
+	display: block;
+	z-index: 10;
+	width: 100%;
+}
+
+.event .votes .voteup-btn .upvote-caret {
+	display: block;
+	height: 4px;
+	margin-left: 4px;
+	margin-top: -4px;
+	width: 8px;
+	background: url(/assets/images/carets.png) no-repeat -9px 0;
+}
+.event .votes .voteup-btn.upvoted .upvote-caret {
+	background: url(/assets/images/carets.png) no-repeat -17px 0;
+}
+.event .votes .awarded {
+	color: #fff;
+	font-size: 11px;
+	background-color: #ff8d1a;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	
+	position: absolute;
+	top: 22px;
+	width: 100%;
+	text-align: center;
+}
+
+.event .status .expand-replies {
+	color: #666666;
+	white-space:nowrap;
+	font-size: 11px;
+	margin-right: 10px;
+	display: inline-block;
+	cursor: pointer;
+	position: relative;
+	top: -4px;
+}
+
+.event .status .expand-replies .icon {
+	border: 1px solid #999;
+	float: left;
+	margin: 3px 5px 0px 0px;
+	height: 11px;
+	width: 11px;
+	background: url(/assets/images/replies-glyph.png) no-repeat -1px -1px;
+}
+.event .status .expand-replies .icon.collapse {
+	background-position-y: -14px;
+}
+
+.event .status .expand-manage-bar {
+	background-image: url(/assets/images/glyph-hovers.png);
+	background-position-y: -42px;
+	width: 14px;
+	height: 14px;	
+	display: none;
+}
+.event .status .expand-manage-bar.collapse { background-position-y: -56px; }
+
+.event:hover .status .expand-manage-bar {
+	display: inline-block;
+}
+
+.event .manage-bar {
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	padding: 5px 0px 3px 0px;
+	display: none;
+	position: relative;
+	top: 5px;
+}
+
+.event .metadata-container {
+	position: absolute;
+	right: 0px;
+	z-index: 2;
+	background-color: white;
+	height: 20px;
+	padding-left: 3px;
+	box-shadow: -5px 0px 5px white;
+	padding-top: 1px;
+	margin-top: -1px;
+}
+
+.event .event-metadata, .event-metadata strong, .event-metadata small, .event-metadata a {
+	color: #999;
+	font-size: 11px;
+	line-height: 14px;
+	font-weight: normal;
+	font-style: normal;
+}
+.event-metadata img {
+	margin-right: 5px;
+	margin-bottom: 2px;
+}
+.event-metadata a {
+	text-decoration: underline;
+	color: #999;
+}
+.readmore-link, .btn-tiny, .btn.btn-tiny {
+	background-color: none;
+	background: none;
+	border: none;
+	color: #999;
+	display: block;
+	float: right;
+	font-size: 9px;
+	margin-top: -2px;
+	text-align: center;
+	min-height: 14px;
+	line-height: 12px;
+	padding: 0 7px;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: underline;
+}
+.readmore-link:hover, .btn-tiny:hover {
+	text-decoration: none;
+}
+.event .replies {
+	background-color: #fff;
+	border: 1px solid #c3bfbe;
+	display: none;
+	padding: 3px;
+	position: relative;
+	margin-top: 14px;
+}
+
+.event .replies .replies-caret {
+	display: block;
+	height: 7px;
+	position: absolute;
+	left: 20px;
+	top: -7px;
+	width: 12px;
+	background: url(/assets/images/replies-glyph.png) no-repeat 0 bottom;
+}
+
+.event .replies .reply-event {
+	margin: 0px;
+	position: relative;
+}
+.event .replies .reply-event:nth-child(even) {
+	background-color: #f3f4f4;
+}
+
+.event .replies .even {
+	background-color: #f8f7f7;
+}
+
+.event .replies .reply-event .votes {
+	float: left;
+	width: 50px;
+	height: 20px;
+}
+
+.event .replies .reply-event .votes .count {
+	top: 3px;
+}
+
+.event .replies .reply-event .votes .uparrow {
+	left: 6px;
+	top: 5px;
+}
+
+.event .replies .reply-event .body {
+	/* float: left; */
+	/* width: 500px; */
+}
+
+.reply-event .awarded-badge {
+	background-image: url(/assets/images/awarded.png);
+	width: 37px;
+	height: 37px;
+	position: absolute;
+	left: -34px;
+}
+
+.event:hover .votes .award-btn { display: block; }
+.event .votes .award-btn {
+	display: none;
+	position: absolute;
+	top: 43px;
+	color: #fff;
+	height: 20px;
+	width: 54px;
+}
+
+.event .votes .award-btn .word {
+	position: relative;
+	text-align: center;
+	background-color: #ff8d1a;
+	font-size: 11px;
+	width: 93%;
+	border-radius: 3px;
+	float: left;
+}
+
+.event .votes .award-btn .caret-right {
+	background-image: url(/assets/images/carets.png);
+	background-position: -23px 7px;
+	background-size: 30px 6px;
+	background-repeat: no-repeat;
+	position: absolute;
+	right: 0px;
+	width: 7px;
+	height: 100%;
+}
+
+.reply-event .award-btn {
+	position: absolute;
+	left: -65px;
+	padding-right: 10px;
+	display: none;
+}
+.reply-event:hover .award-btn { display: block; }
+
+.reply-event .award-btn a {
+	background-color: #ff8d1a;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	
+	color: #fff;
+	display: block;
+	position: relative;
+	font-size: 11px;
+	padding: 0px 10px;
+}
+.reply-event .award-btn a .caret {
+	background-image: url(/assets/images/carets.png);
+	background-position: right top;
+	width: 5px;
+	heigth: 6px;
+	position: absolute;
+	right: -4px;
+	top: 2px;
+}
+
+
+/* Single Event --------------------------------------------------- */
+
+#event-container {
+	padding-top: 70px;
+	margin: 0px auto 100px auto;
+	width: 740px;
+}
+
+#event-container .sep .flag.blue {
+	margin-left: -140px; 
+	padding: 3px 0px;
+}
+
+#event-container .event img.thumb {
+	width: auto;
+	max-width: 180px;
+	margin: 0px 15px 10px 0px;
+}
+
+#event-container .event .link a {
+	color: #999;
+	font-weight: normal;
+}
+
+
+.irc-chat-container {
+	max-height: 300px;
+	border: 1px solid #969595;
+	overflow: scroll;
+	padding: 10px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07);
+	-webkit-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.07);
+	font-size: 12px;
+	line-height: 14px;
+	margin-bottom: 20px;
+	overflow-x: hidden;
+}
+
+.irc-chat-container .username {
+	color: red;
+}
+
+.twitter-profile-pic, .event .thumb {
+	margin: 4px 9px 0 0;
+	padding: 3px;
+	max-width: 60px;
+	background-color: #b2b2b2;
+}
+.twitter-actions-list .twitter-action {
+	background-image: url(/assets/images/twitter-actions.png);
+	float: left;
+	width: 17px;
+	height: 20px;
+	margin-right: 5px;
+}
+.twitter-actions-list.nav {
+	margin-bottom: 0;
+}
+.twitter-actions-list .twitter-action.reply {
+	background-position: 0px 2px;
+}
+
+.twitter-actions-list .twitter-action.retweet {
+	background-position: 0px -15px;
+}
+
+.twitter-actions-list .twitter-action.star {
+	background-position: 0px -32px;
+}
+
+
+.retweets-container {
+	margin-right: 15px;
+}
+
+.retweets-container .profile-icon {
+	width: 16px;
+	height: 16px;
+}
+
+.retweets-container .retweet-icon {
+	background-image: url(/assets/images/icon-retweet.png);
+	margin: -1px 3px 0 0;
+	width: 24px;
+	height: 16px;
+}
+
+.twitter-hashtag, .twitter-mention {
+	font-weight: bold;
+}
