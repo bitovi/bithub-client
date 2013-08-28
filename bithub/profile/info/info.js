@@ -24,7 +24,7 @@ steal(
 					helpers: {
 						hasProvider: function( provider, opts ) {
 							var flag = false
-							if (self.options.currentUser.attr('isLoggedIn') === true) {
+							if (self.options.currentUser.attr('loggedInDelayed') === true) {
 								self.options.currentUser.attr('identities').each( function (value) {
 									if (value.provider === provider) flag = true;
 								});

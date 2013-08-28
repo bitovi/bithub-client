@@ -20,9 +20,21 @@ steal(
 				var self = this, blacklist = ['loggedInDelayed'];
 
 				$.get('/api/auth/logout', function () {
-					setTimeout(function() { self.attr('loggedInDelayed', false) }, 500);
-					for(var key in self.attr()) {
-						if (blacklist.indexOf(key) < 0) self.removeAttr(key);
+					setTimeout(function() {
+						self.attr('loggedInDelayed', false);
+
+						for(var key in self.attr()) {
+							if (blacklist.indexOf(key) < 0) self.removeAttr(key);
+						}
+						
+					}, 500);
+
+					// if not on homepage redirect to homepage latest
+					if( can.route.attr('page') != 'homepage' ) {
+						can.route.attr({
+							page:'homepage',
+							view: 'latest'
+						});
 					}
 				});
 			}
