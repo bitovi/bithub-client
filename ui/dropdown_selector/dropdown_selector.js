@@ -15,12 +15,18 @@ steal(
 		};
 				
 		var dropdownItemRoute = function (item) {
-			return can.route.url({
+			var routes = {
 				project: item.name,
 				category: can.route.attr('category'),
 				timespan: can.route.attr('timespan') || 'week',
 				view: currentViewFiltered()
-			}, false);
+			}
+
+			if (can.route.attr('category') === 'bug') {
+				routes.state = can.route.attr('state')
+			}
+			
+			return can.route.url(routes, false);
 		};
 
 		return can.Control.extend({

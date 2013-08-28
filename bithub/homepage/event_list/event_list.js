@@ -148,7 +148,7 @@ steal(
 				new TimespanFilter(this.element.find('#timespan-filter'));
 
 				// disabled for now, update routes first
-				//new IssueStateFilter(this.element.find('#issue-state-filter'));
+				new IssueStateFilter(this.element.find('#issue-state-filter'));
 
 				this.spinnerTop(true);
 			},
@@ -163,7 +163,7 @@ steal(
 			'{can.route} project': "reload",
 			'{can.route} category': "reload",
 			'{can.route} timespan': "reload",
-			//'{can.route} state': "reload",
+			'{can.route} state': "reload",
 
 			'{Bithub.Models.Event} reload': "reload",
 

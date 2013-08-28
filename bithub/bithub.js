@@ -52,7 +52,7 @@ steal(
 		},{
 			params: ['latest'],
 			paramKey: 'view',
-			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all'},	
+			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'all'},	
 			childs: [{
 				params: categories,
 				paramKey: 'category'

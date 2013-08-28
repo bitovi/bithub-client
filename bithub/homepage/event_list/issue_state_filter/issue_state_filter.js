@@ -20,7 +20,9 @@ steal(
 					items: states
 				}, {
 					isSelected: function( value ) {
-						if( can.route.attr('state') === value ) {
+						var state = can.route.attr('state');
+
+						if( (state && state === value) || (!state && value === 'both') ) {
 							return "text-decoration: underline";
 						}
 					}

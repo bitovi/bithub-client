@@ -4,11 +4,17 @@ steal(
 	function(can, initView){
 
 		var makeRouteForOption = function (item) {
-			return can.route.url({
+			var routes = {
 				category: can.route.attr('category'),
 				project: can.route.attr('project'),
 				view: item.name
-			}, false);
+			};
+
+			if (can.route.attr('category') === 'bug') {
+				routes.state = can.route.attr('state')
+			}
+			
+			return can.route.url(routes, false);
 		};
 
 		return can.Control.extend({
