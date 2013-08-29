@@ -100,3 +100,13 @@ br, .clear {
 	transform : rotate(@dir*1deg);
 	transform : rotateZ(@dir*1deg) skewY(@skew*1deg) skewX(@skew*1deg);
 }
+.input-gradient {
+	background-color: #fff;
+	background: rgb(244,244,244);
+	background: -moz-linear-gradient(top,  rgba(244,244,244,1) 0%, rgba(219,219,219,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(244,244,244,1)), color-stop(100%,rgba(219,219,219,1)));
+	background: -webkit-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(219,219,219,1) 100%);
+	background: -o-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(219,219,219,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(219,219,219,1) 100%);
+	background: linear-gradient(to bottom,  rgba(244,244,244,1) 0%,rgba(219,219,219,1) 100%);
+}
