@@ -245,18 +245,16 @@
 /* custom select menus */
 
 .select-menu {
-	border: 1px solid #d3d3d3;
+	border: 1px solid #fff;
 	background-color: #dfdfdf;
 	height: 28px;
 	display: inline-block;
-	border-radius: 2px;
+	.border-radius(@borderRadiusLarge);
 	overflow: hidden;
-	-moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 #ffffff;
-	-webkit-box-shadow: 0px 1px 2pxx rgba(0, 0, 0, 0.1), inset 0 1px 0 #ffffff;
-	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), inset 0 1px 0 #ffffff;
 	position: relative;
-	.input-gradient;
 	text-align: left;
+	background: @grayLighter url(/assets/images/header-nav-bkg.jpg);
+	.box-shadow;
 	
 	select {
 		background: transparent;
@@ -265,11 +263,13 @@
 		border: 0;
 		height: 28px;
 		-webkit-appearance: none;
-		font-size: 14px;
-		color: @gray;
+		font-size: 13px;
+		color: @grayDarker;
 		.text-shadow-light;
 		line-height: 28px;
 		padding: 0px 0px 6px 8px;
+		font-family: "Open Sans", OpenSans, sans-serif;
+		background: none rgba(166, 168, 168, 0.05);
 	}
 	
 		&:before {
@@ -288,4 +288,16 @@
 			.box-shadow;
 			position: absolute;
 		}
+}
+
+
+.filters {
+	text-align: right;
+	border: none;
+	padding: 10px 0;
+	
+	#timespan-filter, #issue-state-filter {
+		display: inline-block;
+		border: none;
+	}
 }

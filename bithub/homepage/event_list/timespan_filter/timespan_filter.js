@@ -5,16 +5,16 @@ steal(
 
 		var timespans = [{
 			value: 'day',
-			display: 'Day'
+			display: 'Today'
 		}, {
 			value: 'week',
-			display: 'Week'
+			display: 'This Week'
 		}, {
 			value: 'month',
-			display: 'Month'
+			display: 'This Month'
 		}, {
 			value: 'all',
-			display: 'All time'
+			display: 'All Time'
 		}];
 
 		return can.Control.extend({
