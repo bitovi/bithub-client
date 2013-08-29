@@ -2,7 +2,7 @@
 
 <ul class="unstyled">
   {{#loop users length=topLength}}
-  <li class="{{isLoggedin}}">
+  <li class="{{#if isLoggedIn}}active{{/if}}">
 	<span class="position">#{{__index}}</span>
 	{{#avatar_url}}<img class="avatar" src="{{.}}?size=22" alt="avatar">{{/avatar_url}}
 	{{name}}
@@ -16,7 +16,7 @@
 
   <ul class="unstyled">
 	{{#loop users begin=breakAt length=3}}
-	<li class="{{isLoggedin}}">
+	<li class="{{#if isLoggedIn}}active{{/if}}">
 	  <span class="position">#{{__index}}</span>
 	  {{#avatar_url}}<img class="avatar" src="{{.}}?size=22" alt="avatar">{{/avatar_url}}
 	  {{name}}

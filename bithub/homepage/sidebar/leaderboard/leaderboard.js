@@ -43,10 +43,6 @@ steal(
 					currentUser: opts.currentUser,
 					breakAt: breakAt,
 					topLength: topLength
-				}, {
-					isLoggedIn: function (opts) {
-						return (this.attr('isLoggedIn') === true)  ? 'active' : '';
-					}
 				}));
 
 				this.updateLeaderboard();
@@ -63,7 +59,7 @@ steal(
 			determineRank: function () {
 				var self = this;
 
-				this.options.users.each(function (user, i) {							  
+				this.options.users.each(function (user, i) {
 					if (self.options.currentUser.attr('id') === user.attr('id')) {
 						user.attr('isLoggedIn', true); // otherwise won't mark user on first login
 						rank( i );
