@@ -13,6 +13,8 @@ steal(
 	'bithub/helpers/loadtime.js',
 	'ui/onbottom.js',
 	'can/route/pushstate',
+
+	// replace with '/assets/less/production.less'
 	'vendor/bootstrap',
 	'vendor/bootstrap-datepicker',
 	'vendor/lodash',
