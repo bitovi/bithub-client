@@ -7,7 +7,12 @@ steal('can',
 				  defaults : {}
 			  }, {
 				  init : function(){
-					  this.element.html( initView({}) );					  
+					  this.element.html( initView({}) );
+				  },
+
+				  '{currentUser} isLoggedIn': function(user, ev, newVal, oldVal) {
+					  // will execute only fetching non logged user's session (oldVal = undefined, newVal = false) 
+					  !newVal && !oldVal && can.route.attr('login') && this.showLogin();
 				  },
 
 				  '#login-modal .providers .twitter a click': function( el, ev ) {					  
