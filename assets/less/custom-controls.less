@@ -35,11 +35,11 @@
 .sep {
 	height: 5px;
 	margin-bottom: 35px;
-	width: 100%;
-	position: absolute;
 	margin-left: -2000px;
 	padding-left: 2000px;
 	position: static;
+	width: 3000px;
+	
 	&.blue {
 		background-color: #71bee5;
 		border-bottom: 1px solid #4995bb;
@@ -50,7 +50,50 @@
 	}
 }
 
-
+/*
+// I am messing with a new design for the flags. Not sure about it. 
+.flag {
+	font-size: 14px;
+	line-height: 15px;
+	margin: 0;
+	display: inline-block;
+	color: #fff;
+	padding: 5px 10px;
+	//.border-radius-right;
+	position: relative;
+	top: 1px;
+	left: -15px;
+	min-width: 150px;
+	text-align: left;
+	display: inline-block;
+	overflow: visible;
+	z-index: 2;
+	
+	&.blue {
+		background-color: @blue;
+		.text-shadow;
+		.border(#4995bb);
+	}
+	&:before {
+		position:absolute;
+		content : '';
+		.rotate(-135);
+		left: -1px;
+		bottom: -4px;
+		z-index: -1;
+		display: block;
+		width: 0; 
+		height: 0; 
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-top: 4px solid @blueDark;
+	}
+}
+.sep-wrapper, .wrapper {
+	z-index: 900;
+	position: relative;
+}
+*/
 
 /* Status Bar ----------------------------------------------------- */
 
