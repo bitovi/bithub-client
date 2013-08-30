@@ -13,13 +13,13 @@ steal(
 	'bithub/helpers/loadtime.js',
 	'ui/onbottom.js',
 	'can/route/pushstate',
-
-	// replace with '/assets/less/production.less'
 	'vendor/bootstrap',
 	'vendor/bootstrap-datepicker',
 	'vendor/lodash',
-	'assets/styles/bootstrap.css',
-	'assets/styles/bootstrap-datepicker.css',
+
+	// replace with '/assets/less/production.less'
+	//'assets/styles/bootstrap.css',
+	//'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
 	function(can, PageSwitcher, Navigator, Login, Newpost, prepareParams, Modals, Event, Tag, User, loadtime) {
 		var self = this;
