@@ -1,0 +1,9 @@
+{{#if show}}
+<div class="select-menu">
+  <select name="{{elemName}}" >
+	{{#items}}
+	<option {{isSelected}} value="{{value}}">{{display}}</option>
+	{{/items}}
+  </select>
+</div>
+{{/if}}
