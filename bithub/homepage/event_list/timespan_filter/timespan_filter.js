@@ -18,23 +18,20 @@ steal(
 		}];
 
 		return can.Control.extend({
-			init: function( el, opts ) {
-				el.html( initView({
+			init: function( elem, opts ) {
+				elem.html( initView({
 					items: timespans
 				}, {
-					isSelected: function( value ) {
-						if( can.route.attr('timespan') === value ) {
-							// replace with css class name when design is ready
-							return "text-decoration: underline";
-						}
+					isSelected: function( val ) {
+						return (val == can.route.attr('timespan')) ? 'selected="selected"' : '';
 					}
 				}) );
 			},
 
-			'a click': function( el, ev ) {
+			'select change': function( el, ev ) {
 				ev.preventDefault();
-				can.route.attr('timespan', can.data(el, 'value') );
+				can.route.attr('timespan', el.val() );
 			}
-		});		  
+		});
 	}
 );
