@@ -3,8 +3,8 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.border {
-	border: 1px solid #ccc;
+.border(@color: @grayLight) {
+	border: 1px solid @color;
 }
 .icon-font {
 	 font-family: "bitstrap";
@@ -70,7 +70,7 @@
 .text-shadow-light(@opacity: .5) {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, @opacity);
 }
-.text-shadow(@opacity: .5) {
+.text-shadow(@opacity: .3) {
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, @opacity);
 }
 .hide, #fields, #newContact, #searchResults {
@@ -91,4 +91,25 @@ br, .clear {
 }
 #show-newpost {
 	display: block;
+}
+.rotate(@dir: -45,@skew: 5) {
+	-moz-transform : rotateZ(@dir*1deg) skewY(@skew*1deg) skewX(@skew*1deg);
+	-o-transform : rotateZ(@dir*1deg) skewY(@skew*1deg) skewX(@skew*1deg);
+	-webkit-transform : rotateZ(@dir*1deg) skewY(@skew*1deg) skewX(@skew*1deg);
+	-ms-transform : rotate(@dir*1deg);
+	transform : rotate(@dir*1deg);
+	transform : rotateZ(@dir*1deg) skewY(@skew*1deg) skewX(@skew*1deg);
+}
+.input-gradient {
+	background-color: #fff;
+	background: rgb(244,244,244);
+	background: -moz-linear-gradient(top,  rgba(244,244,244,1) 0%, rgba(219,219,219,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(244,244,244,1)), color-stop(100%,rgba(219,219,219,1)));
+	background: -webkit-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(219,219,219,1) 100%);
+	background: -o-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(219,219,219,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(244,244,244,1) 0%,rgba(219,219,219,1) 100%);
+	background: linear-gradient(to bottom,  rgba(244,244,244,1) 0%,rgba(219,219,219,1) 100%);
+}
+.strong {
+	font-family: "Open Sans Bold", OpenSansBold;
 }

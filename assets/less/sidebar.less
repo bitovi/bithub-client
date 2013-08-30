@@ -3,7 +3,7 @@
 .sidebar {	color: #585656;
 	font-size: 12px;
 	padding: 5px 25px;
-	z-index: 3;
+	z-index: 901;
 	position: relative;
 	/* background: url(/assets/images/bkg-sidebar.png) no-repeat left top; */
 	background-color: #fff;
@@ -119,29 +119,7 @@
 	margin: 5px 0px;
 }
 
-.badge, .sidebar .scorings .badge, .event .title .badge {
-	margin: 0px 10px 0px 5px;
-	text-align: center;
-	font-size: 9px;
-	background: url(/assets/images/point-indicator.png) no-repeat rgba(255, 255, 254, 0);
-	height: 15px;
-	line-height: 16px;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
-	padding: 0 0px 0 7px;
-	display: inline-block;
-	position: relative;
-	top: -1px;
-}
-/* .badge, .event .title .badge { padding-right: 10px; } */
-.badge::after, .sidebar .scorings .badge::after {
-	content: '';
-	height: 15px;
-	background: url(/assets/images/point-indicator.png) no-repeat right center;
-	position: absolute;
-	width: 7px;
-}
+
 /* Modal styling */
 h3 .badge {
 	position: relative;
@@ -250,33 +228,13 @@ h4.handwriting {
 	background-position-y: -80px;
 }
 .btn-signup {
-	display: block;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	border: 1px solid #07770a;
-	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.47);
-	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.47);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.47);
+	.btn;
+	.btn-success;
 	font: bold 16px "Open Sans", OpenSans, sans-serif;
-	color: #fff;
-	background-color: #25a716;
 	padding-top: 8px;
 	padding-bottom: 8px;
-	
-	background: rgb(46,196,30);
-	background: -moz-linear-gradient(top,  rgba(46,196,30,1) 0%, rgba(26,135,14,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(46,196,30,1)), color-stop(100%,rgba(26,135,14,1)));
-	background: -webkit-linear-gradient(top,  rgba(46,196,30,1) 0%,rgba(26,135,14,1) 100%);
-	background: -o-linear-gradient(top,  rgba(46,196,30,1) 0%,rgba(26,135,14,1) 100%);
-	background: -ms-linear-gradient(top,  rgba(46,196,30,1) 0%,rgba(26,135,14,1) 100%);
-	background: linear-gradient(to bottom,  rgba(46,196,30,1) 0%,rgba(26,135,14,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ec41e', endColorstr='#1a870e',GradientType=0 );
-	text-shadow: 0 -1px 0 rgba(5, 5, 5, 0.48);
+	display: block;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-}
-.btn-signup:hover {
-	background: #25a716;
 }

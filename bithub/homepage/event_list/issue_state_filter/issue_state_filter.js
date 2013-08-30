@@ -11,7 +11,7 @@ steal(
 			display: 'Closed'
 		}, {
 			value: 'both',
-			display: 'Both'
+			display: 'All Issues'
 		}];
 
 		return can.Control.extend({

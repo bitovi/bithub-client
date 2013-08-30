@@ -21,20 +21,20 @@
 				<input type="file" name="event[image]" size="1"/>
 			  </div>
 
-			  <div class="control-group" id="newpost-form-project">
+			  <div class="control-group select-menu" id="newpost-form-project">
 				<p class="text-error hidden"></p>
 				<select  name="event[project]" value="{{project}}">
-				  <option value="">Pick a project</option>
+				  <option value="">Pick a Project</option>
 				  {{#projects}}
 				  <option value="{{name}}">{{display_name}}</option>
 				  {{/projects}}
 				</select>
 			  </div>
 
-			  <div class="control-group" style="margin-left: 0px;" id="newpost-form-category">
+			  <div class="control-group select-menu" style="margin-left: 0px;" id="newpost-form-category">
 				<p class="text-error hidden"></p>
 				<select name="event[category]" value="{{category}}">
-				  <option value="">Pick a category</option>
+				  <option value="">Pick a Category</option>
 				  {{#categoryFilter categories}}
 				  <option value="{{name}}">{{display_name}}</option>
 				  {{/categories}}
@@ -113,8 +113,8 @@
 	<div class="span4 newpost-sidebar">
 	  <button id="hide-newpost-form-btn" class="close">&times;</button>
 
-	  <h4 class="submit-your-app">Submit Your App, <br>Plugin, Blog or Link</h4>
-	  <p>Earn an instant 50 points by sharing something you built, wrote, or found that would be useful to the community.</p>
+	  <h4 class="submit-your-app">Submit Your App, <br />Plugin, or Article <span class="badge">+2 +votes</span></h4>
+	  <p>Earn points by sharing something you built, wrote, or found that would be useful to the community. You get <span class="badge">+2</span> points for sharing plus points for every vote from the community.</p>
 
 	  <hr>
 	  

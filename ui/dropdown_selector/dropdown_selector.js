@@ -33,7 +33,7 @@ steal(
 			defaults : {
 				defaultOption: {
 					name: 'all',
-					display_name: 'All projects'
+					display_name: 'All Projects'
 				}
 			}
 		}, {
