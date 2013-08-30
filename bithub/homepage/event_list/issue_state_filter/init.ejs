@@ -1,9 +1,0 @@
-<% if (can.route.attr('category') === 'bug') { %>
-<div class="select-menu">
-	<select>
-	  <% can.each(items, function(item) { %>
-		  <option <%= isSelected(item.value) %> value="<%= item.value %>"><%= item.display %></option>
-	  <% }) %>
-  </select>
-</div>
-<% } %>

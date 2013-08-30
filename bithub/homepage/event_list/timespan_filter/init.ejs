@@ -1,9 +1,0 @@
-<% if (can.route.attr('view') === 'greatest') { %>
-	<div class="select-menu">
-		<select>
-			<% can.each(items, function(item) { %>
-				<option <%= isSelected(item.value) %> value="<%= item.value %>"><%= item.display %></option>
-			<% }) %>
-		</select>
-	</div>
-<% } %>

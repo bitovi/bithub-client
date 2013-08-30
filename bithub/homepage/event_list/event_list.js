@@ -8,8 +8,7 @@ steal(
 	'bithub/homepage/event_list/views/_digest.ejs',
 	'bithub/homepage/event_list/determine_event_partial.js',
 	'bithub/homepage/event_list/handlers',
-	'bithub/homepage/event_list/timespan_filter',
-	'bithub/homepage/event_list/issue_state_filter',
+	'ui/html_select',
 	'bithub/homepage/event_list/spinner',
 	'bithub/homepage/event_list/post_render',
 	'bithub/homepage/event_list/latest_events_sorter.js',
@@ -21,7 +20,7 @@ steal(
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
 	'can/observe/delegate',
-	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, determineEventPartial, Handlers, TimespanFilter, IssueStateFilter, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
+	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var visibleTags = new can.Observe.List();				
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
@@ -145,10 +144,39 @@ steal(
 				});
 
 				new PostRendering(this.element);
-				new TimespanFilter(this.element.find('#timespan-filter'));
 
-				// disabled for now, update routes first
-				new IssueStateFilter(this.element.find('#issue-state-filter'));
+				new HtmlSelect( this.element.find('#timespan-filter'), {
+					items: [{value: 'day', display: 'Today'},
+							{value: 'week',	display: 'This Week'},
+							{value: 'month', display: 'This Month'},
+							{value: 'all', display: 'All Time' }],
+					currentValue: function() {
+						return can.route.attr('timespan')
+					},
+					onChange: function( val ) {
+						can.route.attr('timespan', val);
+					},
+					show: function() {
+						return can.route.attr('view') == 'greatest'
+					}
+					
+				});
+
+				new HtmlSelect( this.element.find('#issue-state-filter'), {
+					items: [{value: 'open', display: 'Open'},
+							{value: 'closed', display: 'Closed'},
+							{value: 'both', display: 'All Issues'}],
+					currentValue: function() {
+						return can.route.attr('state')
+					},
+					onChange: function( val ) {
+						can.route.attr('state', val);
+					},
+					show: function() {
+						return can.route.attr('category') == 'bug'
+					}
+					
+				});
 
 				this.spinnerTop(true);
 			},
