@@ -23,7 +23,7 @@
 					<h3 class="<%= category %>-icon"><%= category %></h3>
 					<div class="truncated">
 						<%== each( day.attr('types.' + category), function( event ) { %>
-							<%== eventPartial.render({event: event, determineEventPartial: determineEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts'}) %>
+							<%== eventPartial.render({event: event, determineEventPartial: determineEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
 						<% }) %>
 					</div>
 				</div>

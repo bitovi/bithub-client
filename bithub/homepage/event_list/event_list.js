@@ -108,9 +108,15 @@ steal(
 					isAdmin: function () {
 						return opts.currentUser.isAdmin();
 					},
-
 					isLoggedIn: function () {
 						return opts.currentUser.isLoggedIn();
+					},
+					formatTs: function( event, date) {
+						var format = 'datetime';
+
+						if( date && can.route.attr('view') == 'latest' && date == moment.utc(event.attr('origin_ts')).format('YYYY-MM-DD') ) format = 'time';
+						
+						return can.EJS.Helpers.prototype.prettifyTs( event.attr('origin_ts'), format );
 					}
 				});
 

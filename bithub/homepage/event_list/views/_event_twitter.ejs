@@ -26,7 +26,7 @@
 	  <% }) %>
 	</div>
 	<div class="event-metadata pull-right">
-	  <small><%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %> via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
+	  <small><%== formatTs( event, date ) %> via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 	</div>
   </div>	  
   <ul class="tag-list nav">

@@ -35,7 +35,7 @@
   <div class="span7 content">
 
 	<!-- title & body -->
-	<%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, visibleTags: visibleTags}) %>
+	<%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, visibleTags: visibleTags, date: date}) %>
 	
 	<% if( isAdmin() ) { %>
 	<!-- ADMIN -->
