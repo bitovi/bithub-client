@@ -2,7 +2,8 @@ steal(
 	'can',
 	'bithub/profile/info',
 	'bithub/profile/activities',
-	function(can, ProfileInfoControl, ProfileActivitiesControl){
+	'bithub/profile/earnpoints',
+	function(can, ProfileInfoControl, ProfileActivitiesControl, EarnPointsControl){
 
 		var currentControl;
 		
@@ -11,11 +12,13 @@ steal(
 			defaults : {
 				views: {
 					info: ProfileInfoControl,
-					activities: ProfileActivitiesControl
+					activities: ProfileActivitiesControl,
+					earnpoints: EarnPointsControl
 				},
 				routes: {
 					info: function () { return can.route.url({page: 'profile', view: 'info'}, false) },
-					activities: function () { return can.route.url({page: 'profile', view: 'activities'}, false) }
+					activities: function () { return can.route.url({page: 'profile', view: 'activities'}, false) },
+					earnpoints: function () { return can.route.url({page: 'profile', view: 'earnpoints'}, false) }
 				}
 			}
 		}, {

@@ -136,6 +136,7 @@ steal(
 
 		can.route('/profile', { page: 'profile', view: 'info' });
 		can.route('/profile/activities', { page: 'profile', view: 'activities' });
+		can.route('/profile/earn-points', { page: 'profile', view: 'earnpoints' });
 
 		can.route('/events/:id', { page: 'homepage', view: 'details' });
 		can.route('/rewards', { page: 'homepage', view: 'rewards' });
