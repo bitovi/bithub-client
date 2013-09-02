@@ -55,6 +55,12 @@ steal(
 				return _.include(this.attr('roles'), 'admin');
 			},
 
+			getProvider: function( provider ) {
+				return _.first( _.filter(this.attr('identities'), function( identity ) {
+					return identity.attr('provider') == provider;
+				}));
+			},
+
 			login: function(provider) {
 				auth.login.call(this, providers[provider] );
 			},
@@ -72,9 +78,38 @@ steal(
 				}).done(function(data) {
 					self.attr('roles', data.roles);
 				})
+			},
+
+			queryGithub: function( endpoint, cb ) {
+				var	github = this.getProvider('github');
+
+				if( !github ) return;
+				
+				var endpoints = {
+					// later switch to "watched";  http://developer.github.com/changes/2012-9-5-watcher-api/
+					watched: "https://api.github.com/users/" + github.source_data.login + "/subscriptions",
+					starred: "https://api.github.com/users/" + github.source_data.login + "/starred"
+				}
+
+				$.ajax({
+					url: endpoints[endpoint],
+					headers: {
+						//Accept: "application/vnd.github.v3+json"
+					},
+					success: function( data ) {
+						cb( _.map(data, function( subscription ) {
+							return {
+								id: subscription.id,
+								name: subscription.name,
+								full_name: subscription.full_name
+							}
+						}) );
+					}
+				})
 			}
 		});
 
 		return User;
 	}
 );
+ 
