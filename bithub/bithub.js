@@ -150,6 +150,7 @@ steal(
 			currentUser       = new User({isLoggedIn: undefined}),
 			preloadedEvents   = new Bithub.Models.Event.List([{}]);
 
+		CURRENT_USER = currentUser;
 
 		// Preload events on route init
 		window.EVENTS_PRELOADED = false;
