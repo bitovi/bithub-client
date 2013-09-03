@@ -1,8 +1,7 @@
 steal(
 	'can',
 	'./activities.mustache',
-	'../_navbar.mustache',
-	function(can, activitiesView, NavbarPartial){
+	function(can, activitiesView){
 		
 		return can.Control.extend({
 			pluginName: 'profile-activities',
@@ -22,9 +21,7 @@ steal(
 							else { return "-" + value }
 						}
 					},
-					partials: {
-						navbarPartial: NavbarPartial
-					}
+					partials: {}
 				}));
 			}
 		});

@@ -1,14 +1,13 @@
 steal('can',
 	  './init.mustache',
-	  '../_navbar.mustache',
-	  function(can, initView, navbarPartial){
+	  function(can, initView){
 
 		  var watched = new can.Observe.List(),
 			  starred = new can.Observe.List(),
 			  events = {
 				  twitter: new can.Observe.List(),
 				  question: new can.Observe.List(),
-				  //2issue: new can.Observe.List(),
+				  //issue: new can.Observe.List(),
 				  code: new can.Observe.List(),
 				  article: new can.Observe.List(),
 				  app: new can.Observe.List(),
@@ -43,9 +42,7 @@ steal('can',
 							  }
 
 						  },
-						  partials: {
-							  navbarPartial: navbarPartial
-						  }
+						  partials: {}
 					  }));
 
 					  if( user.isLoggedIn() ) {
