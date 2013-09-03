@@ -69,12 +69,12 @@ steal(
 
 			'#login-github-link click': function( el, ev ) {
 				ev.preventDefault();
-				this.options.currentUser.login({url: '/api/auth/github' });
+				this.options.currentUser.login('github');
 			},
 
 			'#login-twitter-link click': function( el, ev ) {
 				ev.preventDefault();
-				this.options.currentUser.login({url: '/api/auth/twitter' });
+				this.options.currentUser.login('twitter');
 			}
 		});
 	}
