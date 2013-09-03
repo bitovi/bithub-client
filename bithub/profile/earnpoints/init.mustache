@@ -53,13 +53,20 @@
 <p><a href="https://twitter.com/intent/tweet?screen_name=bitovi" target="_blank">Tweet about us</a></p>
 
 <ul>
-  <li>... tweets ...</li>
-  <li>... same for other sections below ...</li>
+  {{#events.twitter}}
+  <li>{{title}}</li>
+  {{/#events.twitter}}
 </ul>
   
 <h4>Questions <span class="badge">+ 1 + votes</span></h4>
 
 <p><a href="http://forum.javascriptmvc.com/">Post on forums &laquo</a></p>
+
+<ul>
+  {{#events.question}}
+  <li>{{title}}</li>
+  {{/#events.question}}
+</ul>
 
 <h4>Issues <span class="badge">+ 2 + votes</span></h4>
 
@@ -69,15 +76,39 @@
 
 <p><a href="https://github.com/bitovi">Request a pull on GitHub</a> for fixing a bug that's by and admin</p>
 
+<ul>
+  {{#events.code}}
+  <li>{{title}}</li>
+  {{/#events.code}}
+</ul>
+
 <h4>Articles <span class="badge">+ 2 + votes</span></h4>
 
 <p>Share you tips, tricks, and JavaScript advice with the community. <a href="javascript://" id="submit-article-link">Submit an article &laquo;</a></p>
+
+<ul>
+  {{#events.article}}
+  <li>{{title}}</li>
+  {{/#events.article}}
+</ul>
 
 <h4>Apps <span class="badge">+ 2 + votes</span></h4>
 
 <p>Post your projects, apps, and websites that user our stuff. <a href="javascript://" id="submit-app-link">Post your app &laquo;</a></p>
 
+<ul>
+  {{#events.app}}
+  <li>{{title}}</li>
+  {{/#events.app}}
+</ul>
+
 <h4>Plugins <span class="badge">+ 2 + votes</span></h4>
 
 <p>Share extended functionally with everyone. <a href="javascript://" id="submit-plugin-link">Share your plugin &raquo;<a></p>
+
+<ul>
+  {{#events.plugin}}
+  <li>{{title}}</li>
+  {{/#events.plugin}}
+</ul>
 

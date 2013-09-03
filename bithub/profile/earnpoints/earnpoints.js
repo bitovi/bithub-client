@@ -4,7 +4,21 @@ steal('can',
 	  function(can, initView, navbarPartial){
 
 		  var watched = new can.Observe.List(),
-			  starred = new can.Observe.List();
+			  starred = new can.Observe.List(),
+			  events = {
+				  twitter: new can.Observe.List(),
+				  question: new can.Observe.List(),
+				  //2issue: new can.Observe.List(),
+				  code: new can.Observe.List(),
+				  article: new can.Observe.List(),
+				  app: new can.Observe.List(),
+				  plugin: new can.Observe.List()				  
+			  }
+
+		  var defaultParams = {
+			  limit: 3,
+			  order: 'thread_updated_at'			  
+		  }
 
 		  return can.Control.extend({
 				  defaults : {}
@@ -14,7 +28,8 @@ steal('can',
 						  user = opts.currentUser;
 					  
 					  this.element.html(initView({
-						  user: user
+						  user: user,
+						  events: events
 					  }, {
 						  helpers: {
 							  hasProvider: function( provider, opts ) {
@@ -33,10 +48,16 @@ steal('can',
 						  }
 					  }));
 
-					  if( user.isLoggedIn() ) this.loadGithub();
+					  if( user.isLoggedIn() ) {
+						  this.loadGithub();
+						  this.loadEvents();
+					  }
 				  },
 
-				  '{currentUser} isLoggedIn change': "loadGithub",
+				  '{currentUser} isLoggedIn change': function() {
+					  this.loadGithub();
+					  this.loadEvents();
+				  },
 
 				  loadGithub: function() {
 					  var user = this.options.currentUser;
@@ -45,6 +66,16 @@ steal('can',
 						  watched.replace( data );
 					  });
 				  },
+
+				  loadEvents: function() {
+					  defaultParams.author_id = this.options.currentUser.attr('id');
+
+					  _.each(_.keys(events), function(category) {
+						  Bithub.Models.Event.findAll(can.extend({category: category}, defaultParams), function( data ) {
+							  events[category].replace( data );
+						  });
+					  });
+				  },				  
 
 				  // handlers
 
