@@ -20,12 +20,6 @@ steal('can',
 							  hasProvider: function( provider, opts ) {
 								  return user.getProvider( provider ) ? opts.fn(this) : opts.inverse(this);
 							  },
-							  isStarred: function( repo, opts ) {
-								  starred.attr('length');
-								  return _.filter(starred, function( item ) {
-									  return item.attr('name') == repo;
-								  }).length ? opts.fn(this) : opts.inverse(this);
-							  },
 							  isWatched: function( repo, opts ) {
 								  watched.attr('length');
 								  return _.filter(watched, function( item ) {
@@ -47,9 +41,6 @@ steal('can',
 				  loadGithub: function() {
 					  var user = this.options.currentUser;
 
-					  user.queryGithub("starred", function( data ) {
-						  starred.replace( data );
-					  });
 					  user.queryGithub("watched", function( data ) {
 						  watched.replace( data );
 					  });

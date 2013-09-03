@@ -1,7 +1,8 @@
 steal(
 	'can',
 	'../helpers/auth.js',
-	function (can, auth) {
+	'../helpers/github.js',
+	function (can, auth, github) {
 		var parse10 = function(str) { return parseInt(str, 10) };
 		var existy = function(x) { return x!==null && x!==undefined };
 		var isStringNully = function(x) { return x===null || x===undefined };
@@ -81,32 +82,19 @@ steal(
 			},
 
 			queryGithub: function( endpoint, cb ) {
-				var	github = this.getProvider('github');
+				var	provider = this.getProvider('github');
 
-				if( !github ) return;
+				if( !provider ) return;
 				
 				var endpoints = {
 					// later switch to "watched";  http://developer.github.com/changes/2012-9-5-watcher-api/
-					watched: "https://api.github.com/users/" + github.source_data.login + "/subscriptions",
-					starred: "https://api.github.com/users/" + github.source_data.login + "/starred"
+					watched: "https://api.github.com/users/" + provider.source_data.login + "/subscriptions",
+					starred: "https://api.github.com/users/" + provider.source_data.login + "/starred"
 				}
 
-				$.ajax({
-					url: endpoints[endpoint],
-					headers: {
-						//Accept: "application/vnd.github.v3+json"
-					},
-					success: function( data ) {
-						cb( _.map(data, function( subscription ) {
-							return {
-								id: subscription.id,
-								name: subscription.name,
-								full_name: subscription.full_name
-							}
-						}) );
-					}
-				})
+				github.query( endpoints[endpoint], cb );
 			}
+
 		});
 
 		return User;
