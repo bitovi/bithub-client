@@ -44,6 +44,37 @@ steal('can',
 					  user.queryGithub("watched", function( data ) {
 						  watched.replace( data );
 					  });
+				  },
+
+				  // handlers
+
+				  '#connect-github-link click': function( el, ev ) {
+					  ev.preventDefault();
+					  this.options.currentUser.login('github');
+				  },
+
+				  '#connect-twitter-link click': function( el, ev ) {
+					  ev.preventDefault();
+					  this.options.currentUser.login('twitter');
+				  },
+
+				  '#submit-article-link click': function( el, ev ) {
+					  ev.preventDefault();
+					  can.route.attr('newpost_c', 'article');
+					  this.options.newpostVisibility( true );					  
+				  },
+
+				  '#submit-app-link click': function( el, ev ) {
+					  ev.preventDefault();
+					  can.route.attr('newpost_c', 'app');
+					  this.options.newpostVisibility( true );
+				  },
+				  
+				  '#submit-plugin-link click': function( el, ev ) {
+					  ev.preventDefault();
+					  can.route.attr('newpost_c', 'plugin');
+					  this.options.newpostVisibility( true );
 				  }
+
 			  });
 	  });
