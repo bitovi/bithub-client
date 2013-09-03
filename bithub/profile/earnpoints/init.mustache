@@ -1,3 +1,81 @@
 {{>navbarPartial}}
 
-{{ message }}
+<h3>Earn Points</h3>
+
+<h4>Your accout</h4>
+
+<p>
+  {{#hasProvider 'twitter'}}
+  [MARK] Connect you Twitter account
+  {{else}}
+  <a href="javascript://">Connect you Twitter account</a>
+  {{/hasProvider}}
+</p>
+<p>
+  {{#hasProvider 'github'}}
+  [MARK] Connect you GitHub account
+  {{else}}
+  <a href="javascript://">Connect you GitHub account</a>
+  {{/hasProvider}}
+</p>
+<p>
+  <a href="javascript://">Complete your profile</a>
+</p>
+
+<h4>Follow Us</h4>
+
+<p>Follow these Twitter accounts:</p>
+
+<a href="https://twitter.com/bitovi" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @bitovi</a>
+<a href="https://twitter.com/canjs" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @canjs</a>
+<a href="https://twitter.com/jquerypp" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @jquerypp</a>
+<a href="https://twitter.com/javascriptmvc" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @javascriptmvc</a>
+<a href="https://twitter.com/funcunit" class="twitter-follow-button" data-show-count="false">Follow @funcunit</a>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+<p>Watch or fork these repos on Github:</p>
+
+<ul>
+  <li>{{#isStarred 'javascriptmvc'}}javascriptmvc{{else}}<a href="javascript://">javascriptmvc</a>{{/isStarred}}</li>
+  <li>{{#isStarred 'canjs'}}canjs{{else}}<a href="javascript://">canjs</a>{{/isStarred}}</li>
+  <li>{{#isStarred 'jquerypp'}}jquerypp{{else}}<a href="javascript://">jquerypp</a>{{/isStarred}}</li>
+  <li>{{#isStarred 'funcunit'}}funcunit{{else}}<a href="javascript://">funcunit</a>{{/isStarred}}</li>
+  <li>{{#isStarred 'steal'}}steal{{else}}<a href="javascript://">steal</a>{{/isStarred}}</li>
+  <li>{{#isStarred 'testee'}}testee{{else}}<a href="javascript://">testee</a>{{/isStarred}}</li>
+</ul>
+
+<h4>Twitter</h4>
+
+<p><a href="javascript://">Tweet about us</a></p>
+
+<ul>
+  <li>... tweets ...</li>
+  <li>... same for other sections below ...</li>
+</ul>
+  
+<h4>Questions</h4>
+
+<p><a href="javascript://">Post on forums &laquo</a></p>
+
+<h4>Issues</h4>
+
+<p><a href="javascript://">Report issues on GitHub</a> that are tagged by an admin as a Bug or Feature</p>
+
+<h4>Code</h4>
+
+<p><a href="javascript://">Request a pull on GitHub</a> for fixing a bug that's by and admin</p>
+
+<h4>Articles</h4>
+
+<p>Share you tips, tricks, and JavaScript advice with the community. <a href="javascript://">Submit an article &laquo;</a></p>
+
+<h4>Apps</h4>
+
+<p>Post your projects, apps, and websites that user our stuff. <a href="javascript://">Post your app &laquo;</a></p>
+
+<h4>Plugins</h4>
+
+<p>Share extended functionally with everyone. <a href="javascript://">Share your plugin &raquo;<a></p>
+
