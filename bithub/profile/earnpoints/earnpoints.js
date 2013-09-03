@@ -18,7 +18,7 @@ steal('can',
 					  }, {
 						  helpers: {
 							  hasProvider: function( provider, opts ) {
-								  return user.getProvider( provider ) ? opts.fn(this) : opts.inverse(this);
+								  return user.getIdentity( provider ) ? opts.fn(this) : opts.inverse(this);
 							  },
 							  isWatched: function( repo, opts ) {
 								  watched.attr('length');

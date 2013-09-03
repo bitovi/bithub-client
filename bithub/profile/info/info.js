@@ -23,7 +23,7 @@ steal(
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {
-							return self.options.currentUser.getProvider( provider ) ? opts.fn(this) : opts.inverse(this);
+							return self.options.currentUser.getIdentity( provider ) ? opts.fn(this) : opts.inverse(this);
 						}
 					},
 					partials: {
