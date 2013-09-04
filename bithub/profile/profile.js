@@ -1,11 +1,12 @@
 steal(
 	'can',
 	'./init.mustache',
+	'./navbar.mustache',
 	'bithub/profile/info',
 	'bithub/profile/activities',
 	'bithub/profile/earnpoints',
 	'bithub/profile/swag',
-	function(can, initView, ProfileInfoControl, ProfileActivitiesControl, EarnPointsControl, SwagControl){
+	function(can, initView, navbarView, ProfileInfoControl, ProfileActivitiesControl, EarnPointsControl, SwagControl){
 
 		var currentControl;
 		
@@ -27,8 +28,15 @@ steal(
 			}
 		}, {
 			init : function (elem, opts) {
-				elem.html( initView({
+
+				$('#profile-navbar').html( navbarView({
 					routes: this.options.routes
+				}, {
+					helpers: {
+						isProfilePage: function( opts ) {
+							return can.route.attr('page') == 'profile' ? opts.fn(this) : opts.inverse(this);
+						}
+					}
 				}) );
 				
 				this.initControl(can.route.attr('view'), opts);
@@ -57,9 +65,8 @@ steal(
 
 				var	$div = $('<div/>');
 
-				//new control($div, this.options);
-				//this.element.html($div);
-				new control(this.element.find('.profileContainer'), this.options)
+				new control($div, this.options);
+				this.element.html($div);
 			}
 			
 		});
