@@ -1070,10 +1070,6 @@ button#show-newpost-form-btn .caret{border-top-color:#fff;border-bottom-color:#f
 .subnav li.account{color:#000}
 .subnav li.active>a{font-weight:bold;color:#000}
 .profile-content{padding-top:130px;margin-bottom:50px}
-.profile .navbar{padding-top:10px}
-.profile .navbar ul.nav li{display:inline-block;margin-right:20px;font-size:13px}
-.profile .navbar ul.nav li a{color:#777;padding:0}
-.profile .navbar ul.nav li:hover a,.profile .navbar ul.nav li.active a{background:none;color:#333}
 #edit-profile-form p.mailing-addr-caption{margin:10px 0 4px 10px}
 #edit-profile-form .controls-row label{width:175px;display:inline-block;margin:0 10px 10px 0}
 .form-status{text-align:center;margin-top:5px}
@@ -1089,22 +1085,19 @@ button#show-newpost-form-btn .caret{border-top-color:#fff;border-bottom-color:#f
 #edit-profile-form .btn-group .select{width:160px;text-align:left}
 #edit-profile-form button.btn-bigass{width:120px;display:block;margin:0 auto}
 .profile-content .avatar img{border:1px solid #ccc;padding:10px;-moz-box-shadow:inset 2px 2px 3px rgba(0,0,0,0.07) !important;-webkit-box-shadow:inset 2px 2px 3px rgba(0,0,0,0.07) !important;box-shadow:inset 2px 2px 3px rgba(0,0,0,0.07) !important;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;border:1px solid #ccc !important}
-ul.providers{color:#777;font-size:12px;font-weight:bold;list-style:none;margin:10px 0;width:120px}
-ul.providers li{margin-bottom:5px}
-ul.providers a.remove{color:#ccc;font-size:20px}
-ul.providers a.remove:hover{text-decoration:none;color:#555}
+ul.providers{color:#777;font-size:12px;font-weight:bold;list-style:none;margin:10px 0;width:120px}ul.providers li{margin-bottom:5px}ul.providers li a.remove{color:#ccc;font-size:20px}ul.providers li a.remove:hover{text-decoration:none;color:#555}
 a.btn.connect{color:#777;font-size:11px;font-weight:normal;padding:0;height:22px;vertical-align:top;width:100%;text-align:left}
 #login-modal .modal-body{text-align:center}
-#login-modal .providers{width:auto}
-#login-modal .providers li{display:inline-block;width:auto}
-#login-modal .providers li a{font-size:13px;margin-right:10px;padding-top:3px;padding-bottom:3px;padding-left:10px;width:90px}
-#activity-list{border:1px solid #f3f4f4;list-style:none;margin:0}
-#activity-list li{padding:5px 10px}
-#activity-list li:nth-child(even){background-color:#f3f4f4}
+#login-modal .providers{width:auto}#login-modal .providers li{display:inline-block;width:auto}#login-modal .providers li a{font-size:13px;margin-right:10px;padding-top:3px;padding-bottom:3px;padding-left:10px;width:90px}
+#activity-list{border:1px solid #f3f4f4;list-style:none;margin:0}#activity-list li{padding:5px 10px}#activity-list li:nth-child(even){background-color:#f3f4f4}
 #activity-list li .points{color:#169410;font-weight:bold;margin-right:10px;width:40px;text-align:center;display:inline-block}
 #activity-list li small{color:#777;font-size:11px}
-.profileContainer .icon-check{font-size:22px;line-height:10px;color:#26931d}
-.repos{list-style-type:circle}.repos li{display:inline-block;width:23%;list-style-type:circle}
+.repos li{display:inline-block;width:23%}
+.profile .earn-points h2,.profile .sidebar h2{font-size:21px;color:#555}
+.profile .icon-check{font-size:22px;line-height:10px;color:#26931d;position:relative;top:-3px}
+.profile .points-wrapper{margin-bottom:25px}
+.profile .complete{color:#999}
+.profile .twitter-accounts{margin-left:27px}
 .sidebar{color:#585656;font-size:12px;padding:5px 25px;z-index:901;position:relative;background-color:#fff;min-height:658px;border-left:1px solid #eee;border-right:1px solid #eee;margin-top:7px;background:-moz-linear-gradient(top, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(85%, #fff), color-stop(100%, rgba(255,255,255,0)));background:-webkit-linear-gradient(top, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);background:-o-linear-gradient(top, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);background:-ms-linear-gradient(top, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);background:linear-gradient(to bottom, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#00ffffff', GradientType=0)}
 .sidebar h4,.sidebar h3{font-size:16px;line-height:17px;margin-bottom:3px;color:#333}
 .sidebar hr{clear:both;border:none;border-bottom:1px solid #cdcfcf;padding-top:10px}
@@ -1167,7 +1160,7 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .digest-event-info li .popup:hover>div .people-caret{position:relative;display:block;height:4px;top:-7px;width:9px;background:url(/assets/images/carets.png) no-repeat left 0}
 #pages,.event-list-container,.event-list{position:relative}
 .event-list h3,.earn-points h3{color:#666;font-size:12px;font-weight:normal;font-style:normal;text-decoration:none;line-height:14px;margin:0 0 10px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;padding:5px 10px 5px 20px;background:url(/assets/images/glyph-categories.png) no-repeat 0 1px;text-shadow:0 -1px 0 #fff}
-.earn-points h3{padding:5px 10px;background-color:#eee;background:#eee url(/assets/images/header-nav-bkg.jpg) repeat;position:relative}.earn-points h3 i{font-size:22px;position:relative;top:-5px;-webkit-font-smoothing:antialiased}
+.earn-points h3{padding-left:25px;background-color:#eee;background:#eee url(/assets/images/header-nav-bkg.jpg) repeat;position:relative}.earn-points h3 i{font-size:22px;position:absolute;left:7px;top:-5px;-webkit-font-smoothing:antialiased}
 .earn-points h3 .badge{position:absolute;right:1px;top:4px}
 .event-list h3.bug-icon{background-position:0 -22px;text-transform:capitalize}
 .event-list h3.comment-icon{background-position:0 -46px;text-transform:capitalize}
