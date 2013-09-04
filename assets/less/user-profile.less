@@ -5,26 +5,6 @@
 	margin-bottom: 50px;
 }
 
-.profile .navbar {
-	padding-top: 10px;
-}
-
-.profile .navbar ul.nav li {
-	display: inline-block;
-	margin-right: 20px;
-	font-size: 13px;
-}
-
-.profile .navbar ul.nav li a {
-	color: #777;
-	padding: 0px;
-}
-
-.profile .navbar ul.nav li:hover a, .profile .navbar ul.nav li.active a {
-	background: none;
-	color: #333;
-}
-
 #edit-profile-form p.mailing-addr-caption {
 	margin: 10px 0px 4px 10px;
 }
@@ -91,18 +71,20 @@ ul.providers {
 	list-style: none;
 	margin: 10px 0px;
 	width: 120px;
-}
-
-ul.providers li {
-	margin-bottom: 5px;
-}
-ul.providers a.remove {
-	color: #ccc;
-	font-size: 20px;
-}
-ul.providers a.remove:hover {
-	text-decoration: none;
-	color: #555;
+	
+	li {
+		margin-bottom: 5px;
+		
+		a.remove {
+			color: #ccc;
+			font-size: 20px;
+			
+			&:hover {
+				text-decoration: none;
+				color: #555;
+			}
+		}
+	}
 }
 
 a.btn.connect {
@@ -115,45 +97,89 @@ a.btn.connect {
 	width: 100%;
 	text-align: left;
 }
-#login-modal .modal-body {
-	text-align: center;
+#login-modal {
+	.modal-body {
+		text-align: center;
+	}
+	.providers {
+		width: auto;
+		
+		li {
+			display: inline-block;
+			width: auto;
+			
+			a {
+				font-size: 13px;
+				margin-right: 10px;
+				padding-top: 3px;
+				padding-bottom: 3px;
+				padding-left: 10px;
+				width: 90px;
+			}
+		}
+	}
 }
-#login-modal .providers {
-	width: auto;
-}
-#login-modal .providers li {
-	display: inline-block;
-	width: auto;
-}
-#login-modal .providers li a {
-	font-size: 13px;
-	margin-right: 10px;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 10px;
-	width: 90px;
-}
+
+ 
 #activity-list {
 	border: 1px solid #f3f4f4;
 	list-style: none;
 	margin: 0px;
+	
+	li {
+		padding: 5px 10px;
+		
+		&:nth-child(even) {	
+			background-color: #f3f4f4; 
+		}
+		
+		.points {
+			color: #169410;
+			font-weight: bold;
+			margin-right: 10px;
+			width: 40px;
+			text-align: center;
+			display: inline-block;
+		}
+		small {
+			color: #777;
+			font-size: 11px;
+		}
+	}
 }
 
-#activity-list li {
-	padding: 5px 10px;
-}
-#activity-list li:nth-child(even) {	background-color: #f3f4f4; }
 
-#activity-list li .points {
-	color: #169410;
-	font-weight: bold;
-	margin-right: 10px;
-	width: 40px;
-	text-align: center;
-	display: inline-block;
+.repos {
+
+	
+	li {
+		display: inline-block;
+		width: 23%;
+	}
 }
 
-#activity-list li small {
-	color: #777;
-	font-size: 11px;
+//User profile -------------------------------//
+.profile {
+	.earn-points, .sidebar {
+		h2 {
+			font-size: 21px;
+			color: @gray;
+		}
+	}
+	.icon-check {
+		font-size: 22px;
+		line-height: 10px;
+		color: @green;
+		position: relative;
+		top: -3px;
+	}
+	.points-wrapper {
+		margin-bottom: 25px;
+	}
+	.complete {
+		color: @grayLight;
+	}
+	.twitter-accounts {
+		margin-left: 27px;
+	}
 }
