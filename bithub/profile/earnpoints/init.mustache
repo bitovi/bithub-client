@@ -1,114 +1,151 @@
-{{>navbarPartial}}
+<div class="row">
+  <div class="span8">
 
-<h3>Earn Points</h3>
+	{{^if user.isLoggedIn}}
+	<h3>Support Open Souce, Get Free Stuff</h3>
+	<p>
+	  Contribute to our open source community and be awarded with free stuff. Tweet, comment, fix bugs. The community votes for you and you get awesome swag for helping.
+	</p>
+	{{/if}}
+	
+	<h3>Earn Points</h3>
 
-<h4>Your accout <span class="badge">+1 each</span></h4>
+	<h4>Your accout <span class="badge">+1 each</span></h4>
 
-<p>
-  {{#hasProvider 'twitter'}}
-  <span class="">[Nike]</span> Connect you Twitter account
-  {{else}}
-  <a href="javascript://" id="connect-twitter-link">Connect you Twitter account</a>
-  {{/hasProvider}}
-</p>
-<p>
-  {{#hasProvider 'github'}}
-  <span class="">[Nike]</span> Connect you GitHub account
-  {{else}}
-  <a href="javascript://" id="connect-github-link">Connect you GitHub account</a>
-  {{/hasProvider}}
-</p>
-<p>
-  <a href="javascript://">Complete your profile</a>
-</p>
+	<p>
+	  {{#hasProvider 'twitter'}}
+	  <span class="">[Nike]</span> Connect you Twitter account
+	  {{else}}
+	  <a href="javascript://" id="connect-twitter-link">Connect you Twitter account</a>
+	  {{/hasProvider}}
+	</p>
+	<p>
+	  {{#hasProvider 'github'}}
+	  <span class="">[Nike]</span> Connect you GitHub account
+	  {{else}}
+	  <a href="javascript://" id="connect-github-link">Connect you GitHub account</a>
+	  {{/hasProvider}}
+	</p>
+	<p>
+	  <a href="javascript://">Complete your profile</a>
+	</p>
 
-<h4>Follow Us <span class="badge">+ 1 each</span></h4>
+	<h4>Follow Us <span class="badge">+ 1 each</span></h4>
 
-<p>Follow these Twitter accounts:</p>
+	<p>Follow these Twitter accounts:</p>
 
-<a href="https://twitter.com/bitovi" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @bitovi</a>
-<a href="https://twitter.com/canjs" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @canjs</a>
-<a href="https://twitter.com/jquerypp" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @jquerypp</a>
-<a href="https://twitter.com/javascriptmvc" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @javascriptmvc</a>
-<a href="https://twitter.com/funcunit" class="twitter-follow-button" data-show-count="false">Follow @funcunit</a>
+	<a href="https://twitter.com/bitovi" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @bitovi</a>
+	<a href="https://twitter.com/canjs" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @canjs</a>
+	<a href="https://twitter.com/jquerypp" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @jquerypp</a>
+	<a href="https://twitter.com/javascriptmvc" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @javascriptmvc</a>
+	<a href="https://twitter.com/funcunit" class="twitter-follow-button" data-show-count="false">Follow @funcunit</a>
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 
-<p>Watch these repos on Github:</p>
+	<p>Watch these repos on Github:</p>
 
-<ul>
-  <li>{{#isWatched 'javascriptmvc'}}javascriptmvc{{else}}<a href="https://github.com/bitovi/javascriptmvc">javascriptmvc</a>{{/isWatched}}</li>
-  <li>{{#isWatched 'canjs'}}canjs{{else}}<a href="https://github.com/bitovi/canjs">canjs</a>{{/isWatched}}</li>
-  <li>{{#isWatched 'jquerypp'}}jquerypp{{else}}<a href="https://github.com/bitovi/jquerypp">jquerypp</a>{{/isWatched}}</li>
-  <li>{{#isWatched 'funcunit'}}funcunit{{else}}<a href="https://github.com/bitovi/funcunit.js">funcunit</a>{{/isWatched}}</li>
-  <li>{{#isWatched 'documentjs'}}documentjs{{else}}<a href="https://github.com/bitovi/documentjs">documentjs</a>{{/isWatched}}</li>
-  
-  <li>{{#isWatched 'steal'}}steal{{else}}<a href="https://github.com/bitovi/steal">steal</a>{{/isWatched}}</li>
-  <li>{{#isWatched 'testee.js'}}testee{{else}}<a href="https://github.com/bitovi/testee.js">testee</a>{{/isWatched}}</li>
-</ul>
+	<ul>
+	  <li>{{#isWatched 'javascriptmvc'}}javascriptmvc{{else}}<a href="https://github.com/bitovi/javascriptmvc">javascriptmvc</a>{{/isWatched}}</li>
+	  <li>{{#isWatched 'canjs'}}canjs{{else}}<a href="https://github.com/bitovi/canjs">canjs</a>{{/isWatched}}</li>
+	  <li>{{#isWatched 'jquerypp'}}jquerypp{{else}}<a href="https://github.com/bitovi/jquerypp">jquerypp</a>{{/isWatched}}</li>
+	  <li>{{#isWatched 'funcunit'}}funcunit{{else}}<a href="https://github.com/bitovi/funcunit.js">funcunit</a>{{/isWatched}}</li>
+	  <li>{{#isWatched 'documentjs'}}documentjs{{else}}<a href="https://github.com/bitovi/documentjs">documentjs</a>{{/isWatched}}</li>
+	  
+	  <li>{{#isWatched 'steal'}}steal{{else}}<a href="https://github.com/bitovi/steal">steal</a>{{/isWatched}}</li>
+	  <li>{{#isWatched 'testee.js'}}testee{{else}}<a href="https://github.com/bitovi/testee.js">testee</a>{{/isWatched}}</li>
+	</ul>
 
-<h4>Twitter <span class="badge">+ 1 + votes</span></h4>
+	<h4>Twitter <span class="badge">+ 1 + votes</span></h4>
 
-<p><a href="https://twitter.com/intent/tweet?screen_name=bitovi" target="_blank">Tweet about us</a></p>
+	<p><a href="https://twitter.com/intent/tweet?screen_name=bitovi" target="_blank">Tweet about us</a></p>
 
-<ul>
-  {{#events.twitter}}
-  <li>{{title}}</li>
-  {{/#events.twitter}}
-</ul>
-  
-<h4>Questions <span class="badge">+ 1 + votes</span></h4>
+	<ul>
+	  {{#events.twitter}}
+	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+	  {{/events.twitter}}
+	</ul>
+	
+	<h4>Questions <span class="badge">+ 1 + votes</span></h4>
 
-<p><a href="http://forum.javascriptmvc.com/">Post on forums &laquo</a></p>
+	<p><a href="http://forum.javascriptmvc.com/">Post on forums &laquo</a></p>
 
-<ul>
-  {{#events.question}}
-  <li>{{title}}</li>
-  {{/#events.question}}
-</ul>
+	<ul>
+	  {{#events.question}}
+	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+	  {{/events.question}}
+	</ul>
 
-<h4>Issues <span class="badge">+ 2 + votes</span></h4>
+	<h4>Issues <span class="badge">+ 2 + votes</span></h4>
 
-<p><a href="https://github.com/bitovi">Report issues on GitHub</a> that are tagged by an admin as a Bug or Feature</p>
+	<p><a href="https://github.com/bitovi">Report issues on GitHub</a> that are tagged by an admin as a Bug or Feature</p>
 
-<h4>Code <span class="badge">+ votes x2</span></h4>
+	<h4>Code <span class="badge">+ votes x2</span></h4>
 
-<p><a href="https://github.com/bitovi">Request a pull on GitHub</a> for fixing a bug that's by and admin</p>
+	<p><a href="https://github.com/bitovi">Request a pull on GitHub</a> for fixing a bug that's by and admin</p>
 
-<ul>
-  {{#events.code}}
-  <li>{{title}}</li>
-  {{/#events.code}}
-</ul>
+	<ul>
+	  {{#events.code}}
+	  <li><span class="points">{{upvotes}}</span><a href="{{url}}">{{title}}</a></li>
+	  {{/events.code}}
+	</ul>
 
-<h4>Articles <span class="badge">+ 2 + votes</span></h4>
+	<h4>Articles <span class="badge">+ 2 + votes</span></h4>
 
-<p>Share you tips, tricks, and JavaScript advice with the community. <a href="javascript://" id="submit-article-link">Submit an article &laquo;</a></p>
+	<p>Share you tips, tricks, and JavaScript advice with the community. <a href="javascript://" id="submit-article-link">Submit an article &laquo;</a></p>
 
-<ul>
-  {{#events.article}}
-  <li>{{title}}</li>
-  {{/#events.article}}
-</ul>
+	<ul>
+	  {{#events.article}}
+	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+	  {{/events.article}}
+	</ul>
 
-<h4>Apps <span class="badge">+ 2 + votes</span></h4>
+	<h4>Apps <span class="badge">+ 2 + votes</span></h4>
 
-<p>Post your projects, apps, and websites that user our stuff. <a href="javascript://" id="submit-app-link">Post your app &laquo;</a></p>
+	<p>Post your projects, apps, and websites that user our stuff. <a href="javascript://" id="submit-app-link">Post your app &laquo;</a></p>
 
-<ul>
-  {{#events.app}}
-  <li>{{title}}</li>
-  {{/#events.app}}
-</ul>
+	<ul>
+	  {{#events.app}}
+	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+	  {{/events.app}}
+	</ul>
 
-<h4>Plugins <span class="badge">+ 2 + votes</span></h4>
+	<h4>Plugins <span class="badge">+ 2 + votes</span></h4>
 
-<p>Share extended functionally with everyone. <a href="javascript://" id="submit-plugin-link">Share your plugin &raquo;<a></p>
+	<p>Share extended functionally with everyone. <a href="javascript://" id="submit-plugin-link">Share your plugin &raquo;</a></p>
 
-<ul>
-  {{#events.plugin}}
-  <li>{{title}}</li>
-  {{/#events.plugin}}
-</ul>
+	<ul>
+	  {{#events.plugin}}
+	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+	  {{/events.plugin}}
+	</ul>
+  </div>
 
+  <div class="span4">
+	<div class="sidebar">
+
+	  {{^if user.isLoggedIn}}
+	  <div class="btn-wrapper logged-out">
+		<button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button>
+	  </div>
+	  {{/if}}
+	  
+	  <h3>Get Votes</h3>
+	  <p>
+		All the content you post can be upvoted by community.
+	  </p>
+
+	  <div class="toprated">
+		<h4>{{#if user.isLoggedIn}}Your{{/if}} Top-Rated Posts</h4>
+		<ul class="unstyled">
+		  {{#posts}}
+		  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+		  {{/posts}}
+		</ul>
+	  </div>
+	  
+	  <div class="leaderboard"></div>
+	  
+	</div>
+  </div>
+</div>

@@ -1,9 +1,11 @@
 steal(
 	'can',
+	'./init.mustache',
 	'bithub/profile/info',
 	'bithub/profile/activities',
 	'bithub/profile/earnpoints',
-	function(can, ProfileInfoControl, ProfileActivitiesControl, EarnPointsControl){
+	'bithub/profile/swag',
+	function(can, initView, ProfileInfoControl, ProfileActivitiesControl, EarnPointsControl, SwagControl){
 
 		var currentControl;
 		
@@ -13,21 +15,27 @@ steal(
 				views: {
 					info: ProfileInfoControl,
 					activities: ProfileActivitiesControl,
-					earnpoints: EarnPointsControl
+					earnpoints: EarnPointsControl,
+					swag: SwagControl
 				},
 				routes: {
 					info: function () { return can.route.url({page: 'profile', view: 'info'}, false) },
 					activities: function () { return can.route.url({page: 'profile', view: 'activities'}, false) },
+					swag: function () { return can.route.url({page: 'profile', view: 'swag'}, false) },
 					earnpoints: function () { return can.route.url({page: 'profile', view: 'earnpoints'}, false) }
 				}
 			}
 		}, {
 			init : function (elem, opts) {
-				this.initView(can.route.attr('view'), opts);
+				elem.html( initView({
+					routes: this.options.routes
+				}) );
+				
+				this.initControl(can.route.attr('view'), opts);
 			},
 
 			'{can.route} view' : function (fn, ev, newVal, oldVal) {
-				this.initView(newVal);
+				this.initControl(newVal);
 			},
 
 			'{can.route} page': function(route, ev, newVal, oldVal) {
@@ -38,7 +46,7 @@ steal(
 				if (newVal == false) can.route.attr({'page': 'homepage', 'view': 'latest'});
 			},
 
-			initView : function (currentView) {
+			initControl : function (currentView) {
 				var control = this.options.views[currentView];
 
 				if( currentControl == control ) {
@@ -49,10 +57,11 @@ steal(
 
 				var	$div = $('<div/>');
 
-				new control($div, this.options);
-				this.element.html($div);
+				//new control($div, this.options);
+				//this.element.html($div);
+				new control(this.element.find('.profileContainer'), this.options)
 			}
-
+			
 		});
 	}
 );

@@ -1,4 +1,3 @@
-
 steal(
 	'can',
 	function (can) {

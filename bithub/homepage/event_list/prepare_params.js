@@ -29,7 +29,8 @@ steal(
 				users: new can.Observe(),
 				tags: new can.Observe(),
 				rewards: new can.Observe()
-			}
+			},
+			earnpoints: {}
 		},
 
 		timespanFilter = function( timespan ) {						

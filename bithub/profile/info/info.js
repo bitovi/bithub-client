@@ -1,12 +1,11 @@
 steal(
 	'can',
 	'./info.mustache',
-	'../_navbar.mustache',
 	'ui/bootstrap_dropdown',
 	'bithub/models/country.js',
 	'can/model/list',
 	'jquerypp/dom/form_params',
-	function(can, profileInfoView, NavbarPartial, Dropdown, Country){
+	function(can, profileInfoView, Dropdown, Country){
 
 		return can.Control.extend({
 			pluginName: 'profile-info',
@@ -26,9 +25,7 @@ steal(
 							return self.options.currentUser.getIdentity( provider ) ? opts.fn(this) : opts.inverse(this);
 						}
 					},
-					partials: {
-						navbarPartial: NavbarPartial
-					}
+					partials: {}
 				}));
 			},
 

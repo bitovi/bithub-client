@@ -1,24 +1,30 @@
 steal('can',
 	  './init.mustache',
-	  '../_navbar.mustache',
-	  function(can, initView, navbarPartial){
+	  'bithub/homepage/sidebar/leaderboard',
+	  function(can, initView, Leaderboard){
 
 		  var watched = new can.Observe.List(),
 			  starred = new can.Observe.List(),
 			  events = {
 				  twitter: new can.Observe.List(),
 				  question: new can.Observe.List(),
-				  //2issue: new can.Observe.List(),
+				  //issue: new can.Observe.List(),
 				  code: new can.Observe.List(),
 				  article: new can.Observe.List(),
 				  app: new can.Observe.List(),
 				  plugin: new can.Observe.List()				  
-			  }
+			  },
+			  topPosts = new can.Observe.List();
 
-		  var defaultParams = {
+		  var eventsParams = {
 			  limit: 3,
 			  order: 'thread_updated_at'			  
-		  }
+		  };
+
+		  var topPostsParams = {
+			  order: 'upvotes:desc',
+			  limit: 5
+		  };
 
 		  return can.Control.extend({
 				  defaults : {}
@@ -29,7 +35,8 @@ steal('can',
 					  
 					  this.element.html(initView({
 						  user: user,
-						  events: events
+						  events: events,
+						  posts: topPosts
 					  }, {
 						  helpers: {
 							  hasProvider: function( provider, opts ) {
@@ -43,10 +50,14 @@ steal('can',
 							  }
 
 						  },
-						  partials: {
-							  navbarPartial: navbarPartial
-						  }
+						  partials: {}
 					  }));
+
+					  new Leaderboard(elem.find('.leaderboard'), {
+						  currentUser: opts.currentUser
+					  });
+
+					  this.loadTopPosts();
 
 					  if( user.isLoggedIn() ) {
 						  this.loadGithub();
@@ -57,6 +68,7 @@ steal('can',
 				  '{currentUser} isLoggedIn change': function() {
 					  this.loadGithub();
 					  this.loadEvents();
+					  this.loadTopPosts();
 				  },
 
 				  loadGithub: function() {
@@ -68,14 +80,25 @@ steal('can',
 				  },
 
 				  loadEvents: function() {
-					  defaultParams.author_id = this.options.currentUser.attr('id');
+					  eventsParams.author_id = this.options.currentUser.attr('id');
 
 					  _.each(_.keys(events), function(category) {
-						  Bithub.Models.Event.findAll(can.extend({category: category}, defaultParams), function( data ) {
+						  Bithub.Models.Event.findAll(can.extend({category: category}, eventsParams), function( data ) {
 							  events[category].replace( data );
 						  });
 					  });
-				  },				  
+				  },
+
+				  loadTopPosts: function() {
+					  var user = this.options.currentUser;
+					  var params = can.extend({}, topPostsParams);
+					  
+					  if( user.isLoggedIn() ) params.author_id = user.attr('id');
+					  
+					  Bithub.Models.Event.findAll(params, function( data ) {
+						  topPosts.replace( data );
+					  });
+				  },
 
 				  // handlers
 
