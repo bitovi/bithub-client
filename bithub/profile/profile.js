@@ -35,6 +35,9 @@ steal(
 					helpers: {
 						isProfilePage: function( opts ) {
 							return can.route.attr('page') == 'profile' ? opts.fn(this) : opts.inverse(this);
+						},
+						isActive: function( view, opts ) {
+							return can.route.attr('view') == view ? "active" : "";
 						}
 					}
 				}) );
