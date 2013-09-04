@@ -12,12 +12,15 @@
 		</div>
 
 		<div class="awards free-stuff logged-in">
-			<h4>Free Stuff</h4>
-			<ul class="free-stuff">
-				<li class="well"><a class="icon-stickers" href="{{{rewardsUrl}}}">Stickers</a></li>
-				<li class="well"><a class="icon-mugs" href="{{{rewardsUrl}}}">Mugs</a></li>
-				<li class="well"><a class="icon-shirts" href="{{{rewardsUrl}}}">Shirts</a></li>
-			</ul>
+			<h4>Get Swag</h4>
+			<div class="free-stuff">
+			  {{#iterRewards}}
+			  <a href="{{{swagUrl}}}" class="item" style="background-image: url({{reward.image.image.thumb.url}})">
+				<span class="border"></span>
+				<span class="points">{{reward.point_minimum}}</span>
+			  </a>
+			  {{/iterRewards}}
+			</div>
 		</div>
 	{{else}}
 		<div class="scorings earn-points logged-out">
@@ -31,11 +34,14 @@
 
 		<div class="awards free-stuff logged-out">
 			<h4 class="handwriting rightalign">Get Free Stuff <span class="rightarrow"></span></h4>
-			<ul class="free-stuff">
-				<li class="well"><a class="icon-stickers" href="#swagModal" role="button" data-toggle="modal">Stickers</a></li>
-				<li class="well"><a class="icon-mugs" href="#swagModal" role="button" data-toggle="modal">Mugs</a></li>
-				<li class="well"><a class="icon-shirts" href="#swagModal" role="button" data-toggle="modal">Shirts</a></li>
-			</ul>
+			<div class="free-stuff">
+			  {{#iterRewards}}
+			  <a href="{{{swagUrl}}}" class="item" style="background-image: url({{reward.image.image.thumb.url}})">
+				<span class="border"></span>
+				<span class="points">{{reward.point_minimum}}</span>
+			  </a>
+			  {{/iterRewards}}
+			</div>
 
 			<div class="btn-wrapper logged-out"><button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button></div>
 		</div>

@@ -10,7 +10,8 @@ steal(
 			defaults : { }
 		}, {
 			init : function( elem, opts ) {
-				var rewards = new can.Observe.List();
+				var self = this,
+					rewards = new can.Observe.List();
 
 				Reward.findAll({order: 'point_minimum'}, function( data ) {
 					rewards.replace( data );
@@ -18,8 +19,27 @@ steal(
 
 				elem.html(sidebarView({
 					user: opts.currentUser,
-					rewardsUrl: can.route.url({page: 'swag'}, false)
+					rewards: rewards
+				}, {
+					helpers: {
+						iterRewards: function( opts ) {
+							var buffer = "",
+								swagUrl = can.route.url( self.options.currentUser.isLoggedIn() ? {page: 'profile', view: 'swag'} : {page: 'swag'}, false),
+								start = _.random(0, rewards.attr('length')-2),
+								stop = start + 2;
+							
+							for( var i = start; i < stop; i++ ) {
+								buffer += opts.fn({
+									reward: rewards.attr(i),
+									swagUrl: swagUrl
+								});
+							}
+
+							return buffer;
+						}
+					}
 				}));
+				
 				new Leaderboard(elem.find('#leaderboard'), opts);
 			},
 
