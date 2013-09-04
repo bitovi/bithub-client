@@ -1,13 +1,21 @@
 steal('can',
 	  './init.mustache',
-	  function(can, initView){
+	  'bithub/models/reward.js',
+	  function(can, initView, Reward){
 		  
 		  return can.Control.extend({
 			  defaults : {}
 		  }, {
 			  init : function( elem, opts ){
+				  var rewards = new can.Observe.List();
+
+				  Reward.findAll({order: 'point_minimum'}, function( data ) {
+					  rewards.replace( data );
+				  });
+				  
 				  this.element.html(initView({
-					  user: opts.currentUser
+					  user: opts.currentUser,
+					  rewards: rewards
 				  }));
 			  }
 		  });

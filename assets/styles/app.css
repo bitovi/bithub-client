@@ -6177,6 +6177,7 @@ textarea:focus {
   padding: 0px 0px 6px 8px;
   font-family: "Open Sans", OpenSans, sans-serif;
   background: none rgba(166, 168, 168, 0.05);
+  outline: none;
 }
 .select-menu:before {
   content: "";
@@ -11755,6 +11756,73 @@ h4.handwriting {
   font-size: 11px;
   margin: 0;
   font-weight: bold;
+}
+.rewards .item {
+  width: 240px;
+  height: 240px;
+  display: inline-block;
+  margin: 10px;
+  position: relative;
+  font-weight: bold;
+}
+.rewards .item .title {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: #000;
+  padding: 10px 20px;
+  color: #fff;
+  heigth: 40px;
+  overflow: hidden;
+}
+.rewards .item .points {
+  position: absolute;
+  left: 0px;
+  top: 20px;
+  padding: 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #000;
+}
+.rewards .item .message {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 40px;
+  color: #fff;
+  background-color: #000;
+  text-align: center;
+}
+.rewards .item .border {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1;
+  border-style: solid;
+  border-width: 0px;
+}
+.rewards .item.shipping .border {
+  border-width: 5px;
+  border-color: #0f0;
+}
+.rewards .item.shipping .points {
+  background-color: #0f0;
+}
+.rewards .item.shipping .message {
+  background-color: #0f0;
+}
+.rewards .item.almost .border {
+  border-width: 5px;
+  border-color: #00f;
+}
+.rewards .item.almost .points {
+  background-color: #00f;
+}
+.rewards .item.almost .message {
+  background-color: #00f;
 }
 /* For Retina Displays */
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (-webkit-device-pixel-ratio: 1.5) {
