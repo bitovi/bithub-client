@@ -12,9 +12,31 @@
   {{/if}}
   
   <div class="rewards">
+  	<div class="item achieved" style="background-image: url(http://lorempixel.com/g/500/300)">
+	  <span class="points">100</span>
+	  	  
+	  <span class="title">Buttons <span class="message">Shipped 6/7/23</span> </span>
+	</div>
+	<div class="item shipping" style="background-image: url(http://lorempixel.com/400/300/)">
+	  <span class="points">200</span>
+	  <span class="message">This is a great thing!</span>	  
+	  <span class="title">T-Shirts</span>
+	</div>
+		<div class="item almost" style="background-image: url(http://lorempixel.com/400/400/)">
+	  <span class="points">200</span>
+	  <span class="message">53 points to go!</span>	  
+	  <span class="title">T-Shirts</span>
+	</div>
+		<div class="item" style="background-image: url(http://lorempixel.com/500/200/)">
+	  <span class="points">2,000</span>	  
+	  <span class="title">T-Shirts</span>
+	</div>
+		<div class="item" style="background-image: url(http://lorempixel.com/500/300/)">
+	  <span class="points">Overall Leader</span>  
+	  <span class="title">Bitovi Appreciate Day</span>
+	</div>
 	{{#rewards}}
 	<div class="item" style="background-image: url({{image.image.large.url}})">
-	  <span class="border"></span>
 	  <span class="points">{{point_minimum}}</span>
 	  <span class="message">{{description}}</span>	  
 	  <span class="title">{{title}}</span>
