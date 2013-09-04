@@ -4,7 +4,8 @@ steal(
 	'bithub/profile/info',
 	'bithub/profile/activities',
 	'bithub/profile/earnpoints',
-	function(can, initView, ProfileInfoControl, ProfileActivitiesControl, EarnPointsControl){
+	'bithub/profile/swag',
+	function(can, initView, ProfileInfoControl, ProfileActivitiesControl, EarnPointsControl, SwagControl){
 
 		var currentControl;
 		
@@ -14,12 +15,13 @@ steal(
 				views: {
 					info: ProfileInfoControl,
 					activities: ProfileActivitiesControl,
-					earnpoints: EarnPointsControl
+					earnpoints: EarnPointsControl,
+					swag: SwagControl
 				},
 				routes: {
 					info: function () { return can.route.url({page: 'profile', view: 'info'}, false) },
 					activities: function () { return can.route.url({page: 'profile', view: 'activities'}, false) },
-					swag: function () { return can.route.url({page: 'profile', view: 'getswag'}, false) },
+					swag: function () { return can.route.url({page: 'profile', view: 'swag'}, false) },
 					earnpoints: function () { return can.route.url({page: 'profile', view: 'earnpoints'}, false) }
 				}
 			}
