@@ -19,6 +19,7 @@ steal(
 				routes: {
 					info: function () { return can.route.url({page: 'profile', view: 'info'}, false) },
 					activities: function () { return can.route.url({page: 'profile', view: 'activities'}, false) },
+					swag: function () { return can.route.url({page: 'profile', view: 'getswag'}, false) },
 					earnpoints: function () { return can.route.url({page: 'profile', view: 'earnpoints'}, false) }
 				}
 			}
