@@ -30,7 +30,8 @@ steal(
 				tags: new can.Observe(),
 				rewards: new can.Observe()
 			},
-			earnpoints: {}
+			earnpoints: {},
+			swag: {}
 		},
 
 		timespanFilter = function( timespan ) {						
