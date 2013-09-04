@@ -23,13 +23,7 @@ steal(
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {
-							var flag = false
-							if (self.options.currentUser.attr('loggedInDelayed') === true) {
-								self.options.currentUser.attr('identities').each( function (value) {
-									if (value.provider === provider) flag = true;
-								});
-							}
-							return flag ? opts.fn(this) : opts.inverse(this);
+							return self.options.currentUser.getIdentity( provider ) ? opts.fn(this) : opts.inverse(this);
 						}
 					},
 					partials: {
@@ -75,12 +69,12 @@ steal(
 
 			'#login-github-link click': function( el, ev ) {
 				ev.preventDefault();
-				this.options.currentUser.login({url: '/api/auth/github' });
+				this.options.currentUser.login('github');
 			},
 
 			'#login-twitter-link click': function( el, ev ) {
 				ev.preventDefault();
-				this.options.currentUser.login({url: '/api/auth/twitter' });
+				this.options.currentUser.login('twitter');
 			}
 		});
 	}

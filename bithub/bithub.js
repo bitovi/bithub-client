@@ -136,6 +136,7 @@ steal(
 
 		can.route('/profile', { page: 'profile', view: 'info' });
 		can.route('/profile/activities', { page: 'profile', view: 'activities' });
+		can.route('/profile/earn-points', { page: 'profile', view: 'earnpoints' });
 
 		can.route('/events/:id', { page: 'homepage', view: 'details' });
 		can.route('/rewards', { page: 'homepage', view: 'rewards' });
@@ -149,6 +150,7 @@ steal(
 			currentUser       = new User({isLoggedIn: undefined}),
 			preloadedEvents   = new Bithub.Models.Event.List([{}]);
 
+		CURRENT_USER = currentUser;
 
 		// Preload events on route init
 		window.EVENTS_PRELOADED = false;

@@ -1,7 +1,8 @@
 steal(
 	'can',
 	'../helpers/auth.js',
-	function (can, auth) {
+	'../helpers/github.js',
+	function (can, auth, github) {
 		var parse10 = function(str) { return parseInt(str, 10) };
 		var existy = function(x) { return x!==null && x!==undefined };
 		var isStringNully = function(x) { return x===null || x===undefined };
@@ -55,6 +56,12 @@ steal(
 				return _.include(this.attr('roles'), 'admin');
 			},
 
+			getIdentity: function( provider ) {
+				return _.first( _.filter(this.attr('identities'), function( identity ) {
+					return identity.attr('provider') == provider;
+				}));
+			},
+
 			login: function(provider) {
 				auth.login.call(this, providers[provider] );
 			},
@@ -72,9 +79,27 @@ steal(
 				}).done(function(data) {
 					self.attr('roles', data.roles);
 				})
+			},
+
+			queryGithub: function( endpoint, cb ) {
+				var	provider = this.getIdentity('github');
+
+				if( !provider ) return;
+
+				var user = provider.source_data.login || provider.source_data.nickname;
+				
+				var endpoints = {
+					// later switch to "watched";  http://developer.github.com/changes/2012-9-5-watcher-api/
+					watched: "https://api.github.com/users/" + user + "/subscriptions",
+					starred: "https://api.github.com/users/" + user + "/starred"
+				}
+
+				github.query( endpoints[endpoint], cb );
 			}
+
 		});
 
 		return User;
 	}
 );
+ 

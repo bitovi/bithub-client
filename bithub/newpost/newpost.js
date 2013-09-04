@@ -283,6 +283,14 @@ steal(
 					delete this.options.fileData;
 					el.find('.progress').hide().find('.bar').width('0%');
 					el.find('.image-uploader .image-preview').html('');
+				},
+
+				'{can.route} newpost_c': function( route, ev, newVal, oldVal ) {
+					currentCategory( newVal );
+				},
+				
+				'{can.route} newpost_p': function( route, ev, newVal, oldVal ) {
+					currentProject( newVal );
 				}
 				
 			});
