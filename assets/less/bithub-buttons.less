@@ -1,7 +1,4 @@
 
-button {
-	.btn;
-}
 /*
 .btn {
 	color: lighten(@gray,20%); 
@@ -26,40 +23,57 @@ button {
 	  }
 }
 */
-
+button {
+	.btn;
+}
 // -------------------------
-.btn {
+a.btn, button.btn, span.btn {
+	//.btn-color(@grayLighter,0%,15%);
+	//.buttonBackground(lighten(@grayLighter,10%), @grayLighter, @gray, 0 1px 0 rgba(255,255,255, 0.95));
+	
 	border-width: 2px;
 	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
 	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
-	.btn-color(@grayLighter,0%,25%);
+	color: @gray;
+	text-shadow: 0 1px 0 rgba(255,255,255, 0.95);
+	
+	&:hover:not(.disabled),
+	  &:focus:not(.disabled) {
+	  color: @gray; 
+	  text-shadow: 0 1px 0 rgba(255,255,255, 0.95);
+	}
 
+	&[class^="btn-"],&[class*=" btn-"] {
+		color: @white; 
+		.text-shadow(.35);
+		.text-smoothing;
+	}
 	
 	&.btn-primary {
-	  .btn-color(@btnPrimaryBackground);
+	  .btn-color(@btnPrimaryBackground,2%,14%);
 	}
 	&.btn-warning {
 		.btn-color(@btnWarningBackground,3%,20%);
 	}
 	&.btn-danger {
-		.btn-color(@btnDangerBackground,5%,20%);
+		.btn-color(@btnDangerBackground,1%,20%);
 	}
 	&.btn-success {
-		.btn-color(@green,3%,100%);
+		.btn-color(@green,3%,5%);
 	}
 	&.btn-info {
-		.btn-color(@btnInfoBackground,5%,25%);
+		.btn-color(@btnInfoBackground,5%,5%);
 	}
 	&.btn-inverse {
 		.btn-color(@btnInverseBackground,5%,100%);
 	}
 }
 .btn-color(@newColor,@hover:2%,@border:14%) {
-	color: @white; 
-	border-color:  darken(@newColor, 25%);
-	.text-shadow(.35);
+	//color: @white; 
+	//.buttonBackground(@startColor, @endColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25))
 	.buttonBackground(lighten(@newColor,10%), @newColor);
+	border-color:  darken(@newColor, @border);
 	
 	&:hover:not(.disabled), &:focus:not(.disabled) {
 	.buttonBackground(lighten(@newColor,@hover), lighten(@newColor,@hover));
@@ -113,25 +127,25 @@ border-color:  darken(@btnInverseBackground, 20%);
 	padding-left: 35px;
 }
 .btn-bigass:hover {
-	background-color: #827f7f;
+	background: #827f7f !important;
 }
 
 .btn-bigass.light {
-	background-color: #d6d6d6;
+	background: #d6d6d6;
 	border-color: #aaa;	
 	color: #919090;
 	text-shadow: 0 1px 0 #fff;
 }
 
 .btn-bigass.light:hover {
-	background-color: #586565;
+	background: #586565 !important;
 	border-color: #222121;	
 	color: #fff;
 	text-shadow: 0 1px 0 #000;	
 }
 
 .btn-bigass.activated {
-	background-color: #252525;
+	background: #252525;
 	border-color: #5a5b5b;	
 	color: #dadbdb;
 	position: relative;
@@ -157,4 +171,8 @@ border-color:  darken(@btnInverseBackground, 20%);
 }
 .btn-bigass.plus.activated::before {
 	background-position-x: 0px;
+}
+.btn.connect:hover {
+	color: @gray !important;
+	//this is a terrible solution but I have to move on for now. Buttons need some love. The Overwriting Bootstrap isn't working like I expected, so I need to re-work it. -TLG
 }
