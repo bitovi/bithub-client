@@ -64,7 +64,7 @@
 
 	<p><a href="https://twitter.com/intent/tweet?screen_name=bitovi" target="_blank">Tweet about us &raquo</a></p>
 
-	<ul>
+	<ul class="toprated unstyled">
 	  {{#events.twitter}}
 	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
 	  {{/events.twitter}}
@@ -75,7 +75,7 @@
 
 	<p><a href="http://forum.javascriptmvc.com/">Post on forums &raquo</a></p>
 
-	<ul>
+	<ul class="toprated unstyled">
 	  {{#events.question}}
 	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
 	  {{/events.question}}
@@ -89,9 +89,9 @@
 <div class="points-wrapper">
 	<h3><i class="icon-code"></i> Code <span class="badge">+ votes x2</span></h3>
 
-	<p><a href="https://github.com/bitovi">Request a pull on GitHub</a> for fixing a bug that's by and admin</p>
+	<p><a href="https://github.com/bitovi">Request a pull on GitHub</a> for fixing a bug that's merged by and admin</p>
 
-	<ul>
+	<ul class="toprated unstyled">
 	  {{#events.code}}
 	  <li><span class="points">{{upvotes}}</span><a href="{{url}}">{{title}}</a></li>
 	  {{/events.code}}
@@ -102,7 +102,7 @@
 
 	<p>Share you tips, tricks, and JavaScript advice with the community. <a href="javascript://" id="submit-article-link">Submit an article &raquo;</a></p>
 
-	<ul>
+	<ul class="toprated unstyled">
 	  {{#events.article}}
 	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
 	  {{/events.article}}
@@ -113,7 +113,7 @@
 
 	<p>Post your projects, apps, and websites that user our stuff. <a href="javascript://" id="submit-app-link">Post your app &raquo;</a></p>
 
-	<ul>
+	<ul class="toprated unstyled">
 	  {{#events.app}}
 	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
 	  {{/events.app}}
@@ -124,7 +124,7 @@
 
 	<p>Share extended functionally with everyone. <a href="javascript://" id="submit-plugin-link">Share your plugin &raquo;</a></p>
 
-	<ul>
+	<ul class="toprated unstyled">
 	  {{#events.plugin}}
 	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
 	  {{/events.plugin}}
@@ -141,16 +141,16 @@
 	  </div>
 	  {{/if}}
 	  
-	  <h2>Get Votes</h2>
-	  <p>
-		All the content you post can be upvoted by community.
-	  </p>
-
-	  <div class="toprated">
+	  <div class="widget">
+		  <h2>Get Votes</h2>
+		  <p>All the content you post can be upvoted by community.</p>
+      </div>
+	
+	  <div class="toprated widget">
 		<h4>{{#if user.isLoggedIn}}Your{{/if}} Top-Rated Posts</h4>
 		<ul class="unstyled">
 		  {{#posts}}
-		  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+		  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li><br />
 		  {{/posts}}
 		</ul>
 	  </div>
