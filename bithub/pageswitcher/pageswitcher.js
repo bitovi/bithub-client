@@ -1,16 +1,18 @@
 steal(
 	'can',
 	'bithub/homepage',
+	'bithub/profile/earnpoints',
 	'bithub/profile',
 	'bithub/admin',
 	'./no_permissions.ejs',
 	'bithub/helpers/permission_checker.js',
-	function(can, Homepage, Profile, AdminPanels, noPermsView, pc) {
+	function(can, Homepage, EarnPoints, Profile, AdminPanels, noPermsView, pc) {
 		
 		return can.Control.extend({
 			defaults : { 
 				pages: {
 					'homepage': Homepage,
+					'earnpoints': EarnPoints,
 					'profile': Profile,
 					'admin': AdminPanels
 				}
