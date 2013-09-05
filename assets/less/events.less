@@ -4,24 +4,18 @@
 
 /* Event list and events --------------------------------------------------------- */
 
-.event-list h3, .earn-points h3 {
+.section-title, .earn-points h3  {
 	color: #666666;
 	font-size: 12px;
 	font-weight: normal;
 	font-style: normal;
-	text-decoration: none;
 	line-height: 14px;
-	margin: 0 0 10px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	padding: 5px 10px 5px 20px;
-	background: url(/assets/images/glyph-categories.png) no-repeat 0px 1px;
-	text-shadow: 0 -1px 0 #ffffff;	
-}
-.earn-points h3  {
-	//padding: 5px 10px;
-	padding-left: 25px;
+	margin: 10px 0 5px;
+	text-decoration: none;
+	.border-radius;
+	.text-shadow-light;
+	text-transform: capitalize;
+	padding: 5px 10px 5px 25px;
 	background-color: #eee;
 	background: #eee url(/assets/images/header-nav-bkg.jpg) repeat;
 	position: relative;
@@ -38,16 +32,17 @@
 		right: 1px;
 		top: 4px;
 	}
+	.breakout i {
+		left: auto;
+		right: 5px;
+		color: @grayLight;
+		
+		&:hover {
+			text-decoration: none;
+			color: @gray;
+		}
+	}
 }
-.event-list h3.bug-icon { background-position: 0px -22px; text-transform: capitalize; }
-.event-list h3.comment-icon { background-position: 0px -46px; text-transform: capitalize; }
-.event-list h3.code-icon { background-position: 0px -68px; text-transform: capitalize; }
-.event-list h3.irc-icon {	background-position: 0px -91px; text-transform: capitalize; }
-.event-list h3.twitter-icon { background-position: 0px -114px; text-transform: capitalize; }
-.event-list h3.plugin-icon { background-position: 0px -138px; text-transform: capitalize; }
-.event-list h3.app-icon { background-position: 0px -160px; text-transform: capitalize; }
-.event-list h3.question-icon { background-position: 0px -183px; text-transform: capitalize; }
-
 .event-list.top-rated {
 	margin-top: 20px;
 }

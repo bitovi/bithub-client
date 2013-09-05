@@ -1160,17 +1160,9 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .digest-event-info li .popup:hover>div{display:block}
 .digest-event-info li .popup:hover>div .people-caret{position:relative;display:block;height:4px;top:-7px;width:9px;background:url(/assets/images/carets.png) no-repeat left 0}
 #pages,.event-list-container,.event-list{position:relative}
-.event-list h3,.earn-points h3{color:#666;font-size:12px;font-weight:normal;font-style:normal;text-decoration:none;line-height:14px;margin:0 0 10px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;padding:5px 10px 5px 20px;background:url(/assets/images/glyph-categories.png) no-repeat 0 1px;text-shadow:0 -1px 0 #fff}
-.earn-points h3{padding-left:25px;background-color:#eee;background:#eee url(/assets/images/header-nav-bkg.jpg) repeat;position:relative}.earn-points h3 i{font-size:22px;position:absolute;left:7px;top:-5px;-webkit-font-smoothing:antialiased}
-.earn-points h3 .badge{position:absolute;right:1px;top:4px}
-.event-list h3.bug-icon{background-position:0 -22px;text-transform:capitalize}
-.event-list h3.comment-icon{background-position:0 -46px;text-transform:capitalize}
-.event-list h3.code-icon{background-position:0 -68px;text-transform:capitalize}
-.event-list h3.irc-icon{background-position:0 -91px;text-transform:capitalize}
-.event-list h3.twitter-icon{background-position:0 -114px;text-transform:capitalize}
-.event-list h3.plugin-icon{background-position:0 -138px;text-transform:capitalize}
-.event-list h3.app-icon{background-position:0 -160px;text-transform:capitalize}
-.event-list h3.question-icon{background-position:0 -183px;text-transform:capitalize}
+.section-title,.earn-points h3{color:#666;font-size:12px;font-weight:normal;font-style:normal;line-height:14px;margin:10px 0 5px;text-decoration:none;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;text-shadow:0 1px 0 rgba(255,255,255,0.5);text-transform:capitalize;padding:5px 10px 5px 25px;background-color:#eee;background:#eee url(/assets/images/header-nav-bkg.jpg) repeat;position:relative}.section-title i,.earn-points h3 i{font-size:22px;position:absolute;left:7px;top:-5px;-webkit-font-smoothing:antialiased}
+.section-title .badge,.earn-points h3 .badge{position:absolute;right:1px;top:4px}
+.section-title .breakout i,.earn-points h3 .breakout i{left:auto;right:5px;color:#999}.section-title .breakout i:hover,.earn-points h3 .breakout i:hover{text-decoration:none;color:#555}
 .event-list.top-rated{margin-top:20px}
 .event{position:relative;padding:10px 0;border-top:1px solid #fff;border-bottom:1px solid #fff}
 .event:hover{border-top:1px solid #eee;border-bottom:1px solid #eee}
@@ -1299,7 +1291,7 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .icon-twitter:before{content:"\e003"}
 .icon-canjs:before{content:"\e004"}
 .icon-app:before{content:"\e005"}
-.icon-forum:before{content:"\e006"}
+.icon-forum:before,.icon-comment:before{content:"\e006"}
 .icon-chat:before{content:"\e007"}
 .icon-plugin:before{content:"\e008"}
 .icon-code:before{content:"\e009"}
