@@ -7,7 +7,7 @@ steal(
 		var queryTracker = {
 			homepage: {
 				latest: new can.Observe({
-					order: ['thread_updated_date:desc', 'categories:asc', 'thread_updated_at:desc'],
+					order: ['thread_updated_date:desc', 'categories:asc', 'thread_updated_ts:desc'],
 					exclude: 'source_data',
 					offset: 0,
 					limit: 25
