@@ -230,16 +230,15 @@
 	text-align: center;
 	top: 22px;
 	background: url(/assets/images/carets.png) no-repeat -9999px 0 #169410;
-}
-
-.event .votes .voteup-btn.upvoted {
-	background-color: #7b7b7b;
+	
+	&.upvoted {
+		background-color: #7b7b7b;
+	}
 }
 
 .event:hover .votes .voteup-btn {
 	display: block;
 	z-index: 10;
-	width: 100%;
 }
 
 .event .votes .voteup-btn .upvote-caret {
