@@ -1164,13 +1164,11 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .section-title .badge,.earn-points h3 .badge{position:absolute;right:1px;top:4px}
 .section-title .breakout i,.earn-points h3 .breakout i{left:auto;right:5px;color:#999}.section-title .breakout i:hover,.earn-points h3 .breakout i:hover{text-decoration:none;color:#555}
 .event-list.top-rated{margin-top:20px}
-.event{position:relative;padding:10px 0;border-top:1px solid #fff;border-bottom:1px solid #fff}
-.event:hover{border-top:1px solid #eee;border-bottom:1px solid #eee}
+.event{position:relative;padding:10px 0;border-top:1px solid #fff;border-bottom:1px solid #fff}.event:hover{border-top:1px solid #eee;border-bottom:1px solid #eee}
 .event.notified{background-color:#e9f8ff;border:1px solid #71bee5;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;padding:10px;margin:10px -10px}
 .event:hover .toolbar{display:block}
 .event .toolbar{display:none;position:absolute;float:right;color:#000;top:2px;right:3px}
-.event .title{margin:0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
-.event .title a{font-size:14px;margin:0;line-height:18px}
+.event .title{margin:0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.event .title a{font-size:14px;margin:0;line-height:18px}
 .event .title .expand-body{color:#777;margin-left:10px}
 .event .body{color:#333;font-size:12px;line-height:17px}
 .event .replies .body{display:block}
@@ -1213,24 +1211,19 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .event-metadata a{text-decoration:underline;color:#999}
 .readmore-link,.btn-tiny,.btn.btn-tiny{background-color:none;background:none;border:none;color:#999;display:block;float:right;font-size:9px;margin-top:-2px;text-align:center;min-height:14px;line-height:12px;padding:0 7px;font-weight:normal;font-style:normal;text-decoration:underline}
 .readmore-link:hover,.btn-tiny:hover{text-decoration:none}
-.event .replies{background-color:#fff;border:1px solid #c3bfbe;display:none;padding:3px;position:relative;margin-top:14px}
-.event .replies .replies-caret{display:block;height:7px;position:absolute;left:20px;top:-7px;width:12px;background:url(/assets/images/replies-glyph.png) no-repeat 0 bottom}
-.event .replies .reply-event{margin:0;position:relative}
-.event .replies .reply-event:nth-child(even){background-color:#f3f4f4}
+.event .replies{background-color:#fff;border:1px solid #c3bfbe;display:none;padding:3px;position:relative;margin-top:14px}.event .replies .replies-caret{display:block;height:7px;position:absolute;left:20px;top:-7px;width:12px;background:url(/assets/images/replies-glyph.png) no-repeat 0 bottom}
 .event .replies .even{background-color:#f8f7f7}
-.event .replies .reply-event .votes{float:left;width:50px;height:20px}
-.event .replies .reply-event .votes .count{top:3px}
+.event .replies .reply-event{margin:0;position:relative;padding:3px}.event .replies .reply-event .reply{display:block;float:left;width:90%;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}
+.event .replies .reply-event .event-metadata{margin:5px}
+.event .replies .reply-event:nth-child(even){background-color:#f3f4f4}
+.event .replies .reply-event .votes{float:left;width:10%;height:20px;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}.event .replies .reply-event .votes .count{top:3px}
 .event .replies .reply-event .votes .uparrow{left:6px;top:5px}
-.event .replies .reply-event .body{}
+.event .replies .reply-event .votes .award-btn{display:block}
+.event .replies .reply-event .votes .award-btn{display:none;position:absolute;top:43px;color:#fff;height:20px;width:54px}.event .replies .reply-event .votes .award-btn .word{position:relative;text-align:center;background-color:#ff8d1a;font-size:11px;width:93%;border-radius:3px;float:left}
+.event .replies .reply-event .votes .award-btn .caret-right{background-image:url(/assets/images/carets.png);background-position:-23px 7px;background-size:30px 6px;background-repeat:no-repeat;position:absolute;right:0;width:7px;height:100%}
 .reply-event .awarded-badge{background-image:url(/assets/images/awarded.png);width:37px;height:37px;position:absolute;left:-34px}
-.event:hover .votes .award-btn{display:block}
-.event .votes .award-btn{display:none;position:absolute;top:43px;color:#fff;height:20px;width:54px}
-.event .votes .award-btn .word{position:relative;text-align:center;background-color:#ff8d1a;font-size:11px;width:93%;border-radius:3px;float:left}
-.event .votes .award-btn .caret-right{background-image:url(/assets/images/carets.png);background-position:-23px 7px;background-size:30px 6px;background-repeat:no-repeat;position:absolute;right:0;width:7px;height:100%}
-.reply-event .award-btn{position:absolute;left:-65px;padding-right:10px;display:none}
+.reply-event .award-btn{position:absolute;left:-65px;padding-right:10px;display:none}.reply-event .award-btn a{background-color:#ff8d1a;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;color:#fff;display:block;position:relative;font-size:11px;padding:0 10px}.reply-event .award-btn a .caret{background-image:url(/assets/images/carets.png);background-position:right top;width:5px;heigth:6px;position:absolute;right:-4px;top:2px}
 .reply-event:hover .award-btn{display:block}
-.reply-event .award-btn a{background-color:#ff8d1a;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;color:#fff;display:block;position:relative;font-size:11px;padding:0 10px}
-.reply-event .award-btn a .caret{background-image:url(/assets/images/carets.png);background-position:right top;width:5px;heigth:6px;position:absolute;right:-4px;top:2px}
 #event-container{padding-top:70px;margin:0 auto 100px auto;width:740px}
 #event-container .sep .flag.blue{margin-left:-140px;padding:3px 0}
 #event-container .event img.thumb{width:auto;max-width:180px;margin:0 15px 10px 0}
@@ -1243,9 +1236,8 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .twitter-actions-list .twitter-action.reply{background-position:0 2px}
 .twitter-actions-list .twitter-action.retweet{background-position:0 -15px}
 .twitter-actions-list .twitter-action.star{background-position:0 -32px}
-.retweets-container{margin-right:15px}
+.retweets-container{margin-right:15px;position:relative;top:-4px;float:left}.retweets-container .icon-retweet{text-shadow:none;font-size:22px;line-height:12px}
 .retweets-container .profile-icon{width:16px;height:16px}
-.retweets-container .retweet-icon{background-image:url(/assets/images/icon-retweet.png);margin:-1px 3px 0 0;width:24px;height:16px}
 .twitter-hashtag,.twitter-mention{font-weight:bold}
 #newpost-form-wrapper{position:fixed;top:62px;z-index:905;width:100%}#newpost-form-wrapper .select-menu{width:100%;margin-right:0}
 #newpost-bottom-separator{background-color:#d5d8d8;height:8px;width:100%;border-bottom:1px solid #aeadad}
@@ -1278,13 +1270,13 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .rewards .item .message{position:absolute;left:0;right:0;bottom:40px;color:#fff;background-color:#000;text-align:center;font-size:12px}
 .rewards .item .border{position:absolute;top:0;right:0;bottom:0;left:0;z-index:1;border-style:solid;border-width:0}
 .rewards .item.achieved .points{background-color:#999;border:1px solid #999;left:0}
-.rewards .item.achieved .title{background:rgba(153,153,153,0.7);line-height:12px;padding-left:50px}.rewards .item.achieved .title:before{background-position:-144px -48px;font-family:"bitstrap";speak:none;display:inline-block;width:1em;margin-right:.2em;text-align:center;font-variant:normal;text-transform:none;text-indent:0;font-family:Bitstrap;font-weight:normal;font-style:normal;text-decoration:inherit;display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none !important;background-position:0 0;background-repeat:repeat;position:absolute;left:10px;font-size:45px;top:-10px;content:"\e030"}.rewards .item.achieved .title:before:before,.rewards .item.achieved .title:before:before{text-decoration:inherit;display:inline-block;speak:none}
+.rewards .item.achieved .title{background:rgba(153,153,153,0.7);line-height:12px;padding-left:50px}.rewards .item.achieved .title:before{background-position:-144px -48px;font-family:"bitstrap";speak:none;display:inline-block;width:1em;margin-right:.2em;text-align:center;font-variant:normal;text-transform:none;text-indent:0;font-family:Bitstrap;font-weight:normal;font-style:normal;text-decoration:inherit;display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none !important;background-position:0 0;background-repeat:repeat;-webkit-font-smoothing:antialiased;position:absolute;left:10px;font-size:45px;top:-10px;content:"\e030"}.rewards .item.achieved .title:before:before,.rewards .item.achieved .title:before:before{text-decoration:inherit;display:inline-block;speak:none}
 .rewards .item.achieved .message{position:relative;padding:0;text-align:left;background:none;font-weight:normal;font-style:normal;font-size:10px;left:auto;top:auto;bottom:auto;right:auto;display:block}
 .rewards .item.shipping{border:5px solid #26931d}.rewards .item.shipping .points{background-color:#26931d;border:1px solid #26931d}
 .rewards .item.shipping .message{background-color:#26931d}
 .rewards .item.almost .points{background-color:#71bee5;border:1px solid #1d74a0}
 .rewards .item.almost .message{background-color:#71bee5}
-@font-face{font-family:'Bitstrap';src:url("/assets/fonts/bitstrap-regular.eot");font-weight:normal;font-style:normal}@font-face{font-family:'Bitstrap';src:url('/assets/fonts/bitstrap-regular.eot');src:url('/assets/fonts/bitstrap-regular.eot?#iefix') format('embedded-opentype'),url('/assets/fonts/bitstrap-regular.ttf') format('truetype'),url("/assets/fonts/bitstrap-regular.otf") format("otf");font-weight:normal;font-style:normal}[class^="icon-"],[class*=" icon-"],.icon-font{font-family:Bitstrap;font-weight:normal;font-style:normal;text-decoration:inherit;display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none !important;background-position:0 0;background-repeat:repeat}[class^="icon-"]:before,[class*=" icon-"]:before,.icon-font:before,[class^="icon-"]:before,[class*=" icon-"]:before,.icon-font:before{text-decoration:inherit;display:inline-block;speak:none}
+@font-face{font-family:'Bitstrap';src:url("/assets/fonts/bitstrap-regular.eot");font-weight:normal;font-style:normal}@font-face{font-family:'Bitstrap';src:url('/assets/fonts/bitstrap-regular.eot');src:url('/assets/fonts/bitstrap-regular.eot?#iefix') format('embedded-opentype'),url('/assets/fonts/bitstrap-regular.ttf') format('truetype'),url("/assets/fonts/bitstrap-regular.otf") format("otf");font-weight:normal;font-style:normal}[class^="icon-"],[class*=" icon-"],.icon-font{font-family:Bitstrap;font-weight:normal;font-style:normal;text-decoration:inherit;display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none !important;background-position:0 0;background-repeat:repeat;-webkit-font-smoothing:antialiased}[class^="icon-"]:before,[class*=" icon-"]:before,.icon-font:before,[class^="icon-"]:before,[class*=" icon-"]:before,.icon-font:before{text-decoration:inherit;display:inline-block;speak:none}
 .icon-breakout:before{content:"\e000"}
 .icon-menudown:before{content:"\e001"}
 .icon-bits:before{content:"\e002";position:relative;left:-5px}

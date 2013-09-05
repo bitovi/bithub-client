@@ -17,14 +17,17 @@
 <div class="status row">
   <div class="metadata-container pull-right">
 
-	<div class="retweets-container pull-left">
-	  <!--<img class='retweet-icon' src="/img/icon-retweet.png" />-->
+	<% if( event.attr('children').length > 0) { %> 
+	<div class="retweets-container">
+	  <i class="icon-retweet"></i>
 	  <% list(event.attr('children'), function( child ) { %>	
 	  <a href='https://twitter.com/<%= child.attr('props.origin_author_name') %>'>
 		<img class="profile-icon" <%= child.attr('props.origin_author_avatar_url') ? "src='" + child.attr('props.origin_author_avatar_url') + "'" : "" %> alt="Avatar" />
 	  </a>
 	  <% }) %>
-	</div>
+	</div><!-- .rewtweets-container -->
+	<% } %>
+	
 	<div class="event-metadata pull-right">
 	  <small><%== formatTs( event, date ) %> via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 	</div>

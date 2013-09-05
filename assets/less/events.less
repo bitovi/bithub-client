@@ -52,86 +52,76 @@
 	padding: 10px 0px;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #fff;
-}
-
-.event:hover {
-	border-top: 1px solid #eee;
-	border-bottom: 1px solid #eee;
-}
-
-.event.notified {
-	background-color: #e9f8ff;
-	border: 1px solid #71bee5;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;	
-	/*
-	-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
-	-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
-	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;	
-	*/
-	padding: 10px;
-	margin: 10px -10px;
-}
-
-.event:hover .toolbar {
-	display: block;
-}
-
-.event .toolbar {
-	display: none;
-	position: absolute;
-	float: right;
-	color: #000;
-	top: 2px;
-	right: 3px;
-}
-
-.event .title {
-	margin: 0;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
-.event .title a {
-	/* color: #000; */
-	font-size: 14px;
-	margin: 0;
-	line-height: 18px;
-}
-
-.event .title .expand-body {
-	color: #777;
-	margin-left: 10px;
-
-}
-
-.event .body {
-	color: #333333;
-	font-size: 12px;
-	line-height: 17px;
-}
-
-.event .replies .body {
-	display: block;
-}
-
-.event:hover .body {
-	color: #000;
-}
-
-.event img.thumb {
-	float: left;
-	width: 120px;
-	margin: 5px 15px 10px 0px;
-}
-
-.event .status {
-	position: relative;
-	margin-bottom: 6px;
-	height: 10px;
-	margin-top: 6px;
-}
+	
+	&:hover {
+		border-top: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+	}
+	&.notified {
+		background-color: #e9f8ff;
+		border: 1px solid #71bee5;
+		-webkit-border-radius: 6px;
+		-moz-border-radius: 6px;
+		border-radius: 6px;	
+		/*
+		-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
+		-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
+		box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;	
+		*/
+		padding: 10px;
+		margin: 10px -10px;
+	}
+	&:hover .toolbar {
+		display: block;
+	}
+	.toolbar {
+		display: none;
+		position: absolute;
+		float: right;
+		color: #000;
+		top: 2px;
+		right: 3px;
+	}
+	.title {
+		margin: 0;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		a {
+			/* color: #000; */
+			font-size: 14px;
+			margin: 0;
+			line-height: 18px;
+		}
+		.expand-body {
+			color: #777;
+			margin-left: 10px;
+		
+		}
+	} // .title
+	.body {
+		color: #333333;
+		font-size: 12px;
+		line-height: 17px;
+	} // .body
+	.replies .body {
+		display: block;
+	}
+	&:hover .body {
+		color: #000;
+	}
+	img.thumb {
+		float: left;
+		width: 120px;
+		margin: 5px 15px 10px 0px;
+	}
+	.status {
+		position: relative;
+		margin-bottom: 6px;
+		height: 10px;
+		margin-top: 6px;
+	}
+} // .event 
 
 .event .status, .event .status a, .event .manage-bar > ul.nav > li > a {
 	color: #999;
@@ -368,6 +358,7 @@
 .readmore-link:hover, .btn-tiny:hover {
 	text-decoration: none;
 }
+
 .event .replies {
 	background-color: #fff;
 	border: 1px solid #c3bfbe;
@@ -375,116 +366,121 @@
 	padding: 3px;
 	position: relative;
 	margin-top: 14px;
+	
+	.replies-caret {
+		display: block;
+		height: 7px;
+		position: absolute;
+		left: 20px;
+		top: -7px;
+		width: 12px;
+		background: url(/assets/images/replies-glyph.png) no-repeat 0 bottom;
+	}
+	.even {
+		background-color: #f8f7f7;
+	}
+	.reply-event {
+		margin: 0px;
+		position: relative;
+		padding: 3px;
+		
+		.reply {
+			display: block;
+			.pull-left;
+			width: 90%;
+			.border-box;
+		}
+		.event-metadata {
+			margin: 5px;
+		}
+		&:nth-child(even) {
+			background-color: #f3f4f4;
+		}
+		.votes {
+			.pull-left;
+			width: 10%;
+			height: 20px;
+			.border-box;
+			
+			.count {
+				top: 3px;
+			}
+			.uparrow {
+				left: 6px;
+				top: 5px;
+			}
+			.award-btn { display: block; }
+			.award-btn {
+				display: none;
+				position: absolute;
+				top: 43px;
+				color: #fff;
+				height: 20px;
+				width: 54px;
+				.word {
+					position: relative;
+					text-align: center;
+					background-color: #ff8d1a;
+					font-size: 11px;
+					width: 93%;
+					border-radius: 3px;
+					float: left;
+				}
+				.caret-right {
+					background-image: url(/assets/images/carets.png);
+					background-position: -23px 7px;
+					background-size: 30px 6px;
+					background-repeat: no-repeat;
+					position: absolute;
+					right: 0px;
+					width: 7px;
+					height: 100%;
+				}
+			} 
+		} 
+	}
 }
 
-.event .replies .replies-caret {
-	display: block;
-	height: 7px;
-	position: absolute;
-	left: 20px;
-	top: -7px;
-	width: 12px;
-	background: url(/assets/images/replies-glyph.png) no-repeat 0 bottom;
-}
 
-.event .replies .reply-event {
-	margin: 0px;
-	position: relative;
-}
-.event .replies .reply-event:nth-child(even) {
-	background-color: #f3f4f4;
-}
-
-.event .replies .even {
-	background-color: #f8f7f7;
-}
-
-.event .replies .reply-event .votes {
-	float: left;
-	width: 50px;
-	height: 20px;
-}
-
-.event .replies .reply-event .votes .count {
-	top: 3px;
-}
-
-.event .replies .reply-event .votes .uparrow {
-	left: 6px;
-	top: 5px;
-}
-
-.event .replies .reply-event .body {
-	/* float: left; */
-	/* width: 500px; */
-}
-
-.reply-event .awarded-badge {
-	background-image: url(/assets/images/awarded.png);
-	width: 37px;
-	height: 37px;
-	position: absolute;
-	left: -34px;
-}
-
-.event:hover .votes .award-btn { display: block; }
-.event .votes .award-btn {
-	display: none;
-	position: absolute;
-	top: 43px;
-	color: #fff;
-	height: 20px;
-	width: 54px;
-}
-
-.event .votes .award-btn .word {
-	position: relative;
-	text-align: center;
-	background-color: #ff8d1a;
-	font-size: 11px;
-	width: 93%;
-	border-radius: 3px;
-	float: left;
-}
-
-.event .votes .award-btn .caret-right {
-	background-image: url(/assets/images/carets.png);
-	background-position: -23px 7px;
-	background-size: 30px 6px;
-	background-repeat: no-repeat;
-	position: absolute;
-	right: 0px;
-	width: 7px;
-	height: 100%;
-}
-
-.reply-event .award-btn {
-	position: absolute;
-	left: -65px;
-	padding-right: 10px;
-	display: none;
-}
-.reply-event:hover .award-btn { display: block; }
-
-.reply-event .award-btn a {
-	background-color: #ff8d1a;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;	
-	color: #fff;
-	display: block;
-	position: relative;
-	font-size: 11px;
-	padding: 0px 10px;
-}
-.reply-event .award-btn a .caret {
-	background-image: url(/assets/images/carets.png);
-	background-position: right top;
-	width: 5px;
-	heigth: 6px;
-	position: absolute;
-	right: -4px;
-	top: 2px;
+/* Award flags--------------------------------------------------- */
+.reply-event {
+	.awarded-badge {
+		background-image: url(/assets/images/awarded.png);
+		width: 37px;
+		height: 37px;
+		position: absolute;
+		left: -34px;
+	}
+	.award-btn {
+		position: absolute;
+		left: -65px;
+		padding-right: 10px;
+		display: none;
+		
+		a {
+			background-color: #ff8d1a;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;	
+			color: #fff;
+			display: block;
+			position: relative;
+			font-size: 11px;
+			padding: 0px 10px;
+			
+			.caret {
+				background-image: url(/assets/images/carets.png);
+				background-position: right top;
+				width: 5px;
+				heigth: 6px;
+				position: absolute;
+				right: -4px;
+				top: 2px;
+			}
+		}
+	}
+	&:hover .award-btn { display: block; }
+	
 }
 
 
@@ -564,18 +560,19 @@
 
 .retweets-container {
 	margin-right: 15px;
-}
-
-.retweets-container .profile-icon {
-	width: 16px;
-	height: 16px;
-}
-
-.retweets-container .retweet-icon {
-	background-image: url(/assets/images/icon-retweet.png);
-	margin: -1px 3px 0 0;
-	width: 24px;
-	height: 16px;
+	position: relative;
+	top: -4px;
+	.pull-left;
+	
+	.icon-retweet {
+		text-shadow: none;
+		font-size: 22px;
+		line-height: 12px;
+	}
+	.profile-icon {
+		width: 16px;
+		height: 16px;
+	}
 }
 
 .twitter-hashtag, .twitter-mention {
