@@ -43,7 +43,20 @@ steal(
 						
 					});
 				});
+			},
+
+			nextRewardIdx: function( achievements ) {
+				if( !achievements ) return 0;
 				
+				var self = this,
+					currIdx= 0,
+					lastIdx = _.last(achievements).attr('reward_id');
+
+				_.each( self, function( reward, idx ) {
+					if( reward.attr('id') == lastIdx ) currIdx = idx;
+				});				
+
+				return currIdx + 1;
 			}
 		});
 
