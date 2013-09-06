@@ -44,7 +44,7 @@ steal(
 			paramKey: 'page',
 			defaultProps: {view: 'users', action: 'list'},
 			childs: [{
-				params: ['tags', 'users', 'rewards'],
+				params: ['tags', 'users', 'rewards', 'achievements'],
 				paramKey: 'view',
 				childs: [{
 					params: ['edit', 'new'],

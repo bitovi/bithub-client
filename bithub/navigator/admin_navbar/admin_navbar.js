@@ -22,6 +22,10 @@ steal(
 					name: 'rewards',
 					url: function () { return can.route.url({page: 'admin', view: 'rewards', action: 'list'}, false) },
 					display_name: 'Rewards'
+				}, {
+					name: 'achievements',
+					url: function () { return can.route.url({page: 'admin', view: 'achievements', action: 'list'}, false) },
+					display_name: 'Achievements'
 				}]
 			}
 		}, {

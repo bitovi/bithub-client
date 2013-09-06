@@ -4,7 +4,8 @@ steal(
 	'bithub/admin/users',
 	'bithub/admin/rewards',
 	'bithub/admin/tags',
-	function(can, f, UsersControl, RewardsControl, TagsControl){
+	'bithub/admin/achievements',
+	function(can, f, UsersControl, RewardsControl, TagsControl, AchievementsControl){
 
 		return can.Control.extend('Bithub.Controls.Admin', {
 			requiredPermissions: ['admin'],
@@ -12,7 +13,8 @@ steal(
 				views: {
 					users: UsersControl,
 					rewards: RewardsControl,
-					tags: TagsControl
+					tags: TagsControl,
+					achievements: AchievementsControl
 				}
 			},
 			pluginName : 'admin'
