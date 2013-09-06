@@ -12,9 +12,7 @@ steal(
 			update  : 'PUT /api/achievements/{id}',
 			destroy : 'DELETE /api/achievements/{id}'
 
-		}, {
-			// NOP
-		});
+		}, {});
 		
 		return Model;
 	});

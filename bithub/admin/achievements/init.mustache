@@ -1,1 +1,34 @@
-{{message}}
+<table class="table table-stripped">
+  <thead>
+	<tr>
+	  <th>User</th>
+	  <th>Address</th>
+	  <th>Reward</th>
+	  <th>Achieved</th>
+	  <th>Shipped</th>
+	  <th></th>
+	</tr>
+  </thead>
+  <tbody>
+	{{#achievements}}
+	<tr {{data 'achievement'}}>
+	  <td>
+		{{user.name}}<br>
+		<a href="mailto:{{user.email}}">{{user.email}}</a>
+	  </td>
+	  <td>
+		{{user.address}}<br>
+		{{user.city}} {{user.state}} {{user.postal}}<br>
+		{{user.country.name}}
+	  </td>
+	  <td>{{reward.title}}</td>
+	  <td>{{achieved_at}}</td>
+	  <td><input name="shipped_at" type="text" value="{{shipped_at}}" /></td>
+	  <td><button class="btn btn-primary save">save</button></td>
+	</tr>
+	{{/achievements}}
+  </tbody>
+</table>
+
+
+
