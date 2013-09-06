@@ -1186,9 +1186,8 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .reply-event:hover>.votes .uparrow,.reply-event .upvoted .upvote{background-position:0 -14px}
 .event .votes .count{left:12px;font-size:14px;font-weight:bold;position:absolute;top:-1px;text-align:center;width:36px;color:#000}
 .event .upvoted .count{color:#000}
-.event .votes .voteup-btn{border-radius:3px;display:none;color:#fff;font-size:11px;height:20px;position:absolute;width:54px;text-align:center;top:22px;background:url(/assets/images/carets.png) no-repeat -9999px 0 #169410}
-.event .votes .voteup-btn.upvoted{background-color:#7b7b7b}
-.event:hover .votes .voteup-btn{display:block;z-index:10;width:100%}
+.event .votes .voteup-btn{border-radius:3px;display:none;color:#fff;font-size:11px;height:20px;position:absolute;width:54px;text-align:center;top:22px;background:url(/assets/images/carets.png) no-repeat -9999px 0 #169410}.event .votes .voteup-btn.upvoted{background-color:#7b7b7b}
+.event:hover .votes .voteup-btn{display:block;z-index:10}
 .event .votes .voteup-btn .upvote-caret{display:block;height:4px;margin-left:4px;margin-top:-4px;width:8px;background:url(/assets/images/carets.png) no-repeat -9px 0}
 .event .votes .voteup-btn.upvoted .upvote-caret{background:url(/assets/images/carets.png) no-repeat -17px 0}
 .event .votes .awarded{color:#fff;font-size:11px;background-color:#ff8d1a;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;position:absolute;top:22px;width:100%;text-align:center}
@@ -1216,7 +1215,7 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .event .replies .reply-event .votes .award-btn{display:none;position:absolute;top:43px;color:#fff;height:20px;width:54px}.event .replies .reply-event .votes .award-btn .word{position:relative;text-align:center;background-color:#ff8d1a;font-size:11px;width:93%;border-radius:3px;float:left}
 .event .replies .reply-event .votes .award-btn .caret-right{background-image:url(/assets/images/carets.png);background-position:-23px 7px;background-size:30px 6px;background-repeat:no-repeat;position:absolute;right:0;width:7px;height:100%}
 .reply-event .awarded-badge{background-image:url(/assets/images/awarded.png);width:37px;height:37px;position:absolute;left:-34px}
-.reply-event .award-btn{position:absolute;left:-65px;padding-right:10px;display:none}.reply-event .award-btn a{background-color:#ff8d1a;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;color:#fff;display:block;position:relative;font-size:11px;padding:0 10px}.reply-event .award-btn a .caret{background-image:url(/assets/images/carets.png);background-position:right top;width:5px;heigth:6px;position:absolute;right:-4px;top:2px}
+.reply-event .award-btn{position:absolute;left:-65px;padding-right:10px;display:none;width:100px}.reply-event .award-btn a{background-color:#ff8d1a;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;color:#fff;display:block;position:relative;font-size:11px;padding:0 10px;width:35px}.reply-event .award-btn a .caret{background-image:url(/assets/images/carets.png);background-position:right top;width:5px;heigth:6px;position:absolute;right:-4px;top:2px}
 .reply-event:hover .award-btn{display:block}
 #event-container{padding-top:70px;margin:0 auto 100px auto;width:740px}
 #event-container .sep .flag.blue{margin-left:-140px;padding:3px 0}

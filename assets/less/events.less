@@ -230,16 +230,15 @@
 	text-align: center;
 	top: 22px;
 	background: url(/assets/images/carets.png) no-repeat -9999px 0 #169410;
-}
-
-.event .votes .voteup-btn.upvoted {
-	background-color: #7b7b7b;
+	
+	&.upvoted {
+		background-color: #7b7b7b;
+	}
 }
 
 .event:hover .votes .voteup-btn {
 	display: block;
 	z-index: 10;
-	width: 100%;
 }
 
 .event .votes .voteup-btn .upvote-caret {
@@ -456,6 +455,7 @@
 		left: -65px;
 		padding-right: 10px;
 		display: none;
+		width: 100px;
 		
 		a {
 			background-color: #ff8d1a;
@@ -467,6 +467,7 @@
 			position: relative;
 			font-size: 11px;
 			padding: 0px 10px;
+			width: 35px;
 			
 			.caret {
 				background-image: url(/assets/images/carets.png);
