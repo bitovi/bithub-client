@@ -22,9 +22,11 @@
 		{{user.country.name}}
 	  </td>
 	  <td>{{reward.title}}</td>
-	  <td>{{achieved_at}}</td>
-	  <td><input name="shipped_at" type="text" value="{{shipped_at}}" /></td>
-	  <td><button class="btn btn-primary save">save</button></td>
+	  <td>{{formatTs achieved_at}}</td>
+	  <td><input name="shipped_at" type="text" value="{{formatTs shipped_at}}" {{datepicker}} /></td>
+	  <td>
+		<button class="btn btn-primary save">Save</button>
+	  </td>
 	</tr>
 	{{/achievements}}
   </tbody>

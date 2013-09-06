@@ -2,6 +2,7 @@ steal('can',
 	  './init.mustache',
 	  'bithub/models/achievement.js',
 	  'vendor/bootstrap-datepicker',
+	  'vendor/moment',
 	  function(can, initView, Achievement, Datepicker){
 		  return can.Control.extend({
 			  defaults : {
@@ -9,7 +10,8 @@ steal('can',
 			  }
 		  }, {
 			  init : function( elem, opts ){
-				  var achievements = this.options.achievements;
+				  var self = this,
+					  achievements = this.options.achievements;
 				  
 				  Achievement.findAll({}, function( data ) {
 					  achievements.replace( data );
@@ -17,16 +19,35 @@ steal('can',
 				  
 				  this.element.html(initView({
 					  achievements: achievements
+				  }, {
+					  datepicker: function(){
+						  return function( el ){
+							  $(el).datepicker({
+								  format: 'mm/dd/yyyy',
+								  weekStart: 0
+							  });
+						  }
+					  },
+					  formatTs: function( ts ) {
+						  ts = typeof(ts) === 'function' ? ts() : ts;
+						  return ts ? moment(ts).format('MM/DD/YYYY') : '';
+					  }
 				  }));
 			  },
 
 			  '.btn.save click': function( el, ev ) {
 				  ev.preventDefault();
 
-				  var achievement = el.closest('tr').data('achievement');
+				  var achievement = el.closest('tr').data('achievement'),
+					  shipped_at = el.closest('tr').find('input[name=shipped_at]').val();
 
-				  achievement.save(function( data ) {
-					  
+				  achievement.attr('shipped_at', shipped_at && moment(shipped_at).format() );
+				  achievement.save(function() {
+					  el.removeClass('btn-primary').addClass('btn-success');
+					  setTimeout(function() { el.removeClass('btn-success').addClass('btn-primary')}, 3000);
+				  }, function() {
+					  el.removeClass('btn-primary').addClass('btn-danger');
+					  setTimeout(function() { el.removeClass('btn-danger').addClass('btn-primary')}, 3000);
 				  });
 			  }
 		  });
