@@ -4,10 +4,9 @@ steal('can',
 	  'vendor/moment',
 	  function(can, initView, Reward){
 
-
 		  return can.Control.extend({
 			  defaults : {
-				  rewards: new can.Observe.List()
+				  rewards: new Bithub.Models.Reward.List()
 			  }
 		  }, {
 			  init : function( elem, opts ){
@@ -31,32 +30,7 @@ steal('can',
 			  '{rewards} length': "matchRewards",
 
 			  matchRewards: function() {
-				  var user = this.options.currentUser,
-					  rewards = this.options.rewards;
-
-				  _.each(user.attr('achievements'), function( achievement ) {
-					  var status = "";
-					  
-					  if( achievement.attr('achieved_at') ) {
-						  status = {
-							  cssClass: "shipping",
-							  message: "This is a great thing!"
-						  }
-					  }
-					  if( achievement.attr('shipped_at') ) {
-						  status = {
-							  cssClass: "achieved",
-							  inlineMessage: "Shipped " + moment( achievement.attr('shipped_at') ).format('MM/DD/YY')
-						  }
-					  }
-					  
-					  _.each(rewards, function( reward ) {
-						  if( achievement.attr('reward_id') == reward.attr('id') ) {
-							  reward.attr('status', status );
-						  }
-						  
-					  });
-				  });
+				  this.options.rewards.matchAchievements( this.options.currentUser.attr('achievements') );
 			  }
 
 		  });
