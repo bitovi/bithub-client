@@ -22,7 +22,17 @@ steal(
 
 				elem.html(sidebarView({
 					user: user,
-					rewards: rewards
+					rewards: rewards,
+					routes: {
+						earnpoints: function() {
+							var params = {
+								view: 'earnpoints',
+								page: user.isLoggedIn() ? 'profile' : 'homepage'
+							}
+								
+							return can.route.url( params )
+						}
+					}
 				}, {
 					helpers: {
 						iterRewards: function( opts ) {
