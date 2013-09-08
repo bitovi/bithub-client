@@ -216,7 +216,7 @@ steal(
 
 			'{categories} change': function(tags) { this.updateTagList(tags, {type: 'category'}) },
 			'{projects} change': function(tags) { this.updateTagList(tags, {type: 'project'}) },
-			'{feeds} change': function(tags) { this.updateTagList(tags, {type: 'feed'}) },
+			//'{feeds} change': function(tags) { this.updateTagList(tags, {type: 'feed'}) },
 
 			updateTagList: function( tags, props ) {
 				var buffer = _.each(tags.attr(), function(item) {
