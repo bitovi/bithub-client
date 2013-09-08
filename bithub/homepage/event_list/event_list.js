@@ -282,7 +282,6 @@ steal(
 
 				if (events.length === 0) {
 					this.canLoad(false);
-					this.spinnerTop(false);
 					this.spinnerBottom(false);
 					return;
 				}

@@ -6095,6 +6095,9 @@ textarea:focus {
   margin-top: 15px;
   z-index: 900;
 }
+.spinner-bottom {
+  display: none;
+}
 .noMoreContent {
   color: #999999;
   text-align: center;
