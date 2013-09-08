@@ -30,7 +30,8 @@ steal(
 			init : function (elem, opts) {
 
 				$('#profile-navbar').html( navbarView({
-					routes: this.options.routes
+					routes: this.options.routes,
+					user: this.options.currentUser
 				}, {
 					helpers: {
 						isProfilePage: function( opts ) {

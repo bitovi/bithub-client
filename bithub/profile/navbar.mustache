@@ -2,7 +2,7 @@
 <div class="subnav-wrapper">
 <div class="container">
 	  <ul class="subnav">
-		<li class="account">Your Account:</li>
+		<li class="account">Your Account: <span class="userPoints">{{user.score}}</span></li>
 		<li class="{{isActive "earnpoints"}}"><a href="{{{routes.earnpoints}}}">Earn Points</a></li>
 		<li class="{{isActive "swag"}}"><a href="{{{routes.swag}}}">Get Swag</a></li>
 		<li class="{{isActive "activities"}}"><a href="{{{routes.activities}}}">Activity History</a></li>
