@@ -46,7 +46,7 @@ steal(
 			},
 
 			nextRewardIdx: function( achievements ) {
-				if( !achievements ) return 0;
+				if( !(achievements && achievements.length) ) return 0;
 				
 				var self = this,
 					currIdx= 0,
