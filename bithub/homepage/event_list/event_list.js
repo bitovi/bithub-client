@@ -76,10 +76,14 @@ steal(
 
 					visibleTags.each(function( visibleTag ) {
 						var name = visibleTag.attr('name'),
-						display_name = visibleTag.attr('display_name') || visibleTag.attr('name');
+							display_name = visibleTag.attr('display_name') || visibleTag.attr('name'),
+							url = "",
+							routeParams = can.extend({}, can.route.attr());
 
 						if( name == eventTag && !matched ) {
-							buffer += "<li class=\"tag-name " + name +  "\"><a href=\"#\"><small>" + name + "</small></a></li>";
+							routeParams[visibleTag.attr('type')] = name;
+							url = can.route.url( routeParams, false);
+							buffer += "<li class=\"tag-name " + name +  "\"><a href=\"" + url +  "\"><small>" + name + "</small></a></li>";
 							matched = true;
 						}
 					});
@@ -210,12 +214,15 @@ steal(
 
 			// only "meaningful" event tags should be displayed
 
-			'{categories} change': "updateTagList",
-			'{projects} change': "updateTagList",
-			'{feeds} change': "updateTagList",
+			'{categories} change': function(tags) { this.updateTagList(tags, {type: 'category'}) },
+			'{projects} change': function(tags) { this.updateTagList(tags, {type: 'project'}) },
+			'{feeds} change': function(tags) { this.updateTagList(tags, {type: 'feed'}) },
 
-			updateTagList: function( tags ) {
-				visibleTags.push.apply(visibleTags, tags);
+			updateTagList: function( tags, props ) {
+				var buffer = _.each(tags.attr(), function(item) {
+					can.extend(item, props);
+				});
+				visibleTags.push.apply(visibleTags, buffer);
 			},
 
 			// infinite scroll
