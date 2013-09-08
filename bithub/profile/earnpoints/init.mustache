@@ -85,6 +85,12 @@
 	<h3><i class="icon-bug"></i> Issues <span class="badge">+ 2 + votes</span></h3>
 
 	<p><a href="https://github.com/bitovi">Report issues on GitHub</a> that are tagged by an admin as a Bug or Feature</p>
+
+	<ul class="toprated unstyled">
+	  {{#events.bug}}
+	  <li><span class="points">{{upvotes}}</span><a href="{{url}}">{{title}}</a></li>
+	  {{/events.bug}}
+	</ul>
 </div>
 <div class="points-wrapper">
 	<h3><i class="icon-code"></i> Code <span class="badge">+ votes x2</span></h3>

@@ -8,7 +8,8 @@ steal('can',
 			  events = {
 				  twitter: new can.Observe.List(),
 				  question: new can.Observe.List(),
-				  //issue: new can.Observe.List(),
+				  bug: new can.Observe.List(),
+				  feature: new can.Observe.List(),
 				  code: new can.Observe.List(),
 				  article: new can.Observe.List(),
 				  app: new can.Observe.List(),
@@ -17,8 +18,8 @@ steal('can',
 			  topPosts = new can.Observe.List();
 
 		  var eventsParams = {
-			  limit: 3,
-			  order: 'thread_updated_at'			  
+			  order: 'upvotes:desc',
+			  limit: 3
 		  };
 
 		  var topPostsParams = {
@@ -27,7 +28,9 @@ steal('can',
 		  };
 
 		  return can.Control.extend({
-				  defaults : {}
+				  defaults : {
+					  loaded: can.compute( _.keys(events).length )
+				  }
 			  }, {
 				  init : function( elem, opts ){
 					  var self = this,
@@ -65,6 +68,17 @@ steal('can',
 					  }
 				  },
 
+				  '{loaded} change': function( fn, ev , newVal, oldVal ) {
+					  var loaded = this.options.loaded;
+					  
+					  if( newVal == 0 ) {
+						  this.mergeList(events.bug, events.feature, function(a, b) {
+							  return (a.attr('upvotes') <= b.attr('upvotes'))
+						  });
+						  loaded( _.keys(events).length ); // reset
+					  }
+				  },
+
 				  '{currentUser} isLoggedIn change': function() {
 					  this.loadGithub();
 					  this.loadEvents();
@@ -80,12 +94,27 @@ steal('can',
 				  },
 
 				  loadEvents: function() {
+					  var loaded = this.options.loaded;
+					  
 					  eventsParams.author_id = this.options.currentUser.attr('id');
 
 					  _.each(_.keys(events), function(category) {
 						  Bithub.Models.Event.findAll(can.extend({category: category}, eventsParams), function( data ) {
 							  events[category].replace( data );
+							  loaded( loaded()-1 );
 						  });
+					  });
+				  },
+
+				  mergeList: function( dst, src, condFn ) {
+					  var insertAt = 0;
+					  src.forEach(function( from ) {
+						  dst.forEach(function( to, idx ) {
+							  if( condFn(from, to) ) {
+								  insertAt = idx;
+							  }
+						  });
+						  dst.splice(insertAt, 0, from);
 					  });
 				  },
 
