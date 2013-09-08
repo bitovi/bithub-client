@@ -440,6 +440,40 @@
 	}
 }
 
+/* Award button on event ---------------------------------------- */
+
+.event:hover .votes .award-btn { display: block; }
+.event .votes .award-btn {
+	display: none;
+	position: absolute;
+	top: 43px;
+	color: #fff;
+	height: 20px;
+	width: 54px;
+}
+
+.event .votes .award-btn .word {
+	position: relative;
+	text-align: center;
+	background-color: #ff8d1a;
+	font-size: 11px;
+	width: 93%;
+	border-radius: 3px;
+	float: left;
+}
+
+.event .votes .award-btn .caret-right {
+	background-image: url(/assets/images/carets.png);
+	background-position: -23px 7px;
+	background-size: 30px 6px;
+	background-repeat: no-repeat;
+	position: absolute;
+	right: 0px;
+	width: 7px;
+	height: 100%;
+}
+
+
 
 /* Award flags--------------------------------------------------- */
 .reply-event {
