@@ -3,15 +3,10 @@ steal(
 	'../helpers/auth.js',
 	'../helpers/github.js',
 	function (can, auth, github) {
-		var parse10 = function(str) { return parseInt(str, 10) };
 		var existy = function(x) { return x!==null && x!==undefined };
 		var isStringNully = function(x) { return x===null || x===undefined };
 
 		var cleanupData = function (data) {
-			data.activities = _.filter(data.activities, function(el) {
-				return parse10(el.value || el.authorship_value) !== 0;
-			});
-
 			_.each(_.keys(data), function(key) {
 				if (isStringNully(data[key])) data[key] = '';
 			});
