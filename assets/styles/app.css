@@ -1036,7 +1036,8 @@ a.btn.btn-inverse.active:active,button.btn.btn-inverse.active:active,span.btn.bt
 .login-logout:before{content:"\e038"}
 .login-admin:before{content:"\e058"}
 .dropdown-menu>li>a:hover .login-twitter:before,.dropdown-menu>li>a:hover .login-google:before,.dropdown-menu>li>a:hover .login-github:before,.dropdown-menu>li>a:hover .login-profile:before,.dropdown-menu>li>a:hover .login-points:before,.dropdown-menu>li>a:hover .login-logout:before,.dropdown-menu>li>a:hover .login-admin:before{color:#fff}
-#navbar{margin-bottom:0;position:fixed;width:100%;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0;z-index:1001}#navbar .navbar-inner{background:#fff url(/assets/images/header-nav-bkg.jpg);border-bottom:1px solid #fff}
+#navbar{margin-bottom:0;position:fixed;width:100%;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0;z-index:1001}#navbar a,#navbar button,#navbar li,#navbar textarea,#navbar input{outline:none !important}
+#navbar .navbar-inner{background:#fff url(/assets/images/header-nav-bkg.jpg);border-bottom:1px solid #fff}
 #navbar .container{margin-right:auto;margin-left:auto;width:1024px}
 #navbar .brand{text-indent:-9999px;padding:0;margin:0;margin-right:20px;width:101px;height:58px;background:url(/assets/images/bithub-logo.png) no-repeat center 12px}
 #navbar .nav{color:#999;padding-top:14px;padding-bottom:14px}#navbar .nav>li#profile-dropdown>button{border:0;background:none;padding:0;margin:0}
