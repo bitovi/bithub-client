@@ -1127,19 +1127,12 @@ h3 .badge{position:relative;top:-4px}
 .modal-body{font-size:12px;padding-top:5px}
 .modal-header .close{position:relative;top:-5px}
 .handwriting{font-family:'Just Another Hand',cursive}
-h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;font-style:normal;text-decoration:none;display:block}
+h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;font-style:normal;text-decoration:none;display:block;z-index:1;position:relative}
 .sidebar h4.handwriting.leftalign{-webkit-transform:rotate(-2deg);-moz-transform:rotate(-2deg);-o-transform:rotate(-2deg);-ms-transform:rotate(-2deg);position:relative;padding-left:20px}
 .sidebar h4.handwriting.rightalign{-webkit-transform:rotate(2deg);-moz-transform:rotate(2deg);-o-transform:rotate(2deg);-ms-transform:rotate(2deg);text-align:right;position:relative;padding-right:20px}
 .leftarrow,.rightarrow{background:url(/assets/images/icon-arrows.png) no-repeat;width:27px;text-indent:-9999px;height:35px;display:inline-block;position:absolute;top:12px}
 .leftarrow{left:-6px}
 .rightarrow{background-position:0 bottom}
-.free-stuff{margin:0 0 20px}
-.free-stuff li{display:inline-block;padding:5px 0 13px;text-align:center;width:75px;margin:0 !important;margin-left:9px !important;background-image:none}
-.free-stuff li:first-child{margin-left:0 !important}
-.free-stuff li a{text-align:center;display:inline-block;width:100%;padding-top:33px;background:url(/assets/images/glyph-swag.png) no-repeat center top;color:#666;font-size:12px;line-height:22px;text-decoration:none}
-.free-stuff li:hover{-moz-box-shadow:inset 0 0 5px rgba(6,6,6,0.5);-webkit-box-shadow:inset 0 0 5px rgba(6,6,6,0.5);box-shadow:inset 0 0 5px rgba(6,6,6,0.5)}
-.free-stuff li a.icon-mugs{background-position-y:-40px}
-.free-stuff li a.icon-stickers{background-position-y:-80px}
 .btn-signup{color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:#5bb75b;background-image:-moz-linear-gradient(top, #62c462, #51a351);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));background-image:-webkit-linear-gradient(top, #62c462, #51a351);background-image:-o-linear-gradient(top, #62c462, #51a351);background-image:linear-gradient(to bottom, #62c462, #51a351);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);border-color:#51a351 #51a351 #387038;border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);*background-color:#51a351;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);font:bold 16px "Open Sans",OpenSans,sans-serif;padding-top:8px;padding-bottom:8px;display:block;width:100%;margin-left:auto;margin-right:auto}.btn-signup:hover,.btn-signup:focus,.btn-signup:active,.btn-signup.active,.btn-signup.disabled,.btn-signup[disabled]{color:#fff;background-color:#51a351;*background-color:#499249}
 .btn-signup:active,.btn-signup.active{background-color:#408140 \9}
 .btn-signup .caret{border-top-color:#fff;border-bottom-color:#fff}
