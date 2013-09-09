@@ -25,8 +25,8 @@ steal(
 				jquerypp: false,
 				funcunit: false,
 				documentjs: false,
-				steal: false,
-				'testee.js': false
+				steal: false
+				//'testee.js': false
 			}
 		});
 		
@@ -60,6 +60,21 @@ steal(
 					}
 				}, {
 					helpers: {
+						pickUndone: function( coll, opts ) {
+							coll = (typeof(coll) === 'function') ? coll() : coll;
+
+							var undone = _.filter( _.keys(coll.attr()), function(task) {
+								if( !coll.attr(task) ) return task;
+							});
+
+							if (undone.length > 0) {
+								return opts.fn( can.extend(this, {picked: undone[_.random(0, undone.length-1)]}) )
+							} else {
+								return opts.inverse(this);
+							}
+
+						},
+						
 						iterRewards: function( opts ) {
 							var buffer = "",
 								swagUrl = can.route.url({view: 'swag'}),
@@ -117,10 +132,9 @@ steal(
 
 				user.queryGithub('watched', function( repos ) {
 					_.each(repos, function( repo ) {
-						if( accomplishments.attr('githubWatch' + repo.name) != undefined ) accomplishments.attr('githubWatch' + repo.name, true);
+						if( accomplishments.attr('githubWatch')[repo.name] != undefined ) accomplishments.attr('githubWatch.' + repo.name, true);
 					});
 				});
-
 			},
 
 			'#twitter-modal-btn click': function( el, ev ) {
