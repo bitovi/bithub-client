@@ -13,9 +13,6 @@
 	vertical-align: top;
 }
 /* user menu styles */
-#profileOptions {
-	background: url(/assets/images/account-glyphs.png) no-repeat -9999px;
-}
 #profileOptions .dropdown-menu {
 	margin-top: 5px;
 }
@@ -26,37 +23,62 @@
 	padding-right: 35px;
 }
 .login-twitter, .login-github, .login-google, 
-.login-profile, .login-points, .login-logout {
-	background: url(/assets/images/account-glyphs.png) no-repeat;
+.login-profile, .login-points, .login-logout, .login-admin {
+	.icon-font;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
 	margin-right: 5px;
 	line-height: 20px;
-	float: left;
+	position: relative;
+
+	&:before {
+		font-size: 28px;
+		text-decoration: inherit;
+		display: inline-block;
+		speak: none;
+		position: absolute;
+		top: -4px;
+		left: 0;
+		color: @grayLight;
+	}
 }
-.login-github {
-	background-position: 0px -20px;
+.login-twitter:before {
+	content: "\e003"; 
+	color: #21adeb;
 }
-.login-google {
-	background-position: 0px -40px;
+.login-github:before {
+	content: "\e027"; 
+	color: @black;
 }
-.login-profile {
-	background-position: 0px -60px;
+.login-google:before {
+	content: "\e031";
+	font-size: 25px;
+	top: -3px;
+	color: @red;
 }
-.login-points {
-	background-position: 0px -80px;
+.login-profile:before {
+	content: "\e026";
 }
-.login-logout {
-	background-position: 0px -100px;
+.login-points:before {
+	content: "\e020"; 
+}
+.login-logout:before {
+	content: "\e038"; 
+}
+.login-admin:before {
+	content: "\e058"; 
 }
 .dropdown-menu > li > a:hover .login-twitter, 
 .dropdown-menu > li > a:hover .login-google,
 .dropdown-menu > li > a:hover .login-github,
 .dropdown-menu > li > a:hover .login-profile,
 .dropdown-menu > li > a:hover .login-points,
-.dropdown-menu > li > a:hover .login-logout {
-	background-position-x: -20px;
+.dropdown-menu > li > a:hover .login-logout,
+.dropdown-menu > li > a:hover .login-admin {
+	&:before {
+		color: @white;
+	}
 }
 
 /* Top Navigation Bar --------------------------------------------- */
@@ -178,7 +200,7 @@
 			padding-bottom: 8px;
 		}	
 		.dropdown-toggle {
-			background: url(/assets/images/dropdown.png) no-repeat right -15px;
+			//background: url(/assets/images/dropdown.png) no-repeat right -15px;
 			padding-right: 20px;
 		}
 	
