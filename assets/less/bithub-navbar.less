@@ -220,23 +220,39 @@
 	color: #a80e14;
 }
 
-#navbar .nav > li > a.latest .glyph, #navbar .nav > li > a.greatest .glyph {
-	background-image: url(/assets/images/glyph-navicons.png);
-	width: 23px;
-	height: 23px;
-	display: inline-block;
-	margin: -2px 3px -6px -5px;
+/* Latest/Greatest Icons *************************/
+#navbar .nav > li > a {
+	&.latest .glyph, &.greatest .glyph {
+		.icon-font;
+		width: 23px;
+		height: 23px;
+		//border: 1px solid #ccc;
+		display: inline-block;
+		margin: -2px 3px -6px -5px;
+		position: relative;
+		
+		&:before {
+			color: @grayLight;
+			font-size: 37px;
+			line-height: 23px;
+			position: absolute;
+			top: -6px;
+			left: 0px;
+		}
+	}
+	&.latest .glyph:before {
+		content: '\e020';
+	}
+	&.greatest .glyph:before {
+		content: '\e019';
+	}
+	&.active.latest .glyph, &.active.greatest .glyph,
+	&.latest:hover .glyph, &.greatest:hover .glyph {
+		&:before {
+			color: @gray;
+		}
+	}
 }
-
-#navbar .nav > li > a.latest .glyph { background-position: left top; }
-#navbar .nav > li > a.latest.active .glyph, 
-#navbar .nav > li > a.latest:hover .glyph { background-position: right top; }
-
-#navbar .nav > li > a.greatest .glyph {	background-position: left bottom; }
-#navbar .nav > li > a.greatest.active .glyph, 
-#navbar .nav > li > a.greatest:hover .glyph { background-position: right bottom; }
-
-
 
 /* New Post Button */
 .gradient-border-wrapper {
