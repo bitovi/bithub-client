@@ -1,58 +1,66 @@
 <div class="sidebar">
 
-	{{#if user.loggedInDelayed}} 
-	<div class="scorings earn-points logged-in">
-	  <h4>Earn More Points</h4>
-	  <div  class="well">
-		<ul>
-		  <li>Follow us on <a id="twitter-modal-btn" href="#twitterModal">Twitter</a> <span class="badge">+1</span></li>
-		  <li>Watch us on <a href="#githubModal" data-toggle="modal">GitHub</a> <span class="badge">+1</span></li>
-		  <li><a href="#reportModal" data-toggle="modal">Report</a> <span class="badge">+50</span> or <a href="#bugModal" data-toggle="modal">fix</a> <span class="badge">+votes x 2</span> a bug </li>
-		  <li><a href="#" id="show-new-post-form-btn">Post an article or plugin</a> <span class="badge">+2 +votes</span></li>
-		</ul>
+  {{#if user.loggedInDelayed}} 
+  <div class="scorings earn-points logged-in">
+	<h4>Earn More Points</h4>
+	<div  class="well">
+	  <ul>
+		{{#accomplishments.profile}}
+		{{^if twitter}}<li><a href="" id="connect-twitter">Connect your Twitter account</a></li>{{/if}}
+		{{^if github}}<li><a href="" id="connect-github">Connect your GitHub account</a></li>{{/if}}
+		{{^if completed}}<li><a href="/profile">Complete your profile</a></li>{{/if}}
+		{{/accomplishments.profile}}
 
-		<p>
-		  Get points and votes for content you post, bug fixes, and sharing your apps or plugins. <a href="{{routes.earnpoints}}">Details &raquo;</a>
-		</p>
-	  </div>
+		<!--
+		<li>Follow us on <a id="twitter-modal-btn" href="#twitterModal">Twitter</a> <span class="badge">+1</span></li>
+		<li>Watch us on <a href="#githubModal" data-toggle="modal">GitHub</a> <span class="badge">+1</span></li>
+		<li><a href="#reportModal" data-toggle="modal">Report</a> <span class="badge">+50</span> or <a href="#bugModal" data-toggle="modal">fix</a> <span class="badge">+votes x 2</span> a bug </li>
+		<li><a href="#" id="show-new-post-form-btn">Post an article or plugin</a> <span class="badge">+2 +votes</span></li>
+		-->
+	  </ul>
+
+	  <p>
+		Get points and votes for content you post, bug fixes, and sharing your apps or plugins. <a href="{{routes.earnpoints}}">Details &raquo;</a>
+	  </p>
+	</div>
+  </div>
+
+  <div class="awards free-stuff logged-in">
+	<h4>Get Swag</h4>
+	<div class="rewards">
+	  {{#iterRewards}}
+	  <a href="{{{swagUrl}}}" class="item {{reward.status.cssClass}}" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
+		<span class="points">{{reward.point_minimum}}</span>
+		{{#if reward.status.message}}<span class="message">{{ reward.status.message }}</span>{{/if}}
+	  </a>
+	  {{/iterRewards}}
+	</div>
+  </div>
+  
+  {{else}}
+  
+  <div class="scorings earn-points logged-out">
+	<h4 class="handwriting leftalign"><span class="leftarrow">&darr;</span> Earn Points</h4>
+	<ul  class="well">
+	  <li>Login &amp; create an account <span class="badge">+1</span></li>
+	  <li>Follow us on Twitter/Github <span class="badge">+1 each</span></li>
+	  <li>Post content & get votes <span class="badge">+2 + votes</span></li>
+	</ul>
+  </div>
+
+  <div class="awards free-stuff logged-out">
+	<h4 class="handwriting rightalign">Get Free Stuff <span class="rightarrow"></span></h4>
+	<div class="rewards">
+	  {{#iterRewards}}
+	  <a href="{{{swagUrl}}}" class="item" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
+		<span class="points">{{reward.point_minimum}}</span>
+	  </a>
+	  {{/iterRewards}}
 	</div>
 
-		<div class="awards free-stuff logged-in">
-			<h4>Get Swag</h4>
-			<div class="rewards">
-			  {{#iterRewards}}
-			  <a href="{{{swagUrl}}}" class="item {{reward.status.cssClass}}" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
-				<span class="points">{{reward.point_minimum}}</span>
-				{{#if reward.status.message}}<span class="message">{{ reward.status.message }}</span>{{/if}}
-			  </a>
-			  {{/iterRewards}}
-			</div>
-		</div>
-		
-	{{else}}
-		
-		<div class="scorings earn-points logged-out">
-			<h4 class="handwriting leftalign"><span class="leftarrow">&darr;</span> Earn Points</h4>
-			<ul  class="well">
-				<li>Login &amp; create an account <span class="badge">+1</span></li>
-				<li>Follow us on Twitter/Github <span class="badge">+1 each</span></li>
-				<li>Post content & get votes <span class="badge">+2 + votes</span></li>
-			</ul>
-		</div>
+	<div class="btn-wrapper logged-out"><button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button></div>
+  </div>
+  {{/if}}
 
-		<div class="awards free-stuff logged-out">
-			<h4 class="handwriting rightalign">Get Free Stuff <span class="rightarrow"></span></h4>
-			<div class="rewards">
-			  {{#iterRewards}}
-			  <a href="{{{swagUrl}}}" class="item" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
-				<span class="points">{{reward.point_minimum}}</span>
-			  </a>
-			  {{/iterRewards}}
-			</div>
-
-			<div class="btn-wrapper logged-out"><button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button></div>
-		</div>
-	{{/if}}
-
-	<div id="leaderboard" class="leaderboard logged-out logged-in"></div>
+  <div id="leaderboard" class="leaderboard logged-out logged-in"></div>
 </div>

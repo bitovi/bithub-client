@@ -6,6 +6,30 @@ steal(
 	'bithub/helpers/mustacheHelpers.js',
 	function(can, sidebarView, Leaderboard, Reward){
 
+		var accomplishments = new can.Observe({
+			profile: {
+				github: false,
+				twitter: false,
+				completed: false
+			},
+			twitterFollow: {
+				bitovi: false,
+				canjs: false,
+				jquerypp: false,
+				javascriptmvc: false,
+				funcunit: false
+			},
+			githubWatch: {
+				javascriptmvc: false,
+				canjs: false,
+				jquerypp: false,
+				funcunit: false,
+				documentjs: false,
+				steal: false,
+				'testee.js': false
+			}
+		});
+		
 		return can.Control.extend({
 			defaults : {
 				rewards: new Bithub.Models.Reward.List()
@@ -23,6 +47,7 @@ steal(
 				elem.html(sidebarView({
 					user: user,
 					rewards: rewards,
+					accomplishments: accomplishments,
 					routes: {
 						earnpoints: function() {
 							var params = {
@@ -71,11 +96,31 @@ steal(
 				new Leaderboard(elem.find('#leaderboard'), opts);
 			},
 
-			'{currentUser} isLoggedIn' : "matchRewards",
-			'{rewards} length': "matchRewards",
+			'{currentUser} isLoggedIn' : "onLogin",
+			'{rewards} length': "onLogin",
+
+			onLogin: function() {
+				this.matchRewards();
+				this.updateAccomplishments();
+			},
 			
 			matchRewards: function() {
 				this.options.rewards.matchAchievements( this.options.currentUser.attr('achievements') );
+			},
+
+			updateAccomplishments: function() {
+				var user = this.options.currentUser;
+
+				accomplishments.attr('profile.twitter', user.getIdentity('twitter') ? true : false);
+				accomplishments.attr('profile.github', user.getIdentity('github') ? true : false);
+				accomplishments.attr('profile.completed', user.isCompleted());
+
+				user.queryGithub('watched', function( repos ) {
+					_.each(repos, function( repo ) {
+						if( accomplishments.attr('githubWatch' + repo.name) != undefined ) accomplishments.attr('githubWatch' + repo.name, true);
+					});
+				});
+
 			},
 
 			'#twitter-modal-btn click': function( el, ev ) {
@@ -86,6 +131,16 @@ steal(
 			'#show-new-post-form-btn click': function( el, ev ) {
 				ev.preventDefault();
 				this.options.newpostVisibility(true);
+			},
+			
+			'#connect-github click': function( el, ev ) {
+				ev.preventDefault();
+				this.options.currentUser.login('github');
+			},
+
+			'#connect-twitter click': function( el, ev ) {
+				ev.preventDefault();
+				this.options.currentUser.login('twitter');
 			}
 		})
 	}
