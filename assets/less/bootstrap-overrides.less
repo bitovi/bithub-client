@@ -1,9 +1,15 @@
 .caret {
 	border: none;
-	background: url(/assets/images/dropdown.png) no-repeat -1px 0px;
 	width: 11px;
 	height: 10px;
 	margin: 5px 0 0!important;
+	position: relative;
+	
+	&:before {
+		.caret-default;
+		top: 3px;
+		right: 0;
+	}
 }
 .projects .caret {
 	position: absolute;
@@ -55,13 +61,11 @@ input:focus, textarea:focus {
 }
 
 .dropdown-menu {
-	-webkit-border-radius: 1px;
-	-moz-border-radius: 1px;
-	border-radius: 1px;
+	.border-radius(1px);
 	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-	border: 1px solid #ccc;
+	.border(#ccc);
 }
 .dropdown-menu li {
 	text-align: left;
@@ -87,9 +91,7 @@ input:focus, textarea:focus {
 	margin-bottom: 10px;
 	margin-right: auto;
 	margin-left: auto;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	.border-radius(4px);
 	background-repeat: no-repeat;
 	background-position: 10px center;
 }
