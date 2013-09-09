@@ -26,8 +26,13 @@
 		  {{else}}
 		  <p><a href="javascript://" id="connect-github-link">Connect your GitHub account</a></p>
 		  {{/hasProvider}}
-		
-		<p><a href="javascript://">Complete your profile</a></p>
+
+		  {{#if user.isCompleted}}
+		  <p class="complete"><i class="icon-check"></i> Complete your profile</p>
+		  {{else}}
+		  <p><a href="/profile">Complete your profile</a></p>
+		  {{/if}}
+
 	</div>
 <div class="points-wrapper">
 	<h3><i class="icon-heart"></i> Follow Us <span class="badge">+ 1 each</span></h3>
