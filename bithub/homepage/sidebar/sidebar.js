@@ -126,14 +126,26 @@ steal(
 			updateAccomplishments: function() {
 				var user = this.options.currentUser;
 
+				// profile
 				accomplishments.attr('profile.twitter', user.getIdentity('twitter') ? true : false);
 				accomplishments.attr('profile.github', user.getIdentity('github') ? true : false);
 				accomplishments.attr('profile.completed', user.isCompleted());
 
+				// watched github repos
 				user.queryGithub('watched', function( repos ) {
 					_.each(repos, function( repo ) {
 						if( accomplishments.attr('githubWatch')[repo.name] != undefined ) accomplishments.attr('githubWatch.' + repo.name, true);
 					});
+				});
+
+				// filter out twitter follow events
+				var followed = _.filter( user.attr('activities'), function( activity ) {
+					if( activity.attr('title').indexOf('followed @') == 0 ) 
+						return activity;
+				});
+				// pluck title and match with accomplishments
+				_.each( _.pluck( followed, 'title' ), function( account ) {
+					accomplishments.attr('twitterFollow.' + account.split('@')[1], true);
 				});
 			},
 
