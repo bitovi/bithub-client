@@ -51,6 +51,18 @@ steal(
 				return _.include(this.attr('roles'), 'admin');
 			},
 
+			hasEmail: function() {
+				return this.attr('email') != ''; 
+			},
+
+			hasAddress: function() {
+				return this.attr('address') != '' && this.attr('postal') != '' && this.attr('country') != '' && this.attr('city') != '';
+			},
+
+			isCompleted: function() {
+				return this.hasEmail() && this.hasAddress();
+			},
+
 			getIdentity: function( provider ) {
 				return _.first( _.filter(this.attr('identities'), function( identity ) {
 					return identity.attr('provider') == provider;
