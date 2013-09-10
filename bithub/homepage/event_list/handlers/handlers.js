@@ -8,7 +8,11 @@ steal(
 				el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
 			},
 
-			'.event > .votes click': function( el, ev ) {
+			'.event > .votes .voteup-btn click': "voteup",
+			'.event > .votes .count click': "voteup",
+			'.event > .votes .uparrow click': "voteup",
+			
+			voteup: function( el, ev ) {
 				this.upvote( can.data(el.closest('.event'), 'eventObj') );
 			},
 			
