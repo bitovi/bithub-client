@@ -13,9 +13,6 @@
 	vertical-align: top;
 }
 /* user menu styles */
-#profileOptions {
-	background: url(/assets/images/account-glyphs.png) no-repeat -9999px;
-}
 #profileOptions .dropdown-menu {
 	margin-top: 5px;
 }
@@ -26,37 +23,62 @@
 	padding-right: 35px;
 }
 .login-twitter, .login-github, .login-google, 
-.login-profile, .login-points, .login-logout {
-	background: url(/assets/images/account-glyphs.png) no-repeat;
+.login-profile, .login-points, .login-logout, .login-admin {
+	.icon-font;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
 	margin-right: 5px;
 	line-height: 20px;
-	float: left;
+	position: relative;
+
+	&:before {
+		font-size: 28px;
+		text-decoration: inherit;
+		display: inline-block;
+		speak: none;
+		position: absolute;
+		top: -4px;
+		left: 0;
+		color: @grayLight;
+	}
 }
-.login-github {
-	background-position: 0px -20px;
+.login-twitter:before {
+	content: "\e003"; 
+	color: #21adeb;
 }
-.login-google {
-	background-position: 0px -40px;
+.login-github:before {
+	content: "\e027"; 
+	color: @black;
 }
-.login-profile {
-	background-position: 0px -60px;
+.login-google:before {
+	content: "\e031";
+	font-size: 25px;
+	top: -3px;
+	color: @red;
 }
-.login-points {
-	background-position: 0px -80px;
+.login-profile:before {
+	content: "\e026";
 }
-.login-logout {
-	background-position: 0px -100px;
+.login-points:before {
+	content: "\e020"; 
+}
+.login-logout:before {
+	content: "\e038"; 
+}
+.login-admin:before {
+	content: "\e058"; 
 }
 .dropdown-menu > li > a:hover .login-twitter, 
 .dropdown-menu > li > a:hover .login-google,
 .dropdown-menu > li > a:hover .login-github,
 .dropdown-menu > li > a:hover .login-profile,
 .dropdown-menu > li > a:hover .login-points,
-.dropdown-menu > li > a:hover .login-logout {
-	background-position-x: -20px;
+.dropdown-menu > li > a:hover .login-logout,
+.dropdown-menu > li > a:hover .login-admin {
+	&:before {
+		color: @white;
+	}
 }
 
 /* Top Navigation Bar --------------------------------------------- */
@@ -67,6 +89,8 @@
 	width: 100%;
 	.border-radius(0px);
 	z-index: 1001;
+	
+	a, button, li, textarea, input { outline: none !important; }
 	
 	.navbar-inner {
 		background: #fff url(/assets/images/header-nav-bkg.jpg);
@@ -144,7 +168,6 @@
 		}
 		.caret {
 			border: none;
-			background: url(/assets/images/dropdown.png) no-repeat -1px 0px;
 			width: 11px;
 			height: 10px;
 			margin: 5px 0 0;
@@ -179,7 +202,7 @@
 			padding-bottom: 8px;
 		}	
 		.dropdown-toggle {
-			background: url(/assets/images/dropdown.png) no-repeat right -15px;
+			//background: url(/assets/images/dropdown.png) no-repeat right -15px;
 			padding-right: 20px;
 		}
 	
@@ -220,23 +243,39 @@
 	color: #a80e14;
 }
 
-#navbar .nav > li > a.latest .glyph, #navbar .nav > li > a.greatest .glyph {
-	background-image: url(/assets/images/glyph-navicons.png);
-	width: 23px;
-	height: 23px;
-	display: inline-block;
-	margin: -2px 3px -6px -5px;
+/* Latest/Greatest Icons *************************/
+#navbar .nav > li > a {
+	&.latest .glyph, &.greatest .glyph {
+		.icon-font;
+		width: 23px;
+		height: 23px;
+		//border: 1px solid #ccc;
+		display: inline-block;
+		margin: -2px 3px -6px -5px;
+		position: relative;
+		
+		&:before {
+			color: @grayLight;
+			font-size: 37px;
+			line-height: 23px;
+			position: absolute;
+			top: -6px;
+			left: 0px;
+		}
+	}
+	&.latest .glyph:before {
+		content: '\e020';
+	}
+	&.greatest .glyph:before {
+		content: '\e019';
+	}
+	&.active.latest .glyph, &.active.greatest .glyph,
+	&.latest:hover .glyph, &.greatest:hover .glyph {
+		&:before {
+			color: @gray;
+		}
+	}
 }
-
-#navbar .nav > li > a.latest .glyph { background-position: left top; }
-#navbar .nav > li > a.latest.active .glyph, 
-#navbar .nav > li > a.latest:hover .glyph { background-position: right top; }
-
-#navbar .nav > li > a.greatest .glyph {	background-position: left bottom; }
-#navbar .nav > li > a.greatest.active .glyph, 
-#navbar .nav > li > a.greatest:hover .glyph { background-position: right bottom; }
-
-
 
 /* New Post Button */
 .gradient-border-wrapper {

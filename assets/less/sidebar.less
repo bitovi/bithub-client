@@ -162,6 +162,8 @@ h4.handwriting {
 	font-style: normal;
 	text-decoration: none;
 	display: block;
+	z-index: 1;
+	position: relative;
 }
 .sidebar h4.handwriting.leftalign {
 	-webkit-transform:rotate(-2deg);
@@ -195,43 +197,7 @@ h4.handwriting {
 .rightarrow {
 	background-position: 0 bottom;
 }
-.free-stuff {
-	margin: 0 0 20px;
-}
-.free-stuff li {
-	display: inline-block;
-	padding: 5px 0 13px;
-	text-align: center;
-	width: 75px;
-	margin: 0!important;
-	margin-left: 9px!important;
-	background-image: none;
-}
-.free-stuff li:first-child {
-	margin-left: 0!important;
-}
-.free-stuff li a {
-	text-align: center;
-	display: inline-block;
-	width: 100%;
-	padding-top: 33px;
-	background: url(/assets/images/glyph-swag.png) no-repeat center top;
-	color: #666;
-	font-size: 12px;
-	line-height: 22px;
-	text-decoration: none;
-}
-.free-stuff li:hover {
-	-moz-box-shadow: inset 0 0 5px rgba(6, 6, 6, 0.5);
-	-webkit-box-shadow: inset 0 0 5px rgba(6, 6, 6, 0.5);
-	box-shadow: inset 0 0 5px rgba(6, 6, 6, 0.5);
-}
-.free-stuff li a.icon-mugs {
-	background-position-y: -40px;
-}
-.free-stuff li a.icon-stickers {
-	background-position-y: -80px;
-}
+
 .btn-signup {
 	//.btn;
 	.btn-success;
