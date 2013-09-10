@@ -140,7 +140,8 @@ steal(
 
 				// filter out twitter follow events
 				var followed = _.filter( user.attr('activities'), function( activity ) {
-					if( activity.attr('title').indexOf('followed @') == 0 ) 
+					
+					if( activity.attr('title') && activity.attr('title').indexOf('followed @') == 0 ) 
 						return activity;
 				});
 				// pluck title and match with accomplishments
