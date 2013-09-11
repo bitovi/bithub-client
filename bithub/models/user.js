@@ -106,6 +106,22 @@ steal(
 
 		});
 
+		can.Model.List('Bithub.Models.User.List', {
+			topUser: function() {
+				if (this.attr('length') == 0) return;
+				
+				var bestUser = this.attr(0);
+				
+				this.each(function( user, idx ) {
+					if( user.attr('score') > bestUser.attr('score') ) {
+						bestUser = user;
+					}
+				});
+
+				return bestUser;
+			}
+		});
+
 		return User;
 	}
 );
