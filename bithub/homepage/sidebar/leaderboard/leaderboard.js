@@ -6,12 +6,6 @@ steal(
 	'bithub/helpers/mustacheHelpers.js',
 	function(can, leaderBoardView, User){
 
-		var defaultParams = {
-			cached: true
-			//order: 'score:desc',
-			//limit: 6
-		};
-
 		var rank = can.compute( function( newVal ) {
 			var current = 0;
 			if (newVal) { current = newVal; }
@@ -33,9 +27,7 @@ steal(
 		});
 		
 		return can.Control.extend({
-			defaults : {
-				users: new Bithub.Models.User.List()
-			}
+			defaults : {}
 		}, {
 			init : function( elem, opts ) {
 				this.element.html(leaderBoardView( {
@@ -45,7 +37,6 @@ steal(
 					topLength: topLength
 				}));
 
-				this.updateLeaderboard();
 			},
 
 			'{currentUser} loggedInDelayed change': function( user, ev, attr, how, newVal, oldVal ) {
@@ -65,16 +56,8 @@ steal(
 						rank( i );
 					}
 				});
-			},
-
-			updateLeaderboard: function( params ) {
-				var self = this;
-
-				User.findAll( defaultParams, function (data) {
-					self.options.users.replace(data);
-				});
 			}
-
+			
 		});
 	}
 );
