@@ -103,6 +103,25 @@
 		color: #333333;
 		font-size: 12px;
 		line-height: 17px;
+		
+		hr {
+			display: none;
+		}
+		blockquote {
+			border-left: solid 1px @grayLight;
+			margin: 0;
+			padding-left: 5px;
+			
+			p {
+				color: @gray;
+				font-size: 13px;
+			}
+		}
+		h1,h2,h3,h4,h5 {
+			font-size: 14px;
+			font-weight: bold;
+		}
+		
 	} // .body
 	.replies .body {
 		display: block;
@@ -366,6 +385,8 @@
 	position: relative;
 	margin-top: 14px;
 	
+
+	
 	.replies-caret {
 		display: block;
 		height: 7px;
@@ -388,6 +409,31 @@
 			.pull-left;
 			width: 90%;
 			.border-box;
+			overflow: hidden;
+			
+			hr {
+				display: none;
+			}
+			blockquote {
+				border-left: solid 1px @grayLight;
+				margin: 0;
+				padding-left: 5px;
+				
+				p {
+					color: @gray;
+					font-size: 13px;
+				}
+			}
+			h1,h2,h3,h4,h5 {
+				font-size: 14px;
+				font-weight: bold;
+			}
+			pre {
+				line-height: 13px;
+				code {
+					font-size: 11px;
+				}
+			}
 		}
 		.event-metadata {
 			margin: 5px;
