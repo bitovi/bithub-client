@@ -77,12 +77,12 @@ steal(
 						
 						iterRewards: function( opts ) {
 							var buffer = "",
-								swagUrl = can.route.url({view: 'swag'}),
+								rewardsUrl = can.route.url({page: 'rewards'}),
 								start = 0,
 								stop = 2;
 							
 							if( user.isLoggedIn() ) {
-								swagUrl = can.route.url({page: 'profile', view: 'swag'});
+								rewardsUrl = can.route.url({page: 'profile', view: 'rewards'});
 								start = rewards.nextRewardIdx( user.attr('achievements') );
 								stop = start + 2;
 							} else {
@@ -95,7 +95,7 @@ steal(
 							for( var i = start; i < stop; i++ ) {
 								buffer += opts.fn({
 									reward: rewards.attr(i),
-									swagUrl: swagUrl
+									rewardsUrl: rewardsUrl
 								});
 							}
 

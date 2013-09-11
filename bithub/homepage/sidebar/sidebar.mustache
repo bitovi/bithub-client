@@ -27,10 +27,10 @@
   </div>
 
   <div class="awards free-stuff logged-in">
-	<h4>Get Swag</h4>
+	<h4>Rewards</h4>
 	<div class="rewards">
 	  {{#iterRewards}}
-	  <a href="{{{swagUrl}}}" class="item {{reward.status.cssClass}}" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
+	  <a href="{{{rewardsUrl}}}" class="item {{reward.status.cssClass}}" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
 		<span class="points">{{reward.point_minimum}}</span>
 		{{#if reward.status.message}}<span class="message">{{ reward.status.message }}</span>{{/if}}
 	  </a>
@@ -53,7 +53,7 @@
 	<h4 class="handwriting rightalign">Get Free Stuff <span class="rightarrow"></span></h4>
 	<div class="rewards">
 	  {{#iterRewards}}
-	  <a href="{{{swagUrl}}}" class="item" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
+	  <a href="{{{rewardsUrl}}}" class="item" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
 		<span class="points">{{reward.point_minimum}}</span>
 	  </a>
 	  {{/iterRewards}}

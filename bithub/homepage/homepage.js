@@ -3,16 +3,15 @@ steal(
 	'bithub/homepage/homepage.ejs',
 	'bithub/homepage/event_list',
 	'bithub/homepage/event_details',
-	'bithub/homepage/rewards',
 	'bithub/homepage/sidebar',
 	'bithub/helpers/fun_helpers.js',
-	function(can, homepageView, EventList, EventDetails, Rewards, Sidebar, f) {
+	function(can, homepageView, EventList, EventDetails, Sidebar, f) {
 
 		var defined = _.compose(_.isUndefined, f.complement);
 
 		var pickControl = function (currentView) {
 			if (currentView === 'details') return EventDetails
-			else if (currentView === 'rewards') return Rewards
+			//else if (currentView === 'rewards') return Rewards
 			return EventList;
 		}
 
