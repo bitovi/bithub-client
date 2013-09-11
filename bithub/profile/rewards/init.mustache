@@ -20,14 +20,6 @@
   
   <div class="rewards">
 
-	<!--
-	<div class="item almost" style="background-image: url(http://lorempixel.com/400/400/)">
-	  <span class="points">200</span>
-	  <span class="message">53 points to go!</span>	  
-	  <span class="title">T-Shirts</span>
-	</div>
-	-->
-
 	{{#rewards}} <!-- css classes: achieved, shipping, almost -->
 	<div class="item {{status.cssClass}}" style="background-image: url({{image.image.large.url}})">
 	  <span class="points">{{point_minimum}}</span>

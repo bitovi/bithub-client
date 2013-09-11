@@ -4,7 +4,7 @@ steal(
 	'vendor/moment',
 	function (can) {
 		
-		var Model = can.Model('Bithub.Models.Reward', {
+		var Reward = can.Model('Bithub.Models.Reward', {
 
 			findAll : 'GET /api/rewards',
 			findOne : 'GET /api/rewards/{id}',
@@ -12,37 +12,49 @@ steal(
 			update  : 'PUT /api/rewards/{id}',
 			destroy : 'DELETE /api/rewards/{id}'
 
-		}, {
-			// NOP
-		});
+		}, {});
 
 		can.Model.List('Bithub.Models.Reward.List', {
-			matchAchievements: function( achievements ) {
-				var self = this;
+			matchAchievements: function( user ) {
+				var self = this,
+					lastAchievedIdx = -1,
+					achievements = user.attr('achievements');
 
-				_.each(achievements, function( achievement ) {
-					var status = "";
-					
-					if( achievement.attr('achieved_at') ) {
-						status = {
-							cssClass: "shipping",
-							message: "This is a great thing!"
-						}
-					}
-					if( achievement.attr('shipped_at') ) {
-						status = {
-							cssClass: "achieved",
-							inlineMessage: "Shipped " + moment( achievement.attr('shipped_at') ).format('MM/DD/YY')
-						}
-					}
-					
-					_.each(self, function( reward ) {
-						if( achievement.attr('reward_id') == reward.attr('id') ) {
+				// match achievements against rewards
+				_.each(self, function( reward, idx ) {
+					_.each(achievements, function( achievement ) {
+						var status;
+						
+						if( reward.attr('id') == achievement.attr('reward_id') ) {
+
+							if( achievement.attr('achieved_at') ) {
+								status = {
+									cssClass: "shipping",
+									message: "Shipping soon!"
+								}
+							}
+							if( achievement.attr('shipped_at') ) {
+								status = {
+									cssClass: "achieved",
+									inlineMessage: "Shipped " + moment( achievement.attr('shipped_at') ).format('MM/DD/YY')
+								}
+							}
+						
 							reward.attr('status', status );
+							lastAchievedIdx = idx;
 						}
 						
 					});
 				});
+
+				// mark next reward with 'almost' status
+				if( self.attr('length')-1 > lastAchievedIdx ) {
+					var pointsToGo = self.attr(lastAchievedIdx + 1).attr('point_minimum') - user.attr('score');
+					self.attr(lastAchievedIdx + 1).attr('status', {
+						cssClass: "almost",
+						message: pointsToGo + " points to go!"
+					});
+				}
 			},
 
 			nextRewardIdx: function( achievements ) {
@@ -60,5 +72,5 @@ steal(
 			}
 		});
 
-		return Model;
+		return Reward;
 	});

@@ -120,7 +120,7 @@ steal(
 			},
 			
 			matchRewards: function() {
-				this.options.rewards.matchAchievements( this.options.currentUser.attr('achievements') );
+				this.options.rewards.matchAchievements( this.options.currentUser );
 			},
 
 			updateAccomplishments: function() {

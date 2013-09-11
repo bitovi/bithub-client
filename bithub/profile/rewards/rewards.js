@@ -30,7 +30,7 @@ steal('can',
 			  '{rewards} length': "matchRewards",
 
 			  matchRewards: function() {
-				  this.options.rewards.matchAchievements( this.options.currentUser.attr('achievements') );
+				  this.options.rewards.matchAchievements( this.options.currentUser );
 			  }
 
 		  });
