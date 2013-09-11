@@ -121,6 +121,9 @@ steal(
 						if( date && can.route.attr('view') == 'latest' && date == moment.utc(event.attr('origin_ts')).format('YYYY-MM-DD') ) format = 'time';
 						
 						return can.EJS.Helpers.prototype.prettifyTs( event.attr('origin_ts'), format );
+					},
+					hasCategoryFilter: function() {
+						return can.route.attr('category') != 'all';
 					}
 				});
 
@@ -175,7 +178,7 @@ steal(
 				new HtmlSelect( this.element.find('#issue-state-filter'), {
 					items: [{value: 'open', display: 'Open'},
 							{value: 'closed', display: 'Closed'},
-							{value: 'both', display: 'All Issues'}],
+							{value: 'both', display: 'All bugs'}],
 					currentValue: function() {
 						return can.route.attr('state')
 					},

@@ -20,7 +20,7 @@
 			<% list(latestCategories, function( category ) { %>
 				<% if ( day.attr('types.' + category) ) { %>
 				<div class="category-<%= category %>">
-					<h3 class="section-title"><i class="icon-<%= category %>"></i><%= category %></h3>
+					<% if ( !hasCategoryFilter() ) { %><h3 class="section-title"><i class="icon-<%= category %>"></i><%= category %></h3><% } %>
 					<div class="truncated">
 						<%== each( day.attr('types.' + category), function( event ) { %>
 							<%== eventPartial.render({event: event, determineEventPartial: determineEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
