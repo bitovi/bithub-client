@@ -57,6 +57,7 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 		length = (opts.hash && opts.hash.length) || collection.length,
 		iOffset = (opts.hash && opts.hash.iOffset) || 0;
 
+		if( !collection ) return buffer;
 
 		if (collection.attr('length') > 0) {
 			begin = (typeof(begin) === 'function') ? begin() : begin;
