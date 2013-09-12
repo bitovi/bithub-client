@@ -113,6 +113,7 @@ steal(
 
 			'{currentUser} isLoggedIn' : "onLogin",
 			'{rewards} length': "onLogin",
+			'{users} length': "onLogin",
 
 			onLogin: function() {
 				this.matchRewards();
@@ -120,7 +121,7 @@ steal(
 			},
 			
 			matchRewards: function() {
-				this.options.rewards.matchAchievements( this.options.currentUser );
+				this.options.rewards.matchAchievements( this.options.currentUser, this.options.users );
 			},
 
 			updateAccomplishments: function() {

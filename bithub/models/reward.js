@@ -15,7 +15,7 @@ steal(
 		}, {});
 
 		can.Model.List('Bithub.Models.Reward.List', {
-			matchAchievements: function( user ) {
+			matchAchievements: function( user, users ) {
 				var self = this,
 					lastAchievedIdx = -1,
 					achievements = user.attr('achievements');
@@ -23,24 +23,21 @@ steal(
 				// match achievements against rewards
 				_.each(self, function( reward, idx ) {
 					_.each(achievements, function( achievement ) {
-						var status;
 						
 						if( reward.attr('id') == achievement.attr('reward_id') ) {
 
-							if( achievement.attr('achieved_at') ) {
-								status = {
-									cssClass: "shipping",
-									message: "Shipping soon!"
-								}
-							}
 							if( achievement.attr('shipped_at') ) {
-								status = {
-									cssClass: "achieved",
-									inlineMessage: "Shipped " + moment( achievement.attr('shipped_at') ).format('MM/DD/YY')
-								}
+								reward.attr({
+									status_cssClass: 'achieved',
+									status_inlineMessage: 'Shipped ' + moment( achievement.attr('shipped_at') ).format('MM/DD/YY')
+								});
+							} else if( achievement.attr('achieved_at') ) {
+								reward.attr({
+									status_cssClass: 'shipping',
+									status_message: 'Shipping soon!'
+								});
 							}
-						
-							reward.attr('status', status );
+
 							lastAchievedIdx = idx;
 						}
 						
@@ -48,17 +45,23 @@ steal(
 				});
 
 				// mark next reward with 'almost' status
-				if( self.attr('length')-1 > lastAchievedIdx ) {
-					var pointsToGo = self.attr(lastAchievedIdx + 1).attr('point_minimum') - user.attr('score');
-					self.attr(lastAchievedIdx + 1).attr('status', {
-						cssClass: "almost",
-						message: pointsToGo + " points to go!"
+				if( lastAchievedIdx < self.attr('length')-1) {
+					self[lastAchievedIdx + 1].attr({
+						status_cssClass: "almost",
+						status_message: self.attr(lastAchievedIdx + 1).attr('point_minimum') - user.attr('score') + " points to go!"
 					});
+
+					// overall leader
+					if( lastAchievedIdx + 1 == self.attr('length')-1) {
+						if( users.attr('length') ) {
+							self.attr((lastAchievedIdx + 1) + '.status_message', users.topUser().attr('score') - user.attr('score') + " points to go!" );
+						}
+					}
 				}
 			},
 
 			nextRewardIdx: function( achievements ) {
-				if( !(achievements && achievements.length) ) return 0;
+				if( !(achievements && achievements.attr('length')) ) return 0;
 				
 				var self = this,
 					currIdx= 0,
@@ -68,7 +71,7 @@ steal(
 					if( reward.attr('id') == lastIdx ) currIdx = idx;
 				});				
 
-				return currIdx + 1;
+				return (currIdx == achievements.attr('length')-1) ? currIdx : currIdx + 1;
 			}
 		});
 

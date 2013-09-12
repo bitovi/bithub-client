@@ -11,7 +11,7 @@ steal('can',
 		  }, {
 			  init : function( elem, opts ){
 				  var rewards = this.options.rewards;
-				  
+
 				  Reward.findAll({order: 'point_minimum'}, function( data ) {
 					  rewards.replace( data );
 				  });
@@ -28,9 +28,10 @@ steal('can',
 
 			  '{currentUser} isLoggedIn' : "matchRewards",
 			  '{rewards} length': "matchRewards",
+			  '{users} length': "matchRewards", // check top user
 
 			  matchRewards: function() {
-				  this.options.rewards.matchAchievements( this.options.currentUser );
+				  this.options.rewards.matchAchievements( this.options.currentUser, this.options.users );
 			  }
 
 		  });
