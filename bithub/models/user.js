@@ -88,6 +88,11 @@ steal(
 				})
 			},
 
+			filterActivities: function( condFn, pluckProp ) {
+				var filtered =  _.filter( this.attr('activities'), condFn );
+				return pluckProp ? _.pluck( filtered, pluckProp ) : filtered;
+			},
+
 			queryGithub: function( endpoint, cb ) {
 				var	provider = this.getIdentity('github');
 
