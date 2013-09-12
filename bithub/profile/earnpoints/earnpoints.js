@@ -48,7 +48,7 @@ steal('can',
 							  isWatched: function( repo, opts ) {
 								  watched.attr('length');
 								  return _.filter(watched, function( item ) {
-									  return item.attr('name') == repo;
+									  return item == repo;
 								  }).length ? opts.fn(this) : opts.inverse(this);
 							  }
 
@@ -87,11 +87,8 @@ steal('can',
 				  },
 
 				  loadGithub: function() {
-					  var user = this.options.currentUser;
-
-					  user.queryGithub("watched", function( data ) {
-						  watched.replace( data );
-					  });
+					  watched.replace( this.options.currentUser.watchedRepos() );
+					  
 				  },
 
 				  loadEvents: function() {
