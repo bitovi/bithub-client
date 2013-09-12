@@ -57,7 +57,8 @@ steal('can',
 					  }));
 
 					  new Leaderboard(elem.find('.leaderboard'), {
-						  currentUser: opts.currentUser
+						  currentUser: opts.currentUser,
+						  users: opts.users
 					  });
 
 					  this.loadTopPosts();
