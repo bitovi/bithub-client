@@ -11,8 +11,10 @@ steal(
 				element.html(initView({
 					user: opts.currentUser,
 					routes: {
-						profile: can.route.url({page: 'profile', view: 'info'}, false),
+						earnpoints: can.route.url({page: 'profile', view: 'earnpoints'}, false),
+						rewards: can.route.url({page: 'profile', view: 'rewards'}, false),
 						activities: can.route.url({page: 'profile', view: 'activities'}, false),
+						profile: can.route.url({page: 'profile', view: 'info'}, false),
 						admin: can.route.url({page: 'admin'}, false)
 					}
 				}));
