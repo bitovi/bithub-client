@@ -93,6 +93,28 @@ steal(
 				return pluckProp ? _.pluck( filtered, pluckProp ) : filtered;
 			},
 
+			watchedRepos: function() {
+				var watches = this.filterActivities( function( activity ) {
+					if( activity.attr('title') && activity.attr('title').indexOf('started watching bitovi/') == 0 ) 
+						return activity;
+				}, 'title');
+				
+				return _.map(watches, function( account ) {
+					return account.split('/')[1];
+				});
+			},
+
+			followedAccounts: function() {
+				var followes = this.filterActivities( function( activity ) {
+					if( activity.attr('title') && activity.attr('title').indexOf('followed @') == 0 ) 
+						return activity;
+				}, 'title');
+
+				return _.map(followes, function( account ) {
+					return account.split('@')[1];
+				});
+			},
+
 			queryGithub: function( endpoint, cb ) {
 				var	provider = this.getIdentity('github');
 

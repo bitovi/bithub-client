@@ -135,37 +135,14 @@ steal(
 				accomplishments.attr('profile.twitter', user.getIdentity('twitter') ? true : false);
 				accomplishments.attr('profile.github', user.getIdentity('github') ? true : false);
 				accomplishments.attr('profile.completed', user.isCompleted());
-
-				/*
-				// watched github repos
-				user.queryGithub('watched', function( repos ) {
-					_.each(repos, function( repo ) {
-						if( accomplishments.attr('githubWatch')[repo.name] != undefined ) accomplishments.attr('githubWatch.' + repo.name, true);
-					});
-				});
-				 */
-
-				// Twitter followes
-				var followes = user.filterActivities( function( activity ) {
-					if( activity.attr('title') && activity.attr('title').indexOf('followed @') == 0 ) 
-						return activity;
-				}, 'title');
-
-				_.each(followes, function( account ) {
-					accomplishments.attr('twitterFollow.' + account.split('@')[1], true);
+				
+				_.each(user.followedAccounts(), function( account ) {
+					accomplishments.attr('twitterFollow.' + account, true);
 				});
 
-				// Github watches
-				var watches = user.filterActivities( function( activity ) {
-					if( activity.attr('title') && activity.attr('title').indexOf('started watching bitovi/') == 0 ) 
-						return activity;
-				}, 'title');
-
-				_.each(watches, function( account ) {
-					accomplishments.attr('githubWatch.' + account.split('/')[1], true);
+				_.each(user.watchedRepos(), function( repo ) {
+					accomplishments.attr('githubWatch.' + repo, true);
 				});
-
-				console.log( accomplishments );
 			},
 
 			'#twitter-modal-btn click': function( el, ev ) {
