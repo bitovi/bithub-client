@@ -7,11 +7,13 @@ steal(
 			defaults : {}
 		}, {
 			init : function( elem, opts ){
+				
 				Bithub.Models.Event.findOne({ id: can.route.attr('id') }, function(event) {
 					elem.html( eventDetailsView({
 						event: event
 					}));
 				});
+				
 			}
 
 		});

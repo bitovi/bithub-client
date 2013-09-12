@@ -31,7 +31,8 @@ steal(
 				rewards: new can.Observe()
 			},
 			earnpoints: {},
-			swag: {}
+			rewards: {},
+			eventdetails: {}
 		},
 
 		timespanFilter = function( timespan ) {						
@@ -55,7 +56,6 @@ steal(
 		},
 
 		prepareParams = function( params ) {
-
 
 			// determine current page/view combo
 			var currentPage = can.route.attr('page') || 'homepage',

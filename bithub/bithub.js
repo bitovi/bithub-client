@@ -31,7 +31,6 @@ steal(
 
 		// Display load time 
 		loadtime();
-
 		
 		// Routes
 
@@ -142,7 +141,7 @@ steal(
 		can.route('/profile/rewards', { page: 'profile', view: 'rewards' });
 		can.route('/profile/earn-points', { page: 'profile', view: 'earnpoints' });
 
-		can.route('/events/:id', { page: 'homepage', view: 'details' });
+		can.route('/event/:id', { page: 'eventdetails' });
 		
 		can.route.ready(true);
 		

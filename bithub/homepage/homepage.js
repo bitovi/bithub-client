@@ -2,7 +2,7 @@ steal(
 	'can',
 	'bithub/homepage/homepage.ejs',
 	'bithub/homepage/event_list',
-	'bithub/homepage/event_details',
+	'bithub/event_details',
 	'bithub/homepage/sidebar',
 	'bithub/helpers/fun_helpers.js',
 	function(can, homepageView, EventList, EventDetails, Sidebar, f) {

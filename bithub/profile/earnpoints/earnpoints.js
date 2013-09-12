@@ -51,6 +51,9 @@ steal('can',
 								  return _.filter(watched, function( item ) {
 									  return item == repo;
 								  }).length ? opts.fn(this) : opts.inverse(this);
+							  },
+							  eventUrl: function() {
+								  return can.route.url({page: 'homepage', view: 'details', id: this.attr('id')});
 							  }
 
 						  },
