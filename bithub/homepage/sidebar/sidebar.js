@@ -42,6 +42,7 @@ steal(
 
 				Reward.findAll({order: 'point_minimum'}, function( data ) {
 					rewards.replace( data );
+					self.onLogin();
 				});
 
 				elem.html(sidebarView({
@@ -91,6 +92,9 @@ steal(
 									stop = start + 2;
 								}
 							}
+
+							// trigger template to update
+							rewards.attr('length');
 							
 							for( var i = start; i < stop; i++ ) {
 								buffer += opts.fn({
