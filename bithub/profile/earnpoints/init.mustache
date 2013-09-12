@@ -11,137 +11,156 @@
 	<h2>Earn Points</h2>
 
 	<div class="points-wrapper">
-		<h3><i class="icon-user"></i> Your Account <span class="badge">+1 each</span></h3>
-	
-		
-		  {{#hasProvider 'twitter'}}
-		  <p class="complete"><i class="icon-check"></i> Connect your Twitter account</p>
-		  {{else}}
-		  <p><a href="javascript://" id="connect-twitter-link">Connect your Twitter account</a></p>
-		  {{/hasProvider}}
-		
-		
-		  {{#hasProvider 'github'}}
-		  <p class="complete"><i class="icon-check"></i> Connect your GitHub account</p>
-		  {{else}}
-		  <p><a href="javascript://" id="connect-github-link">Connect your GitHub account</a></p>
-		  {{/hasProvider}}
+	  <h3><i class="icon-user"></i> Your Account <span class="badge">+1 each</span></h3>
+	  
+	  
+	  {{#hasProvider 'twitter'}}
+	  <p class="complete"><i class="icon-check"></i> Connect your Twitter account</p>
+	  {{else}}
+	  <p><a href="javascript://" id="connect-twitter-link">Connect your Twitter account</a></p>
+	  {{/hasProvider}}
+	  
+	  
+	  {{#hasProvider 'github'}}
+	  <p class="complete"><i class="icon-check"></i> Connect your GitHub account</p>
+	  {{else}}
+	  <p><a href="javascript://" id="connect-github-link">Connect your GitHub account</a></p>
+	  {{/hasProvider}}
 
-		  {{#if user.isCompleted}}
-		  <p class="complete"><i class="icon-check"></i> Complete your profile</p>
-		  {{else}}
-		  <p><a href="/profile">Complete your profile</a></p>
-		  {{/if}}
+	  {{#if user.isCompleted}}
+	  <p class="complete"><i class="icon-check"></i> Complete your profile</p>
+	  {{else}}
+	  <p><a href="/profile">Complete your profile</a></p>
+	  {{/if}}
 
 	</div>
-<div class="points-wrapper">
-	<h3><i class="icon-heart"></i> Follow Us <span class="badge">+ 1 each</span></h3>
+	<div class="points-wrapper">
+	  <h3><i class="icon-heart"></i> Follow Us <span class="badge">+ 1 each</span></h3>
 
 
-	<p>Follow these Twitter accounts:</p>
-	
-	<div class="twitter-accounts">
+	  <p>Follow these Twitter accounts:</p>
+	  
+	  <div class="twitter-accounts">
 		<a href="https://twitter.com/bitovi" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @bitovi</a>
 		<a href="https://twitter.com/canjs" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @canjs</a>
 		<a href="https://twitter.com/jquerypp" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @jquerypp</a>
 		<a href="https://twitter.com/javascriptmvc" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @javascriptmvc</a>
 		<a href="https://twitter.com/funcunit" class="twitter-follow-button" data-show-count="false">Follow @funcunit</a>
+	  </div>
+
+	  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	</div>
+	<div class="points-wrapper">
+	  <p>Watch these repos on Github:</p>
+
+	  <ul class="repos">
+		{{#isWatched 'javascriptmvc'}}<li class="complete"><i class="icon-check"></i> javascriptmvc</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/javascriptmvc">javascriptmvc</a></li>{{/isWatched}}
+		{{#isWatched 'canjs'}}<li class="complete"><i class="icon-check"></i> canjs</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/canjs">canjs</a></li>{{/isWatched}}
+		{{#isWatched 'jquerypp'}}<li class="complete"><i class="icon-check"></i> jquerypp</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/jquerypp">jquerypp</a></li>{{/isWatched}}
+		{{#isWatched 'funcunit'}}<li class="complete"><i class="icon-check"></i> funcunit</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/funcunit.js">funcunit</a></li>{{/isWatched}}
+		{{#isWatched 'documentjs'}}<li class="complete"><i class="icon-check"></i> documentjs</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/documentjs">documentjs</a></li>{{/isWatched}}
+		
+		{{#isWatched 'steal'}}<li class="complete"><i class="icon-check"></i> steal</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/steal">steal</a></li>{{/isWatched}}
+		{{#isWatched 'testee.js'}}<li class="complete"><i class="icon-check"></i> testee</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/testee.js">testee</a></li>{{/isWatched}}
+	  </ul>
 	</div>
 
-	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	<div class="points-wrapper">
+	  <h3><i class="icon-twitter"></i> Twitter <span class="badge">+ 1 + votes</span></h3>
+
+	  <p><a href="https://twitter.com/intent/tweet?screen_name=bitovi" target="_blank">Tweet about us &raquo</a></p>
+
+	  <ul class="toprated unstyled">
+		{{#events.twitter}}
+		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+		{{/events.twitter}}
+	  </ul>
 	</div>
-<div class="points-wrapper">
-	<p>Watch these repos on Github:</p>
 
-	<ul class="repos">
-	  {{#isWatched 'javascriptmvc'}}<li class="complete"><i class="icon-check"></i> javascriptmvc</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/javascriptmvc">javascriptmvc</a></li>{{/isWatched}}
-	  {{#isWatched 'canjs'}}<li class="complete"><i class="icon-check"></i> canjs</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/canjs">canjs</a></li>{{/isWatched}}
-	  {{#isWatched 'jquerypp'}}<li class="complete"><i class="icon-check"></i> jquerypp</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/jquerypp">jquerypp</a></li>{{/isWatched}}
-	  {{#isWatched 'funcunit'}}<li class="complete"><i class="icon-check"></i> funcunit</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/funcunit.js">funcunit</a></li>{{/isWatched}}
-	  {{#isWatched 'documentjs'}}<li class="complete"><i class="icon-check"></i> documentjs</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/documentjs">documentjs</a></li>{{/isWatched}}
-	  
-	  {{#isWatched 'steal'}}<li class="complete"><i class="icon-check"></i> steal</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/steal">steal</a></li>{{/isWatched}}
-	  {{#isWatched 'testee.js'}}<li class="complete"><i class="icon-check"></i> testee</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/testee.js">testee</a></li>{{/isWatched}}
-	</ul>
-</div>
-<div class="points-wrapper">
-	<h3><i class="icon-twitter"></i> Twitter <span class="badge">+ 1 + votes</span></h3>
+	<div class="points-wrapper">
+	  <h3><i class="icon-question"></i> Questions <span class="badge">+ 1 + votes</span></h3>
 
-	<p><a href="https://twitter.com/intent/tweet?screen_name=bitovi" target="_blank">Tweet about us &raquo</a></p>
+	  <p><a href="http://forum.javascriptmvc.com/">Post on forums &raquo</a></p>
 
-	<ul class="toprated unstyled">
-	  {{#events.twitter}}
-	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
-	  {{/events.twitter}}
-	</ul>
+	  <ul class="toprated unstyled">
+		{{#events.question}}
+		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+		{{/events.question}}
+	  </ul>
 	</div>
-<div class="points-wrapper">
-	<h3><i class="icon-question"></i> Questions <span class="badge">+ 1 + votes</span></h3>
 
-	<p><a href="http://forum.javascriptmvc.com/">Post on forums &raquo</a></p>
+	<div class="points-wrapper">
+	  <h3><i class="icon-bug"></i> Issues <span class="badge">+ 2 + votes</span></h3>
 
-	<ul class="toprated unstyled">
-	  {{#events.question}}
-	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
-	  {{/events.question}}
-	</ul>
-</div>
-<div class="points-wrapper">
-	<h3><i class="icon-bug"></i> Issues <span class="badge">+ 2 + votes</span></h3>
+	  <p><a href="https://github.com/bitovi">Report issues on GitHub</a> that are tagged by an admin as a Bug or Feature</p>
 
-	<p><a href="https://github.com/bitovi">Report issues on GitHub</a> that are tagged by an admin as a Bug or Feature</p>
+	  <ul class="toprated unstyled">
+		{{#events.bug}}
+		<li><span class="points">{{upvotes}}</span><a href="{{url}}">{{title}}</a></li>
+		{{/events.bug}}
+	  </ul>
+	</div>
 
-	<ul class="toprated unstyled">
-	  {{#events.bug}}
-	  <li><span class="points">{{upvotes}}</span><a href="{{url}}">{{title}}</a></li>
-	  {{/events.bug}}
-	</ul>
-</div>
-<div class="points-wrapper">
-	<h3><i class="icon-code"></i> Code <span class="badge">+ votes x2</span></h3>
+	<div class="points-wrapper">
+	  <h3><i class="icon-code"></i> Code <span class="badge">+ votes x2</span></h3>
 
-	<p><a href="https://github.com/bitovi">Request a pull on GitHub</a> for fixing a bug that's merged by and admin</p>
+	  <p><a href="https://github.com/bitovi">Request a pull on GitHub</a> for fixing a bug that's merged by and admin</p>
 
-	<ul class="toprated unstyled">
-	  {{#events.code}}
-	  <li><span class="points">{{upvotes}}</span><a href="{{url}}">{{title}}</a></li>
-	  {{/events.code}}
-	</ul>
-</div>
-<div class="points-wrapper">
-	<h3><i class="icon-article"></i> Articles <span class="badge">+ 2 + votes</span></h3>
+	  <ul class="toprated unstyled">
+		{{#events.code}}
+		<li><span class="points">{{upvotes}}</span><a href="{{url}}">{{title}}</a></li>
+		{{/events.code}}
+	  </ul>
+	</div>
 
-	<p>Share you tips, tricks, and JavaScript advice with the community. <a href="javascript://" id="submit-article-link">Submit an article &raquo;</a></p>
+	<div class="points-wrapper">
+	  <h3><i class="icon-article"></i> Articles <span class="badge">+ 2 + votes</span></h3>
 
-	<ul class="toprated unstyled">
-	  {{#events.article}}
-	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
-	  {{/events.article}}
-	</ul>
-</div>
-<div class="points-wrapper">
-	<h3><i class="icon-app"></i> Apps <span class="badge">+ 2 + votes</span></h3>
+	  <p>Share you tips, tricks, and JavaScript advice with the community. <a href="javascript://" id="submit-article-link">Submit an article &raquo;</a></p>
 
-	<p>Post your projects, apps, and websites that user our stuff. <a href="javascript://" id="submit-app-link">Post your app &raquo;</a></p>
+	  <ul class="toprated unstyled">
+		{{#events.article}}
+		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+		{{/events.article}}
+	  </ul>
+	</div>
+	<div class="points-wrapper">
+	  <h3><i class="icon-app"></i> Apps <span class="badge">+ 2 + votes</span></h3>
 
-	<ul class="toprated unstyled">
-	  {{#events.app}}
-	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
-	  {{/events.app}}
-	</ul>
-</div>
-<div class="points-wrapper">
-	<h3><i class="icon-plugin"></i> Plugins <span class="badge">+ 2 + votes</span></h3>
+	  <p>Post your projects, apps, and websites that user our stuff. <a href="javascript://" id="submit-app-link">Post your app &raquo;</a></p>
 
-	<p>Share extended functionally with everyone. <a href="javascript://" id="submit-plugin-link">Share your plugin &raquo;</a></p>
+	  <ul class="toprated unstyled">
+		{{#events.app}}
+		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+		{{/events.app}}
+	  </ul>
+	</div>
 
-	<ul class="toprated unstyled">
-	  {{#events.plugin}}
-	  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
-	  {{/events.plugin}}
-	</ul>
+	<div class="points-wrapper">
+	  <h3><i class="icon-plugin"></i> Plugins <span class="badge">+ 2 + votes</span></h3>
+
+	  <p>Share extended functionally with everyone. <a href="javascript://" id="submit-plugin-link">Share your plugin &raquo;</a></p>
+
+	  <ul class="toprated unstyled">
+		{{#events.plugin}}
+		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+		{{/events.plugin}}
+	  </ul>
+	</div>
+
+	<div class="points-wrapper">
+	  <h3><i class="icon-plugin"></i> Events <span class="badge">+ 2 + votes</span></h3>
+
+	  <p>Host an event for the community. <a href="javascript://" id="submit-event-link">Create an event &raquo;</a></p>
+
+	  <ul class="toprated unstyled">
+		{{#events.event}}
+		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{title}}</a></li>
+		{{/events.event}}
+	  </ul>
+	</div>
+
   </div>
-</div>
 
   <div class="span4">
 	<div class="sidebar">
@@ -153,10 +172,10 @@
 	  {{/if}}
 	  
 	  <div class="widget">
-		  <h2>Get Votes</h2>
-		  <p>All the content you post can be upvoted by community.</p>
+		<h2>Get Votes</h2>
+		<p>All the content you post can be upvoted by community.</p>
       </div>
-	
+	  
 	  <div class="toprated widget">
 		<h4>{{#if user.isLoggedIn}}Your{{/if}} Top-Rated Posts</h4>
 		<ul class="unstyled">

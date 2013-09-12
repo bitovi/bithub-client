@@ -13,7 +13,8 @@ steal('can',
 				  code: new can.Observe.List(),
 				  article: new can.Observe.List(),
 				  app: new can.Observe.List(),
-				  plugin: new can.Observe.List()				  
+				  plugin: new can.Observe.List(),
+				  event: new can.Observe.List()
 			  },
 			  topPosts = new can.Observe.List();
 
@@ -155,7 +156,14 @@ steal('can',
 					  ev.preventDefault();
 					  can.route.attr('newpost_c', 'plugin');
 					  this.options.newpostVisibility( true );
+				  },
+
+				  '#submit-event-link click': function( el, ev ) {
+					  ev.preventDefault();
+					  can.route.attr('newpost_c', 'event');
+					  this.options.newpostVisibility( true );
 				  }
+				  
 
 			  });
 	  });
