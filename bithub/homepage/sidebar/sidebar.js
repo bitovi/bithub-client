@@ -136,23 +136,36 @@ steal(
 				accomplishments.attr('profile.github', user.getIdentity('github') ? true : false);
 				accomplishments.attr('profile.completed', user.isCompleted());
 
+				/*
 				// watched github repos
 				user.queryGithub('watched', function( repos ) {
 					_.each(repos, function( repo ) {
 						if( accomplishments.attr('githubWatch')[repo.name] != undefined ) accomplishments.attr('githubWatch.' + repo.name, true);
 					});
 				});
+				 */
 
-				// filter out twitter follow events
-				var followed = _.filter( user.attr('activities'), function( activity ) {
-					
+				// Twitter followes
+				var followes = user.filterActivities( function( activity ) {
 					if( activity.attr('title') && activity.attr('title').indexOf('followed @') == 0 ) 
 						return activity;
-				});
-				// pluck title and match with accomplishments
-				_.each( _.pluck( followed, 'title' ), function( account ) {
+				}, 'title');
+
+				_.each(followes, function( account ) {
 					accomplishments.attr('twitterFollow.' + account.split('@')[1], true);
 				});
+
+				// Github watches
+				var watches = user.filterActivities( function( activity ) {
+					if( activity.attr('title') && activity.attr('title').indexOf('started watching bitovi/') == 0 ) 
+						return activity;
+				}, 'title');
+
+				_.each(watches, function( account ) {
+					accomplishments.attr('githubWatch.' + account.split('/')[1], true);
+				});
+
+				console.log( accomplishments );
 			},
 
 			'#twitter-modal-btn click': function( el, ev ) {
