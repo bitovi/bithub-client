@@ -91,4 +91,9 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 	Mustache.registerHelper('logObj', function( obj, opts ) {
 		console.log( obj );
 	});
+
+	Mustache.registerHelper('stripHtml', function( str, opts ) {
+		str = (typeof(str) == 'function') ? str() : str;
+		return $('<div>' + str + '</div>').text();
+	});
 });
