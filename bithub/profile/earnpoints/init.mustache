@@ -71,7 +71,7 @@
 
 	  <ul class="toprated unstyled">
 		{{#events.twitter}}
-		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{stripHtml title}}</a></li>
+		<li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.twitter}}
 	  </ul>
 	</div>
@@ -83,7 +83,7 @@
 
 	  <ul class="toprated unstyled">
 		{{#events.question}}
-		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{stripHtml title}}</a></li>
+		<li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.question}}
 	  </ul>
 	</div>
@@ -95,7 +95,7 @@
 
 	  <ul class="toprated unstyled">
 		{{#events.bug}}
-		<li><span class="points">{{upvotes}}</span><a href="{{url}}">{{stripHtml title}}</a></li>
+		<li><span class="points">{{upvotes}}</span><a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.bug}}
 	  </ul>
 	</div>
@@ -107,7 +107,7 @@
 
 	  <ul class="toprated unstyled">
 		{{#events.code}}
-		<li><span class="points">{{upvotes}}</span><a href="{{url}}">{{stripHtml title}}</a></li>
+		<li><span class="points">{{upvotes}}</span><a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.code}}
 	  </ul>
 	</div>
@@ -119,7 +119,7 @@
 
 	  <ul class="toprated unstyled">
 		{{#events.article}}
-		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{stripHtml title}}</a></li>
+		<li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.article}}
 	  </ul>
 	</div>
@@ -130,7 +130,7 @@
 
 	  <ul class="toprated unstyled">
 		{{#events.app}}
-		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{stripHtml title}}</a></li>
+		<li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.app}}
 	  </ul>
 	</div>
@@ -142,7 +142,7 @@
 
 	  <ul class="toprated unstyled">
 		{{#events.plugin}}
-		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{stripHtml title}}</a></li>
+		<li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.plugin}}
 	  </ul>
 	</div>
@@ -154,7 +154,7 @@
 
 	  <ul class="toprated unstyled">
 		{{#events.event}}
-		<li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{stripHtml title}}</a></li>
+		<li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.event}}
 	  </ul>
 	</div>
@@ -179,7 +179,7 @@
 		<h4>{{#if user.isLoggedIn}}Your{{/if}} Top-Rated Posts</h4>
 		<ul class="unstyled">
 		  {{#posts}}
-		  <li><span class="points">{{upvotes}}</span> <a href="{{url}}">{{stripHtml title}}</a></li><br />
+		  <li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li><br />
 		  {{/posts}}
 		</ul>
 	  </div>
