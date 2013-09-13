@@ -2,12 +2,11 @@ steal(
 	'can',
 	'bithub/models/event.js',
 	'./event_details.ejs',
-
 	'bithub/homepage/event_list/determine_event_partial.js',
 	'bithub/homepage/event_list/views/_event_children.ejs',
-
+	'bithub/homepage/event_list/handlers',	
 	'bithub/helpers/ejsHelpers.js',
-	function(can, Event, eventDetailsView, determineEventPartial, eventChildrenPartial){
+	function(can, Event, eventDetailsView, determineEventPartial, eventChildrenPartial, EventHandlers){
 
 		return can.Control.extend({
 			defaults : {}
@@ -46,7 +45,8 @@ steal(
 						ejsHelpers: ejsHelpers
 					}, ejsHelpers) );
 				});
-				
+
+				new EventHandlers(this.element, opts);
 			}
 
 		});
