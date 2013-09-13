@@ -98,8 +98,31 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 				view: can.route.attr('view') || 'latest',
 				timespan: can.route.attr('timespan') || 'all'
 			}, item), false );
+		},
+
+		renderEventTags: function (event, visibleTags) {
+			var buffer = "";
+
+			can.each(event.attr('tags'), function( eventTag ) {
+				var matched = false;
+
+				visibleTags.each(function( visibleTag ) {
+					var name = visibleTag.attr('name'),
+						display_name = visibleTag.attr('display_name') || visibleTag.attr('name'),
+						url = "",
+						routeParams = can.extend({}, can.route.attr());
+
+					if( name == eventTag && !matched ) {
+						routeParams[visibleTag.attr('type')] = name;
+						url = can.route.url( routeParams, false);
+						buffer += "<li class=\"tag-name " + name +  "\"><a href=\"" + url +  "\"><small>" + name + "</small></a></li>";
+						matched = true;
+					}
+				});
+			});
+			
+			return buffer;
 		}
 
 	});
-}
-													  );
+});

@@ -151,8 +151,9 @@ steal(
 			feeds             = new can.Model.List(),
 			users             = new Bithub.Models.User.List(),
 			currentUser       = new User({isLoggedIn: undefined}),
-			preloadedEvents   = new Bithub.Models.Event.List([{}]);
-
+			preloadedEvents   = new Bithub.Models.Event.List([{}]),
+			visibleTags       = new can.Observe.List();
+		
 		CURRENT_USER = currentUser;
 
 		// Preload events on route init
@@ -198,8 +199,8 @@ steal(
 			categories: categories,
 			newpostVisibility: newpostVisibility,
 			modals: modals,
-			users: users
-			//socket: socket
+			users: users,
+			visibleTags: visibleTags
 		});
 
 		new Navigator('#navigator', {
@@ -224,16 +225,25 @@ steal(
 		});
 	
 		can.route.attr('newpost') && newpostVisibility(true);
-		
+
+
+		var updateVisibleTags = function( tags, props ) {
+			var buffer = _.each(tags.attr(), function(item) {
+				can.extend(item, props);
+			});
+			visibleTags.push.apply(visibleTags, buffer);
+		}
 		
 		// Load category tags
 		Tag.findAll({type: 'category'}, function (data) {
 			categories.replace(data);
+			updateVisibleTags( data, {type: 'category'} );
 		});
 
 		// Load project tags
 		Tag.findAll({type: 'project'}, function (data) {
 			projects.replace(data);
+			updateVisibleTags( data, {type: 'project'} );
 		});
 
 		// Load feed tags

@@ -22,7 +22,6 @@ steal(
 	'can/observe/delegate',
 	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
-		var visibleTags = new can.Observe.List();				
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
 		// used for ordering categories on latest view
@@ -67,29 +66,8 @@ steal(
 				return function (el) {
 					new ChatScroll(el, {day: day})
 				}
-			},
-			renderEventTags: function (event) {
-				var buffer = "";
-
-				can.each(event.attr('tags'), function( eventTag ) {
-					var matched = false;
-
-					visibleTags.each(function( visibleTag ) {
-						var name = visibleTag.attr('name'),
-							display_name = visibleTag.attr('display_name') || visibleTag.attr('name'),
-							url = "",
-							routeParams = can.extend({}, can.route.attr());
-
-						if( name == eventTag && !matched ) {
-							routeParams[visibleTag.attr('type')] = name;
-							url = can.route.url( routeParams, false);
-							buffer += "<li class=\"tag-name " + name +  "\"><a href=\"" + url +  "\"><small>" + name + "</small></a></li>";
-							matched = true;
-						}
-					});
-				});
-				return buffer;
 			}
+			
 		});
 
 
@@ -125,6 +103,7 @@ steal(
 					hasCategoryFilter: function() {
 						return can.route.attr('category') != 'all';
 					}
+					
 				});
 
 				this.element.html(initView({
@@ -141,7 +120,7 @@ steal(
 					latestCategories: latestCategories,
 					projects: opts.projects,
 					categories: opts.categories,
-					visibleTags: visibleTags,
+					visibleTags: opts.visibleTags,
 					digestDict: digestDict,
 					canLoad: this.canLoad
 				}));
@@ -213,19 +192,6 @@ steal(
 				this.canLoad(true);
 				this.spinnerTop(true);
 				this.load(this.updateEvents);
-			},
-
-			// only "meaningful" event tags should be displayed
-
-			'{categories} change': function(tags) { this.updateTagList(tags, {type: 'category'}) },
-			'{projects} change': function(tags) { this.updateTagList(tags, {type: 'project'}) },
-			//'{feeds} change': function(tags) { this.updateTagList(tags, {type: 'feed'}) },
-
-			updateTagList: function( tags, props ) {
-				var buffer = _.each(tags.attr(), function(item) {
-					can.extend(item, props);
-				});
-				visibleTags.push.apply(visibleTags, buffer);
 			},
 
 			// infinite scroll
