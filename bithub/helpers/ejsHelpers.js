@@ -100,17 +100,17 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 			}, item), false );
 		},
 
-		renderEventTags: function (event, visibleTags) {
-			var buffer = "";
+		renderEventTags: function (event, visibleTags, opts) {
+			var buffer = "",
+				opts = opts || {};
 
 			can.each(event.attr('tags'), function( eventTag ) {
 				var matched = false;
 
 				visibleTags.each(function( visibleTag ) {
 					var name = visibleTag.attr('name'),
-						display_name = visibleTag.attr('display_name') || visibleTag.attr('name'),
 						url = "",
-						routeParams = can.extend({}, can.route.attr());
+						routeParams = opts.tagRoute || can.extend({}, can.route.attr());
 
 					if( name == eventTag && !matched ) {
 						routeParams[visibleTag.attr('type')] = name;
