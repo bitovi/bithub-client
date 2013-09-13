@@ -10,20 +10,6 @@ steal('can',
 
 			upvote: function( success, error ) {
 				(new Upvote({event: this})).upvote();
-			},
-			
-			getAuthorName: function() {
-				return this.attr('author.name') || this.attr('props.origin_author_name') || '';
-			},
-
-			eventUrl: function() {
-				if (this.attr('url')) {
-					return "<a href=\"" + this.attr('url') + "\">" + this.attr('title') + "</a>";
-				} else if (this.attr('feed') === 'bithub') {
-					return can.route.link( this.attr('title'), {id: this.attr('id')}, {} )
-				} else {
-					return "<a>" + this.attr('title') + "</a>";
-				}
 			}			
 		}
 

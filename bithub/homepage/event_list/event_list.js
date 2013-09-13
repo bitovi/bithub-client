@@ -102,9 +102,21 @@ steal(
 					},
 					hasCategoryFilter: function() {
 						return can.route.attr('category') != 'all';
+					},					
+					getAuthorName: function( event ) {
+						return event.attr('author.name') || event.attr('props.origin_author_name') || '';
+					},
+					eventUrl: function( event ) {
+						if (event.attr('url')) {
+							return "<a href=\"" + event.attr('url') + "\">" + event.attr('title') + "</a>";
+						} else if (event.attr('feed') === 'bithub') {
+							return can.route.link( event.attr('title'), {id: event.attr('id')}, {} )
+						} else {
+							return "<a>" + event.attr('title') + "</a>";
+						}
 					}
-					
 				});
+
 
 				this.element.html(initView({
 					latestEvents: this.latestEvents,

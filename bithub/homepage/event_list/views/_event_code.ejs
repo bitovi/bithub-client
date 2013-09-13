@@ -1,6 +1,6 @@
 <div class="row">
   <h5 class="title">
-	<%== event.eventUrl() %>
+	<%== eventUrl( event ) %>
 	<% if( event.attr('award_value') ) { %><span class='badge'>+<%= event.award_sum() %></span><% } %>
   </h5>
   <div class="body" <%= applyMore() %>>
@@ -16,7 +16,7 @@
   <div class="metadata-container pull-right">
 	<div class="event-metadata pull-right">
 	  <small>
-		<% if( event.getAuthorName() ) { %><a href="#"><%== event.getAuthorName() %></a> /<% } %>
+		<% if( getAuthorName( event ) ) { %><a href="#"><%== getAuthorName( event ) %></a> /<% } %>
 		<%== formatTs( event, date ) %>
 		via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 	</div>

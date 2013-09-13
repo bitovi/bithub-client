@@ -2,7 +2,7 @@
   <% if (event.attr('image_url')) { %>
   <img class="thumb" <%= event.attr('image_url') ? "src='" + event.attr('image_url') + "'" : "" %> alt="Thumb" />
   <% } %>
-  <h5 class="title"><%== event.eventUrl() %></h5>
+  <h5 class="title"><%== eventUrl( event ) %></h5>
   <div class="location-time"><%= event.attr('props.location') %> / <%= prettifyTs(event.attr('props.scheduled_for'), 'datetime') %></div>
   <div class="body"><%== event.attr('body') %></div>
   <div class="clearfix"></div>	  
@@ -13,7 +13,7 @@
   <div class="metadata-container pull-right">
 	<div class="event-metadata pull-right">
 	  <small>
-		<% if( event.getAuthorName() ) { %><a href="#"><%== event.getAuthorName() %></a> /<% } %>
+		<% if( getAuthorName( event ) ) { %><a href="#"><%== getAuthorName( event ) %></a> /<% } %>
 		<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
 		via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 	</div>

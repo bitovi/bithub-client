@@ -100,9 +100,9 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 			}, item), false );
 		},
 
-		renderEventTags: function (event, visibleTags, opts) {
-			var buffer = "",
-				opts = opts || {};
+		renderEventTags: function (event, visibleTags) {
+			var buffer = "";
+			var linkTags = can.route.attr('page') === 'homepage';
 
 			can.each(event.attr('tags'), function( eventTag ) {
 				var matched = false;
@@ -110,12 +110,16 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 				visibleTags.each(function( visibleTag ) {
 					var name = visibleTag.attr('name'),
 						url = "",
-						routeParams = opts.tagRoute || can.extend({}, can.route.attr());
+						routeParams = can.extend({}, can.route.attr());
 
 					if( name == eventTag && !matched ) {
-						routeParams[visibleTag.attr('type')] = name;
-						url = can.route.url( routeParams, false);
-						buffer += "<li class=\"tag-name " + name +  "\"><a href=\"" + url +  "\"><small>" + name + "</small></a></li>";
+						if( linkTags ) {
+							routeParams[visibleTag.attr('type')] = name;
+							url = can.route.url( routeParams, false );
+							buffer += "<li class=\"tag-name " + name +  "\"><a href=\"" + url +  "\"><small>" + name + "</small></a></li>";
+						} else {
+							buffer += "<li class=\"tag-name " + name +  "\"><small>" + name + "</small></li>";							
+						}
 						matched = true;
 					}
 				});

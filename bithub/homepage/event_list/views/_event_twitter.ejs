@@ -6,7 +6,7 @@
   </div>
   
   <h5 class="title">
-	<%== event.getAuthorName() %>
+	<%== getAuthorName( event ) %>
 	<a href="<%= linkToTwitterProfile(event.attr('props.origin_author_name')) %>"><small>@<%= event.attr('props.origin_author_name') %></small></a>
   </h5>
   <div class="body"><%== event.attr('title') %></div>
