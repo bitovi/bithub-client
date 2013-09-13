@@ -231,6 +231,14 @@ h4.handwriting {
 				&:hover {
 					text-decoration: none;
 				}
+				
+				&:after {
+					display: block;
+					clear: both;
+					content: " ";
+					height: 0;
+					overflow: hidden;
+				}
 			}
 			.points {
 				color: @black;
