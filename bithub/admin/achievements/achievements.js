@@ -23,14 +23,14 @@ steal('can',
 					  datepicker: function(){
 						  return function( el ){
 							  $(el).datepicker({
-								  format: 'mm/dd/yyyy',
+								  format: 'yyyy-mm-dd',
 								  weekStart: 0
 							  });
 						  }
 					  },
 					  formatTs: function( ts ) {
 						  ts = typeof(ts) === 'function' ? ts() : ts;
-						  return ts ? moment(ts).format('MM/DD/YYYY') : '';
+						  return ts ? moment(ts).format('YYYY-MM-DD') : '';
 					  }
 				  }));
 			  },
