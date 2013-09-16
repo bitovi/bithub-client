@@ -22,7 +22,7 @@
 
 	{{#rewards}} <!-- css classes: achieved, shipping, almost -->
 	<div class="item {{status_cssClass}}" style="background-image: url({{image.image.large.url}})">
-	  <span class="points">{{#if description}}{{description}}{{else}}{{point_minimum}}{{/if}}</span>
+	  <span class="points">{{#if display_point_minimum}}{{display_point_minimum}}{{else}}{{point_minimum}}{{/if}}</span>
 	  {{#if status_message}}<span class="message">{{ status_message }}</span>{{/if}}
 	  <span class="title">{{title}}{{#if status_inlineMessage}}<span class="message">{{ status_inlineMessage }}</span>{{/if}}</span>
 	</div>
