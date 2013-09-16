@@ -41,7 +41,10 @@ steal(
 					user = this.options.currentUser;
 
 				Reward.findAll({order: 'point_minimum'}, function( data ) {
-					rewards.replace( data );
+					var filtered = _.filter(data, function( reward ) {
+						if (!reward.disabled_ts) return reward;
+					});
+					rewards.replace( filtered );
 					self.onLogin();
 				});
 
