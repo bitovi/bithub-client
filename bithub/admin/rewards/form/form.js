@@ -15,6 +15,7 @@ steal(
 				element.fileupload({
 					url: '/api/rewards',
 					datatype: 'json',
+					//type: 'PUT',
 					limitMultiFileUploads: 1,
 					replaceFileInput: false,
 					acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -30,10 +31,21 @@ steal(
 
 			' submit' : function(el, ev) {
 				ev.preventDefault();
+
 				if (this.options.fileData) {
+					var id = this.options.reward.attr('id');
+
+					// if there is reward id than we are doing an update
+					if( id ) {
+						this.element.fileupload('option', {
+							type: 'PUT',
+							url: '/api/rewards/' + id
+						});
+					}
+					
 					this.options.fileData.submit();
 				} else {
-					var reward = this.options.reward.attr(this.element.formParams());
+					var reward = this.options.reward.attr( this.element.formParams());
 					reward.save();
 				}
 			},
