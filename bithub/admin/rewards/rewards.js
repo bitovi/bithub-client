@@ -10,6 +10,10 @@ steal(
 			return route==='edit' || route==='new';
 		}
 
+		var defaultParams = {
+			order: 'point_minimum'
+		}
+
 		return can.Control({
 			pluginName: 'admin-rewards',
 			defaults : { 'Reward': Reward }
@@ -40,7 +44,7 @@ steal(
 			
 			loadList: function () {
 				var self = this;
-				Reward.findAll(paginator.currentState(), function(rewards) {
+				Reward.findAll(can.extend({}, paginator.currentState(), defaultParams ), function(rewards) {
 					self.element.html(rewardsListView({
 						rewards: rewards,
 						prevOffset: paginator.prevOffset(),
