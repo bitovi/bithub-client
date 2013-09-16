@@ -24,14 +24,18 @@ steal(
 			},
 			
 			loadForm: function () {
-				var self = this;
+				var self = this,
+					$div = $('<div/>');
+				
 				if (can.route.attr('id')) {
 					Reward.findOne({id: can.route.attr('id')}, function(reward) {
-						new rewardFormControl(self.element, {reward: reward});
+						new rewardFormControl($div, {reward: reward});
 					});
 				} else  {
-					new rewardFormControl(self.element, {reward: new Reward()});
+					new rewardFormControl($div, {reward: new Reward()});
 				}
+
+				self.element.html( $div );
 			},
 			
 			loadList: function () {
