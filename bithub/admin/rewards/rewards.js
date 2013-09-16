@@ -49,6 +49,10 @@ steal(
 						rewards: rewards,
 						prevOffset: paginator.prevOffset(),
 						nextOffset: paginator.nextOffset()
+					}, {
+						formatDate: function(ts) {
+							return ts ? moment(ts).format('YYYY-MM-DD') : ''
+						}
 					}));
 				});
 			},
