@@ -16,9 +16,21 @@
 	  </div>
 	</div>
 	<div class="control-group">
+	  <label class="control-label" for="reward-display-point-mimimum">Point minimum text</label>
+	  <div class="controls">
+		<input type="text" id="reward-point-mimimum" name="reward[display_point_minimum]" placeholder="Display point text" value="{{reward.display_point_minimum}}" />
+	  </div>
+	</div>
+	<div class="control-group">
 	  <label class="control-label" for="reward-description">Description</label>
 	  <div class="controls">
 		<textarea id="reward-description" name="reward[description]" placeholder="Description..."></textarea>
+	  </div>
+	</div>
+	<div class="control-group">
+	  <label class="control-label" for="reward-disabled-ts">Disabled at</label>
+	  <div class="controls">
+		<input type="text" id="reward-disabled-ts" name="reward[disabled_ts]" placeholder="Disabled at" value="{{formatTs reward.disabled_ts}}" {{datepicker}} />
 	  </div>
 	</div>
 	<div class="control-group">

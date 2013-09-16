@@ -4,18 +4,33 @@ steal(
 	'bithub/models/reward.js',
 	'vendor/fileupload',
 	'jquerypp/dom/form_params',
-	function(can, rewardFromView, Reward, fileUpload){
+	'vendor/bootstrap-datepicker',
+	function(can, rewardFromView, Reward, fileUpload, Datepicker){
 		return can.Control.extend({
 			defaults : { 'Reward': Reward }
 		}, {
 			init : function(element, opts){
-				element.html(rewardFromView({reward: opts.reward}));
+				element.html( rewardFromView({
+					reward: opts.reward
+				}, {
+					datepicker: function(){
+						return function( el ){
+							$(el).datepicker({
+								format: 'yyyy-mm-dd',
+								weekStart: 0
+							});
+						}
+					},
+					formatTs: function( ts ) {
+						ts = typeof(ts) === 'function' ? ts() : ts;
+						return ts ? moment(ts).format('YYYY-MM-DD') : '';
+					}
+				}));
 
 				var self = this;
 				element.fileupload({
 					url: '/api/rewards',
 					datatype: 'json',
-					//type: 'PUT',
 					limitMultiFileUploads: 1,
 					replaceFileInput: false,
 					acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -50,11 +65,10 @@ steal(
 				}
 			},
 
-			'{Reward} created' : function(el, ev) {
-				can.route.attr({ page: 'admin', view: 'rewards', action: 'list' });
-			},
+			'{Reward} created' : "gotoList",
+			'{Reward} updated' : "gotoList",
 
-			'{Reward} updated' : function(el, ev) {
+			gotoList: function( el, ev ) {
 				can.route.attr({ page: 'admin', view: 'rewards', action: 'list' });
 			}
 		});
