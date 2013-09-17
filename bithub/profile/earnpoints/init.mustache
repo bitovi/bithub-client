@@ -2,9 +2,9 @@
   <div class="span8 earn-points">
 
 	{{^if user.isLoggedIn}}
-	<h3>Support Open Souce, Get Free Stuff</h3>
+	<h1>Support Open Source, Get Free Stuff</h1>
 	<p>
-	  Contribute to our open source community and be awarded with free stuff. Tweet, comment, fix bugs. The community votes for you and you get awesome swag for helping.
+	  Contribute to our open source community and be awarded with free stuff. Tweet, comment, fix bugs. The community votes for you and you get awesome rewards for helping.
 	</p>
 	{{/if}}
 	
@@ -163,17 +163,19 @@
 
   <div class="span4">
 	<div class="sidebar">
-
-	  {{^if user.isLoggedIn}}
+	  <div class="widget">
+		<h2>Get Votes</h2>
+		<p>All the content you post can be upvoted by community.</p>
+		
+		  	  {{^if user.isLoggedIn}}
 	  <div class="btn-wrapper logged-out">
 		<button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button>
 	  </div>
 	  {{/if}}
 	  
-	  <div class="widget">
-		<h2>Get Votes</h2>
-		<p>All the content you post can be upvoted by community.</p>
       </div>
+      
+
 	  
 	  <div class="toprated widget">
 		<h4>{{#if user.isLoggedIn}}Your{{/if}} Top-Rated Posts</h4>

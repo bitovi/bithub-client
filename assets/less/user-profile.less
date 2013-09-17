@@ -170,21 +170,26 @@ a.btn.connect {
 		width: 23%;
 	}
 }
+.earn-points {
+	padding-top: 10px;
+}
+.earn-points, .sidebar {
+	h2 {
+		font-size: 21px;
+		color: @gray;
+	}
+	h1 {
+		font-size: 23px;
+		margin-bottom: 0px;
+	}
+}
 
 //User profile -------------------------------//
 .profile {
 	padding-top: 30px;
 	margin-left: 20px;
 	
-	.earn-points {
-		padding-top: 10px;
-	}
-	.earn-points, .sidebar {
-		h2 {
-			font-size: 21px;
-			color: @gray;
-		}
-	}
+
 	.icon-check {
 		font-size: 22px;
 		line-height: 10px;
@@ -213,11 +218,17 @@ a.btn.connect {
 	font-size: @baseFontSize;
 	font-weight: bold;
 	height: auto;
+	
+	&:after {
+		display: block;
+		clear: both;
+		content: " ";
+		height: 0;
+		overflow: hidden;
+	}
 		
 		li {
 		line-height:  @baseFontSize+4;
-		clear: both;
-		
 		
 			a {
 				color: @linkColor;
@@ -233,14 +244,7 @@ a.btn.connect {
 				&:hover {
 					text-decoration: none;
 				}
-				
-				&:after {
-					display: block;
-					clear: both;
-					content: " ";
-					height: 0;
-					overflow: hidden;
-				}
+
 			}
 			.points {
 				color: @black;
