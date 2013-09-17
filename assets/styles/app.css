@@ -1184,9 +1184,9 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .event ul.twitter-actions-list li i{margin-top:3px}
 .event .votes:hover{cursor:pointer}
 .event .votes{margin:0;position:relative}
-.event .votes .uparrow{background-image:url(/assets/images/vote-up.png);height:14px;position:absolute;top:1px;width:15px}
-.event:hover>.votes .uparrow,.event .upvoted .upvote{background-position:0 -14px}
-.reply-event:hover>.votes .uparrow,.reply-event .upvoted .upvote{background-position:0 -14px}
+.event .votes .uparrow{height:14px;position:absolute;top:1px;width:15px}.event .votes .uparrow:before{background-position:-144px -48px;font-family:"bitstrap";speak:none;display:inline-block;width:1em;margin-right:.2em;text-align:center;font-variant:normal;text-transform:none;text-indent:0;font-family:Bitstrap;font-weight:normal;font-style:normal;text-decoration:inherit;display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none !important;background-position:0 0;background-repeat:repeat;-webkit-font-smoothing:antialiased;content:'\e019';font-size:28px;line-height:4px;color:#999}.event .votes .uparrow:before:before,.event .votes .uparrow:before:before{text-decoration:inherit;display:inline-block;speak:none}
+.event:hover>.votes .uparrow:before,.event .upvoted .upvote{color:#26931d}
+.reply-event:hover>.votes .uparrow:before,.reply-event .upvoted .upvote{color:#26931d}
 .event .votes .count{left:12px;font-size:14px;font-weight:bold;position:absolute;top:-1px;text-align:center;width:36px;color:#000}
 .event .upvoted .count{color:#000}
 .event .votes .voteup-btn{border-radius:3px;display:none;color:#fff;font-size:11px;height:20px;position:absolute;width:54px;text-align:center;top:22px;background:#26931d;overflow:visible}.event .votes .voteup-btn:before{width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:5px solid #26931d;position:absolute;content:'';top:-4px;z-index:1;display:block;left:3px}
@@ -1343,4 +1343,4 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .arrow.right:before{border-color:transparent #636363;border-width:5px 0 5px 5px}
 .arrow.up:before{border-color:#636363 transparent;border-width:0 5px 5px 5px}
 .arrow.down:before{border-color:#636363 transparent;border-width:5px 5px 0 5px}
-@media only screen and (-webkit-min-device-pixel-ratio:2),only screen and (min--moz-device-pixel-ratio:2),only screen and (-o-min-device-pixel-ratio:2/1),only screen and (min-device-pixel-ratio:2),only screen and (-webkit-device-pixel-ratio:1.5){#navbar .brand{background-image:url(/assets/images/bithub-logo-x2.png);background-size:100px 31px} .event .votes .uparrow{background-image:url(/assets/images/vote-up-x2.png);background-size:15px 28px} #navbar #profileOptions .user-avatar{background-image:url(/assets/images/icon-user-x2.png);background-size:35px 35px} .newpost-form .image-uploader{background-image:url(/assets/images/image-upload-x2.png);background-size:38px 38px}}
+@media only screen and (-webkit-min-device-pixel-ratio:2),only screen and (min--moz-device-pixel-ratio:2),only screen and (-o-min-device-pixel-ratio:2/1),only screen and (min-device-pixel-ratio:2),only screen and (-webkit-device-pixel-ratio:1.5){#navbar .brand{background-image:url(/assets/images/bithub-logo-x2.png);background-size:100px 31px} #navbar #profileOptions .user-avatar{background-image:url(/assets/images/icon-user-x2.png);background-size:35px 35px} .newpost-form .image-uploader{background-image:url(/assets/images/image-upload-x2.png);background-size:38px 38px}}

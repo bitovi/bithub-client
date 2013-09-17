@@ -208,19 +208,26 @@
 }
 
 .event .votes .uparrow {
-	background-image: url(/assets/images/vote-up.png);
+	//background-image: url(/assets/images/vote-up.png);
 	height: 14px;
 	position: absolute;
 	top: 1px;
 	width: 15px;
+	&:before {
+		.icon-font;
+		content: '\e019';
+		font-size: 28px;
+		line-height: 4px;
+		color: @grayLight;
+	}
 }
 
-.event:hover > .votes .uparrow, .event .upvoted .upvote {
-	background-position: 0px -14px;
+.event:hover > .votes .uparrow:before, .event .upvoted .upvote {
+	color: @green;
 }
 
-.reply-event:hover > .votes .uparrow, .reply-event .upvoted .upvote {
-	background-position: 0px -14px;
+.reply-event:hover > .votes .uparrow:before, .reply-event .upvoted .upvote {
+	color: @green;
 }
 
 .event .votes .count {
