@@ -1106,9 +1106,12 @@ a.btn.connect{color:#777;font-size:11px;font-weight:normal;padding:0;height:22px
 .profile{padding-top:30px}.profile .earn-points{padding-top:10px}
 .profile .earn-points h2,.profile .sidebar h2{font-size:21px;color:#555}
 .profile .icon-check{font-size:22px;line-height:10px;color:#26931d;position:relative;top:-3px}
-.profile .points-wrapper{margin-bottom:25px}
+.profile .points-wrapper{padding-bottom:25px}.profile .points-wrapper>p:last-child,.profile .points-wrapper>ul{margin-bottom:0}
 .profile .complete{color:#999}
 .profile .twitter-accounts{margin-left:27px}
+.toprated{font-size:14px;font-weight:bold;height:auto}.toprated li{line-height:18px;clear:both}.toprated li a{color:#2578b4;display:block;float:left;width:90%;padding-left:10px;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;margin-bottom:10px;text-decoration:underline;text-overflow:ellipsis}.toprated li a:hover{text-decoration:none}
+.toprated li a:after{display:block;clear:both;content:" ";height:0;overflow:hidden}
+.toprated li .points{color:#000;display:block;float:left;width:10%}
 .sidebar{color:#585656;font-size:12px;padding:5px 25px;z-index:99;position:relative;background-color:#fff;min-height:658px;border-left:1px solid #eee;border-right:1px solid #eee;margin-top:7px;background:-moz-linear-gradient(top, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(85%, #fff), color-stop(100%, rgba(255,255,255,0)));background:-webkit-linear-gradient(top, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);background:-o-linear-gradient(top, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);background:-ms-linear-gradient(top, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);background:linear-gradient(to bottom, #fff 0, #fff 85%, rgba(255,255,255,0) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#00ffffff', GradientType=0)}.sidebar h2{margin-bottom:0}
 .sidebar h4,.sidebar h3{font-size:16px;line-height:17px;margin-bottom:3px;color:#333}
 .sidebar hr{clear:both;border:none;border-bottom:1px solid #cdcfcf;padding-top:10px}
