@@ -1218,14 +1218,11 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .event .replies .reply-event .votes{float:left;width:10%;height:20px;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}.event .replies .reply-event .votes .count{top:3px}
 .event .replies .reply-event .votes .uparrow{left:6px;top:5px}
 .event .replies .reply-event .votes .award-btn{display:block}
-.event .replies .reply-event .votes .award-btn{display:none;position:absolute;top:43px;color:#fff;height:20px;width:54px}.event .replies .reply-event .votes .award-btn .word{position:relative;text-align:center;background-color:#ff8d1a;font-size:11px;width:93%;border-radius:3px;float:left}
-.event .replies .reply-event .votes .award-btn .caret-right{background-image:url(/assets/images/carets.png);background-position:-23px 7px;background-size:30px 6px;background-repeat:no-repeat;position:absolute;right:0;width:7px;height:100%}
+.event .replies .reply-event .votes .award-btn{display:none;position:absolute;top:43px;color:#fff;height:20px;width:54px}.event .replies .reply-event .votes .award-btn .word{position:relative;text-align:center;background-color:#ff8d1a;font-size:11px;width:93%;border-radius:3px}
 .event:hover .votes .award-btn{display:block}
 .event .votes .award-btn{display:none;position:absolute;top:43px;color:#fff;height:20px;width:54px}
-.event .votes .award-btn .word{position:relative;text-align:center;background-color:#ff8d1a;font-size:11px;width:93%;border-radius:3px;float:left}
-.event .votes .award-btn .caret-right{background-image:url(/assets/images/carets.png);background-position:-23px 7px;background-size:30px 6px;background-repeat:no-repeat;position:absolute;right:0;width:7px;height:100%}
 .reply-event .awarded-badge{background-image:url(/assets/images/awarded.png);width:37px;height:37px;position:absolute;left:-34px}
-.reply-event .award-btn{position:absolute;left:-65px;padding-right:10px;display:none;width:100px}.reply-event .award-btn a{background-color:#ff8d1a;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;color:#fff;display:block;position:relative;font-size:11px;padding:0 10px;width:35px}.reply-event .award-btn a .caret{background-image:url(/assets/images/carets.png);background-position:right top;width:5px;heigth:6px;position:absolute;right:-4px;top:2px}
+.reply-event .award-btn{position:absolute;left:-65px;padding-right:10px;display:none;width:100px}.reply-event .award-btn a{background-color:#ff8d1a;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;color:#fff;display:block;position:relative;font-size:11px;padding:0 10px;width:35px}.reply-event .award-btn a .caret{display:none}
 .reply-event:hover .award-btn{display:block}
 #event-container{padding-top:70px;margin:0 auto 100px auto;width:740px}
 #event-container .sep .flag.blue{margin-left:-140px;padding:3px 0}
