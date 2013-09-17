@@ -81,8 +81,8 @@
 				padding-bottom: 5px; /* prevents losing hover when moving to popup */
 			}
 			> div {
-				background-color: #000;
-				color: #fff;
+				background-color: @black;
+				color: @white;
 				display: none;
 				position: absolute;
 				padding: 3px 5px;
@@ -90,7 +90,7 @@
 				top: 10px;
 				z-index: 1;
 				a {
-					color: #fff;
+					color: @white;
 					text-decoration: none;
 					&:hover {
 						text-decoration: underline;
@@ -99,14 +99,21 @@
 			}
 			&:hover > div {
 				display: block;
-				.people-caret {
-					position: relative;
-					display: block;
-					height: 4px;
-					top: -7px;
-					width: 9px;
-					background: url(/assets/images/carets.png) no-repeat left 0;
-				}
+				
+					&:before {
+						display: block;
+						width: 0; 
+						height: 0; 
+						border-left: 4px solid transparent;
+						border-right: 4px solid transparent;
+						border-bottom: 5px solid @black;
+						position:absolute;
+						content : '';
+						top: -4px;
+						z-index: 1;
+						display: block;
+						left: 3px;
+					}
 			}
 		} //.popup
 	}//li
