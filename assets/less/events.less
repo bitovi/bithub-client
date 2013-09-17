@@ -248,18 +248,39 @@
 	width: 54px;
 	text-align: center;
 	top: 22px;
-	background: url(/assets/images/carets.png) no-repeat -9999px 0 #169410;
+	background: @green;
+	overflow: visible;
+	
+	&:before {
+		display: block;
+		width: 0; 
+		height: 0; 
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-bottom: 5px solid @green;
+		position:absolute;
+		content : '';
+		top: -4px;
+		z-index: 1;
+		display: block;
+		left: 3px;
+	}
 	
 	&.upvoted {
 		background-color: #7b7b7b;
+		
+		&:before {
+			border-bottom-color: #7b7b7b;
+		}
 	}
+
 }
 
 .event:hover .votes .voteup-btn {
 	display: block;
 	z-index: 10;
 }
-
+/*
 .event .votes .voteup-btn .upvote-caret {
 	display: block;
 	height: 4px;
@@ -271,6 +292,7 @@
 .event .votes .voteup-btn.upvoted .upvote-caret {
 	background: url(/assets/images/carets.png) no-repeat -17px 0;
 }
+*/
 .event .votes .awarded {
 	color: #fff;
 	font-size: 11px;
