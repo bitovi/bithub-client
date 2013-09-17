@@ -4,7 +4,7 @@
 
   {{#if user.isLoggedIn}}
 
-  {{^if user.hasAddress}}<div class="alert alert-danger alert-block pull-right">We can't send you stuff beacuse you haven't completed your profile!</div>{{/if}}
+  {{^if user.hasAddress}}<div class="alert alert-danger alert-block"><p>We can't send you stuff because you haven't completed your profile! <a class="pull-right btn btn-small btn-danger">Complete Profile</a><br /></p></div>{{/if}}
   
   <p>When you reach these point levels, we'll send you this stuff. We send swag to US addresses every month and to non-US addresses every six months.</p>
   

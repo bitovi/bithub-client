@@ -935,9 +935,7 @@ input:focus,textarea:focus{-moz-box-shadow:inset 2px 2px 3px rgba(0,0,0,0.07) !i
 .dropdown-menu li{text-align:left}
 .dropdown-menu li a{font-size:12px;color:#696767}
 .dropdown-menu li a:hover{background:#a80e14;background-color:#a80e14}
-.alert{padding:10px;font-size:11px;line-height:14px;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;background-repeat:no-repeat;background-position:10px center}
-.alert.alert-flag{padding-left:47px;background-image:url(/assets/images/icon-flag.png)}
-.alert.alert-star{padding-left:47px;background-image:url(/assets/images/icon-star.png)}
+.alert{padding:5px 10px;-webkit-border-radius:0;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0}
 .flag{font-weight:bold;font-size:14px;line-height:15px;margin:0;display:inline-block;color:#fff;padding:5px 10px;-webkit-border-bottom-right-radius:4px;-webkit-border-bottom-left-radius:4px;-moz-border-radius-bottomright:4px;-moz-border-radius-bottomleft:4px;border-bottom-right-radius:4px;border-bottom-left-radius:4px;position:relative;top:5px;min-width:120px;text-align:center}.flag.blue{background-color:#71bee5;text-shadow:0 -1px 0 #5394d9;border-bottom:1px solid #4995bb;border-left:1px solid #4995bb;border-right:1px solid #4995bb}
 .sep-wrapper,.wrapper{width:100%;z-index:50;padding:0;position:relative}
 .sep{height:5px;margin-bottom:35px;margin-left:-2000px;padding-left:2000px;position:static;width:3000px}.sep.blue{background-color:#71bee5;border-bottom:1px solid #4995bb;border-top:1px solid #4995bb}.sep.blue a{color:#fff}
@@ -1268,6 +1266,7 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 #newpost-form-submit{padding-right:30px;padding-left:30px;margin-right:auto;margin-left:auto;display:block}
 #hide-newpost-form-btn{position:absolute;right:6px;top:6px}
 .text-error{font-size:11px;margin:0;font-weight:bold}
+.getSwagContainer{margin-top:20px}.getSwagContainer .alert-danger{line-height:28px}
 .rewards .item{width:240px;height:240px;display:inline-block;margin-right:20px;margin-bottom:20px;position:relative;font-weight:bold;background:#eee;background-position:center center;-webkit-font-smoothing:antialiased;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}.rewards .item:nth-child(4){margin-right:0}
 .rewards .item .title{position:absolute;bottom:0;left:0;right:0;padding:10px 20px;color:#fff;background-color:rgba(0,0,0,0.7);font-size:12px}
 .rewards .item .points{position:absolute;left:-1px;top:20px;padding:5px 10px;font-size:20px;color:#fff;background-color:#a50d1a;-webkit-border-top-right-radius:4px;-webkit-border-bottom-right-radius:4px;-moz-border-radius-topright:4px;-moz-border-radius-bottomright:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border:1px solid #760913}
