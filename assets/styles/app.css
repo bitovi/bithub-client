@@ -1162,7 +1162,7 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .event{position:relative;padding:10px 0;border-top:1px solid #fff;border-bottom:1px solid #fff}.event:hover{border-top:1px solid #eee;border-bottom:1px solid #eee}
 .event.notified{background-color:#e9f8ff;border:1px solid #71bee5;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;padding:10px;margin:10px -10px}
 .event:hover .toolbar{display:block}
-.event .toolbar{display:none;position:absolute;float:right;color:#000;top:2px;right:3px}
+.event .toolbar{display:none;position:absolute;float:right;color:#000;top:2px;right:3px}.event .toolbar .delete-event.close{color:#a50d1a;border-radius:30px;-moz-border-radius:30px;-webkit-border-radius:30px;width:15px;height:15px;padding:0;text-align:center;text-shadow:0 -1px 0 rgba(0,0,0,0);font-size:15px;line-height:14px}.event .toolbar .delete-event.close:hover{opacity:1;color:#fff;background:#a50d1a}
 .event .title{margin:0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.event .title a{font-size:14px;margin:0;line-height:18px}
 .event .title .expand-body{color:#777;margin-left:10px}
 .event .body{color:#333;font-size:12px;line-height:17px}.event .body hr{display:none}
@@ -1241,6 +1241,7 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .retweets-container .profile-icon{width:16px;height:16px}
 .twitter-hashtag,.twitter-mention{font-weight:bold}
 .event.single-event{margin-top:30px}
+input.transfer-ownership{font-size:11px;height:12px;width:200px}
 #newpost-form-wrapper{position:fixed;top:62px;z-index:905;width:100%}#newpost-form-wrapper .select-menu{width:100%;margin-right:0}
 #newpost-bottom-separator{background-color:#d5d8d8;height:8px;width:100%;border-bottom:1px solid #aeadad}
 #newpost-form-container{background-color:#fff}
