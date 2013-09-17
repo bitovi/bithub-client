@@ -301,10 +301,25 @@
 	margin: 3px 5px 0px 0px;
 	height: 11px;
 	width: 11px;
-	background: url(/assets/images/replies-glyph.png) no-repeat -1px -1px;
+
+	&:before {
+		position: absolute;
+		width: 12px;
+		height: 12px;
+		display: block;
+		top: 0;
+		left: 0;
+		text-align: center;
+		content: "+";
+		line-height: 19px;
+	}
 }
 .event .status .expand-replies .icon.collapse {
-	background-position-y: -14px;
+	
+	&:before {
+		content: "–";
+		line-height: 8px;
+	}
 }
 
 .event .status .expand-manage-bar {
