@@ -1241,6 +1241,7 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 .retweets-container{margin-right:15px;position:relative;top:-4px;float:left}.retweets-container .icon-retweet{text-shadow:none;font-size:22px;line-height:12px}
 .retweets-container .profile-icon{width:16px;height:16px}
 .twitter-hashtag,.twitter-mention{font-weight:bold}
+.event.single-event{margin-top:30px}
 #newpost-form-wrapper{position:fixed;top:62px;z-index:905;width:100%}#newpost-form-wrapper .select-menu{width:100%;margin-right:0}
 #newpost-bottom-separator{background-color:#d5d8d8;height:8px;width:100%;border-bottom:1px solid #aeadad}
 #newpost-form-container{background-color:#fff}
