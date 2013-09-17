@@ -280,19 +280,7 @@
 	display: block;
 	z-index: 10;
 }
-/*
-.event .votes .voteup-btn .upvote-caret {
-	display: block;
-	height: 4px;
-	margin-left: 4px;
-	margin-top: -4px;
-	width: 8px;
-	background: url(/assets/images/carets.png) no-repeat -9px 0;
-}
-.event .votes .voteup-btn.upvoted .upvote-caret {
-	background: url(/assets/images/carets.png) no-repeat -17px 0;
-}
-*/
+
 .event .votes .awarded {
 	color: #fff;
 	font-size: 11px;
@@ -543,7 +531,7 @@
 		width: 100px;
 		
 		a {
-			background-color: #ff8d1a;
+			background-color: @orange;
 			-webkit-border-radius: 4px;
 			-moz-border-radius: 4px;
 			border-radius: 4px;	
@@ -553,6 +541,21 @@
 			font-size: 11px;
 			padding: 0px 10px;
 			width: 35px;
+			
+			&:before {
+				display: block;
+				width: 0; 
+				height: 0; 
+				position:absolute;
+				content : '';
+				top: 6px;
+				z-index: 1;
+				display: block;
+				right: -4px;
+				border-top: 4px solid transparent;
+				border-bottom: 4px solid transparent;
+				border-left: 6px solid @orange;
+			}
 
 			.caret {
 				display: none;
