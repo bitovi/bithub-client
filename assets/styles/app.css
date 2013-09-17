@@ -1268,7 +1268,7 @@ h4.handwriting{color:#333;font-size:36px;line-height:38px;font-weight:normal;fon
 #hide-newpost-form-btn{position:absolute;right:6px;top:6px}
 .text-error{font-size:11px;margin:0;font-weight:bold}
 .getSwagContainer{margin-top:20px}.getSwagContainer .alert-danger{line-height:28px}
-.rewards .item{width:240px;height:240px;display:inline-block;margin-right:20px;margin-bottom:20px;position:relative;font-weight:bold;background:#eee;background-position:center center;-webkit-font-smoothing:antialiased;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}.rewards .item:nth-child(4){margin-right:0}
+.rewards .item{width:240px;height:240px;display:inline-block;margin-right:20px;margin-bottom:20px;position:relative;font-weight:bold;background:#eee;background-position:center center;-webkit-font-smoothing:antialiased;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;float:left}.rewards .item:nth-child(4){margin-right:0}
 .rewards .item .title{position:absolute;bottom:0;left:0;right:0;padding:10px 20px;color:#fff;background-color:rgba(0,0,0,0.7);font-size:12px}
 .rewards .item .points{position:absolute;left:-1px;top:20px;padding:5px 10px;font-size:20px;color:#fff;background-color:#a50d1a;-webkit-border-top-right-radius:4px;-webkit-border-bottom-right-radius:4px;-moz-border-radius-topright:4px;-moz-border-radius-bottomright:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border:1px solid #760913}
 .rewards .item .message{position:absolute;left:0;right:0;bottom:40px;color:#fff;background-color:#000;text-align:center;font-size:12px}
