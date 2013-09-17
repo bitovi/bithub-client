@@ -60,14 +60,7 @@
 	&.notified {
 		background-color: #e9f8ff;
 		border: 1px solid #71bee5;
-		-webkit-border-radius: 6px;
-		-moz-border-radius: 6px;
-		border-radius: 6px;	
-		/*
-		-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
-		-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
-		box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;	
-		*/
+		.border-radius(6px);	
 		padding: 10px;
 		margin: 10px -10px;
 	}
@@ -78,7 +71,7 @@
 		display: none;
 		position: absolute;
 		float: right;
-		color: #000;
+		color: @black;
 		top: 2px;
 		right: 3px;
 		
@@ -106,7 +99,6 @@
 		white-space: nowrap;
 		overflow: hidden;
 		a {
-			/* color: #000; */
 			font-size: 14px;
 			margin: 0;
 			line-height: 18px;
