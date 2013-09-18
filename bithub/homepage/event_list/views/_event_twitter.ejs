@@ -1,46 +1,111 @@
-<div class="row">
-  <div class="twitter-profile-pic pull-left">
-	  <a href="<%= linkToTwitterProfile(event.attr('props.origin_author_name')) %>">
-	  <img <%= event.attr('props.origin_author_avatar_url') ? "src='" + event.attr('props.origin_author_avatar_url') + "'" : "" %> alt="Avatar" />
-	</a>
+<div class="event list-element" <%= (el) -> el.data('eventObj', event)  %> >
+  <% if (isAdmin()) { %>
+  <div class="toolbar">
+	<a href="#" class="delete-event close">&times;</a>
   </div>
-  
-  <h5 class="title">
-	<%== getAuthorName( event ) %>
-	<a href="<%= linkToTwitterProfile(event.attr('props.origin_author_name')) %>"><small>@<%= event.attr('props.origin_author_name') %></small></a>
-  </h5>
-  <div class="body"><%== event.attr('title') %></div>
-  <div class="clearfix"></div>	  
-</div>
-
-<!-- status -->
-<div class="status row">
-  <div class="metadata-container pull-right">
-
-	<% if( event.attr('children').length > 0) { %> 
-	<div class="retweets-container">
-	  <i class="icon-retweet"></i>
-	  <% list(event.attr('children'), function( child ) { %>	
-	  <a href='https://twitter.com/<%= child.attr('props.origin_author_name') %>'>
-		<img class="profile-icon" <%= child.attr('props.origin_author_avatar_url') ? "src='" + child.attr('props.origin_author_avatar_url') + "'" : "" %> alt="Avatar" />
-	  </a>
-	  <% }) %>
-	</div><!-- .rewtweets-container -->
-	<% } %>
-	
-	<div class="event-metadata pull-right">
-	  <small><%== formatTs( event, date ) %> via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
-	</div>
-  </div>	  
-  <ul class="tag-list nav">
-	<%== renderEventTags( event, visibleTags ) %>
-  </ul>
-
-  <% if( isAdmin() ) { %>
-  <!-- ADMIN -->
-  <a href="#" class="expand-manage-bar"></a>	  
-  <!-- /ADMIN -->
   <% } %>
+
+  <!-- upvotes -->
+  <div class="span1 votes">
+	<div class="uparrow"></div>
+	<div class="count">
+	  <%= event.attr('upvotes') %>
+	</div>
+
+	<div class="voteup-btn">
+	  <span class="upvote-caret"></span>Vote up
+	</div>
+
+	<% if (!event.attr('props.thread_awarded') && isLoggedIn() && isAdmin()) { %>
+	<div class="award-btn">
+	  <div class="word"><span>Award</span></div>
+	  <div class="caret-right"></div>
+	  <div class="clearfix"></div>
+	</div>
+	<% } %>
+
+	<% if (event.attr('props.thread_awarded')) { %>
+	<div class="awarded">Awarded</div>
+	<% } %>
+
+	<div class="clearfix"></div>
+  </div>
+
+  <!-- content -->
+  <div class="span7 content">
+
+
+	<div class="row">
+	  <div class="twitter-profile-pic pull-left">
+		<a href="<%= linkToTwitterProfile(event.attr('props.origin_author_name')) %>">
+		  <img <%= event.attr('props.origin_author_avatar_url') ? "src='" + event.attr('props.origin_author_avatar_url') + "'" : "" %> alt="Avatar" />
+		</a>
+	  </div>
+	  
+	  <h5 class="title">
+		<%== getAuthorName( event ) %>
+		<a href="<%= linkToTwitterProfile(event.attr('props.origin_author_name')) %>"><small>@<%= event.attr('props.origin_author_name') %></small></a>
+	  </h5>
+	  <div class="body"><%== event.attr('title') %></div>
+	  <div class="clearfix"></div>	  
+	</div>
+
+	<!-- status -->
+	<div class="status row">
+	  <div class="metadata-container pull-right">
+
+		<% if( event.attr('children').length > 0) { %> 
+		<div class="retweets-container">
+		  <i class="icon-retweet"></i>
+		  <% list(event.attr('children'), function( child ) { %>	
+		  <a href='https://twitter.com/<%= child.attr('props.origin_author_name') %>'>
+			<img class="profile-icon" <%= child.attr('props.origin_author_avatar_url') ? "src='" + child.attr('props.origin_author_avatar_url') + "'" : "" %> alt="Avatar" />
+		  </a>
+		  <% }) %>
+		</div><!-- .rewtweets-container -->
+		<% } %>
+		
+		<div class="event-metadata pull-right">
+		  <small><%== formatTs( event, date ) %> via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
+		</div>
+	  </div>	  
+	  <ul class="tag-list nav">
+		<%== renderEventTags( event, visibleTags ) %>
+	  </ul>
+
+	  <% if( isAdmin() ) { %>
+	  <!-- ADMIN -->
+	  <a href="#" class="expand-manage-bar"></a>	  
+	  <!-- /ADMIN -->
+	  <% } %>
+
+	  <div class="clearfix"></div>
+	</div>
+
+	<% if( isAdmin() ) { %>
+	<!-- ADMIN -->
+	<div class="manage-bar row">
+	  <ul class="nav">
+		<% list(projects, function( project ) { %>
+		<li data-tag="<%= project.attr('name') %>" class="tag-action present_remove"><a href="#" ><small><%= project.attr('name') %></small></a></li>
+		<% }) %>
+		<li class="dropdown">
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><small><%= event.attr('category') %></small><b class="caret"></b></a>
+		  <ul class="dropdown-menu">
+			<% list(categories, function( category ) { %>
+			<li class="category-action" data-category="<%= category.attr('name') %>"><a href="#"><%= category.attr('name') %></a></li>
+			<% }) %>
+		  </ul>
+		</li>
+	  </ul>
+	  <input type="text" class="transfer-ownership typeahead" placeholder="Transfer ownership">
+	</div>
+	<!-- /ADMIN -->
+	<% } %>
+
+  </div>
 
   <div class="clearfix"></div>
 </div>
+
+
