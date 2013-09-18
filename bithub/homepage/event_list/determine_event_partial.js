@@ -1,13 +1,17 @@
 steal(
 './views/_event_default.ejs',
 './views/_event_code.ejs',
+'./views/_event_issue.ejs',
 './views/_event_twitter.ejs',
 './views/_event_event.ejs',
-function( eventDefaultPartial, eventCodePartial, eventTwitterPartial, eventEventPartial){
+function( eventDefaultPartial, eventCodePartial, eventIssuePartial, eventTwitterPartial, eventEventPartial){
 	var eventPartialsLookup = [
 	{
 		template: eventCodePartial,
 		tags: ['push_event']
+	}, {
+		template: eventIssuePartial,
+		tags: ['bug', 'feature']
 	}, {
 		template: eventTwitterPartial,
 		tags: ['status_event']
