@@ -23,12 +23,20 @@
 					<% if ( !hasCategoryFilter() ) { %><h3 class="section-title"><i class="icon-<%= category %>"></i><%= category %></h3><% } %>
 					<div class="truncated">
 						<%== each( day.attr('types.' + category), function( event ) { %>
-							<%== eventPartial.render({event: event, determineEventPartial: determineEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+						    <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
 						<% }) %>
 					</div>
 				</div>
 				<% } %>
 			<% }) %>
+
+			
+			<% if ( !!day.attr('types.code') ) { %>
+			<div class="category-code">
+			  <h3 class="section-title"><i class="icon-code"></i>Code</h3>
+			  <%== codePartial.render( can.extend({ codeEvents: day.code(), day: day }, this) ) %>
+			</div>
+			<% } %>
 
 
 			<% if( day.attr('types.chat') ) { %>

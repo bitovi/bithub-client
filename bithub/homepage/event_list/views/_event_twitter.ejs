@@ -16,18 +16,6 @@
 	  <span class="upvote-caret"></span>Vote up
 	</div>
 
-	<% if (!event.attr('props.thread_awarded') && isLoggedIn() && isAdmin()) { %>
-	<div class="award-btn">
-	  <div class="word"><span>Award</span></div>
-	  <div class="caret-right"></div>
-	  <div class="clearfix"></div>
-	</div>
-	<% } %>
-
-	<% if (event.attr('props.thread_awarded')) { %>
-	<div class="awarded">Awarded</div>
-	<% } %>
-
 	<div class="clearfix"></div>
   </div>
 

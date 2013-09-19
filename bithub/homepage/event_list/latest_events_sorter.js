@@ -18,6 +18,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 			this._super.apply(this, arguments);
 			this.attr('types', {});
 		},
+		
 		addEvent : function(event){
 			var types = this.attr('types'),
 			category = event.attr('category'),
@@ -28,9 +29,11 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 			}
 			this.attr('types.' + category)[method](event);
 		},
+		
 		hasDigest : function(){
 			return !!this.attr('types.digest');
 		},
+		
 		digest : function(){
 			var digests = this.attr('types.digest'),
 			length  = digests.attr('length'),
@@ -59,6 +62,51 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				}
 
 			}
+			return grouped;
+		},
+
+		code: function() {
+
+			var events = this.attr('types.code'),
+				length  = events.attr('length'),
+				types = ['push_event', 'create_event', 'pull_request_event'],
+				grouped = {},
+				event, author, type, title;
+			
+			for(var i = 0; i < length; i++){
+				event = events[i];
+				title = event.attr('title');
+				author = event.attr('props.origin_author_name');
+				type = _.find( event.attr('tags'), function( tag ) {
+					return _.contains(types, tag);
+				});
+				
+				if( grouped[author] ) {
+					// push events are additonally grouped by title
+					if( type == 'push_event' ) {
+						if( grouped[author][type][title] ) {
+							grouped[author][type][title].push( event );
+						} else {
+							grouped[author][type][title] = [ event ];
+						}
+					} else {
+						grouped[author][type].push( event );
+					}
+				} else {
+					grouped[author] = {
+						push_event: {}, // grouped by title
+						create_event: [],
+						pull_request_event: [],
+						author: event.attr('author')
+					};
+					if( type == 'push_event' ) {
+						grouped[author][type][title] = [ event ];
+					} else {
+						grouped[author][type].push( event );
+					}
+				}
+			}
+
 			return grouped;
 		}
 	})

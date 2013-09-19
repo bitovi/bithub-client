@@ -1,5 +1,5 @@
 <div>
 <%== each( greatestEvents, function( event ) { %>
-<%== eventPartial.render({event: event, determineEventPartial: determineEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'upvotes', date: null}) %>
+<%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'upvotes', date: null}) %>
 <% }) %>
 </div>

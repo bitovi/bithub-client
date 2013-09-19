@@ -1,0 +1,31 @@
+<div class="truncated">
+  <% for( var author in codeEvents ) { %>
+
+  <h5 class="title">
+	<%== codeEvents[author].author.attr('name') %>:
+  </h5>
+
+  <% for( var title in codeEvents[author].push_event ) { %>
+
+  <h5 class="title"><%= title %></h5>
+
+  <% list(codeEvents[author].push_event[title], function( event ) { %>
+  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+  <% }) %>
+
+  <% } %>
+
+  <h5 class="title">Pull requests</h5>
+
+  <% list(codeEvents[author].pull_request_event, function( event ) { %>
+  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+  <% }) %>
+  
+  <h5 class="title">Create events</h5>
+	 
+  <% list(codeEvents[author].create_event, function( event ) { %>
+  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+  <% }) %>
+
+  <% } %>
+</div>

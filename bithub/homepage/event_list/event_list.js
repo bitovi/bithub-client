@@ -6,6 +6,8 @@ steal(
 	'bithub/homepage/event_list/views/_event.ejs',
 	'bithub/homepage/event_list/views/_event_children.ejs',
 	'bithub/homepage/event_list/views/_digest.ejs',
+	'bithub/homepage/event_list/views/_event_code.ejs',	
+	'bithub/homepage/event_list/views/_code.ejs',	
 	'bithub/homepage/event_list/determine_event_partial.js',
 	'bithub/homepage/event_list/handlers',
 	'ui/html_select',
@@ -20,12 +22,12 @@ steal(
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
 	'can/observe/delegate',
-	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
+	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, codeEventPartial, codePartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
 		// used for ordering categories on latest view
-		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'code', 'event'],
+		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'event'],
 		digestDict = {
 			actions: {
 				fork: 'forked',
@@ -129,6 +131,8 @@ steal(
 					determineEventPartial: determineEventPartial,
 					eventChildrenPartial: eventChildrenPartial,
 					digestPartial: digestPartial,
+					codeEventPartial: codeEventPartial,
+					codePartial: codePartial,
 					latestCategories: latestCategories,
 					projects: opts.projects,
 					categories: opts.categories,
