@@ -60,14 +60,7 @@
 	&.notified {
 		background-color: #e9f8ff;
 		border: 1px solid #71bee5;
-		-webkit-border-radius: 6px;
-		-moz-border-radius: 6px;
-		border-radius: 6px;	
-		/*
-		-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
-		-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;
-		box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) !important;	
-		*/
+		.border-radius(6px);	
 		padding: 10px;
 		margin: 10px -10px;
 	}
@@ -78,9 +71,27 @@
 		display: none;
 		position: absolute;
 		float: right;
-		color: #000;
+		color: @black;
 		top: 2px;
 		right: 3px;
+		
+		.delete-event.close {
+			color: @red;
+			.border-radius(30px);
+			width: 15px;
+			height: 15px;
+			padding: 0;
+			text-align: center;
+			.text-shadow(0);
+			font-size: 15px;
+			line-height: 14px;
+			
+			&:hover {
+				opacity: 1;
+				color: @white;
+				background: @red;
+			}
+		}
 	}
 	.title {
 		margin: 0;
@@ -88,7 +99,6 @@
 		white-space: nowrap;
 		overflow: hidden;
 		a {
-			/* color: #000; */
 			font-size: 14px;
 			margin: 0;
 			line-height: 18px;
@@ -208,19 +218,25 @@
 }
 
 .event .votes .uparrow {
-	background-image: url(/assets/images/vote-up.png);
 	height: 14px;
 	position: absolute;
 	top: 1px;
 	width: 15px;
+	&:before {
+		.icon-font;
+		content: '\e019';
+		font-size: 28px;
+		line-height: 4px;
+		color: @grayLight;
+	}
 }
 
-.event:hover > .votes .uparrow, .event .upvoted .upvote {
-	background-position: 0px -14px;
+.event:hover > .votes .uparrow:before, .event .upvoted .upvote {
+	color: @green;
 }
 
-.reply-event:hover > .votes .uparrow, .reply-event .upvoted .upvote {
-	background-position: 0px -14px;
+.reply-event:hover > .votes .uparrow:before, .reply-event .upvoted .upvote {
+	color: @green;
 }
 
 .event .votes .count {
@@ -248,11 +264,32 @@
 	width: 54px;
 	text-align: center;
 	top: 22px;
-	background: url(/assets/images/carets.png) no-repeat -9999px 0 #169410;
+	background: @green;
+	overflow: visible;
+	
+	&:before {
+		display: block;
+		width: 0; 
+		height: 0; 
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-bottom: 5px solid @green;
+		position:absolute;
+		content : '';
+		top: -4px;
+		z-index: 1;
+		display: block;
+		left: 3px;
+	}
 	
 	&.upvoted {
 		background-color: #7b7b7b;
+		
+		&:before {
+			border-bottom-color: #7b7b7b;
+		}
 	}
+
 }
 
 .event:hover .votes .voteup-btn {
@@ -260,17 +297,6 @@
 	z-index: 10;
 }
 
-.event .votes .voteup-btn .upvote-caret {
-	display: block;
-	height: 4px;
-	margin-left: 4px;
-	margin-top: -4px;
-	width: 8px;
-	background: url(/assets/images/carets.png) no-repeat -9px 0;
-}
-.event .votes .voteup-btn.upvoted .upvote-caret {
-	background: url(/assets/images/carets.png) no-repeat -17px 0;
-}
 .event .votes .awarded {
 	color: #fff;
 	font-size: 11px;
@@ -301,20 +327,55 @@
 	margin: 3px 5px 0px 0px;
 	height: 11px;
 	width: 11px;
-	background: url(/assets/images/replies-glyph.png) no-repeat -1px -1px;
+
+	&:before {
+		position: absolute;
+		width: 12px;
+		height: 12px;
+		display: block;
+		top: 0;
+		left: 0;
+		text-align: center;
+		content: "+";
+		line-height: 19px;
+	}
 }
 .event .status .expand-replies .icon.collapse {
-	background-position-y: -14px;
+	
+	&:before {
+		content: "–";
+		line-height: 8px;
+	}
 }
 
 .event .status .expand-manage-bar {
-	background-image: url(/assets/images/glyph-hovers.png);
-	background-position-y: -42px;
 	width: 14px;
 	height: 14px;	
 	display: none;
+	
+	&:before {
+		content: '+';
+		text-align: center;
+		display: block;
+		position: absolute;
+		top: 1px;
+		background: @grayLight;
+		color: @white;
+		height: 14px;
+		width: 14px;
+		line-height: 12px;
+		font-size: 11px;
+		.border-radius(40px);
+	}
+	&:hover:before {
+		background: @gray;
+	}
+	&.expand-manage-bar.collapse { 
+		&:before {
+			.rotate(-45,0);
+		}
+	}
 }
-.event .status .expand-manage-bar.collapse { background-position-y: -56px; }
 
 .event:hover .status .expand-manage-bar {
 	display: inline-block;
@@ -418,6 +479,7 @@
 				border-left: solid 1px @grayLight;
 				margin: 0;
 				padding-left: 5px;
+				margin-bottom: 10px;
 				
 				p {
 					color: @gray;
@@ -439,7 +501,7 @@
 			margin: 5px;
 		}
 		&:nth-child(even) {
-			background-color: #f3f4f4;
+			background-color: lighten(#f7f7f7,1%);
 		}
 		.votes {
 			.pull-left;
@@ -469,17 +531,7 @@
 					font-size: 11px;
 					width: 93%;
 					border-radius: 3px;
-					float: left;
-				}
-				.caret-right {
-					background-image: url(/assets/images/carets.png);
-					background-position: -23px 7px;
-					background-size: 30px 6px;
-					background-repeat: no-repeat;
-					position: absolute;
-					right: 0px;
-					width: 7px;
-					height: 100%;
+					//float: left;
 				}
 			} 
 		} 
@@ -498,29 +550,6 @@
 	width: 54px;
 }
 
-.event .votes .award-btn .word {
-	position: relative;
-	text-align: center;
-	background-color: #ff8d1a;
-	font-size: 11px;
-	width: 93%;
-	border-radius: 3px;
-	float: left;
-}
-
-.event .votes .award-btn .caret-right {
-	background-image: url(/assets/images/carets.png);
-	background-position: -23px 7px;
-	background-size: 30px 6px;
-	background-repeat: no-repeat;
-	position: absolute;
-	right: 0px;
-	width: 7px;
-	height: 100%;
-}
-
-
-
 /* Award flags--------------------------------------------------- */
 .reply-event {
 	.awarded-badge {
@@ -538,7 +567,7 @@
 		width: 100px;
 		
 		a {
-			background-color: #ff8d1a;
+			background-color: @orange;
 			-webkit-border-radius: 4px;
 			-moz-border-radius: 4px;
 			border-radius: 4px;	
@@ -549,14 +578,23 @@
 			padding: 0px 10px;
 			width: 35px;
 			
-			.caret {
-				background-image: url(/assets/images/carets.png);
-				background-position: right top;
-				width: 5px;
-				heigth: 6px;
-				position: absolute;
+			&:before {
+				display: block;
+				width: 0; 
+				height: 0; 
+				position:absolute;
+				content : '';
+				top: 6px;
+				z-index: 1;
+				display: block;
 				right: -4px;
-				top: 2px;
+				border-top: 4px solid transparent;
+				border-bottom: 4px solid transparent;
+				border-left: 6px solid @orange;
+			}
+
+			.caret {
+				display: none;
 			}
 		}
 	}
@@ -662,4 +700,9 @@
 
 .event.single-event {
 	margin-top: 30px;
+}
+input.transfer-ownership {
+	font-size: 11px;
+	height: 12px;
+	width: 200px;
 }

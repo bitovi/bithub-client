@@ -28,8 +28,6 @@ button {
 }
 // -------------------------
 a.btn, button.btn, span.btn, button {
-	//.btn-color(@grayLighter,0%,15%);
-	//.buttonBackground(lighten(@grayLighter,10%), @grayLighter, @gray, 0 1px 0 rgba(255,255,255, 0.95));
 	
 	border-width: 2px;
 	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
@@ -70,8 +68,7 @@ a.btn, button.btn, span.btn, button {
 	}
 }
 .btn-color(@newColor,@hover:2%,@border:14%) {
-	//color: @white; 
-	//.buttonBackground(@startColor, @endColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25))
+
 	.buttonBackground(lighten(@newColor,10%), @newColor);
 	border-color:  darken(@newColor, @border);
 	
