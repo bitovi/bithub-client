@@ -10,7 +10,7 @@
   <h6 class="title"><%= title %></h6>
 
   <% list(codeEvents[author].push_event[title], function( event ) { %>
-  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
   <% }) %>
 
   <% } %>
@@ -19,7 +19,7 @@
   <h6 class="title">Pull requests</h6>
 
   <% list(codeEvents[author].pull_request_event, function( event ) { %>
-  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
   <% }) %>
   <% } %>
   
@@ -27,7 +27,7 @@
   <h6 class="title">Create events</h6>
 	 
   <% list(codeEvents[author].create_event, function( event ) { %>
-  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
   <% }) %>
   <% } %>
 

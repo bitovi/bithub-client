@@ -503,6 +503,14 @@
 		&:nth-child(even) {
 			background-color: lighten(#f7f7f7,1%);
 		}
+
+		&.commit {
+			background-color: #e6f4ff;
+		}
+		&.pull_request {
+			background-color: #fefced;
+		}
+
 		.votes {
 			.pull-left;
 			width: 10%;
@@ -599,7 +607,6 @@
 		}
 	}
 	&:hover .award-btn { display: block; }
-	
 }
 
 .event.commit {

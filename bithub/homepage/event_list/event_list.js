@@ -5,6 +5,7 @@ steal(
 	'bithub/homepage/event_list/views/greatest.ejs',
 	'bithub/homepage/event_list/views/_event.ejs',
 	'bithub/homepage/event_list/views/_event_children.ejs',
+	'bithub/homepage/event_list/views/_event_child_event.ejs',
 	'bithub/homepage/event_list/views/_digest.ejs',
 	'bithub/homepage/event_list/views/_event_code.ejs',	
 	'bithub/homepage/event_list/views/_code.ejs',	
@@ -22,7 +23,7 @@ steal(
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
 	'can/observe/delegate',
-	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, digestPartial, codeEventPartial, codePartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
+	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, eventChildEventPartial, digestPartial, codeEventPartial, codePartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
@@ -130,6 +131,7 @@ steal(
 					eventPartial: eventPartial,
 					determineEventPartial: determineEventPartial,
 					eventChildrenPartial: eventChildrenPartial,
+					eventChildEventPartial: eventChildEventPartial,
 					digestPartial: digestPartial,
 					codeEventPartial: codeEventPartial,
 					codePartial: codePartial,

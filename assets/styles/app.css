@@ -9709,6 +9709,12 @@ h4.handwriting {
 .event .replies .reply-event:nth-child(even) {
   background-color: #fafafa;
 }
+.event .replies .reply-event.commit {
+  background-color: #e6f4ff;
+}
+.event .replies .reply-event.pull_request {
+  background-color: #fefced;
+}
 .event .replies .reply-event .votes {
   float: left;
   width: 10%;

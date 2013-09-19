@@ -1,0 +1,33 @@
+<div class="reply-event row <%= type %>" <%= (el) -> el.data('eventObj', event)  %> >
+
+  <% if (event.attr('props.awarded')) { %>
+  <div class="awarded-badge"></div>
+  <% } %>
+
+  <% if (!event.attr('props.thread_awarded')) { %>
+  <div class="award-btn">
+	<a href="#"><span class="caret"></span>Award</a>
+  </div>
+  <% } %>
+
+  <div class="votes vote-btn">
+	<div class="uparrow"></div>
+	<div class="count"><%= event.attr('upvotes') %></div>
+  </div>
+
+  <div class="body reply">
+
+	<% if (type == 'commit') { %>
+	<a href="<%= event.attr('url') %>"><%= event.attr('source_data.sha').substring(0, 6) %></a> - <%== event.attr('title') %>
+	<% } else { %>
+	<%== event.attr('body') %>
+	<% } %>
+
+	<div class="event-metadata pull-right">
+	  <a href="#"><%== event.attr('author.name') || event.attr('props.origin_author_name') %></a> / 
+	  <%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
+	</div>
+
+  </div> <!-- /.body -->
+
+</div> <!-- /.reply-event -->

@@ -1,40 +1,22 @@
 <div class="replies row">
-	<span class="replies-caret"></span>
-	<% list(events, function( event ) { %>
+  <span class="replies-caret"></span>
+  <% list(events, function( event ) { %>
 
-		<div class="reply-event row" <%= (el) -> el.data('eventObj', event)  %> >
+  <% if( event.attr('tags').indexOf('push_event') >= 0 ) { %>
 
-			<% if (event.attr('props.awarded')) { %>
-				<div class="awarded-badge"></div>
-			<% } %>
+  <% list(event.attr('children'), function( event ) { %>
+  <%== eventChildEventPartial.render( can.extend({event: event, eventChildEventPartial: eventChildEventPartial, type: 'commit'}, this)); %>
+  <% }) %>
+  
+  <% } else if( event.attr('tags').indexOf('pull_request_event') >= 0 ) { %>
+  
+  <%== eventChildEventPartial.render( can.extend({event: event, eventChildEventPartial: eventChildEventPartial, type: 'pull_request'}, this)); %>
 
-			<% if (!event.attr('props.thread_awarded')) { %>
-				<div class="award-btn">
-					<a href="#"><span class="caret"></span>Award</a>
-				</div>
-			<% } %>
+  <% } else { %>
 
-			<div class="votes vote-btn">
-				<div class="uparrow"></div>
-				<div class="count"><%= event.attr('upvotes') %></div>
-			</div>
+  <%== eventChildEventPartial.render( can.extend({event: event, eventChildEventPartial: eventChildEventPartial, type: ''}, this)); %>
 
-			<div class="body reply">
+  <% } %>
 
-				<% if( event.attr('body') ) { %>
-					<%== event.attr('body') %>
-				<% } else { %>
-					<%== event.attr('title') %>
-				<% } %>
-
-				<div class="event-metadata pull-right">
-					<a href="#"><%== event.attr('author.name') || event.attr('props.origin_author_name') %></a> / 
-					<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
-				</div>
-
-			</div> <!-- /.body -->
-
-		</div> <!-- /.reply-event -->
-
-	<% }) %>
+  <% }) %>
 </div> <!-- /.replies -->

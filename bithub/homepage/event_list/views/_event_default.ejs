@@ -95,7 +95,7 @@
 	<% } %>
 
 	<% if (event.attr('children').length) { %>
-	<%== eventChildrenPartial.render({events: sortChildren(event.attr('children'), orderChildrenBy, 'desc')}) %>
+	<%== eventChildrenPartial.render({events: sortChildren(event.attr('children'), orderChildrenBy, 'desc'), eventChildEventPartial: eventChildEventPartial}) %>
 	<% } %>
 
   </div>

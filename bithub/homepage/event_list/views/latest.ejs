@@ -23,7 +23,7 @@
 					<% if ( !hasCategoryFilter() ) { %><h3 class="section-title"><i class="icon-<%= category %>"></i><%= category %></h3><% } %>
 					<div class="truncated">
 						<%== each( day.attr('types.' + category), function( event ) { %>
-						    <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+						    <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildrenPartial: eventChildrenPartial, eventChildEventPartial: eventChildEventPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
 						<% }) %>
 					</div>
 				</div>
