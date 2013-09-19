@@ -52,14 +52,15 @@ steal(
 			},
 
 			hasEmail: function() {
-				return this.attr('email') != ''; 
+				return !!this.attr('email'); 
 			},
 
 			hasAddress: function() {
-				return this.attr('address') != '' && this.attr('postal') != '' && this.attr('country') != '' && this.attr('city') != '';
+				return !!this.attr('address') && !!this.attr('postal') && !!this.attr('country') && !!this.attr('city');
 			},
 
 			isCompleted: function() {
+				console.log( this.hasEmail(), this.hasAddress() );
 				return this.hasEmail() && this.hasAddress();
 			},
 
