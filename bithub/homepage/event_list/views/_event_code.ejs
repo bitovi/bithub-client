@@ -8,6 +8,13 @@
 	<div class="count">
 	  <%= event.attr('upvotes') %>
 	</div>
+	
+	<% if (!event.attr('props.thread_awarded') && isLoggedIn() && isAdmin()) { %>
+	<% } %>
+	<div class="award-btn">
+	  <a href="#"><span class="caret"></span>Award</a>
+	</div>
+
 	<div class="clearfix"></div>
   </div>
 
@@ -15,9 +22,6 @@
   <div class="span7 content">
 
 	<div class="row">
-	  <h5 class="title">
-		<a href="<%= event.attr('url') %>">- <%= event.attr('source_data.sha').substring(0, 6) %> <%== event.attr('title') %></a>
-	  </h5>
 
 	  <div class="metadata-container pull-right">
 		<div class="event-metadata pull-right">
@@ -26,6 +30,10 @@
 			via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 		</div>
 	  </div>
+
+	  <h5 class="title">
+		<a href="<%= event.attr('url') %>">- <%= event.attr('source_data.sha').substring(0, 6) %> <%== event.attr('title') %></a>
+	  </h5>
 
 	  <div class="clearfix"></div>	  
 	</div>

@@ -82,7 +82,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				});
 				
 				if( grouped[author] ) {
-					// push events are additonally grouped by title
+					// push_events (commits) are additonally grouped by title
 					if( type == 'push_event' ) {
 						if( grouped[author][type][title] ) {
 							grouped[author][type][title].push( event );

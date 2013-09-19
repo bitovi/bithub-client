@@ -551,7 +551,7 @@
 }
 
 /* Award flags--------------------------------------------------- */
-.reply-event {
+.reply-event, .event.commit {
 	.awarded-badge {
 		background-image: url(/assets/images/awarded.png);
 		width: 37px;
@@ -600,6 +600,13 @@
 	}
 	&:hover .award-btn { display: block; }
 	
+}
+
+.event.commit {
+	.award-btn {
+		top: -1px;
+		left: -60px;
+	}
 }
 
 
