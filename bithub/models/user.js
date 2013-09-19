@@ -60,7 +60,6 @@ steal(
 			},
 
 			isCompleted: function() {
-				console.log( this.hasEmail(), this.hasAddress() );
 				return this.hasEmail() && this.hasAddress();
 			},
 

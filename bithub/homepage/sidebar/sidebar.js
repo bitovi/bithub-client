@@ -100,7 +100,6 @@ steal(
 							rewards.attr('length');
 							
 							for( var i = start; i < stop; i++ ) {
-								console.log( rewards.attr(i) );
 								buffer += opts.fn({
 									reward: rewards.attr(i),
 									rewardsUrl: rewardsUrl
