@@ -88,6 +88,7 @@ steal(
 							if( user.isLoggedIn() ) {
 								rewardsUrl = can.route.url({page: 'profile', view: 'rewards'});
 								start = rewards.nextRewardIdx( user.attr('achievements') );
+								if( start >= rewards.attr('length')-1 ) start--;
 								stop = start + 2;
 							} else {
 								if( rewards.attr('length') > 2 ) {
@@ -96,10 +97,10 @@ steal(
 								}
 							}
 
-							// trigger template to update
 							rewards.attr('length');
 							
 							for( var i = start; i < stop; i++ ) {
+								console.log( rewards.attr(i) );
 								buffer += opts.fn({
 									reward: rewards.attr(i),
 									rewardsUrl: rewardsUrl
