@@ -127,6 +127,5 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 			
 			return buffer;
 		}
-
 	});
 });

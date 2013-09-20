@@ -4,16 +4,17 @@ steal(
 	'./event_details.ejs',
 	'bithub/homepage/event_list/determine_event_partial.js',
 	'bithub/homepage/event_list/views/_event_children.ejs',
+	'bithub/homepage/event_list/views/_event_child_event.ejs',
 	'bithub/homepage/event_list/handlers',	
 	'bithub/helpers/ejsHelpers.js',
-	function(can, Event, eventDetailsView, determineEventPartial, eventChildrenPartial, EventHandlers){
+	function(can, Event, eventDetailsView, determineEventPartial, eventChildrenPartial, eventChildEventPartial, EventHandlers){
 
 		return can.Control.extend({
 			defaults : {}
 		}, {
 			init : function( elem, opts ){
 
-				var ejsHelpers = {
+				can.extend(can.EJS.Helpers.prototype, {
 					isAdmin: function () {
 						return opts.currentUser.isAdmin();
 					},
@@ -33,7 +34,7 @@ steal(
 							return "<a>" + event.attr('title') + "</a>";
 						}
 					}
-				};
+				});
 
 				Event.findOne({ id: can.route.attr('id') }, function( event ) {
 					elem.html( eventDetailsView({
@@ -42,8 +43,10 @@ steal(
 						user: opts.currentUser,
 						determineEventPartial: determineEventPartial,
 						eventChildrenPartial: eventChildrenPartial,
-						ejsHelpers: ejsHelpers
-					}, ejsHelpers) );
+						eventChildEventPartial: eventChildEventPartial,
+						projects: opts.projects,
+						categories: opts.categories
+					}) );
 				});
 
 				new EventHandlers(this.element, opts);
