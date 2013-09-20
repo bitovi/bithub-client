@@ -183,7 +183,7 @@ steal(
 						can.route.attr('state', val);
 					},
 					show: function() {
-						return can.route.attr('category') == 'bug'
+						return can.route.attr('category') == 'bug' || can.route.attr('category') == 'feature'
 					}
 					
 				});
