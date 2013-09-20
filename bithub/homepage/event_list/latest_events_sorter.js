@@ -80,6 +80,9 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				type = _.find( event.attr('tags'), function( tag ) {
 					return _.contains(types, tag);
 				});
+
+				// this check can be removed once all existing push_event/commits are grouped in db
+				if( !type ) continue;
 				
 				if( grouped[author] ) {
 					// push_events (commits) are additonally grouped by title

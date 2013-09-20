@@ -36,7 +36,7 @@
 	  </div>
 
 	  <h5 class="title">
-		<a href="<%= event.attr('url') %>">- <%= event.attr('source_data.sha').substring(0, 6) %> <%== event.attr('title') %></a>
+		<a href="<%= event.attr('url') %>">- <%= event.attr('source_data.sha') && event.attr('source_data.sha').substring(0, 6) %> <%== event.attr('title') %></a>
 	  </h5>
 
 	  <div class="clearfix"></div>	  
