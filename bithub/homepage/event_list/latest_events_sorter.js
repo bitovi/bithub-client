@@ -97,7 +97,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 						push_event: {}, // grouped by title
 						create_event: [],
 						pull_request_event: [],
-						author: event.attr('author') || event.attr('actor')
+						authorName: event.attr('author.name') || event.attr('actor')
 					};
 					if( type == 'push_event' ) {
 						grouped[author][type][title] = [ event ];
