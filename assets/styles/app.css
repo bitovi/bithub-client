@@ -8398,6 +8398,9 @@ button.btn-inverse:active.active {
 #profile-navbar {
   padding-top: 70px;
 }
+#profile-navbar .vert-padding {
+  padding-bottom: 20px;
+}
 #navbar .nav > li > a.active.boxed,
 #navbar .nav > li > a.boxed:hover,
 #navbar .projects .dropdown.open > a,
@@ -8537,11 +8540,12 @@ button#show-newpost-form-btn .caret {
 }
 .subnav-wrapper {
   background: #f3f4f4;
-  width: 100%;
   height: 35px;
   box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid #ffffff;
   z-index: 105;
+  position: fixed;
+  width: 100%;
 }
 .subnav {
   margin: 0;
