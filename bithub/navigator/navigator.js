@@ -2,8 +2,9 @@ steal(
 	'can',
 	'bithub/navigator/filterbar',
 	'bithub/navigator/admin_navbar',
+	'bithub/navigator/profile_navbar',
 	'bithub/helpers/permission_checker.js',
-	function(can, Filterbar, AdminNavbar, pc){
+	function(can, Filterbar, AdminNavbar, ProfileNavbar, pc){
 
 		return can.Control.extend('Bithub.Controls.Navigator', {
 			defaults : { },
@@ -32,6 +33,8 @@ steal(
 					this.element.html($div);
 					this._currentPage = currentPage;
 				}
+
+				new ProfileNavbar('#profile-navbar', this.options);
 			},
 
 			'{currentUser} isLoggedIn' : function () {

@@ -1,10 +1,9 @@
 steal(
 	'can',
 	'./init.mustache',
-	'./navbar.mustache',
 	'bithub/profile/info',
 	'bithub/profile/activities',
-	function(can, initView, navbarView, ProfileInfoControl, ProfileActivitiesControl){
+	function(can, initView, ProfileInfoControl, ProfileActivitiesControl){
 
 		var currentControl;
 		
@@ -14,31 +13,10 @@ steal(
 				views: {
 					info: ProfileInfoControl,
 					activities: ProfileActivitiesControl
-				},
-				routes: {
-					info: function () { return can.route.url({page: 'profile', view: 'info'}, false) },
-					activities: function () { return can.route.url({page: 'profile', view: 'activities'}, false) },
-					rewards: function () { return can.route.url({page: 'rewards'}, false) },
-					earnpoints: function () { return can.route.url({page: 'earnpoints'}, false) }
 				}
 			}
 		}, {
 			init : function (elem, opts) {
-
-				$('#profile-navbar').html( navbarView({
-					routes: this.options.routes,
-					user: this.options.currentUser
-				}, {
-					helpers: {
-						isProfilePage: function( opts ) {
-							return can.route.attr('page') == 'profile' ? opts.fn(this) : opts.inverse(this);
-						},
-						isActive: function( view, opts ) {
-							return can.route.attr('view') == view ? "active" : "";
-						}
-					}
-				}) );
-				
 				this.initControl(can.route.attr('view'), opts);
 			},
 
