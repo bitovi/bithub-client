@@ -21,7 +21,10 @@ steal('can',
 				  
 				  this.element.html(initView({
 					  user: opts.currentUser,
-					  rewards: rewards
+					  rewards: rewards,
+					  routes: {
+						  profile: can.route.url({page: 'profile', view: 'info'}, false)
+					  }
 				  }));
 
 				  if( opts.currentUser.isLoggedIn() ) {
