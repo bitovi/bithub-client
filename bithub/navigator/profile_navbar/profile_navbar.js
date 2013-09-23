@@ -27,6 +27,7 @@ steal(
 							}
 						},
 						isActive: function( routeUrl, opts ) {
+							can.route.attr('view'); // triggers on 'view' change?!
 							return routeUrl() == can.route.attr()['route'] ? "active" : "";
 						}
 					}
