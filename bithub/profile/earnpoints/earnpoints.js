@@ -7,7 +7,6 @@ steal('can',
 			  starred = new can.Observe.List(),
 			  events = {
 				  twitter: new can.Observe.List(),
-				  question: new can.Observe.List(),
 				  bug: new can.Observe.List(),
 				  feature: new can.Observe.List(),
 				  code: new can.Observe.List(),
