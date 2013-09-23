@@ -53,14 +53,8 @@ steal(
 					rewards: rewards,
 					accomplishments: accomplishments,
 					routes: {
-						earnpoints: function() {
-							var params = {
-								view: 'earnpoints',
-								page: user.isLoggedIn() ? 'profile' : 'homepage'
-							}
-								
-							return can.route.url( params )
-						}
+						earnpoints: can.route.url({page: 'earnpoints'}, false),
+						rewards: can.route.url({page: 'rewards'}, false)
 					}
 				}, {
 					helpers: {
@@ -86,7 +80,6 @@ steal(
 								stop = 2;
 							
 							if( user.isLoggedIn() ) {
-								rewardsUrl = can.route.url({page: 'profile', view: 'rewards'});
 								start = rewards.nextRewardIdx( user.attr('achievements') );
 								if( start >= rewards.attr('length')-1 ) start--;
 								stop = start + 2;
