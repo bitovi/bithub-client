@@ -4,9 +4,7 @@ steal(
 	'./navbar.mustache',
 	'bithub/profile/info',
 	'bithub/profile/activities',
-	'bithub/profile/earnpoints',
-	'bithub/profile/rewards',
-	function(can, initView, navbarView, ProfileInfoControl, ProfileActivitiesControl, EarnPointsControl, RewardsControl){
+	function(can, initView, navbarView, ProfileInfoControl, ProfileActivitiesControl){
 
 		var currentControl;
 		
@@ -15,15 +13,13 @@ steal(
 			defaults : {
 				views: {
 					info: ProfileInfoControl,
-					activities: ProfileActivitiesControl,
-					earnpoints: EarnPointsControl,
-					rewards: RewardsControl
+					activities: ProfileActivitiesControl
 				},
 				routes: {
 					info: function () { return can.route.url({page: 'profile', view: 'info'}, false) },
 					activities: function () { return can.route.url({page: 'profile', view: 'activities'}, false) },
-					rewards: function () { return can.route.url({page: 'profile', view: 'rewards'}, false) },
-					earnpoints: function () { return can.route.url({page: 'profile', view: 'earnpoints'}, false) }
+					rewards: function () { return can.route.url({page: 'rewards'}, false) },
+					earnpoints: function () { return can.route.url({page: 'earnpoints'}, false) }
 				}
 			}
 		}, {
