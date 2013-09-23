@@ -175,7 +175,9 @@ steal(
 				new HtmlSelect( this.element.find('#issue-state-filter'), {
 					items: [{value: 'open', display: 'Open'},
 							{value: 'closed', display: 'Closed'},
-							{value: 'both', display: 'All bugs'}],
+							{value: 'both', display: function() {
+								return "All " + can.route.attr('category') + "s";
+							}}],
 					currentValue: function() {
 						return can.route.attr('state')
 					},

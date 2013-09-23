@@ -16,7 +16,7 @@ steal(
 				this.upvote( can.data(el.closest('.event'), 'eventObj') );
 			},
 			
-			'.votes .award-btn click': function( el, ev ) {
+			'.votes .award-btn a click': function( el, ev ) {
 				var event = el.closest('.event').data('eventObj');
 				(new Award({event: event})).award();
 			},
