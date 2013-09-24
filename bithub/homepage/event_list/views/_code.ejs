@@ -3,7 +3,7 @@
 
   <% for( var author in codeEvents[repo] ) { %>
 
-  <h5 class="author"><%= codeEvents[repo][author].authorName %>:</h5>
+  <h5 class="author-title"><%= codeEvents[repo][author].authorName %>:</h5>
 
   <% for( var title in codeEvents[repo][author].push_event ) { %>
 
@@ -14,15 +14,17 @@
   <% } %>
   
   <% if( codeEvents[repo][author].pull_request_event.length > 0 ) { %>
-  <h5 class="title">Pull requests</h5>
-
+  <h5 class="category-title">Pull requests</h5>
+  <div><!-- break --></div>
+  
   <% list(codeEvents[repo][author].pull_request_event, function( event ) { %>
   <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
   <% }) %>
   <% } %>
   
   <% if( codeEvents[repo][author].create_event.length > 0 ) { %>
-  <h5 class="title">Create events</h5>
+  <h5 class="category-title">Create events</h5>
+  <div><!-- break --></div>
 	 
   <% list(codeEvents[repo][author].create_event, function( event ) { %>
   <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
@@ -30,7 +32,8 @@
   <% } %>
 
   <% if( codeEvents[repo][author].delete_event.length > 0 ) { %>
-  <h5 class="title">Delete events</h5>
+  <h5 class="category-title">Delete events</h5>
+  <div><!-- break --></div>
 	 
   <% list(codeEvents[repo][author].create_event, function( event ) { %>
   <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
