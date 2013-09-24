@@ -9241,6 +9241,9 @@ h4.handwriting {
 .event-list.top-rated {
   margin-top: 20px;
 }
+.code-events {
+  margin-bottom: 10px;
+}
 .code-events h5.category-title {
   display: inline-block;
   margin-left: 67px;
@@ -9248,6 +9251,12 @@ h4.handwriting {
 .code-events h5.author-title {
   display: inline-block;
   margin-right: -67px;
+}
+.code-events h5.title {
+  font-weight: normal;
+}
+.code-events .event {
+  padding: 5px 0px;
 }
 .event {
   position: relative;
@@ -9823,10 +9832,6 @@ h4.handwriting {
 .reply-event:hover .award-btn,
 .event.commit:hover .award-btn {
   display: block;
-}
-.event.commit .award-btn {
-  top: -1px;
-  left: -60px;
 }
 /* Single Event --------------------------------------------------- */
 #event-container {
