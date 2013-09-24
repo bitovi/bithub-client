@@ -33,7 +33,7 @@
 			
 			<% if ( !!day.attr('types.code') ) { %>
 			<div class="category-code">
-			  <h3 class="section-title"><i class="icon-code"></i>Code</h3>
+			  <% if ( !hasCategoryFilter() ) { %><h3 class="section-title"><i class="icon-code"></i>Code</h3><% } %>
 			  <%== codePartial.render( can.extend({ codeEvents: day.code(), day: day }, this) ) %>
 			</div>
 			<% } %>
