@@ -1,15 +1,15 @@
 <h5 class="category-title"><%= event.attr('title') %></h5>
 <div><!-- break --></div>
 
-<% list( event.attr('children'), function( event ) { %>
+<% list( event.attr('children'), function( commit ) { %>
 
-<div class="event list-element commit" <%= (el) -> el.data('eventObj', event)  %> >  
+<div class="event list-element commit" <%= (el) -> el.data('eventObj', commit)  %> >  
   
   <!-- upvotes -->
   <div class="span1 votes">
 	<div class="uparrow"></div>
 	<div class="count">
-	  <%= event.attr('upvotes') %>
+	  <%= commit.attr('upvotes') %>
 	</div>
 	
 	<div class="clearfix"></div>
@@ -23,13 +23,13 @@
 	  <div class="metadata-container pull-right">
 		<div class="event-metadata pull-right">
 		  <small>
-			<%== formatTs( event, date ) %>
-			via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
+			<%== formatTs( commit, date ) %>
+			via <strong><a href="<%= commit.attr('url') %>"><%= commit.attr('feed') %></a></strong></small>
 		</div>
 	  </div>
 
 	  <h5 class="title">
-		<a href="<%= event.attr('url') %>">- <%= event.attr('source_data.sha') && event.attr('source_data.sha').substring(0, 6) %> <%== event.attr('title') %></a>
+		<a href="<%= event.attr('url') %>">- <%= commit.attr('source_data.sha') && commit.attr('source_data.sha').substring(0, 6) %> <%== commit.attr('title') %></a>
 	  </h5>
 
 	  <div class="clearfix"></div>	  
