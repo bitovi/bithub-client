@@ -20,7 +20,17 @@
 	<% if (type == 'commit') { %>
 	<a href="<%= event.attr('url') %>"><%= event.attr('source_data.sha').substring(0, 6) %></a> - <%== event.attr('title') %>
 	<% } else { %>
+
+	<% if( event.attr('tags').indexOf('issues_event') >= 0 ) { %>
+	Issue <%== event.attr('props.action') %>!
+	<% } else { %>
+	<% if( event.attr('body') ) { %>
 	<%== event.attr('body') %>
+	<% } else { %>
+	<%== event.attr('title') %>	
+	<% } %>
+	<% } %>
+	
 	<% } %>
 
 	<div class="event-metadata pull-right">
