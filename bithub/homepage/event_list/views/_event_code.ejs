@@ -1,3 +1,5 @@
+<h5 class="title"><%= event.attr('title') %></h5>
+
 <% list( event.attr('children'), function( event ) { %>
 
 <div class="event list-element commit" <%= (el) -> el.data('eventObj', event)  %> >  

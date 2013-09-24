@@ -69,14 +69,15 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 
 			var events = this.attr('types.code'),
 				length  = events.attr('length'),
-				types = ['push_event', 'create_event', 'pull_request_event'],
+				types = ['push_event', 'create_event', 'pull_request_event', 'delete_event'],
 				grouped = {},
-				event, author, type, title;
+				event, author, type, title, repo;
 			
 			for(var i = 0; i < length; i++){
 				event = events[i];
 				title = event.attr('title');
 				author = event.attr('props.origin_author_name');
+				repo = event.attr('source_data.repo.name');
 				type = _.find( event.attr('tags'), function( tag ) {
 					return _.contains(types, tag);
 				});
@@ -84,32 +85,47 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				// this check can be removed once all existing push_event/commits are grouped in db
 				if( !type ) continue;
 				
-				if( grouped[author] ) {
+				if( grouped[repo] ) {
+
+					if( !grouped[repo][author] ) {
+						grouped[repo][author] = {
+							push_event: {}, // grouped by title
+							create_event: [],
+							pull_request_event: [],
+							delete_event: [],
+							authorName: event.attr('author.name') || event.attr('actor')
+						}
+					}
+					
 					// push_events (commits) are additonally grouped by title
 					if( type == 'push_event' ) {
-						if( grouped[author][type][title] ) {
-							grouped[author][type][title].push( event );
+						if( grouped[repo][author][type][title] ) {
+							grouped[repo][author][type][title].push( event );
 						} else {
-							grouped[author][type][title] = [ event ];
+							grouped[repo][author][type][title] = [ event ];
 						}
 					} else {
-						grouped[author][type].push( event );
+						grouped[repo][author][type].push( event );
 					}
 				} else {
-					grouped[author] = {
+					grouped[repo] = {};
+					grouped[repo][author] = {						
 						push_event: {}, // grouped by title
 						create_event: [],
 						pull_request_event: [],
+						delete_event: [],
 						authorName: event.attr('author.name') || event.attr('actor')
 					};
 					if( type == 'push_event' ) {
-						grouped[author][type][title] = [ event ];
+						grouped[repo][author][type][title] = [ event ];
 					} else {
-						grouped[author][type].push( event );
+						grouped[repo][author][type].push( event );
 					}
 				}
 			}
 
+			//console.log( grouped );
+			
 			return grouped;
 		}
 	})
