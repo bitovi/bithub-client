@@ -77,7 +77,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				event = events[i];
 				title = event.attr('title');
 				author = event.attr('props.origin_author_name');
-				repo = event.attr('source_data.repo.name');
+				repo = event.attr('props.repo_name');
 				type = _.find( event.attr('tags'), function( tag ) {
 					return _.contains(types, tag);
 				});
