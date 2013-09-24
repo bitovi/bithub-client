@@ -9,16 +9,6 @@
 	  <%= event.attr('upvotes') %>
 	</div>
 	
-	<% if (!event.attr('props.thread_awarded') && isLoggedIn() && isAdmin()) { %>
-	<div class="award-btn">
-	  <a href="#"><span class="caret"></span>Award</a>
-	</div>
-	<% } %>
-
-	<% if (event.attr('props.thread_awarded')) { %>
-	<div class="awarded-badge"></div>
-	<% } %>
-
 	<div class="clearfix"></div>
   </div>
 
