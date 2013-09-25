@@ -53,20 +53,29 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 
 	Mustache.registerHelper('loop', function( collection, opts ) {
 		var buffer = "",
-		begin = (opts.hash && opts.hash.begin) || 0,
-		length = (opts.hash && opts.hash.length) || collection.length,
-		iOffset = (opts.hash && opts.hash.iOffset) || 0;
+			begin = (opts.hash && opts.hash.begin) || 0,
+			length = (opts.hash && opts.hash.length) || collection.length,
+			iOffset = (opts.hash && opts.hash.iOffset) || 0,
+			reverse = (opts.hash && opts.hash.reverse) || false;
 
+		collection = (typeof(collection) === 'function') ? collection() : collection;
 		if( !collection ) return buffer;
-
+		
 		if (collection.attr('length') > 0) {
 			begin = (typeof(begin) === 'function') ? begin() : begin;
 			length = (typeof(length) === 'function') ? length() : length;
 			iOffset = (typeof(iOffset) === 'function') ? iOffset() : iOffset;
 
-			for (var i = begin; i < begin+length && i < collection.length; i++) {
-				collection[i].attr('__index', i + iOffset + 1);
-				buffer += opts.fn( collection[i] );
+			if( !reverse ) {
+				for (var i = begin; i < begin+length && i < collection.length; i++) {
+					collection[i].attr('__index', i + iOffset + 1);
+					buffer += opts.fn( collection[i] );
+				}
+			} else {
+				for (var i = begin+length-1; i >= begin && i >= 0; i--) {
+					collection[i].attr('__index', i + iOffset + 1);
+					buffer += opts.fn( collection[i] );
+				}
 			}
 		}
 		return buffer;
