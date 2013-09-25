@@ -10,6 +10,6 @@ steal('can',
 			  destroy : 'DELETE /api/tags/{id}',
 
 			  allowedCategoriesForNewPost: ['article', 'app', 'plugin', 'event'],
-			  allowedProjectsForNewPost: ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui']
+			  allowedProjectsForNewPost: ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui', 'document_js']
 		  }, {});
 	  });
