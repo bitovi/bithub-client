@@ -29,6 +29,9 @@ steal(
 						},
 						display: function(opts) {
 							return (parse10(this.attr('value') || this.attr('authorship_value')) !== 0) ? opts.fn(this) : opts.inverse(this);
+						},
+						eventUrl: function() {
+							return can.route.url({page: 'eventdetails', id: this.attr('id')});
 						}
 					},
 					partials: {}
