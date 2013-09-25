@@ -17,10 +17,15 @@ steal(
 				}, {
 					helpers: {
 						getPoints: function( opts ) {
-							var value = this.value || this.authorship_value;
-							if (value > 0) { return "+" + value }
-							else if ( value == 0 ) { return value }
-							else { return "-" + value }
+							var value = this.value || this.authorship_value || 0;
+							
+							if (value > 0) {
+								return "+" + value
+							} else if ( value == 0 ) {
+								return value
+							} else {
+								return "-" + value
+							}
 						},
 						display: function(opts) {
 							return (parse10(this.attr('value') || this.attr('authorship_value')) !== 0) ? opts.fn(this) : opts.inverse(this);
