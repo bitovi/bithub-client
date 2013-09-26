@@ -17,7 +17,10 @@ steal(
 				return this.save().done(this.proxy( 'awardEvent' ));
 			},
 			awardEvent: function() {
-				this.event.attr('props').attr('awarded', true);
+				this.event.attr({
+					'props.awarded': true,
+					'props.thread_awarded': true
+				});
 			}
 		});
 	});
