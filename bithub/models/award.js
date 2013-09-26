@@ -18,7 +18,7 @@ steal(
 			},
 			awardEvent: function() {
 				this.event.attr({
-					'props.awarded': true,
+					'props.awarded_value': true,
 					'props.thread_awarded': true
 				});
 			}

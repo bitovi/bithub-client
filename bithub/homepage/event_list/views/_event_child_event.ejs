@@ -1,7 +1,7 @@
 <div class="reply-event row <%= type %>" <%= (el) -> el.data('eventObj', event)  %> >
 
-  <% if (event.attr('props.awarded')) { %>
-  <div class="awarded-badge"></div>
+  <% if (event.attr('props.awarded_value') >= 0) { %>
+  <div class="awarded-badge"><span>+<%= event.attr('props.awarded_value') %></span></div>
   <% } %>
 
   <% if (!event.attr('props.thread_awarded') && isLoggedIn() && isAdmin()) { %>
