@@ -7,6 +7,11 @@ steal(
 	'jquerypp/dom/form_params',
 	function(can, profileInfoView, Dropdown, Country){
 
+		var countriesParams = {
+			order: ['priority:desc', 'name'],
+			limit: 500
+		}
+		
 		return can.Control.extend({
 			pluginName: 'profile-info',
 			defaults : { }
@@ -38,7 +43,7 @@ steal(
 					};
 				var	countries = new can.Observe.List([ blankCountry ]);
 
-				Country.findAll({order: 'name'}, function (data) {
+				Country.findAll( countriesParams, function (data) {
 					countries.push.apply(countries, data);
 					self.element.find('#countryISO').val( self.options.currentUser.attr('country.iso') );
 				});
