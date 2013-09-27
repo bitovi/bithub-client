@@ -34,7 +34,7 @@
 	<% } %>
 
 	<div class="event-metadata pull-right">
-	  <a href="#"><%== event.attr('author.name') || event.attr('props.origin_author_name') %></a> / 
+	  <%== event.attr('author.name') || event.attr('props.origin_author_name') %> / 
 	  <%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
 	</div>
 

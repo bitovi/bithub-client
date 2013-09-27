@@ -51,7 +51,7 @@
 	  <div class="metadata-container">
 		<div class="event-metadata pull-right">
 		  <small>
-			<% if( getAuthorName( event ) ) { %><a href="#"><%== getAuthorName( event ) %></a> /<% } %>
+			<% if( getAuthorName( event ) ) { %><%== getAuthorName( event ) %> /<% } %>
 			<%== formatTs( event, date ) %>
 			via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 		</div>

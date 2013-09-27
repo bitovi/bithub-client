@@ -49,7 +49,7 @@
 	  <div class="metadata-container pull-right">
 		<div class="event-metadata pull-right">
 		  <small>
-			<% if( getAuthorName( event ) ) { %><a href="#"><%== getAuthorName( event ) %></a> /<% } %>
+			<% if( getAuthorName( event ) ) { %><%== getAuthorName( event ) %> /<% } %>
 			<%== prettifyTs( event.attr('origin_ts'), 'datetime' ) %>
 			via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
 		</div>
