@@ -10,7 +10,7 @@
 					<%= digest[type][k].length %> people
 				<% } %> <%= dict.actions[type] %>
 				<span class="popup">
-					<a href="<%= dict.targetUrl[type] %><%= k %>">@<%= k %></a>
+					<a href="<%= dict.targetUrl[type] %><%= k %>"><%= k %></a>
 					<% if(digest[type][k].length !== 1){ %>
 						<div>
 							<span class="people-caret"></span>
