@@ -10267,6 +10267,9 @@ input.transfer-ownership {
 .rewards .item.almost .message {
   background-color: #71bee5;
 }
+.sidebar .rewards {
+  overflow: hidden;
+}
 .sidebar .rewards .item {
   width: 124px;
   height: 124px;
