@@ -31,16 +31,29 @@ steal(
 		}, {
 			fromSession: function() {
 				var self = this;
+
+				this.loadSession(function( data ) {
+					self.attr( cleanupData(data) );
+					self.attr('isLoggedIn', true);
+				}, function( response ) {
+					self.attr('isLoggedIn', false);
+					console.error( response );
+				});
+			},
+
+			refreshSession: function() {
+				var self = this;
+
+				this.loadSession( function( data ) {
+					self.attr( cleanupData( data ) );
+				});
+			},
+
+			loadSession: function( cbDone, cbFail) {
 				can.ajax({
 					url: '/api/auth/session',
 					type: 'GET'
-				}).done(function(data) {
-					self.attr(cleanupData(data));
-					self.attr('isLoggedIn', true);
-				}).fail(function(response) {
-					self.attr('isLoggedIn', false);
-					console.error(response);
-				});
+				}).done( cbDone ).fail( cbFail );
 			},
 			
 			isLoggedIn: function() {
