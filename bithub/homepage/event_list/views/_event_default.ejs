@@ -24,16 +24,11 @@
 	</div>
 	<% } %>
 
-	<% if (event.attr('props.thread_awarded')) { %>
-	<div class="awarded">Awarded</div>
-	<% } %>
-
 	<div class="clearfix"></div>
   </div>
 
   <!-- content -->
   <div class="span7 content">
-
 
 	<div class="row">
 	  <% if (event.attr('image_url')) { %>
@@ -41,6 +36,12 @@
 	  <% } %>
 	  <h5 class="title">
 		<%== eventUrl( event ) %>
+		
+		<% if (event.attr('props.thread_awarded')) { %>
+		<span class="awarded">Awarded</span>
+		<% } %>
+
+		<span class='badge'>+<%= event.attr('upvotes')*2 %></span>
 	  </h5>
 	  <div class="body" <%= applyMore() %>><%== event.attr('body') %></div>
 	  <div class="clearfix"></div>	  
