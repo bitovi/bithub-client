@@ -10,10 +10,15 @@ steal(
 			defaults : {}
 		}, {
 			init : function(element, options){
-
+				var user = options.currentUser,
+					routes = options.routes;
+				
+				// refresh user session to get fresh activities list
+				user.refreshSession();
+				
 				element.html(activitiesView({
-					user: options.currentUser,
-					routes: options.routes
+					user: user,
+					routes: routes
 				}, {
 					helpers: {
 						getPoints: function( opts ) {

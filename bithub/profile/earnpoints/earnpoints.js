@@ -35,6 +35,8 @@ steal('can',
 				  init : function( elem, opts ){
 					  var self = this,
 						  user = opts.currentUser;
+
+					  user.isLoggedIn() && user.refreshSession();
 					  
 					  this.element.html(initView({
 						  user: user,
