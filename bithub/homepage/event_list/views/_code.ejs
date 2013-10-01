@@ -11,7 +11,46 @@
   <div><!-- break --></div>
   
   <% list(codeEvents[repo][author].push_event[title], function( event ) { %>
-  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+
+  <% list(event.attr('children'), function( commit ) { %>
+
+  <div class="event list-element commit-event" <%= (el) -> el.data('eventObj', commit)  %> >  
+	
+	<!-- upvotes -->
+	<div class="span1 votes">
+	  <div class="uparrow"></div>
+	  <div class="count">
+		<%= commit.attr('upvotes') %>
+	  </div>
+	  
+	  <div class="clearfix"></div>
+	</div>
+
+	<!-- content -->
+	<div class="span7 content">
+
+	  <div class="row">
+
+		<div class="metadata-container pull-right">
+		  <div class="event-metadata pull-right">
+			<small><%== formatTs( commit, day.attr('date') ) %></small>
+		  </div>
+		</div>
+
+		<h5 class="title">
+		  <a href="<%= event.attr('url') %>">- <%= commit.attr('source_data.sha') && commit.attr('source_data.sha').substring(0, 6) %> <%== commit.attr('title') %></a>
+		</h5>
+
+		<div class="clearfix"></div>	  
+	  </div>
+
+	</div>
+
+	<div class="clearfix"></div>
+  </div>
+
+  <% }) %>
+
   <% }) %>
   
   <% } %>
@@ -21,7 +60,42 @@
   <div><!-- break --></div>
   
   <% list(codeEvents[repo][author].pull_request_event, function( event ) { %>
-  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+
+  <div class="event list-element commit-event" <%= (el) -> el.data('eventObj', event)  %> >  
+	
+	<!-- upvotes -->
+	<div class="span1 votes">
+	  <div class="uparrow"></div>
+	  <div class="count">
+		<%= event.attr('upvotes') %>
+	  </div>
+	  
+	  <div class="clearfix"></div>
+	</div>
+
+	<!-- content -->
+	<div class="span7 content">
+
+	  <div class="row">
+
+		<div class="metadata-container pull-right">
+		  <div class="event-metadata pull-right">
+			<small><%== formatTs( event, day.attr('date') ) %></small>
+		  </div>
+		</div>
+
+		<h5 class="title">
+		  <a href="<%= event.attr('url') %>"><%== event.attr('title') %></a>
+		</h5>
+
+		<div class="clearfix"></div>	  
+	  </div>
+
+	</div>
+
+	<div class="clearfix"></div>
+  </div>
+  
   <% }) %>
   <% } %>
   
@@ -30,7 +104,40 @@
   <div><!-- break --></div>
 	 
   <% list(codeEvents[repo][author].create_event, function( event ) { %>
-  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+  <div class="event list-element commit-event" <%= (el) -> el.data('eventObj', event)  %> >  
+	
+	<!-- upvotes -->
+	<div class="span1 votes">
+	  <div class="uparrow"></div>
+	  <div class="count">
+		<%= event.attr('upvotes') %>
+	  </div>
+	  
+	  <div class="clearfix"></div>
+	</div>
+
+	<!-- content -->
+	<div class="span7 content">
+
+	  <div class="row">
+
+		<div class="metadata-container pull-right">
+		  <div class="event-metadata pull-right">
+			<small><%== formatTs( event, day.attr('date') ) %></small>
+		  </div>
+		</div>
+
+		<h5 class="title">
+		  <a href="<%= event.attr('url') %>"><%== event.attr('title') %></a>
+		</h5>
+
+		<div class="clearfix"></div>	  
+	  </div>
+
+	</div>
+
+	<div class="clearfix"></div>
+  </div>
   <% }) %>
   <% } %>
 
@@ -39,11 +146,55 @@
   <div><!-- break --></div>
 	 
   <% list(codeEvents[repo][author].create_event, function( event ) { %>
-  <%== determineEventPartial(event.attr('tags')).render({event: event, eventChildEventPartial: eventChildEventPartial, eventChildrenPartial: eventChildrenPartial, projects: projects, categories: categories, visibleTags: visibleTags, orderChildrenBy: 'origin_ts', date: day.attr('date')}) %>
+  <div class="event list-element commit-event" <%= (el) -> el.data('eventObj', event)  %> >  
+	
+	<!-- upvotes -->
+	<div class="span1 votes">
+	  <div class="uparrow"></div>
+	  <div class="count">
+		<%= event.attr('upvotes') %>
+	  </div>
+	  
+	  <div class="clearfix"></div>
+	</div>
+
+	<!-- content -->
+	<div class="span7 content">
+
+	  <div class="row">
+
+		<div class="metadata-container pull-right">
+		  <div class="event-metadata pull-right">
+			<small><%== formatTs( event, day.attr('date') ) %></small>
+		  </div>
+		</div>
+
+		<h5 class="title">
+		  <a href="<%= event.attr('url') %>"><%== event.attr('title') %></a>
+		</h5>
+
+		<div class="clearfix"></div>	  
+	  </div>
+
+	</div>
+
+	<div class="clearfix"></div>
+  </div>
   <% }) %>
   <% } %>
 
+  <div class="status row" style="margin-left: 67px; margin-top: 5px;">
+	<div class="metadata-container pull-right">
+	  <div class="event-metadata pull-right"><small>via Github</small></div>
+	</div>
+	<ul class="tag-list nav">
+	  <%== renderEventTags( codeEvents[repo][author].eventForTags, visibleTags ) %>
+	</ul>
+  </div>
+
+
   
   <% } %>
+
   <% } %>
 </div>

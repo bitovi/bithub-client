@@ -9363,28 +9363,28 @@ h4.handwriting {
   height: 10px;
   margin-top: 6px;
 }
-.event .status,
-.event .status a,
+.status,
+.status a,
 .event .manage-bar > ul.nav > li > a {
   color: #999;
 }
-.event .status .user-icon {
+.status .user-icon {
   height: 14px;
   margin-right: 5px;
 }
-.event ul.tag-list,
+ul.tag-list,
 .event ul.manage-bar {
   position: relative;
   z-index: 1;
   display: inline-block;
   margin: 0px;
 }
-.event ul.tag-list:hover {
+ul.tag-list:hover {
   background-color: white;
   z-index: 3;
   box-shadow: 5px 0px 5px white;
 }
-.event ul.tag-list li,
+ul.tag-list li,
 .event .manage-bar ul.nav > li {
   background-color: #ecebeb;
   -webkit-border-radius: 5px;
@@ -9728,7 +9728,7 @@ h4.handwriting {
 .event .replies .reply-event:nth-child(even) {
   background-color: #fafafa;
 }
-.event .replies .reply-event.commit {
+.event .replies .reply-event.commit-event {
   background-color: #e6f4ff;
 }
 .event .replies .reply-event.pull_request {
@@ -9783,7 +9783,7 @@ h4.handwriting {
 }
 /* Award flags--------------------------------------------------- */
 .reply-event .awarded-badge,
-.event.commit .awarded-badge {
+.event.commit-event .awarded-badge {
   background-image: url(/assets/images/awarded.png);
   width: 37px;
   height: 37px;
@@ -9791,11 +9791,11 @@ h4.handwriting {
   left: -34px;
 }
 .reply-event .awarded-badge span,
-.event.commit .awarded-badge span {
+.event.commit-event .awarded-badge span {
   display: none;
 }
 .reply-event .award-btn,
-.event.commit .award-btn {
+.event.commit-event .award-btn {
   position: absolute;
   left: -65px;
   padding-right: 10px;
@@ -9803,7 +9803,7 @@ h4.handwriting {
   width: 100px;
 }
 .reply-event .award-btn a,
-.event.commit .award-btn a {
+.event.commit-event .award-btn a {
   background-color: #f89406;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -9816,7 +9816,7 @@ h4.handwriting {
   width: 35px;
 }
 .reply-event .award-btn a:before,
-.event.commit .award-btn a:before {
+.event.commit-event .award-btn a:before {
   width: 0;
   height: 0;
   position: absolute;
@@ -9830,11 +9830,11 @@ h4.handwriting {
   border-left: 6px solid #f89406;
 }
 .reply-event .award-btn a .caret,
-.event.commit .award-btn a .caret {
+.event.commit-event .award-btn a .caret {
   display: none;
 }
 .reply-event:hover .award-btn,
-.event.commit:hover .award-btn {
+.event.commit-event:hover .award-btn {
   display: block;
 }
 /* Single Event --------------------------------------------------- */

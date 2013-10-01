@@ -84,7 +84,10 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 
 				// this check can be removed once all existing push_event/commits are grouped in db
 				if( !type ) continue;
-				
+
+				// ignore push events without commits
+				if( type == 'push_event' && event.attr('children').length == 0 ) continue;
+
 				if( grouped[repo] ) {
 
 					if( !grouped[repo][author] ) {
@@ -93,7 +96,8 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 							create_event: [],
 							pull_request_event: [],
 							delete_event: [],
-							authorName: event.attr('author.name') || event.attr('actor')
+							authorName: event.attr('author.name') || event.attr('actor') || author,
+							eventForTags: events[i]
 						}
 					}
 					
@@ -114,7 +118,8 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 						create_event: [],
 						pull_request_event: [],
 						delete_event: [],
-						authorName: event.attr('author.name') || event.attr('actor')
+						authorName: event.attr('author.name') || event.attr('actor'),
+						eventForTags: events[i]
 					};
 					if( type == 'push_event' ) {
 						grouped[repo][author][type][title] = [ event ];
