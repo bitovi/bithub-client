@@ -51,9 +51,9 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				if(type === 'follow'){
 					what = '@' + digest.attr('props.target');
 				} else if(type === 'watch'){
-					what = digest.attr('props.repo').split('/')[1];
+					what = digest.attr('props.repo_name').split('/')[1];
 				} else if(type === 'fork'){
-					what = digest.attr('props.repo').split('/')[1];
+					what = digest.attr('props.repo_name').split('/')[1];
 				}
 
 				if(type){
