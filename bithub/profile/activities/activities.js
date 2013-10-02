@@ -24,6 +24,19 @@ steal(
 						display: function(opts) {
 							return (parse10(this.attr('value') || this.attr('authorship_value')) !== 0) ? opts.fn(this) : opts.inverse(this);
 						},
+						calcPoints: function() {
+							var sum = parse10( this.attr('value') );
+
+							if( this.attr('upvotes') ) sum += parse10( this.attr('upvotes') );
+
+							if( sum > 0 ) {
+								return '+' + sum;
+							} else if( sum < 0 ) {
+								return '-' + sum;
+							} else {
+								return '0';
+							}
+						},
 						eventUrl: function() {
 							return can.route.url({page: 'eventdetails', id: this.attr('id')});
 						}
