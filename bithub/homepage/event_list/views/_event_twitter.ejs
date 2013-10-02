@@ -58,7 +58,7 @@
 		</div>
 	  </div>	  
 	  <ul class="tag-list nav">
-		<%== renderEventTags( event, visibleTags ) %>
+		<%== renderEventTags( event, data.visibleTags ) %>
 	  </ul>
 
 	  <% if( isAdmin() ) { %>
@@ -74,13 +74,13 @@
 	<!-- ADMIN -->
 	<div class="manage-bar row">
 	  <ul class="nav">
-		<% list(projects, function( project ) { %>
+		<% list(data.projects, function( project ) { %>
 		<li data-tag="<%= project.attr('name') %>" class="tag-action present_remove"><a href="#" ><small><%= project.attr('name') %></small></a></li>
 		<% }) %>
 		<li class="dropdown">
 		  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><small><%= event.attr('category') %></small><b class="caret"></b></a>
 		  <ul class="dropdown-menu">
-			<% list(categories, function( category ) { %>
+			<% list(data.categories, function( category ) { %>
 			<li class="category-action" data-category="<%= category.attr('name') %>"><a href="#"><%= category.attr('name') %></a></li>
 			<% }) %>
 		  </ul>

@@ -118,23 +118,31 @@ steal(
 					}
 				});
 
-				this.element.html(initView({
+				var partials = {
+					determineEvent: determineEventPartial,
+					digest: digestPartial,
+					code: codePartial,
+					eventChildren: eventChildrenPartial,
+					eventChildEvent: eventChildEventPartial
+				}
+
+				var data = {
 					latestEvents: this.latestEvents,
 					days: this.latestIndex,
-					greatestEvents: this.greatestEvents,
-					partial: this.currentView,
-					latestView: latestView,
-					greatestView: greatestView,
-					determineEventPartial: determineEventPartial,
-					eventChildrenPartial: eventChildrenPartial,
-					eventChildEventPartial: eventChildEventPartial,
-					digestPartial: digestPartial,
-					codePartial: codePartial,
+					greatestEvents: this.greatestEvents,					
 					latestCategories: latestCategories,
 					projects: opts.projects,
 					categories: opts.categories,
 					visibleTags: opts.visibleTags,
-					digestDict: digestDict,
+					digestDict: digestDict
+				}
+
+				this.element.html(initView({
+					view: this.currentView,
+					latestView: latestView,
+					greatestView: greatestView,
+					partials: partials,
+					data: data,
 					canLoad: this.canLoad
 				}));
 

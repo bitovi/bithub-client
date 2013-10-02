@@ -10,7 +10,7 @@
 	</div>
 
 	<div class="event-list">
-		<% if (partial() === 'latest') { %>
+		<% if (view() === 'latest') { %>
 			<%== latestView.render(this) %>
 		<% } else { %>
 			<%== greatestView.render(this) %>
