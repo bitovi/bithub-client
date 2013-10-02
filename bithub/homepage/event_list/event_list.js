@@ -3,7 +3,6 @@ steal(
 	'bithub/homepage/event_list/views/init.ejs',
 	'bithub/homepage/event_list/views/latest.ejs',
 	'bithub/homepage/event_list/views/greatest.ejs',
-	'bithub/homepage/event_list/views/_event.ejs',
 	'bithub/homepage/event_list/views/_event_children.ejs',
 	'bithub/homepage/event_list/views/_event_child_event.ejs',
 	'bithub/homepage/event_list/views/_digest.ejs',
@@ -23,7 +22,7 @@ steal(
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
 	'can/observe/delegate',
-	function (can, initView, latestView, greatestView, eventPartial, eventChildrenPartial, eventChildEventPartial, digestPartial, codeEventPartial, pushPartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
+	function (can, initView, latestView, greatestView, eventChildrenPartial, eventChildEventPartial, digestPartial, codeEventPartial, pushPartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
@@ -120,6 +119,9 @@ steal(
 					}
 				});
 
+				var partials = {
+					
+				}
 
 				this.element.html(initView({
 					latestEvents: this.latestEvents,
@@ -128,7 +130,6 @@ steal(
 					partial: this.currentView,
 					latestView: latestView,
 					greatestView: greatestView,
-					eventPartial: eventPartial,
 					determineEventPartial: determineEventPartial,
 					eventChildrenPartial: eventChildrenPartial,
 					eventChildEventPartial: eventChildEventPartial,
