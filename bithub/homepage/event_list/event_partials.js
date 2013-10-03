@@ -5,8 +5,9 @@ steal(
 	'bithub/homepage/event_list/views/_digest.ejs',
 	'bithub/homepage/event_list/views/_code.ejs',
 	'bithub/homepage/event_list/views/_manage_bar.ejs',
+	'bithub/homepage/event_list/views/_toolbar.ejs',
 	'bithub/homepage/event_list/determine_event_partial.js',
-	function(can, eventChildrenPartial, eventChildEventPartial, digestPartial, codePartial, manageBarPartial, determineEventPartial) {
+	function(can, eventChildrenPartial, eventChildEventPartial, digestPartial, codePartial, manageBarPartial, toolbarPartial,  determineEventPartial) {
 
 		return {
 			determineEvent: determineEventPartial,
@@ -14,6 +15,7 @@ steal(
 			code: codePartial,
 			eventChildren: eventChildrenPartial,
 			eventChildEvent: eventChildEventPartial,
-			manageBar: manageBarPartial
+			manageBar: manageBarPartial,
+			toolbar: toolbarPartial
 		}
 	})

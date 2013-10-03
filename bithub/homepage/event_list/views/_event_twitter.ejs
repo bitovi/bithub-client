@@ -1,9 +1,6 @@
 <div class="event list-element" <%= (el) -> el.data('eventObj', event)  %> >
-  <% if (data.user.isAdmin()) { %>
-  <div class="toolbar">
-	<a href="#" class="delete-event close">&times;</a>
-  </div>
-  <% } %>
+
+  <%== partials.toolbar.render({user: data.user}) %>
 
   <!-- upvotes -->
   <div class="span1 votes">
