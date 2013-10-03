@@ -3,12 +3,7 @@ steal(
 	'bithub/homepage/event_list/views/init.ejs',
 	'bithub/homepage/event_list/views/latest.ejs',
 	'bithub/homepage/event_list/views/greatest.ejs',
-	'bithub/homepage/event_list/views/_event_children.ejs',
-	'bithub/homepage/event_list/views/_event_child_event.ejs',
-	'bithub/homepage/event_list/views/_digest.ejs',
-	'bithub/homepage/event_list/views/_code.ejs',
-	'bithub/homepage/event_list/views/_manage_bar.ejs',
-	'bithub/homepage/event_list/determine_event_partial.js',
+	'bithub/homepage/event_list/event_partials.js',
 	'bithub/homepage/event_list/handlers',
 	'ui/html_select',
 	'bithub/homepage/event_list/spinner',
@@ -23,7 +18,7 @@ steal(
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
 	'can/observe/delegate',
-	function (can, initView, latestView, greatestView, eventChildrenPartial, eventChildEventPartial, digestPartial, codePartial, manageBarPartial, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
+	function (can, initView, latestView, greatestView, eventPartials, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
@@ -89,15 +84,6 @@ steal(
 
 				this.currentView = can.compute('latest');
 
-				var partials = {
-					determineEvent: determineEventPartial,
-					digest: digestPartial,
-					code: codePartial,
-					eventChildren: eventChildrenPartial,
-					eventChildEvent: eventChildEventPartial,
-					manageBar: manageBarPartial
-				}
-
 				var data = {
 					latestEvents: this.latestEvents,
 					days: this.latestIndex,
@@ -114,7 +100,7 @@ steal(
 					view: this.currentView,
 					latestView: latestView,
 					greatestView: greatestView,
-					partials: partials,
+					partials: eventPartials,
 					data: data,
 					canLoad: this.canLoad
 				}));
