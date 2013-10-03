@@ -20,32 +20,8 @@
 	  <div class="clearfix"></div>	  
 	</div>
 
-	<!-- status -->
-	<div class="status row">
-	  <div class="metadata-container">
-		<div class="event-metadata pull-right">
-		  <small>
-			<% if( getAuthorName( event ) ) { %><%== getAuthorName( event ) %> /<% } %>
-			<%== formatTs( event, date ) %>
-			via <strong><a href="<%= event.attr('url') %>"><%= event.attr('feed') %></a></strong></small>
-		</div>
-	  </div>
-	  <% if (event.attr('children').length) { %>
-	  <a class="expand-replies"><span class="icon"></span>Earlier (<%= event.attr('children').length %>)</a>
-	  <% } %>
-	  <ul class="tag-list nav">
-		<%== renderEventTags( event, data.visibleTags ) %>
-	  </ul>
-
-	  <% if( data.user.isAdmin() ) { %>
-	  <!-- ADMIN -->
-	  <a href="#" class="expand-manage-bar"></a>	  
-	  <!-- /ADMIN -->
-	  <% } %>
-
-	  <div class="clearfix"></div>
-	</div>
-
+	<%== partials.statusBar.render({event: event, user: data.user, visibleTags: data.visibleTags, date: date}) %>
+	
 	<%== partials.manageBar.render({event: event, data: data}) %>
 
 	<% if (event.attr('children').length) { %>

@@ -4,11 +4,12 @@ steal(
 	'bithub/homepage/event_list/views/_event_child_event.ejs',
 	'bithub/homepage/event_list/views/_digest.ejs',
 	'bithub/homepage/event_list/views/_code.ejs',
+	'bithub/homepage/event_list/views/_status_bar.ejs',
 	'bithub/homepage/event_list/views/_manage_bar.ejs',
 	'bithub/homepage/event_list/views/_toolbar.ejs',
 	'bithub/homepage/event_list/views/_upvote.ejs',
 	'bithub/homepage/event_list/determine_event_partial.js',
-	function(can, eventChildrenPartial, eventChildEventPartial, digestPartial, codePartial, manageBarPartial, toolbarPartial, upvotePartial, determineEventPartial) {
+	function(can, eventChildrenPartial, eventChildEventPartial, digestPartial, codePartial, statusBarPartial, manageBarPartial, toolbarPartial, upvotePartial, determineEventPartial) {
 
 		return {
 			determineEvent: determineEventPartial,
@@ -16,6 +17,7 @@ steal(
 			code: codePartial,
 			eventChildren: eventChildrenPartial,
 			eventChildEvent: eventChildEventPartial,
+			statusBar: statusBarPartial,
 			manageBar: manageBarPartial,
 			upvote: upvotePartial,
 			toolbar: toolbarPartial
