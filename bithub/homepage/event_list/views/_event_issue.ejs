@@ -2,31 +2,10 @@
 
   <%== partials.toolbar.render({user: data.user}) %>
 
-  <!-- upvotes -->
-  <div class="span1 votes">
-	<div class="uparrow"></div>
-	<div class="count">
-	  <%= event.attr('upvotes') %>
-	</div>
-
-	<div class="voteup-btn">
-	  <span class="upvote-caret"></span>Vote up
-	</div>
-
-	<% if (!event.attr('props.thread_awarded') && data.user.isLoggedIn() && data.user.isAdmin()) { %>
-	<div class="award-btn">
-	  <div class="word"><span>Award</span></div>
-	  <div class="caret-right"></div>
-	  <div class="clearfix"></div>
-	</div>
-	<% } %>
-
-	<div class="clearfix"></div>
-  </div>
+  <%== partials.upvote.render({event: event, user: data.user, award: true}) %>
 
   <!-- content -->
   <div class="span7 content">
-
 
 	<div class="row">
 	  <% if (event.attr('image_url')) { %>

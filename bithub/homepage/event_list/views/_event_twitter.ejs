@@ -2,19 +2,7 @@
 
   <%== partials.toolbar.render({user: data.user}) %>
 
-  <!-- upvotes -->
-  <div class="span1 votes">
-	<div class="uparrow"></div>
-	<div class="count">
-	  <%= event.attr('upvotes') %>
-	</div>
-
-	<div class="voteup-btn">
-	  <span class="upvote-caret"></span>Vote up
-	</div>
-
-	<div class="clearfix"></div>
-  </div>
+  <%== partials.upvote.render({event: event, user: data.user}) %>
 
   <!-- content -->
   <div class="span7 content">
