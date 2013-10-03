@@ -18,6 +18,7 @@ steal(
 	'bithub/models/upvote.js',
 	'bithub/models/award.js',
 	'bithub/helpers/fun_helpers.js',
+	'bithub/helpers/fun_helpers.js',	
 	'can/construct/proxy',
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
@@ -87,31 +88,6 @@ steal(
 				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 
 				this.currentView = can.compute('latest');
-
-				can.extend(can.EJS.Helpers.prototype, {
-					formatTs: function( event, date) {
-						var format = 'datetime';
-
-						if( date && can.route.attr('view') == 'latest' && date == moment.utc(event.attr('origin_ts')).format('YYYY-MM-DD') ) format = 'time';
-						
-						return can.EJS.Helpers.prototype.prettifyTs( event.attr('origin_ts'), format );
-					},
-					hasCategoryFilter: function() {
-						return can.route.attr('category') != 'all';
-					},					
-					getAuthorName: function( event ) {
-						return event.attr('author.name') || event.attr('props.origin_author_name') || '';
-					},
-					eventUrl: function( event ) {
-						if (event.attr('url')) {
-							return "<a href=\"" + event.attr('url') + "\">" + event.attr('title') + "</a>";
-						} else if (event.attr('feed') === 'bithub') {
-							return can.route.link( event.attr('title'), {id: event.attr('id')}, {} )
-						} else {
-							return "<a>" + event.attr('title') + "</a>";
-						}
-					}
-				});
 
 				var partials = {
 					determineEvent: determineEventPartial,
