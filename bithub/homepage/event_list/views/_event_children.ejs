@@ -5,16 +5,16 @@
   <% if( event.attr('tags').indexOf('push_event') >= 0 ) { %>
 
   <% list(event.attr('children'), function( event ) { %>
-  <%== eventChildEventPartial.render( can.extend({event: event, eventChildEventPartial: eventChildEventPartial, type: 'commit'}, this)); %>
+  <%== partials.eventChildEvent.render( can.extend({event: event, data: data, type: 'commit'}, this)); %>
   <% }) %>
   
   <% } else if( event.attr('tags').indexOf('pull_request_event') >= 0 ) { %>
   
-  <%== eventChildEventPartial.render( can.extend({event: event, eventChildEventPartial: eventChildEventPartial, type: 'pull_request'}, this)); %>
+  <%== partials.eventChildEvent.render( can.extend({event: event, data: data, type: 'pull_request'}, this)); %>
 
   <% } else { %>
 
-  <%== eventChildEventPartial.render( can.extend({event: event, eventChildEventPartial: eventChildEventPartial, type: ''}, this)); %>
+  <%== partials.eventChildEvent.render( can.extend({event: event, data: data, type: ''}, this)); %>
 
   <% } %>
 

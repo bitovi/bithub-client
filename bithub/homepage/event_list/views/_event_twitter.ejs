@@ -1,5 +1,5 @@
 <div class="event list-element" <%= (el) -> el.data('eventObj', event)  %> >
-  <% if (isAdmin()) { %>
+  <% if (data.user.isAdmin()) { %>
   <div class="toolbar">
 	<a href="#" class="delete-event close">&times;</a>
   </div>
@@ -61,7 +61,7 @@
 		<%== renderEventTags( event, data.visibleTags ) %>
 	  </ul>
 
-	  <% if( isAdmin() ) { %>
+	  <% if( data.user.isAdmin() ) { %>
 	  <!-- ADMIN -->
 	  <a href="#" class="expand-manage-bar"></a>	  
 	  <!-- /ADMIN -->

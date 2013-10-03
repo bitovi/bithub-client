@@ -1,5 +1,5 @@
 <div class="event list-element" <%= (el) -> el.data('eventObj', event)  %> >
-  <% if (isAdmin()) { %>
+  <% if (data.user.isAdmin()) { %>
   <div class="toolbar">
 	<a href="#" class="delete-event close">&times;</a>
   </div>
@@ -52,7 +52,7 @@
 		<%== renderEventTags( event, data.visibleTags ) %>
 	  </ul>
 
-	  <% if( isAdmin() ) { %>
+	  <% if( data.user.isAdmin() ) { %>
 	  <!-- ADMIN -->
 	  <a href="#" class="expand-manage-bar"></a>	  
 	  <!-- /ADMIN -->
@@ -64,7 +64,7 @@
 	<%== partials.manageBar.render({event: event, data: data}) %>
 
 	<% if (event.attr('children').length) { %>
-	<%== partials.eventChildren.render({events: sortChildren(event.attr('children'), orderChildrenBy, 'desc'), eventChildEventPartial: partials.eventChildEvent}) %>
+	<%== partials.eventChildren.render({events: sortChildren(event.attr('children'), orderChildrenBy, 'desc'), data: data, partials: partials}) %>
 	<% } %>
 
   </div>

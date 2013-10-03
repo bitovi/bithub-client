@@ -1,5 +1,5 @@
 <div class="event list-element" <%= (el) -> el.data('eventObj', event)  %> >
-  <% if (isAdmin()) { %>
+  <% if (data.user.isAdmin()) { %>
   <div class="toolbar">
 	<a href="#" class="delete-event close">&times;</a>
   </div>
@@ -16,7 +16,7 @@
 	  <span class="upvote-caret"></span>Vote up
 	</div>
 
-	<% if (!event.attr('props.thread_awarded') && isLoggedIn() && isAdmin()) { %>
+	<% if (!event.attr('props.thread_awarded') && data.user.isLoggedIn() && data.user.isAdmin()) { %>
 	<div class="award-btn">
 	  <div class="word"><span>Award</span></div>
 	  <div class="caret-right"></div>
@@ -65,7 +65,7 @@
 		<%== renderEventTags( event, data.visibleTags ) %>
 	  </ul>
 
-	  <% if( isAdmin() ) { %>
+	  <% if( data.user.isAdmin() ) { %>
 	  <!-- ADMIN -->
 	  <a href="#" class="expand-manage-bar"></a>	  
 	  <!-- /ADMIN -->
@@ -77,7 +77,7 @@
 	<%== partials.manageBar.render({event: event, data: data}) %>
 
 	<% if (event.attr('children').length) { %>
-	<%== partials.eventChildren.render({events: sortChildren(event.attr('children'), orderChildrenBy, 'desc'), eventChildEventPartial: partials.eventChildEvent}) %>
+	<%== partials.eventChildren.render({events: sortChildren(event.attr('children'), orderChildrenBy, 'desc'), partials: partials, data: data}) %>
 	<% } %>
 
   </div>

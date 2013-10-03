@@ -89,12 +89,6 @@ steal(
 				this.currentView = can.compute('latest');
 
 				can.extend(can.EJS.Helpers.prototype, {
-					isAdmin: function () {
-						return opts.currentUser.isAdmin();
-					},
-					isLoggedIn: function () {
-						return opts.currentUser.isLoggedIn();
-					},
 					formatTs: function( event, date) {
 						var format = 'datetime';
 
@@ -136,7 +130,8 @@ steal(
 					projects: opts.projects,
 					categories: opts.categories,
 					visibleTags: opts.visibleTags,
-					digestDict: digestDict
+					digestDict: digestDict,
+					user: this.options.currentUser
 				}
 
 				this.element.html(initView({
