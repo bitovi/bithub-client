@@ -25,18 +25,16 @@ steal(
 			},
 
 			// Awarding
-			
-			'.votes .award-btn a click': function( el, ev ) {
-				var event = el.closest('.event').data('eventObj');
-				(new Award({event: event})).award();
-			},
 
 			'.replies .reply-event .award-btn click': function( el, ev ) {
 				ev.preventDefault();
+				
 				var event = can.data(el.closest('.reply-event'), 'eventObj');
 				(new Award({event: event})).award();
+
+				(can.data(el.closest('.event'), 'eventObj')).attr('props.thread_awarded', true);
 			},
-			
+
 			// Other
 			
 			'.expand-replies click': function( el, ev ) {

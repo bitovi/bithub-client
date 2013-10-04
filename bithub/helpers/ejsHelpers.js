@@ -157,7 +157,11 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 
 		isUpvoted: function( event_id, upvoted_events ) {
 			return (upvoted_events && upvoted_events.indexOf( event_id) >= 0) ? "upvoted" : "";
+		},
+
+		isAwarded: function( event ) {
+			return event.attr('props.thread_awarded') ? "awarded" : "";
 		}		
-		
+
 	});
 });

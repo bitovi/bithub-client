@@ -9472,6 +9472,12 @@ ul.tag-list li,
 .reply-event.upvoted > .votes .uparrow:before {
   color: #26931d;
 }
+.event.awarded .badge {
+  background: #999999;
+}
+.event.awarded .badge:before {
+  border-right: 7px solid #999999;
+}
 .event .votes .count {
   left: 12px;
   font-size: 14px;

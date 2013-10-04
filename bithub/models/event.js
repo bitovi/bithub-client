@@ -10,8 +10,21 @@ steal('can',
 
 			upvote: function( success, error ) {
 				(new Upvote({event: this})).upvote();
-			}			
+			},
+
+			destroy: function( success, error ) {
+				return can.ajax({
+					url: '/api/events/' + this.attr('id'),
+					type: 'DELETE',
+					async: false,
+					dataType: 'json',
+					success: success,
+					error: error
+				});
+			}
 		}
+			
+		var EventObj = can.LazyMap.extend( prototypeMethods );
 
 		// 'regular' Event model
 		var Event = can.Model('Bithub.Models.Event', {
@@ -52,39 +65,11 @@ steal('can',
 			destroy : 'DELETE /api/events/{id}',
 
 			// overriden b/c can.Model would return new can.Observe,
-			// so we are here returing only plain object
 			model: function( attrs ) {
-				return attrs;
+				return new EventObj( attrs );
 			}
+			
 		}, prototypeMethods );
-
-		// Event model list with LazyEvent
-		can.Model.List('Bithub.Models.Event.List', {
-
-			// creates new event of LazyMap and extends it with instance props from Event model
-			Observe: function( data ) {
-				var event = new can.LazyMap( data );
-
-				can.extend(
-					event,
-					prototypeMethods,
-					{
-						destroy: function( success, error ) {
-							return can.ajax({
-								url: '/api/events/' + this.attr('id'),
-								type: 'DELETE',
-								async: false,
-								dataType: 'json',
-								success: success,
-								error: error
-							});
-							   }
-					}
-				);
-				
-				return event;
-			}
-		}, {});
 		
 		return Event;
 	});

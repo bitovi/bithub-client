@@ -1,4 +1,4 @@
-<div class="event list-element <%= isUpvoted(event.attr('id'), data.user.attr('upvoted_events')) %>" <%= (el) -> el.data('eventObj', event)  %> >
+<div class="event list-element <%= isAwarded(event) %> <%= isUpvoted(event.attr('id'), data.user.attr('upvoted_events')) %>" <%= (el) -> el.data('eventObj', event)  %> >
 
   <%== partials.toolbar.render({user: data.user}) %>
 
