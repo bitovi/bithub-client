@@ -6,7 +6,8 @@
   </div>
 
   <div class="voteup-btn">
-	<span class="upvote-caret"></span>Vote up
+	<span class="upvote-caret"></span>
+	<span class="caption"><% if( isUpvoted(event.attr('id'), user.attr('upvoted_events')) ) { %>Voted<% } else { %>Vote up<% } %></span>
   </div>
 
   <% if ( (typeof(award) != "undefined") && award ) { %>

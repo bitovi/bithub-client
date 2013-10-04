@@ -17,6 +17,8 @@ steal(
 
 				if ( this.options.currentUser.attr('isLoggedIn') ) {
 					(new Upvote({event: event})).upvote();
+
+					el.closest('.reply-event, .event').addClass('upvoted').find('.votes .caption').html('Voted');
 				} else {
 					this.options.modals.showLogin();
 				}

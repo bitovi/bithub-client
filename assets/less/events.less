@@ -251,11 +251,11 @@ ul.tag-list li, .event .manage-bar ul.nav > li {
 	}
 }
 
-.event:hover > .votes .uparrow:before, .event .upvoted .upvote {
+.event:hover > .votes .uparrow:before, .event.upvoted > .votes .uparrow:before {
 	color: @green;
 }
 
-.reply-event:hover > .votes .uparrow:before, .reply-event .upvoted .upvote {
+.reply-event:hover > .votes .uparrow:before, .reply-event.upvoted > .votes .uparrow:before {
 	color: @green;
 }
 
@@ -300,16 +300,14 @@ ul.tag-list li, .event .manage-bar ul.nav > li {
 		z-index: 1;
 		display: block;
 		left: 3px;
-	}
-	
-	&.upvoted {
-		background-color: #7b7b7b;
-		
-		&:before {
-			border-bottom-color: #7b7b7b;
-		}
-	}
+	}	
+}
 
+.event.upvoted > .votes .voteup-btn {
+	background-color: #7b7b7b;
+	&:before {
+		border-bottom-color: #7b7b7b;
+	}
 }
 
 .event:hover .votes .voteup-btn {

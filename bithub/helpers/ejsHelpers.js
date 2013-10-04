@@ -1,6 +1,7 @@
 steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 
 	can.extend(can.EJS.Helpers.prototype, {
+		
 		prettifyTs: function( ts, format) {
 			ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
 
@@ -128,7 +129,6 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 			return buffer;
 		},
 
-
 		formatTs: function( event, date) {
 			var format = 'datetime';
 
@@ -136,12 +136,15 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 			
 			return can.EJS.Helpers.prototype.prettifyTs( event.attr('origin_ts'), format );
 		},
+		
 		hasCategoryFilter: function() {
 			return can.route.attr('category') != 'all';
-		},					
+		},
+		
 		getAuthorName: function( event ) {
 			return event.attr('author.name') || event.attr('props.origin_author_name') || '';
 		},
+		
 		eventUrl: function( event ) {
 			if (event.attr('url')) {
 				return "<a href=\"" + event.attr('url') + "\">" + event.attr('title') + "</a>";
@@ -150,8 +153,11 @@ steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
 			} else {
 				return "<a>" + event.attr('title') + "</a>";
 			}
-		}
-		
+		},
+
+		isUpvoted: function( event_id, upvoted_events ) {
+			return (upvoted_events && upvoted_events.indexOf( event_id) >= 0) ? "upvoted" : "";
+		}		
 		
 	});
 });

@@ -1,4 +1,4 @@
-<div class="reply-event row <%= type %>" <%= (el) -> el.data('eventObj', event)  %> >
+<div class="reply-event row <%= type %> <%= isUpvoted(event.attr('id'), data.user.attr('upvoted_events')) %>" <%= (el) -> el.data('eventObj', event)  %> >
 
   <% if (event.attr('props.awarded_value') >= 0) { %>
   <div class="awarded-badge"><span>+<%= event.attr('props.awarded_value') %></span></div>

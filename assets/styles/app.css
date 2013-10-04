@@ -9465,11 +9465,11 @@ ul.tag-list li,
   speak: none;
 }
 .event:hover > .votes .uparrow:before,
-.event .upvoted .upvote {
+.event.upvoted > .votes .uparrow:before {
   color: #26931d;
 }
 .reply-event:hover > .votes .uparrow:before,
-.reply-event .upvoted .upvote {
+.reply-event.upvoted > .votes .uparrow:before {
   color: #26931d;
 }
 .event .votes .count {
@@ -9511,10 +9511,10 @@ ul.tag-list li,
   display: block;
   left: 3px;
 }
-.event .votes .voteup-btn.upvoted {
+.event.upvoted > .votes .voteup-btn {
   background-color: #7b7b7b;
 }
-.event .votes .voteup-btn.upvoted:before {
+.event.upvoted > .votes .voteup-btn:before {
   border-bottom-color: #7b7b7b;
 }
 .event:hover .votes .voteup-btn {
