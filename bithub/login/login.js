@@ -17,6 +17,10 @@ steal(
 						profile: can.route.url({page: 'profile', view: 'info'}, false),
 						admin: can.route.url({page: 'admin'}, false)
 					}
+				}, {
+					postBtnActive: function() {
+						return opts.newpostVisibility() ? "active" : "";
+					}
 				}));
 			},
 
