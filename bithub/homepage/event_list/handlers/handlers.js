@@ -4,35 +4,45 @@ steal(
 	'bithub/models/award.js',
 	function(Control, Upvote, Award){
 		return Control.extend({
-			'.expand-replies click': function( el, ev ) {
-				el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
+
+			// Upvoting
+			
+			'.event > .votes .voteup-btn click': "upvote",
+			'.event > .votes .count click': "upvote",
+			'.event > .votes .uparrow click': "upvote",
+			'.replies .reply-event .vote-btn click': "upvote",
+			
+			upvote: function( el, ev ) {
+				var event = can.data( el.closest('.reply-event, .event'), 'eventObj' );
+
+				if ( this.options.currentUser.attr('isLoggedIn') ) {
+					(new Upvote({event: event})).upvote();
+				} else {
+					this.options.modals.showLogin();
+				}
 			},
 
-			'.event > .votes .voteup-btn click': "voteup",
-			'.event > .votes .count click': "voteup",
-			'.event > .votes .uparrow click': "voteup",
-			
-			voteup: function( el, ev ) {
-				this.upvote( can.data(el.closest('.event'), 'eventObj') );
-			},
+			// Awarding
 			
 			'.votes .award-btn a click': function( el, ev ) {
 				var event = el.closest('.event').data('eventObj');
 				(new Award({event: event})).award();
 			},
 
-			'.event-metadata a click': function( el, ev ) {
-				window.location = el.attr('href');
-			},
-
-			'.replies .reply-event .vote-btn click': function( el, ev ) {
-				this.upvote( can.data(el.closest('.reply-event'), 'eventObj') );
-			},
-
 			'.replies .reply-event .award-btn click': function( el, ev ) {
 				ev.preventDefault();
 				var event = can.data(el.closest('.reply-event'), 'eventObj');
 				(new Award({event: event})).award();
+			},
+			
+			// Other
+			
+			'.expand-replies click': function( el, ev ) {
+				el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
+			},
+			
+			'.event-metadata a click': function( el, ev ) {
+				window.location = el.attr('href');
 			},
 
 			'.expand-manage-bar click': function( el, ev ) {
@@ -66,15 +76,8 @@ steal(
 				event.destroy( function() {
 					el.closest('.event.list-element').fadeOut();
 				});
-			},
-
-			upvote: function( event ) {
-				if ( this.options.currentUser.attr('isLoggedIn') ) {
-					(new Upvote({event: event})).upvote();
-				} else {
-					this.options.modals.showLogin();
-				}
 			}
+			
 		})
 	}
 )
