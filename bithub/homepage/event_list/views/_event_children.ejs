@@ -5,16 +5,16 @@
   <% if( event.attr('tags').indexOf('push_event') >= 0 ) { %>
 
   <% list(event.attr('children'), function( event ) { %>
-  <%== partials.eventChildEvent.render( can.extend({event: event, data: data, type: 'commit'}, this)); %>
+  <%== partials.eventChildEvent.render( {event: event, data: data, type: 'commit'} ); %>
   <% }) %>
   
   <% } else if( event.attr('tags').indexOf('pull_request_event') >= 0 ) { %>
   
-  <%== partials.eventChildEvent.render( can.extend({event: event, data: data, type: 'pull_request'}, this)); %>
+  <%== partials.eventChildEvent.render( {event: event, data: data, type: 'pull_request'} ); %>
 
   <% } else { %>
 
-  <%== partials.eventChildEvent.render( can.extend({event: event, data: data, type: ''}, this)); %>
+  <%== partials.eventChildEvent.render( {event: event, data: data, type: ''} ); %>
 
   <% } %>
 
