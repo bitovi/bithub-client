@@ -16,9 +16,9 @@ steal(
 			award: function() {
 				return this.save().done(this.proxy( 'awardEvent' ));
 			},
-			awardEvent: function() {
+			awardEvent: function( data ) {
 				this.event.attr({
-					'props.awarded_value': true,
+					'props.awarded_value': data.value,
 					'props.thread_awarded': true
 				});
 			}
