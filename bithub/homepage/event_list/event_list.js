@@ -123,13 +123,13 @@ steal(
 							{value: 'month', display: 'This Month'},
 							{value: 'all', display: 'All Time' }],
 					currentValue: function() {
-						return can.route.attr('timespan')
+						return can.route.attr('timespan');
 					},
 					onChange: function( val ) {
 						can.route.attr('timespan', val);
 					},
 					show: function() {
-						return can.route.attr('view') == 'greatest'
+						return can.route.attr('view') == 'greatest';
 					}
 					
 				});
@@ -141,13 +141,13 @@ steal(
 								return "All " + can.route.attr('category') + "s";
 							}}],
 					currentValue: function() {
-						return can.route.attr('state')
+						return can.route.attr('state') || 'both';
 					},
 					onChange: function( val ) {
 						can.route.attr('state', val);
 					},
 					show: function() {
-						return can.route.attr('category') == 'bug' || can.route.attr('category') == 'feature'
+						return can.route.attr('category') == 'bug' || can.route.attr('category') == 'feature';
 					}
 					
 				});
