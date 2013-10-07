@@ -9790,15 +9790,31 @@ ul.tag-list li,
 /* Award flags--------------------------------------------------- */
 .reply-event .awarded-badge,
 .event.commit-event .awarded-badge {
-  background-image: url(/assets/images/awarded.png);
-  width: 37px;
-  height: 37px;
+  background: #f89406;
+  border-radius: 60px;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
+  width: 35px;
+  height: 35px;
   position: absolute;
   left: -34px;
+  color: #ffffff;
+  text-align: center;
+  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #ffffff;
 }
 .reply-event .awarded-badge span,
 .event.commit-event .awarded-badge span {
-  display: none;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 .reply-event .award-btn,
 .event.commit-event .award-btn {

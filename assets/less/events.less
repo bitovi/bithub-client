@@ -584,14 +584,23 @@ ul.tag-list li, .event .manage-bar ul.nav > li {
 /* Award flags--------------------------------------------------- */
 .reply-event, .event.commit-event {
 	.awarded-badge {
-		background-image: url(/assets/images/awarded.png);
-		width: 37px;
-		height: 37px;
+		background: @orange;
+		.border-radius(60px);
+		width: 35px;
+		height: 35px;
 		position: absolute;
 		left: -34px;
+		color: @white;
+		text-align: center;
+		.box-shadow;
+		padding: 6px;
+		.border-box;
+		border: 1px solid @white;
 
 		span {
-			display: none;
+			font-weight: bold;
+			color: @white;
+			.text-shadow;
 		}
 	}
 	.award-btn {
