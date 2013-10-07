@@ -38,7 +38,15 @@ steal(
 							}
 						},
 						eventUrl: function() {
-							return can.route.url({page: 'eventdetails', id: this.attr('id')});
+							var id;
+
+							if( this.attr('type') == 'author' ) {
+								id = this.attr('id');
+							} else if( this.attr('type') == 'award' ) {
+								id = this.attr('event_id');
+							}
+							
+							return id ? can.route.url({page: 'eventdetails', id: id}) : 'javascript://';
 						}
 					},
 					partials: {}
