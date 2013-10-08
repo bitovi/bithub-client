@@ -28,7 +28,7 @@ steal(
 			},
 
 			'{can.route} page': function( route, ev, newVal, oldVal ) {
-				window.scrollTo(0);
+				window.scrollTo(0,0);
 				this.initControl( newVal );
 			},
 			
