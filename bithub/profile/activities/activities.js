@@ -4,6 +4,16 @@ steal(
 	function(can, activitiesView){
 
 		var parse10 = function(str) { return parseInt(str, 10) };
+
+		var whitelistedTypes = ['author','award'];
+
+		var calcPoints = function( event ) {
+			var sum = parse10( event.attr('value') );
+			
+			if( event.attr('upvotes') ) sum += parse10( event.attr('upvotes') );
+
+			return sum;			
+		}
 		
 		return can.Control.extend({
 			pluginName: 'profile-activities',
@@ -22,13 +32,11 @@ steal(
 				}, {
 					helpers: {
 						display: function(opts) {
-							return (parse10(this.attr('value') || this.attr('authorship_value')) !== 0) ? opts.fn(this) : opts.inverse(this);
+							return _.contains(whitelistedTypes, this.attr('type')) && calcPoints(this) ? opts.fn(this) : opts.inverse(this);
 						},
 						calcPoints: function() {
-							var sum = parse10( this.attr('value') );
-
-							if( this.attr('upvotes') ) sum += parse10( this.attr('upvotes') );
-
+							var sum = calcPoints( this );
+							
 							if( sum > 0 ) {
 								return '+' + sum;
 							} else if( sum < 0 ) {
