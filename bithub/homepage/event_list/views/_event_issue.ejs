@@ -18,7 +18,7 @@
 		<span class="awarded">Awarded</span>
 		<% } %>
 
-		<span class='badge'>+<%= event.attr('upvotes')*2 %></span>
+		<% if( event.attr('upvotes') ) { %><span class='badge'>+<%= event.attr('upvotes')*2 %></span><% } %>
 	  </h5>
 	  <div class="body" <%= applyMore() %>><%== event.attr('body') %></div>
 	  <div class="clearfix"></div>	  
