@@ -29,7 +29,7 @@
 	<%== partials.manageBar.render({event: event, data: data}) %>
 
 	<% if (event.attr('children').length) { %>
-	<%== partials.eventChildren.render({events: sortChildren(event.attr('children'), orderChildrenBy, 'desc'), partials: partials, data: data}) %>
+	<%== partials.eventChildren.render({events: sortChildren(event.attr('children'), orderChildrenBy, 'desc'), partials: partials, data: can.extend(data, {awardBtn: true}) }) %>
 	<% } %>
 
   </div>
