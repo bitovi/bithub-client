@@ -34,7 +34,7 @@ steal(
 		
 		// Routes
 
-		var projects = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui'],
+		var projects = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui', 'documentjs'],
 			categories = ['bug', 'issue', 'twitter', 'question', 'article', 'comment', 'app', 'code', 'chat', 'plugin', 'event', 'feature'],
 			timespans = ['day', 'week', 'month', 'all'];
 
