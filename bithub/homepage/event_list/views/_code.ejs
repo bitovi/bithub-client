@@ -38,7 +38,7 @@
 		</div>
 
 		<h5 class="title">
-		  <a href="<%= event.attr('url') %>">- <%= commit.attr('source_data.sha') && commit.attr('source_data.sha').substring(0, 6) %> <%== commit.attr('title') %></a>
+		  <a href="<%= event.attr('url') %>"><%= commit.attr('source_data.sha') && commit.attr('source_data.sha').substring(0, 6) %> <%== commit.attr('title') %></a>
 		</h5>
 
 		<div class="clearfix"></div>	  
@@ -100,7 +100,7 @@
   <% } %>
   
   <% if( codeEvents[repo][author].create_event.length > 0 ) { %>
-  <h5 class="category-title">Create events</h5>
+  <h5 class="category-title">Created a new branch</h5>
   <div><!-- break --></div>
 	 
   <% list(codeEvents[repo][author].create_event, function( event ) { %>
@@ -128,49 +128,7 @@
 		</div>
 
 		<h5 class="title">
-		  <a href="<%= event.attr('url') %>"><%== event.attr('title') %></a>
-		</h5>
-
-		<div class="clearfix"></div>	  
-	  </div>
-
-	</div>
-
-	<div class="clearfix"></div>
-  </div>
-  <% }) %>
-  <% } %>
-
-  <% if( codeEvents[repo][author].delete_event.length > 0 ) { %>
-  <h5 class="category-title">Delete events</h5>
-  <div><!-- break --></div>
-	 
-  <% list(codeEvents[repo][author].create_event, function( event ) { %>
-  <div class="event list-element commit-event" <%= (el) -> el.data('eventObj', event)  %> >  
-	
-	<!-- upvotes -->
-	<div class="span1 votes">
-	  <div class="uparrow"></div>
-	  <div class="count">
-		<%= event.attr('upvotes') %>
-	  </div>
-	  
-	  <div class="clearfix"></div>
-	</div>
-
-	<!-- content -->
-	<div class="span7 content">
-
-	  <div class="row">
-
-		<div class="metadata-container pull-right">
-		  <div class="event-metadata pull-right">
-			<small><%== formatTs( event, day.attr('date') ) %></small>
-		  </div>
-		</div>
-
-		<h5 class="title">
-		  <a href="<%= event.attr('url') %>"><%== event.attr('title') %></a>
+		  <a><%== event.attr('title') %></a>
 		</h5>
 
 		<div class="clearfix"></div>	  
