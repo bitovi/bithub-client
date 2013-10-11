@@ -2,17 +2,8 @@ steal(
 	'can',
 	'../helpers/auth.js',
 	'../helpers/github.js',
-	function (can, auth, github) {
-		var existy = function(x) { return x!==null && x!==undefined };
-		var isStringNully = function(x) { return x===null || x===undefined };
-
-		var cleanupData = function (data) {
-			_.each(_.keys(data), function(key) {
-				if (isStringNully(data[key])) data[key] = '';
-			});
-
-			return data;
-		}
+	'../helpers/data.js',
+	function (can, auth, github, dataHelpers) {
 
 		var providers = {
 			twitter: { url: '/api/auth/twitter' },
@@ -33,7 +24,7 @@ steal(
 				var self = this;
 
 				this.loadSession(function( data ) {
-					self.attr( cleanupData(data) );
+					self.attr( dataHelpers.cleanup(data) );
 					self.attr('isLoggedIn', true);
 				}, function( response ) {
 					self.attr('isLoggedIn', false);
@@ -45,7 +36,7 @@ steal(
 				var self = this;
 
 				this.loadSession( function( data ) {
-					self.attr( cleanupData( data ) );
+					self.attr( dataHelpers.cleanup(data) );
 				});
 			},
 
