@@ -3,14 +3,12 @@
 		<% for(var k in digest[type]){ %>
 			<li class="total <%= type %>ers">
 				<% if(digest[type][k].length === 1){ %>
-					<a href="<%= dict.actorUrl[type] %><%= digest[type][k][0].attr('props.origin_author_name') %>">
-						<%= digest[type][k][0].attr('props.origin_author_name') %>
-					</a>
+					<a href="<%= dict.actorUrl[type] %><%= digest[type][k][0].attr('props.origin_author_name') %>"><%= digest[type][k][0].attr('props.origin_author_name') %></a>
 				<% } else { %>
 					<%= digest[type][k].length %> people
 				<% } %> <%= dict.actions[type] %>
 				<span class="popup">
-					<a href="<%= dict.targetUrl[type] %><%= k %>"><%= k %></a>
+					<a href="<%= dict.targetUrl[type] %><%= k %>"><%= dict.targetName[type](k) %></a>
 					<% if(digest[type][k].length !== 1){ %>
 						<div>
 							<span class="people-caret"></span>

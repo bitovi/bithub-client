@@ -35,6 +35,11 @@ steal(
 				watch: 'http://github.com/',
 				follow: 'http://twitter.com/'
 			},
+			targetName: {
+				fork: function(repo) { return repo.split('/')[1]; },
+				watch: function(repo) { return repo.split('/')[1]; },
+				follow: function(account) { return '@' + account; }
+			},
 			actorUrl: {
 				fork: 'http://github.com/',
 				watch: 'http://github.com/',
