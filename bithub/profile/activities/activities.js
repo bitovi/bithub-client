@@ -5,7 +5,7 @@ steal(
 
 		var parse10 = function(str) { return parseInt(str, 10) };
 
-		var whitelistedTypes = ['author','award'];
+		var whitelistedTypes = ['author','award', 'internal'];
 
 		var calcPoints = function( event ) {
 			var sum = parse10( event.attr('value') );

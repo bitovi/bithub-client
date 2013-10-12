@@ -66,10 +66,26 @@ steal('can',
 
 			// overriden b/c can.Model would return new can.Observe,
 			model: function( attrs ) {
-				return new EventObj( attrs );
+				return attrs;
 			}
 			
 		}, prototypeMethods );
+
+
+        can.Model.List('Bithub.Models.Event.List', {
+
+            // creates new event of LazyMap and extends it with instance props from Event model
+            Observe: function( data ) {
+                var event = new can.LazyMap( data );
+
+                can.extend(
+                    event,
+                    prototypeMethods
+                );
+                
+                return event;
+            }
+        }, {});
 		
 		return Event;
 	});
