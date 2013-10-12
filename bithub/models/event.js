@@ -30,15 +30,20 @@ steal('can',
 		var Event = can.Model('Bithub.Models.Event', {
 
 			init: function () {
+				var self = this;
+				
 				this.validate('title', function(title) {
-					if (!title) { return "Title can't blank" }
+					if (!title) { return "Please add a title" }
+				});
+				this.validate('body', function(body) {
+					if (!body) { return "Please write something about this" }
 				});
 				this.validate('category', function(category) {
-					if (!category) { return "Category can't be blank" }
+					if (!category) { return "Please choose a category" }
 					if (Bithub.Models.Tag.allowedCategoriesForNewPost.indexOf(category) < 0) { return "Picked category doesn't exist" }
 				});
 				this.validate('project', function(project) {
-					if (!project) { return "Project can't be blank" }
+					if (!project) { return "Please choose a project" }
 					if (Bithub.Models.Tag.allowedProjectsForNewPost.indexOf(project) < 0) { return "Picked project doesn't exist" }
 				});
 				this.validate('datetime', function(datetimeStr) {
@@ -48,7 +53,7 @@ steal('can',
 						datetime = moment(datetimeStr, "YYYY-MM-DDTHH:mm:ss.S Z");
 
 						if (!time) { return "Time can't be blank" }
-						if (!datetime || !datetime.isValid()) { return "Time format invalid.<br/>Should be 'hh:mm AM/PM'" }
+						if (!datetime || !datetime.isValid()) { return "Time format should be hh:mm am/pm" }
 					}
 				});
 				this.validate('url', function(url) {
@@ -56,6 +61,10 @@ steal('can',
 						if( !url.match("^http[s]?:\\/\\/(www\\.)?") ) { return "Invalid URL (don't forget 'http[s]://')" }
 					}
 				});
+				this.validate('location', function(location) {
+					if (!location) { return "Events should have a location" }
+				});
+
 			},
 
 			findAll : 'GET /api/events',

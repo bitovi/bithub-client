@@ -21,24 +21,28 @@
 				<input type="file" name="event[image]" size="1"/>
 			  </div>
 
-			  <div class="control-group select-menu" id="newpost-form-project">
+			  <div class="control-group" id="newpost-form-project">
 				<p class="text-error hidden"></p>
-				<select  name="event[project]" value="{{project}}">
-				  <option value="">Pick a Project</option>
-				  {{#projects}}
-				  <option value="{{name}}">{{display_name}}</option>
-				  {{/projects}}
-				</select>
+				<div class="select-menu">
+				  <select  name="event[project]" value="{{project}}">
+					<option value="">Pick a Project</option>
+					{{#projects}}
+					<option value="{{name}}">{{display_name}}</option>
+					{{/projects}}
+				  </select>
+				</div>
 			  </div>
 
-			  <div class="control-group select-menu" style="margin-left: 0px;" id="newpost-form-category">
+			  <div class="control-group" style="margin-left: 0px;" id="newpost-form-category">
 				<p class="text-error hidden"></p>
-				<select name="event[category]" value="{{category}}">
-				  <option value="">Pick a Category</option>
-				  {{#categoryFilter categories}}
-				  <option value="{{name}}">{{display_name}}</option>
-				  {{/categories}}
-				</select>
+				<div class="select-menu">
+				  <select name="event[category]" value="{{category}}">
+					<option value="">Pick a Category</option>
+					{{#categoryFilter categories}}
+					<option value="{{name}}">{{display_name}}</option>
+					{{/categories}}
+				  </select>
+				</div>
 			  </div>
 			  
 			  {{#isOfEventContentType}}
@@ -74,6 +78,7 @@
 			  
 			  {{#isOfEventContentType}}
 			  <div class="control-group location" id="newpost-form-location">
+				<p class="text-error hidden"></p>
 				<input name="event[location]" type="text" class="url span3" placeholder="Location:"/>
 			  </div>
 			  {{/isOfEventContentType}}
