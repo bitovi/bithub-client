@@ -53,7 +53,7 @@ steal('can',
 						datetime = moment(datetimeStr, "YYYY-MM-DDTHH:mm:ss.S Z");
 
 						if (!time) { return "Time can't be blank" }
-						if (!datetime || !datetime.isValid()) { return "Time format should be hh:mm am/pm" }
+						if (!datetime || !datetime.isValid()) { return "Time format should be<br> hh:mm am/pm" }
 					}
 				});
 				this.validate('url', function(url) {
@@ -61,8 +61,8 @@ steal('can',
 						if( !url.match("^http[s]?:\\/\\/(www\\.)?") ) { return "Invalid URL (don't forget 'http[s]://')" }
 					}
 				});
-				this.validate('location', function(location) {
-					if (!location) { return "Events should have a location" }
+				this.validate('location', function(location) {					
+					if (location != undefined && location == '') { return "Events should have a location" }
 				});
 
 			},
