@@ -244,11 +244,6 @@ steal(
 					return;
 				}
 
-				// load next batch if last event is "chat" as chat window doesn't increase height of document
-				if( events[ events.attr('length')-1].attr('category') == 'chat' ) {
-					this.canLoad() && $(window).trigger('onbottom');
-				}
-
 				if (view === 'latest') {
 					this.latestEvents.appendEvents(events);
 				} else if (view === 'greatest') {
@@ -260,6 +255,11 @@ steal(
 				// load events until document height exceeds window height
 				this.fillDocumentHeight();
 
+				// load next batch if last event is "chat" as chat window doesn't increase height of document
+				if( _.last(events).attr('category') == 'chat' && can.route.attr('category') != 'chat' ) {
+					this.canLoad() && $(window).trigger('onbottom');
+				}
+				
 				// always load entire day for chat
 				if( can.route.attr('category') === 'chat' ) {
 					if (this.latestEvents.days.length === daysNum) {
