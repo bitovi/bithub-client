@@ -68,7 +68,7 @@ steal(
 		},{
 			params: ['greatest'],
 			paramKey: 'view',
-			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'week'},	
+			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'month'},	
 			childs: [{
 				params: timespans,
 				paramKey: 'timespan'
