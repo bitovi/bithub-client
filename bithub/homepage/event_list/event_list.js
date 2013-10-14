@@ -145,14 +145,19 @@ steal(
 							{value: 'both', display: function() {
 								return "All " + can.route.attr('category') + "s";
 							}}],
+					defaultValue: 'open',
 					currentValue: function() {
-						return can.route.attr('state') || 'both';
+						return can.route.attr('state') || 'open';
 					},
 					onChange: function( val ) {
 						can.route.attr('state', val);
 					},
 					show: function() {
-						return can.route.attr('category') == 'bug' || can.route.attr('category') == 'feature';
+						if( ['bug','feature'].indexOf( can.route.attr('category') ) >= 0 ) {
+							// set default to 'open'
+							can.route.attr('state') == undefined && can.route.attr('state', 'open');
+							return true;
+						}
 					}
 					
 				});
