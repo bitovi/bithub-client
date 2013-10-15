@@ -6185,8 +6185,7 @@ textarea:focus {
   font-size: 13px;
   color: #222222;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  line-height: 28px;
-  padding: 0px 0px 6px 8px;
+  padding: 4px 0px 6px 8px;
   font-family: "Open Sans", OpenSans, sans-serif;
   background: none rgba(166, 168, 168, 0.05);
   outline: none;
@@ -8179,6 +8178,7 @@ button.btn-inverse:active.active {
   margin-right: 5px;
   line-height: 20px;
   position: relative;
+  float: left;
 }
 .login-twitter:before,
 .login-github:before,
@@ -9272,12 +9272,6 @@ h4.handwriting {
 .event {
   position: relative;
   padding: 10px 0px;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
-}
-.event:hover {
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
 }
 .event.notified {
   background-color: #e9f8ff;
@@ -9799,6 +9793,10 @@ ul.tag-list li,
   width: 54px;
 }
 /* Award flags--------------------------------------------------- */
+.reply-event .metadata-container,
+.event.commit-event .metadata-container {
+  bottom: 1px;
+}
 .reply-event .awarded-badge,
 .event.commit-event .awarded-badge {
   background: #f89406;

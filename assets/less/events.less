@@ -69,13 +69,7 @@
 .event {
 	position: relative;
 	padding: 10px 0px;
-	border-top: 1px solid #fff;
-	border-bottom: 1px solid #fff;
-	
-	&:hover {
-		border-top: 1px solid #eee;
-		border-bottom: 1px solid #eee;
-	}
+
 	&.notified {
 		background-color: #e9f8ff;
 		border: 1px solid #71bee5;
@@ -583,6 +577,10 @@ ul.tag-list li, .event .manage-bar ul.nav > li {
 
 /* Award flags--------------------------------------------------- */
 .reply-event, .event.commit-event {
+
+	.metadata-container {
+		bottom: 1px;
+	}
 	.awarded-badge {
 		background: @orange;
 		.border-radius(60px);
