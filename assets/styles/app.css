@@ -8410,7 +8410,7 @@ button.btn-inverse:active.active {
   padding-top: 70px;
 }
 #profile-navbar .vert-padding {
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 #navbar .nav > li > a.active.boxed,
 #navbar .nav > li > a.boxed:hover,
@@ -8867,10 +8867,6 @@ a.btn.connect {
 }
 .sidebar a {
   color: #585656;
-  text-decoration: underline;
-}
-.sidebar a:hover {
-  text-decoration: none;
 }
 .sidebar .scorings span.pull-right a {
   font-size: 10px;
@@ -8940,9 +8936,21 @@ a.btn.connect {
 .awards {
   margin-bottom: 20px;
 }
+.scorings .handwriting a:hover,
+.awards .handwriting a:hover {
+  text-decoration: none;
+}
 .sidebar .scorings ul li {
-  font-weight: bold;
   margin: 5px 0px;
+}
+.sidebar a.scorings.logged-out:hover {
+  text-decoration: none;
+}
+.sidebar a.scorings.logged-out:hover .well {
+  border: 1px solid #aaa;
+}
+.sidebar a.scorings.logged-out ul li {
+  font-weight: bold;
 }
 /* Modal styling */
 h3 .badge {
@@ -9533,9 +9541,9 @@ ul.tag-list li,
   z-index: 10;
 }
 .event .title .awarded {
+  display: inline-block;
   color: #fff;
   font-size: 11px;
-  display: inline-block;
   background-color: #ff8d1a;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -9753,6 +9761,7 @@ ul.tag-list li,
   -webkit-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
+  margin-top: -4px;
 }
 .event .replies .reply-event .votes .count {
   top: 3px;
@@ -9830,6 +9839,7 @@ ul.tag-list li,
   position: absolute;
   left: -65px;
   padding-right: 10px;
+  padding-bottom: 15px;
   display: none;
   width: 100px;
 }
@@ -10164,6 +10174,12 @@ input.transfer-ownership {
 }
 .getSwagContainer .alert-danger {
   line-height: 28px;
+}
+.getSwagContainer .btn-wrapper {
+  margin-top: -45px;
+}
+.getSwagContainer > p {
+  margin: 10px 0px 20px 0px;
 }
 .rewards .item {
   width: 240px;
@@ -10544,6 +10560,10 @@ input.transfer-ownership {
 .icon-bulb:before,
 .icon-feature:before {
   content: "\e060";
+}
+/*.icon-calendar:before               { content: "\e060"; }*/
+.icon-time:before {
+  content: "\e020";
 }
 /* Default */
 .arrow:before {

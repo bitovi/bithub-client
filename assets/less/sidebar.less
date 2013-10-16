@@ -39,10 +39,6 @@
 	}
 	a {
 		color: #585656;
-		text-decoration: underline;
-		&:hover {
-			text-decoration: none;
-		}
 	}
 	.scorings span.pull-right a {
 		font-size: 10px;
@@ -118,10 +114,26 @@
 
 .scorings, .awards {
 	margin-bottom: 20px;
+
+	.handwriting a:hover {
+		text-decoration: none;
+	}
 }
 .sidebar .scorings ul li {
-	font-weight: bold;
 	margin: 5px 0px;
+}
+
+.sidebar a.scorings.logged-out {
+	&:hover {
+		text-decoration: none;
+
+		.well {
+			border: 1px solid #aaa;
+		}
+	}
+	ul li {
+		font-weight: bold;
+	}
 }
 
 
