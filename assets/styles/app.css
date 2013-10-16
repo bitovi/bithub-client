@@ -10443,6 +10443,7 @@ input.transfer-ownership {
 .icon-voteup:before {
   content: "\e019";
 }
+.icon-time:before,
 .icon-clock:before {
   content: "\e020";
 }
@@ -10561,9 +10562,9 @@ input.transfer-ownership {
 .icon-feature:before {
   content: "\e060";
 }
-/*.icon-calendar:before               { content: "\e060"; }*/
-.icon-time:before {
-  content: "\e020";
+.icon-event:before,
+.icon-calendar:before {
+  content: "\e061";
 }
 /* Default */
 .arrow:before {
