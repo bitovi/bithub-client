@@ -233,6 +233,7 @@ steal(
 				},
 
 				'#newpost-form-submit click': function( el, ev ) {
+					el.button('loading');
 					el.closest('form').submit();
 				},
 
@@ -245,6 +246,7 @@ steal(
 					}
 					
 					var self = this;
+					var submitBtn = el.find('#newpost-form-submit');
 
 					var eventToCheck = new Bithub.Models.Event(el.formParams().event)
 					var errors = eventToCheck.errors()
@@ -259,6 +261,7 @@ steal(
 							closeNewPostForm.call(self, newEvent);
 						});
 					} else {
+						submitBtn.button('reset');
 						for (e in errors) {
 							self.element.find(errorElementName(e)).html(errors[e]).show();
 						}
@@ -267,6 +270,9 @@ steal(
 
 				resetForm: function() {
 					var el = this.element;
+
+					// reset submit button
+					el.find('#newpost-form-submit').button('reset');
 
 					// clear input fields (including hidden ones)
 					el.find('input').val('');
