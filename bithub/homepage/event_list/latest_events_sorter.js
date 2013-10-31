@@ -69,7 +69,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 
 			var events = this.attr('types.code'),
 				length  = events.attr('length'),
-				types = ['push_event', 'create_event', 'pull_request_event', 'delete_event'],
+				types = ['push_event', 'create_event', 'pull_request_event'],
 				grouped = {},
 				event, author, type, title, repo;
 			
