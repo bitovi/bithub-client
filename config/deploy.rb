@@ -19,8 +19,8 @@ set(:default_environment, {
   'PATH' => "/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH"
 })
 
-set(:stages, ['staging', 'prod'])
-set(:default_stage, 'prod')
+set(:stages, ['testing', 'staging', 'prod'])
+set(:default_stage, 'testing')
 
 namespace :deploy do
   desc "Symling uploads from api shared folder to bithub folder"
