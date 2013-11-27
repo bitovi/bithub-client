@@ -244,7 +244,7 @@ steal(
 					}
 					
 					var self = this;
-					var $submitBtn = el.find('#newpost-form-submit');
+					var $submitBtn = this.element.find('#newpost-form-submit');
 
 					var eventToCheck = new Bithub.Models.Event(el.formParams().event)
 					var errors = eventToCheck.errors()
@@ -258,10 +258,10 @@ steal(
 						event.save(function(newEvent) {
 							closeNewPostForm.call(self, newEvent);
 						}).fail(function() {
+							$submitBtn.button('reset');
 							console.log(arguments);
 						});
 					} else {
-						$submitBtn.button('reset');
 						for (e in errors) {
 							self.element.find(errorElementName(e)).html(errors[e]).show();
 						}
