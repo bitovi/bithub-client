@@ -130,25 +130,23 @@ steal(
 					el.fileupload({
 						datatype: 'json',
 						limitMultiFileUploads: 1,
-						//acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-						add: function(el, data) {
-							// check file names manually, `acceptFileTypes` seems not to be working
-							for( var i=0; i < data.files.length; i++ ) {
-								if( !data.files[i].name.match( /(\.|\/)(gif|jpe?g|png)$/i ) ) {
-									return;
-								}
-							}
-							self.options.fileData = data;
-						}
+						add: function( el, data ) {}
 					});
 				},
 
 				' fileuploadadd': function( el, ev, data ) {
+					var $imageUploader = this.element.find('.image-uploader');
+					
+					$imageUploader.find('.text-error').addClass('hidden');
+					
 					for( var i=0; i < data.files.length; i++ ) {
 						if( !data.files[i].name.match( /(\.|\/)(gif|jpe?g|png)$/i ) ) {
+							$imageUploader.find('.text-error').removeClass('hidden');
 							return;
 						}
 					}
+					
+					this.options.fileData = data;
 					
 					var loadingImage = window.loadImage(
 						data.files[0],
@@ -246,7 +244,7 @@ steal(
 					}
 					
 					var self = this;
-					var submitBtn = el.find('#newpost-form-submit');
+					var $submitBtn = this.element.find('#newpost-form-submit');
 
 					var eventToCheck = new Bithub.Models.Event(el.formParams().event)
 					var errors = eventToCheck.errors()
@@ -259,9 +257,11 @@ steal(
 						var event = new Bithub.Models.Event(el.formParams())
 						event.save(function(newEvent) {
 							closeNewPostForm.call(self, newEvent);
+						}).fail(function() {
+							$submitBtn.button('reset');
+							console.log(arguments);
 						});
 					} else {
-						submitBtn.button('reset');
 						for (e in errors) {
 							self.element.find(errorElementName(e)).html(errors[e]).show();
 						}
@@ -289,6 +289,10 @@ steal(
 					delete this.options.fileData;
 					el.find('.progress').hide().find('.bar').width('0%');
 					el.find('.image-uploader .image-preview').html('');
+					el.find('.image-uploader .text-error').addClass('hidden');
+
+					// set feed
+					el.find("input[name='event[feed]']").val('bithub');
 				},
 
 				'{can.route} newpost_c': function( route, ev, newVal, oldVal ) {

@@ -21,7 +21,7 @@ steal(
 
 				return result;
 			});
-		}
+		};
 
 		var load = function(url, accumulator, cb) {
 			$.ajax({
@@ -50,12 +50,22 @@ steal(
 					next ? load( next.url, accumulator, cb) : cb( accumulator );
 				}
 			})
-		}
+		};
+
+		var matchRepo = function( str ) {
+			var matched = _.chain( str.split(' ') )
+					.map(function(repo) { return repo.match(/(.+)\/(.+)/i) })
+					.compact()
+					.first()
+
+			return (!!matched) ? {org: matched[1].replace('.','_'), repo: matched[2].replace('.','_')} : undefined;
+		};
 		
 		return {
 			query: function( url, cb ) {
 				load( url, [], cb);
-			}
-		}
+			},
+			matchRepo: matchRepo
+		};
 	}
 );

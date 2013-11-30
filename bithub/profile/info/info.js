@@ -51,20 +51,22 @@ steal(
 				return countries;	
 			},
 
-			'form#edit-profile-form submit': function( el, ev ) {
-				ev.preventDefault();
+			' submit': function( el, ev ) {
+				var $submitBtn = this.element.find('button');
 
-				el.find('.form-status .loading').show();
+				ev.preventDefault();
+				
+				$submitBtn.button('loading');
 
 				this.options.currentUser
 				.attr( el.formParams() )
 				.save(
 					function( user ) {
-					el.find('.form-status .loading').hide();
+					$submitBtn.button('reset');
 					el.find('.form-status .success').show().delay(1000).fadeOut();
 				},
 				function( xhr ) {
-					el.find('.form-status .loading').hide();
+					$submitBtn.button('reset');
 					el.find('.form-status .error').show().delay(1000).fadeOut();
 				});
 			},
