@@ -11,12 +11,12 @@ set(:user, "bithub")
 set(:application, "client")
 set(:repository, "git@github.com:bitovi/bithub-client.git")
 
-set(:branch, fetch(:branch, "master"))
 set(:deploy_via, :remote_cache)
 set(:deploy_to) { "/home/#{user}/#{application}" }
 
 set(:default_environment, {
-  'PATH' => "/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH"
+  'PATH' => "/opt/rbenv/shims/:/opt/rbenv/bin:/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:$PATH"
+  
 })
 
 set(:stages, ['testing', 'staging', 'prod'])
