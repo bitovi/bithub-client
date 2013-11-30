@@ -104,7 +104,9 @@ steal(
 				}, 'title');
 				
 				return _.map(watches, function( account ) {
-					return account.split('/')[1];
+					//return account.split('/')[1];
+					var repo = github.matchRepo(account);
+					return repo && repo.repo;
 				});
 			},
 

@@ -10,8 +10,9 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				return type;
 			}
 		}
-	}
+	};
 
+	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter'];
 
 	var Day = can.Observe({
 		init : function(){
@@ -146,6 +147,10 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 			event;
 			for(var i = 0; i < events.length; i++){
 				event = events[i];
+
+				// skip events that are not whitelisted
+				if( !_.contains(allowedCategories, event.attr('category')) ) continue;
+				
 				if(!lastDay || lastDay.date !== event.attr('thread_updated_date')){
 					lastDay = new Day({date : event.attr('thread_updated_date')})
 					days.push(lastDay)

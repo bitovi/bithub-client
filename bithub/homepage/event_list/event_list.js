@@ -13,7 +13,6 @@ steal(
 	'bithub/models/upvote.js',
 	'bithub/models/award.js',
 	'bithub/helpers/fun_helpers.js',
-	'bithub/helpers/fun_helpers.js',	
 	'can/construct/proxy',
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
