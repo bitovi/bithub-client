@@ -231,7 +231,6 @@ steal(
 				},
 
 				'#newpost-form-submit click': function( el, ev ) {
-					el.button('loading');
 					el.closest('form').submit();
 				},
 
@@ -251,6 +250,9 @@ steal(
 
 					self.element.find('p.text-error').hide()
 					self.options.recentProject = el.formParams().event.project;
+
+					$submitBtn.button('loading');
+					
 					if (this.options.fileData && !errors) {
 						this.options.fileData.submit();
 					} else if (!this.options.fileData && !errors){
@@ -262,6 +264,7 @@ steal(
 							console.log(arguments);
 						});
 					} else {
+						$submitBtn.button('reset');
 						for (e in errors) {
 							self.element.find(errorElementName(e)).html(errors[e]).show();
 						}
