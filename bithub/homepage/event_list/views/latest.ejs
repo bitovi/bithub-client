@@ -47,7 +47,7 @@
 				<%== each(day.attr('types.chat'), function(event){ %>
 					<div class="message">
 						<span class="username">
-							<%== event.attr('actor') %>
+							<%== event.attr('author.name') %>
 						</span>:
 						<%= event.attr('title') %>
 					</div>
