@@ -13,6 +13,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 	};
 
 	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter'];
+	var allowedDigest = ['follow_event','watch_event','fork_event']
 
 	var Day = can.Observe({
 		init : function(){
@@ -150,6 +151,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 
 				// skip events that are not whitelisted
 				if( !_.contains(allowedCategories, event.attr('category')) ) continue;
+				if( event.attr('category') === 'digest' && _.intersection(allowedDigest, event.attr('tags')).length == 0 ) continue;
 				
 				if(!lastDay || lastDay.date !== event.attr('thread_updated_date')){
 					lastDay = new Day({date : event.attr('thread_updated_date')})
