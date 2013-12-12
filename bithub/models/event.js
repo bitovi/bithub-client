@@ -10,8 +10,9 @@ steal('can',
 
 			upvote: function( success, error ) {
 				(new Upvote({event: this})).upvote();
-			},
+			}
 
+			/*
 			destroy: function( success, error ) {
 				return can.ajax({
 					url: '/api/events/' + this.attr('id'),
@@ -22,6 +23,7 @@ steal('can',
 					error: error
 				});
 			}
+			 */
 		}
 			
 		var EventObj = can.LazyMap.extend( prototypeMethods );
@@ -71,16 +73,17 @@ steal('can',
 			findOne : 'GET /api/events/{id}',
 			create  : 'POST /api/events',
 			update  : 'PUT /api/events/{id}',
-			destroy : 'DELETE /api/events/{id}',
+			destroy : 'DELETE /api/events/{id}'
 
 			// overriden b/c can.Model would return new can.Observe,
-			model: function( attrs ) {
-				return attrs;
-			}
+			//model: function( attrs ) {
+			//	return attrs;
+			//}
 			
 		}, prototypeMethods );
 
 
+		/*
         can.Model.List('Bithub.Models.Event.List', {
 
             // creates new event of LazyMap and extends it with instance props from Event model
@@ -95,6 +98,7 @@ steal('can',
                 return event;
             }
         }, {});
+		*/
 		
 		return Event;
 	});
