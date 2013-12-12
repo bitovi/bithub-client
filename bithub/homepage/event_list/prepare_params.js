@@ -10,7 +10,7 @@ steal(
 					order: ['thread_updated_date:desc', 'categories:asc', 'thread_updated_at:desc'],
 					exclude: 'source_data',
 					offset: 0,
-					limit: 25
+					limit: 1000
 				}),
 				greatest: new can.Observe({
 					order: 'upvotes:desc',
@@ -51,6 +51,7 @@ steal(
 		},
 
 		resetFilter = function() {
+			//queryTracker.homepage.latest.attr('offset', 0);
 			queryTracker.homepage.latest.attr('offset', 0);
 			queryTracker.homepage.greatest.attr('offset', 0);
 		},

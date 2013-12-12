@@ -139,13 +139,19 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 
 
 	return Observe.extend({
-		init : function(){
-			this.attr('days', new List())
+		init : function(){			
+			this.attr('days', new List());
 		},
 		appendEvents : function(events){
 			var days = this.attr('days'),
-			lastDay = days.attr(days.length - 1),
 			event;
+
+			var startDate = events[0].attr('thread_updated_date'),
+				stopDate = events[events.length-1].attr('thread_updated_date');			
+
+			var datespan = new Day({date: startDate, stopDate: stopDate});
+			days.push( datespan );
+			
 			for(var i = 0; i < events.length; i++){
 				event = events[i];
 
@@ -153,11 +159,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				if( !_.contains(allowedCategories, event.attr('category')) ) continue;
 				if( event.attr('category') === 'digest' && _.intersection(allowedDigest, event.attr('tags')).length == 0 ) continue;
 				
-				if(!lastDay || lastDay.date !== event.attr('thread_updated_date')){
-					lastDay = new Day({date : event.attr('thread_updated_date')})
-					days.push(lastDay)
-				}
-				lastDay.addEvent(event)
+				datespan.addEvent(event)
 			}
 		},
 		replace : function(events){

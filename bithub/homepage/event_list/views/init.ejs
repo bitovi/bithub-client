@@ -10,11 +10,8 @@
 	</div>
 
 	<div class="event-list">
-		<% if (view() === 'latest') { %>
-			<%== latestView.render(this) %>
-		<% } else { %>
-			<%== greatestView.render(this) %>
-		<% } %>
+	  <div class="events-list-wrapper">
+	  </div>
 
 		<div class="spinner-bottom">
 			<img src="/assets/images/ajax-loader-sm-blue.gif" alt="loading...">

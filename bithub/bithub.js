@@ -7,6 +7,7 @@ steal(
 	'bithub/newpost',
 	'bithub/homepage/event_list/prepare_params.js',
 	'bithub/modals',
+	'bithub/models/pagination.js',
 	'bithub/models/event.js',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
@@ -21,7 +22,7 @@ steal(
 	//'assets/styles/bootstrap.css',
 	//'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
-	function(can, PageSwitcher, Navigator, Login, Newpost, prepareParams, Modals, Event, Tag, User, loadtime) {
+	function(can, PageSwitcher, Navigator, Login, Newpost, prepareParams, Modals, Pagination, Event, Tag, User, loadtime) {
 		var self = this;
 
 		if( steal.isBuilding ) {
@@ -152,6 +153,7 @@ steal(
 			users             = new Bithub.Models.User.List(),
 			currentUser       = new User({isLoggedIn: undefined}),
 			preloadedEvents   = new Bithub.Models.Event.List([{}]),
+			latestPagination  = new can.Observe.List(),
 			visibleTags       = new can.Observe.List();
 		
 		CURRENT_USER = currentUser;
@@ -159,13 +161,20 @@ steal(
 		// Preload events on route init
 		window.EVENTS_PRELOADED = false;
 
-		Event.findAll( prepareParams.prepareParams(), function( events ) {
-			// this prevents events control to trigger on initial can.route change
-			window.EVENTS_PRELOADED = true;
-			preloadedEvents.replace(events);
-
-			// trigger change manually if there are no events
-			events.length == 0 && preloadedEvents._triggerChange('length', 'add');
+		Pagination.getDateSpans({}, function( spans ) {
+			latestPagination.replace( spans );
+			prepareParams.queryTracker.homepage.latest.attr('thread_updated_date', spans[0]);
+				
+			Event.findAll(
+				prepareParams.prepareParams(),
+				function( events ) {
+					// this prevents events control to trigger on initial can.route change
+					window.EVENTS_PRELOADED = true;
+					preloadedEvents.replace(events);
+					
+					// trigger change manually if there are no events
+					events.length == 0 && preloadedEvents._triggerChange('length', 'add');
+				});
 		});
 		
 		// move this somewhere else
@@ -200,7 +209,8 @@ steal(
 			newpostVisibility: newpostVisibility,
 			modals: modals,
 			users: users,
-			visibleTags: visibleTags
+			visibleTags: visibleTags,
+			latestPagination: latestPagination
 		});
 
 		new Navigator('#navigator', {

@@ -82,16 +82,17 @@ steal(
 				this.spinnerBottom = can.compute(false);
 				this.canLoad = can.compute(true);
 
+				this.latestPagination = this.options.latestPagination;
+				this.latestCurrentPageIdx = 0;
+				
 				window.LATEST = this.latestEvents = new LatestEventsSorter;
 				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
 				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 
 				this.currentView = can.compute('latest');
 
-				var data = {
-					latestEvents: this.latestEvents,
+				this.data = {
 					days: this.latestIndex,
-					greatestEvents: this.greatestEvents,					
 					latestCategories: latestCategories,
 					projects: opts.projects,
 					categories: opts.categories,
@@ -101,11 +102,11 @@ steal(
 				}
 
 				this.element.html(initView({
+					data: this.data,
 					view: this.currentView,
 					latestView: latestView,
 					greatestView: greatestView,
 					partials: eventPartials,
-					data: data,
 					canLoad: this.canLoad
 				}));
 
@@ -179,7 +180,10 @@ steal(
 			'{Bithub.Models.Event} reload': "reload",
 
 			reload: function () {
+				this.element.find('.events-list-wrapper').html('');
+				
 				this.options.prepareParams.resetFilter();
+				this.latestCurrentPageIdx = 0;
 				this.canLoad(true);
 				this.spinnerTop(true);
 				this.load(this.updateEvents);
@@ -193,7 +197,8 @@ steal(
 				if (!this.canLoad()) { return; }				
 
 				if (can.route.attr('view') === 'latest') {
-					queryTracker.latest.attr('offset', queryTracker.latest.offset + queryTracker.latest.limit);
+					this.latestCurrentPageIdx++;
+					queryTracker.latest.attr('thread_updated_date', this.latestPagination[this.latestCurrentPageIdx]);
 				} else {
 					queryTracker.greatest.attr('offset', queryTracker.greatest.offset + queryTracker.greatest.limit);
 				}
@@ -227,12 +232,26 @@ steal(
 
 				events.length == 0 && this.canLoad(false);
 
-				if (view === 'latest') {
-					this.latestEvents.replace(events)
-				} else if (view === 'greatest') {
-					this.greatestEvents.replace(events);
-				}
+				var data = can.extend({}, this.data),
+					sortedEvents = new LatestEventsSorter(),
+					renderer;					
 
+				if( view === 'latest' ) {
+					renderer = latestView;
+					sortedEvents.appendEvents( events );
+					can.extend(data, {eventList: sortedEvents});
+				} else {
+					renderer = greatestView;
+					can.extend(data, {eventList: events});
+				}
+				
+				this.element.find('.events-list-wrapper').append(
+					renderer({
+						partials: eventPartials,
+						data: data
+					})
+				);				
+				
 				this.currentView(can.route.attr('view'));
 				this.spinnerTop(false);
 				this.spinnerBottom(false);
@@ -253,28 +272,39 @@ steal(
 					return;
 				}
 
+				/*
 				if (view === 'latest') {
 					this.latestEvents.appendEvents(events);
 				} else if (view === 'greatest') {
 					this.greatestEvents.push.apply(this.greatestEvents, events);
 				}
+				 */
 
+
+				var data = can.extend({}, this.data),
+					sortedEvents = new LatestEventsSorter(),
+					renderer;					
+
+				if( view === 'latest' ) {
+					renderer = latestView;
+					sortedEvents.appendEvents( events );
+					can.extend(data, {eventList: sortedEvents});
+				} else {
+					renderer = greatestView;
+					can.extend(data, {eventList: events});
+				}
+				
+				this.element.find('.events-list-wrapper').append(
+					renderer({
+						partials: eventPartials,
+						data: data
+					})
+				);				
+				
 				this.spinnerBottom(false);
 
 				// load events until document height exceeds window height
-				this.fillDocumentHeight();
-
-				// load next batch if last event is "chat" as chat window doesn't increase height of document
-				if( _.last(events).attr('category') == 'chat' && can.route.attr('category') != 'chat' ) {
-					this.canLoad() && $(window).trigger('onbottom');
-				}
-				
-				// always load entire day for chat
-				if( can.route.attr('category') === 'chat' ) {
-					if (this.latestEvents.days.length === daysNum) {
-						$(window).trigger('onbottom');
-					}
-				}
+				//this.fillDocumentHeight();
 
 				this.postRendering();
 			},
