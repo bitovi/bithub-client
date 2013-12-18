@@ -109,16 +109,22 @@ steal(
 		var resetState = function( cb ) {
 			var self = this;
 
-			if (can.route.attr('view') == 'latest') {
-				this.paginator.reset(function() {
+			if( !this.pending ) {
+				this.pending = true;
+				
+				if (can.route.attr('view') == 'latest') {
+					this.paginator.reset(function() {
+						self.state.attr( defaultState );
+						self.state.attr('homepage.latest.thread_updated_date', self.paginator.current());
+						cb && cb();
+						self.pending = false;
+					});
+				} else {
 					self.state.attr( defaultState );
 					self.state.attr('homepage.latest.thread_updated_date', self.paginator.current());
 					cb && cb();
-				});
-			} else {
-				self.state.attr( defaultState );
-				self.state.attr('homepage.latest.thread_updated_date', self.paginator.current());
-				cb && cb();
+					self.pending = false;
+				}
 			}
 			
 		};
@@ -156,9 +162,7 @@ steal(
 			init: function( opts, cb ) {
 				var self = this;
 				this.state = new can.Observe( defaultState );
-				this.paginator = new Paginator();
-
-				this.paginator.list.bind('length', function() {
+				this.paginator = new Paginator( function() {
 					self.state.attr('homepage.latest.thread_updated_date', self.paginator.current());
 					cb && cb();
 				});

@@ -15,18 +15,13 @@ steal(
 		}
 
 		return can.Construct.extend({
-			init: function( list ) {
+			init: function( cb ) {
 				this.idx = 0;
 				this.canLoad = true;
-
-				if( list ) {
-					this.list = list;
-				} else {
-					this.list = new can.Observe.List();
-					this.load();
-				}
-
+				this.list = new can.Observe.List();
 				this.params = can.extend({}, defaultParams);
+				
+				this.load( cb );
 			},
 
 			current: function() {

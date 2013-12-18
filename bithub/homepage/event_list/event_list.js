@@ -163,7 +163,7 @@ steal(
 			},
 
 			'{preloadedEvents} add': function () {
-				this.updateEvents(this.options.preloadedEvents);				
+				this.updateEvents(this.options.preloadedEvents);
 			},
 
 			// can.route listeners
@@ -179,7 +179,7 @@ steal(
 			reload: function () {
 				var self = this;
 				this.element.find('.events-list-wrapper').html('');
-				
+
 				this.canLoad(true);
 				this.options.queryTracker.reset(function() {
 					self.spinnerTop(true);
@@ -190,9 +190,9 @@ steal(
 			// infinite scroll
 
 			'{window} onbottom': function (el, ev) {
-				if( !this.canLoad() ) { return; }				
+				if( !this.canLoad() ) { return; }
 
-				this.options.queryTracker.next();				
+				this.options.queryTracker.next();
 				this.spinnerBottom(true);
 				this.load(this.appendEvents);
 			},
@@ -200,7 +200,7 @@ steal(
 			fillDocumentHeight: function() {
 				if( $(document).height() <= $(window).height() + 200 ) {
 					this.canLoad() && $(window).trigger('onbottom');
-				}				
+				}
 			},
 
 			/*
@@ -210,7 +210,7 @@ steal(
 			load: function (cb, params) {
 				// events are preloaded in bithub.js immediately after can.route is initalized
 				if (!window.EVENTS_PRELOADED) return;
-
+				
 				clearTimeout(this.loadTimeout);
 				this.loadTimeout = setTimeout(this.proxy(function () {
 					Event.findAll(this.options.queryTracker.current(), this.proxy(cb));
@@ -224,7 +224,7 @@ steal(
 
 				var data = can.extend({}, this.data),
 					sortedEvents = new LatestEventsSorter(),
-					renderer;					
+					renderer;
 
 				if( view === 'latest' ) {
 					renderer = latestView;
@@ -234,13 +234,13 @@ steal(
 					renderer = greatestView;
 					can.extend(data, {eventList: events});
 				}
-				
+
 				this.element.find('.events-list-wrapper').append(
 					renderer({
 						partials: eventPartials,
 						data: data
 					})
-				);				
+				);
 				
 				this.currentView(can.route.attr('view'));
 				this.spinnerTop(false);
@@ -264,7 +264,7 @@ steal(
 
 				var data = can.extend({}, this.data),
 					sortedEvents = new LatestEventsSorter(),
-					renderer;					
+					renderer;
 
 				if( view === 'latest' ) {
 					renderer = latestView;
@@ -274,13 +274,13 @@ steal(
 					renderer = greatestView;
 					can.extend(data, {eventList: events});
 				}
-				
+
 				this.element.find('.events-list-wrapper').append(
 					renderer({
 						partials: eventPartials,
 						data: data
 					})
-				);				
+				);
 				
 				this.spinnerBottom(false);
 				this.postRendering();
