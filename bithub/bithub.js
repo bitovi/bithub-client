@@ -5,9 +5,8 @@ steal(
 	'bithub/navigator',
 	'bithub/login',
 	'bithub/newpost',
-	'bithub/homepage/event_list/prepare_params.js',
+	'bithub/lib/query_tracker.js',
 	'bithub/modals',
-	'bithub/models/pagination.js',
 	'bithub/models/event.js',
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
@@ -22,7 +21,7 @@ steal(
 	//'assets/styles/bootstrap.css',
 	//'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
-	function(can, PageSwitcher, Navigator, Login, Newpost, prepareParams, Modals, Pagination, Event, Tag, User, loadtime) {
+	function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, loadtime) {
 		var self = this;
 
 		if( steal.isBuilding ) {
@@ -153,20 +152,15 @@ steal(
 			users             = new Bithub.Models.User.List(),
 			currentUser       = new User({isLoggedIn: undefined}),
 			preloadedEvents   = new Bithub.Models.Event.List([{}]),
-			latestPagination  = new can.Observe.List(),
 			visibleTags       = new can.Observe.List();
 		
-		CURRENT_USER = currentUser;
-
 		// Preload events on route init
 		window.EVENTS_PRELOADED = false;
 
-		Pagination.getDateSpans({}, function( spans ) {
-			latestPagination.replace( spans );
-			prepareParams.queryTracker.homepage.latest.attr('thread_updated_date', spans[0]);
-				
+		// Init query tracker and preload events
+		var queryTracker = new QueryTracker({}, function() {
 			Event.findAll(
-				prepareParams.prepareParams(),
+				queryTracker.current(),
 				function( events ) {
 					// this prevents events control to trigger on initial can.route change
 					window.EVENTS_PRELOADED = true;
@@ -176,7 +170,11 @@ steal(
 					events.length == 0 && preloadedEvents._triggerChange('length', 'add');
 				});
 		});
-		
+
+		// expose some as globals
+		CURRENT_USER = currentUser;
+		QUERY_TRACKER = queryTracker;
+
 		// move this somewhere else
 		currentUser.bind('change', function(ev, attr, how, newVal, oldVal) {
 			var self = this,
@@ -202,15 +200,14 @@ steal(
 		new PageSwitcher('#pages', {
 			currentUser: currentUser,
 			preloadedEvents: preloadedEvents,
-			prepareParams: prepareParams,
+			queryTracker: queryTracker,
 			projects: projects,
 			feeds: feeds,
 			categories: categories,
 			newpostVisibility: newpostVisibility,
 			modals: modals,
 			users: users,
-			visibleTags: visibleTags,
-			latestPagination: latestPagination
+			visibleTags: visibleTags
 		});
 
 		new Navigator('#navigator', {

@@ -82,9 +82,6 @@ steal(
 				this.spinnerBottom = can.compute(false);
 				this.canLoad = can.compute(true);
 
-				this.latestPagination = this.options.latestPagination;
-				this.latestCurrentPageIdx = 0;
-				
 				window.LATEST = this.latestEvents = new LatestEventsSorter;
 				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
 				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
@@ -180,29 +177,22 @@ steal(
 			'{Bithub.Models.Event} reload': "reload",
 
 			reload: function () {
+				var self = this;
 				this.element.find('.events-list-wrapper').html('');
 				
-				this.options.prepareParams.resetFilter();
-				this.latestCurrentPageIdx = 0;
 				this.canLoad(true);
-				this.spinnerTop(true);
-				this.load(this.updateEvents);
+				this.options.queryTracker.reset(function() {
+					self.spinnerTop(true);
+					self.load(self.updateEvents);
+				});
 			},
 
 			// infinite scroll
 
 			'{window} onbottom': function (el, ev) {
-				var queryTracker = this.options.prepareParams.queryTracker.homepage;
+				if( !this.canLoad() ) { return; }				
 
-				if (!this.canLoad()) { return; }				
-
-				if (can.route.attr('view') === 'latest') {
-					this.latestCurrentPageIdx++;
-					queryTracker.latest.attr('thread_updated_date', this.latestPagination[this.latestCurrentPageIdx]);
-				} else {
-					queryTracker.greatest.attr('offset', queryTracker.greatest.offset + queryTracker.greatest.limit);
-				}
-
+				this.options.queryTracker.next();				
 				this.spinnerBottom(true);
 				this.load(this.appendEvents);
 			},
@@ -223,7 +213,7 @@ steal(
 
 				clearTimeout(this.loadTimeout);
 				this.loadTimeout = setTimeout(this.proxy(function () {
-					Event.findAll(this.options.prepareParams.prepareParams(), this.proxy(cb));
+					Event.findAll(this.options.queryTracker.current(), this.proxy(cb));
 				}), 10);
 			},
 
@@ -272,15 +262,6 @@ steal(
 					return;
 				}
 
-				/*
-				if (view === 'latest') {
-					this.latestEvents.appendEvents(events);
-				} else if (view === 'greatest') {
-					this.greatestEvents.push.apply(this.greatestEvents, events);
-				}
-				 */
-
-
 				var data = can.extend({}, this.data),
 					sortedEvents = new LatestEventsSorter(),
 					renderer;					
@@ -302,10 +283,6 @@ steal(
 				);				
 				
 				this.spinnerBottom(false);
-
-				// load events until document height exceeds window height
-				//this.fillDocumentHeight();
-
 				this.postRendering();
 			},
 
