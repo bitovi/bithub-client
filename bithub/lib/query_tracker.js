@@ -174,10 +174,3 @@ steal(
 		});
 
 	});
-
-
-
-// NOTES:
-
-// format to local time --> moment.utc('2011-05-24 11:17').local().format()
-
