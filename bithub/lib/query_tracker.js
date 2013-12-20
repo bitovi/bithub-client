@@ -88,16 +88,12 @@ steal(
 		}
 
 		var iterLatest = function() {
-			this.state.attr('homepage.latest.thread_updated_date', this.paginator.next());
+			this.paginator.next();
 		}
 
 		var iterGreatest = function() {
 			var greatest = this.state.homepage.greatest;
 			this.state.attr('homepage.greatest.offset', greatest.offset + greatest.limit);
-		}
-
-		var currentPath = function() {
-			return [can.route.attr('page'), can.route.attr('view')].join('.');
 		}
 
 		
@@ -109,24 +105,18 @@ steal(
 		var resetState = function( cb ) {
 			var self = this;
 
-			if( !this.pending ) {
-				this.pending = true;
-				
-				if (can.route.attr('view') == 'latest') {
+			if (can.route.attr('view') == 'latest') {
+				if( !this.pending ) {
+					this.pending = true;
 					this.paginator.reset(function() {
-						self.state.attr( defaultState );
-						self.state.attr('homepage.latest.thread_updated_date', self.paginator.current());
 						cb && cb();
 						self.pending = false;
 					});
-				} else {
-					self.state.attr( defaultState );
-					self.state.attr('homepage.latest.thread_updated_date', self.paginator.current());
-					cb && cb();
-					self.pending = false;
 				}
-			}
-			
+			} else {
+				this.state.attr( defaultState );
+				cb && cb();
+			}						
 		};
 
 		// calculates query params
@@ -161,11 +151,13 @@ steal(
 			
 			init: function( opts, cb ) {
 				var self = this;
+
+				defaultState.homepage.latest.thread_updated_date = function() {
+					return self.paginator.current();
+				};
+				
 				this.state = new can.Observe( defaultState );
-				this.paginator = new Paginator( function() {
-					self.state.attr('homepage.latest.thread_updated_date', self.paginator.current());
-					cb && cb();
-				});
+				this.paginator = new Paginator( cb );
 			},
 
 			reset:   resetState,

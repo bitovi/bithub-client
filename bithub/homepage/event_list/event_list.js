@@ -81,6 +81,7 @@ steal(
 				this.spinnerTop = can.compute(false);
 				this.spinnerBottom = can.compute(false);
 				this.canLoad = can.compute(true);
+				this.canFetch = can.compute(true);
 
 				window.LATEST = this.latestEvents = new LatestEventsSorter;
 				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
@@ -190,7 +191,7 @@ steal(
 			// infinite scroll
 
 			'{window} onbottom': function (el, ev) {
-				if( !this.canLoad() ) { return; }
+				if( !this.canLoad() || !this.canFetch() ) { return; }
 
 				this.options.queryTracker.next();
 				this.spinnerBottom(true);
@@ -210,6 +211,8 @@ steal(
 			load: function (cb, params) {
 				// events are preloaded in bithub.js immediately after can.route is initalized
 				if (!window.EVENTS_PRELOADED) return;
+
+				this.canFetch(false);
 				
 				clearTimeout(this.loadTimeout);
 				this.loadTimeout = setTimeout(this.proxy(function () {
@@ -245,11 +248,12 @@ steal(
 				this.currentView(can.route.attr('view'));
 				this.spinnerTop(false);
 				this.spinnerBottom(false);
+				this.canFetch(true);
 				this.postRendering();
 				window.scrollTo(0, 0);
 
 				// load events until document height exceeds window height
-				this.fillDocumentHeight();
+				//this.fillDocumentHeight();
 			},
 
 			appendEvents: function (events) {
@@ -283,6 +287,7 @@ steal(
 				);
 				
 				this.spinnerBottom(false);
+				this.canFetch(true);
 				this.postRendering();
 			},
 
