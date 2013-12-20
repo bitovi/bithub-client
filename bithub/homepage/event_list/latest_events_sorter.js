@@ -149,7 +149,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 			var startDate = events[0].attr('thread_updated_date'),
 				stopDate = events[events.length-1].attr('thread_updated_date');			
 
-			var datespan = new Day({date: startDate, stopDate: stopDate});
+			var datespan = new Day({date: startDate, stopDate: (stopDate == startDate) ? undefined : stopDate });
 			days.push( datespan );
 			
 			for(var i = 0; i < events.length; i++){
