@@ -258,6 +258,6 @@ steal(
 			users.replace(data);
 		});
 
-		new UI.Onbottom(document, {treshold: 200});
+		new UI.Onbottom(document, {treshold: $(window).innerHeight()/2 });
 	}
 );

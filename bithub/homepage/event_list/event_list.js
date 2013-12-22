@@ -199,7 +199,7 @@ steal(
 			},
 
 			fillDocumentHeight: function() {
-				if( $(document).height() <= $(window).height() + 200 ) {
+				if( $(document).height() <= ($(window).height() * 1.5) ) {
 					this.canLoad() && $(window).trigger('onbottom');
 				}
 			},
