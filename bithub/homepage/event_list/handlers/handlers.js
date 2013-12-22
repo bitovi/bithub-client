@@ -13,14 +13,20 @@ steal(
 			'.replies .reply-event .vote-btn click': "upvote",
 			
 			upvote: function( el, ev ) {
-				var event = can.data( el.closest('.reply-event, .event'), 'eventObj' );
+				var event = can.data( el.closest('.reply-event, .event'), 'eventObj' ),
+					user = this.options.currentUser;
 
-				if ( this.options.currentUser.loggedIn() ) {
+				if ( user.loggedIn() ) {
 					(new Upvote({event: event})).upvote();
-
 					el.closest('.reply-event, .event').addClass('upvoted').find('.votes .caption').html('Voted');
 				} else {
 					this.options.modals.showLogin();
+					
+					user.delayedActions( function() {
+						(new Upvote({event: event})).upvote();
+						el.closest('.reply-event, .event').addClass('upvoted').find('.votes .caption').html('Voted');
+					});
+					
 				}
 			},
 
