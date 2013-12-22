@@ -1,0 +1,71 @@
+steal(
+	'can',
+	'bithub/models/pagination.js',
+	function(can, Pagination) {
+
+		var defaultParams = Pagination.defaultParams();
+
+		var filters = function() {
+			var params = {tags: []};
+			
+			if (can.route.attr('project') !== 'all') params.tags.push( can.route.attr('project') );
+			if (can.route.attr('category') !== 'all') params.tags.push( can.route.attr('category') );
+
+			return params;
+		}
+
+		return can.Construct.extend({
+			init: function( cb ) {
+				this.idx = 0;
+				this.canLoad = true;
+				this.list = new can.Observe.List();
+				this.params = can.extend({}, defaultParams);
+				
+				this.updateList( cb );
+			},
+
+			current: function() {
+				return this.list[this.idx];
+			},
+
+			next: function() {
+				var selft = this;
+				
+				if(this.idx < this.list.length-1) { this.idx++; }
+				
+				if( this.canLoad && (this.idx >= this.list.length-3) ) {
+					this.params.offset += this.params.limit;
+					this.appendList();
+				}
+				return this.current();
+			},
+			
+			updateList: function( cb ) {
+				var self = this,
+					params = can.extend({}, this.params, filters());
+
+				this.canLoad && Pagination.getDateSpans(params, function( spans ) {
+					if( spans.length == 0) { self.canLoad = false; }
+					self.list.replace( spans );
+					cb && cb();
+				});
+			},
+
+			appendList: function( cb ) {
+				var self = this,
+					params = can.extend({}, this.params, filters());
+
+				this.canLoad && Pagination.getDateSpans(params, function( spans ) {
+					if( spans.length == 0) { self.canLoad = false; }
+					self.list.push.apply(self.list, spans);
+					cb && cb();
+				});				
+			},
+
+			reset: function( cb ) {
+				this.idx = 0;
+				this.updateList( cb );
+			}
+		});
+		
+	});

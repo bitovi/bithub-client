@@ -71,15 +71,23 @@ steal(
 			return datespans;
 		}
 
+		var defaultParams = {
+			limit: 30,
+			offset: 0
+		}
 		
 		return can.Model.extend('Bithub.Models.Pagination', {
 			id: 'date',			
 			findAll : 'GET /api/events/pagination',
 
+			defaultParams: function() {
+				return can.extend({}, defaultParams);
+			},
+
 			getDateSpans: function( params, cb, opts ) {
 				opts = opts || {};
 				
-				this.findAll(params, function( data ) {
+				this.findAll( can.extend({}, defaultParams, params), function( data ) {
 					cb( datespanBuilder( data.attr(), opts ) );
 				})
 			}
