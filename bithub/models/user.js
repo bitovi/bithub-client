@@ -40,6 +40,7 @@ steal(
 				this.loadSession(function( data ) {
 					self.attr( dataHelpers.cleanup(data) );
 					self.attr('authStatus', 'loggedIn');
+					self.executeDelayedActions();
 				}, function( response ) {
 					self.attr('authStatus', 'loggedOut');
 					console.error( response );
@@ -70,6 +71,27 @@ steal(
 					this.login(val);
 				} else if( val == false ) {
 					this.logout();
+				}
+			},
+
+			delayedActions: function( func ) {				
+				if (typeof func == "function") {
+
+					if( can.isArray(this.attr('delayedActions')) ) {
+						this.attr('delayedActions').push(func);
+					} else {
+						this.attr('delayedActions', [func]);
+					}					
+				}
+				
+				return this.attr('delayedActions');
+			},
+
+			executeDelayedActions: function() {
+				if( !this.attr('delayedActions') ) return;
+				
+				while(this.attr('delayedActions').length) {
+					this.attr('delayedActions').shift()();
 				}
 			},
 			
