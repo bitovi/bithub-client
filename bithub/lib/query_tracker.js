@@ -4,11 +4,7 @@ steal(
 	'can/route',
 	'can/observe/delegate',
 	'vendor/moment',
-	'vendor/jstz',
 	function(can, Paginator) {
-
-		// determine client IANA tz key, eg. Europe/Zagreb
-		var tz = jstz.determine().name();
 
 		// default state, shouldn't be altered at any point
 		var defaultState = {

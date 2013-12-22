@@ -16,6 +16,7 @@ steal(
 	'vendor/bootstrap',
 	'vendor/bootstrap-datepicker',
 	'vendor/lodash',
+	'vendor/jstz',
 
 	// replace with '/assets/less/production.less'
 	//'assets/styles/bootstrap.css',
@@ -153,6 +154,13 @@ steal(
 			currentUser       = new User(),
 			preloadedEvents   = new Bithub.Models.Event.List([{}]),
 			visibleTags       = new can.Observe.List();
+
+		// insert client TZ in every ajax req header
+		$.ajaxSetup({
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader('clientTz', jstz.determine().name() || 'UTC');
+			}
+		});
 		
 		// Preload events on route init
 		window.EVENTS_PRELOADED = false;
