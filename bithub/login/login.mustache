@@ -1,12 +1,12 @@
 <li class="divider-vertical"></li>
 
-{{#if user.loggedInDelayed}}
+{{#ifequal user.authStatus 'loggedIn'}}
 
-<li class="logged-in">
+<li>
 	<button id="show-newpost-form-btn" class="{{postBtnActive}}"><span>+</span> Post</button>
 </li>
 
-<li id="profile-dropdown" class="dropdown logged-in">
+<li id="profile-dropdown" class="dropdown">
   <button class="dropdown-toggle" data-toggle="dropdown">
 	<div class="gradient-border-wrapper">
 	  {{#user.avatar_url}}<img class="avatar" src="{{.}}" alt="gravtar">{{/user.avatar_url}}
@@ -27,9 +27,17 @@
   </ul>
 </li>
 
-{{else}}
+{{/ifequal}}
 
-<li id="login-dropdown" class="dropdown logged-out">
+{{#ifequal user.authStatus 'loggingIn'}}
+<li>
+  <a>Logging in...</a>
+</li>
+{{/ifequal}}
+
+{{#ifequal user.authStatus 'loggedOut'}}
+
+<li id="login-dropdown" class="dropdown">
   <a href="#" class="dropdown-toggle login-btn" data-toggle="dropdown">Login or Register<b class="caret"></b></a>
   <ul class="dropdown-menu">
 	<li><a id="login-twitter-link" href="/api/auth/twitter"><span class="login-twitter"></span>Twitter</a></li>
@@ -37,4 +45,4 @@
   </ul>
 </li>
 
-{{/if}}
+{{/ifequal}}

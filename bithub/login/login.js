@@ -26,12 +26,18 @@ steal(
 
 			'#login-github-link click': function( el, ev ) {
 				ev.preventDefault();
-				this.options.currentUser.login('github');
+
+				var user = this.options.currentUser;
+				user.attr('authStatus', 'loggingIn');
+				user.login('github');
 			},
 
-			'#login-twitter-link click': function( el, ev ) {
+			'#login-twitter-link click': function( el, ev ) {				
 				ev.preventDefault();
-				this.options.currentUser.login('twitter');
+				
+				var user = this.options.currentUser;
+				user.attr('authStatus', 'loggingIn');
+				user.login('twitter');
 			},
 
 			'#show-newpost-form-btn click': function( el, ev ) {

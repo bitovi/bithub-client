@@ -17,11 +17,12 @@ steal(
 			},
 
 			logout: function() {
-				var self = this, blacklist = ['loggedInDelayed'];
+				var self = this, blacklist = ['loggedInDelayed', 'authStatus'];
 
 				$.get('/api/auth/logout', function () {
 					setTimeout(function() {
 						self.attr('loggedInDelayed', false);
+						self.attr('authStatus', 'loggedOut');
 
 						for(var key in self.attr()) {
 							if (blacklist.indexOf(key) < 0) self.removeAttr(key);

@@ -150,7 +150,7 @@ steal(
 			categories        = new can.Model.List(),
 			feeds             = new can.Model.List(),
 			users             = new Bithub.Models.User.List(),
-			currentUser       = new User({loggedIn: undefined}),
+			currentUser       = new User({loggedIn: undefined, authStatus: 'loggedOut'}),
 			preloadedEvents   = new Bithub.Models.Event.List([{}]),
 			visibleTags       = new can.Observe.List();
 		

@@ -18,12 +18,14 @@ steal('can',
 				  '#login-modal .providers .twitter a click': function( el, ev ) {					  
 					  ev.preventDefault();
 					  el.closest('.modal').modal('hide');
+					  this.options.currentUser.attr('authStatus', 'loggingIn');
 					  this.options.currentUser.login('twitter');
 				  },
 				  
 				  '#login-modal .providers .github a click': function( el, ev ) {
 					  ev.preventDefault();
 					  el.closest('.modal').modal('hide');
+					  this.options.currentUser.attr('authStatus', 'loggingIn');
 					  this.options.currentUser.login('github');
 				  },
 

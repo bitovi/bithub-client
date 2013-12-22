@@ -35,12 +35,14 @@ steal(
 				var self = this;
 
 				this.delegate('loggedIn', 'change', can.proxy(bindLoggedInState, this));
-				
+
 				this.loadSession(function( data ) {
 					self.attr( dataHelpers.cleanup(data) );
 					self.attr('loggedIn', true);
+					self.attr('authStatus', 'loggedIn');
 				}, function( response ) {
 					self.attr('loggedIn', false);
+					self.attr('authStatus', 'loggedOut');
 					console.error( response );
 				});
 			},
