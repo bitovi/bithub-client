@@ -111,7 +111,7 @@ steal(
 				new Leaderboard(elem.find('#leaderboard'), opts);
 			},
 
-			'{currentUser} isLoggedIn' : "onLogin",
+			'{currentUser} loggedIn' : "onLogin",
 			'{rewards} length': "onLogin",
 			'{users} length': "onLogin",
 

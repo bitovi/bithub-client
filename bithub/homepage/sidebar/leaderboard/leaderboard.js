@@ -52,7 +52,7 @@ steal(
 
 				this.options.users.each(function (user, i) {
 					if (self.options.currentUser.attr('id') === user.attr('id')) {
-						user.attr('isLoggedIn', true); // otherwise won't mark user on first login
+						user.attr('loggedIn', true); // otherwise won't mark user on first login
 						rank( i );
 					}
 				});

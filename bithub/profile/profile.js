@@ -28,7 +28,7 @@ steal(
 				if (newVal != ' profile') currentControl = null;
 			},
 			
-			'{currentUser} isLoggedIn' : function (fn, ev, newVal, oldVal) {
+			'{currentUser} loggedIn' : function (fn, ev, newVal, oldVal) {
 				if (newVal == false) can.route.attr({'page': 'homepage', 'view': 'latest'});
 			},
 

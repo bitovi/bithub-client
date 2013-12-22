@@ -10,7 +10,7 @@ steal('can',
 					  this.element.html( initView({}) );
 				  },
 
-				  '{currentUser} isLoggedIn': function(user, ev, newVal, oldVal) {
+				  '{currentUser} loggedIn': function(user, ev, newVal, oldVal) {
 					  // will execute only fetching non logged user's session (oldVal = undefined, newVal = false) 
 					  !newVal && !oldVal && can.route.attr('login') && this.showLogin();
 				  },

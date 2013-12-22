@@ -34,13 +34,13 @@ steal(
 			fromSession: function() {
 				var self = this;
 
-				this.delegate('isLoggedIn', 'change', can.proxy(bindLoggedInState, this));
+				this.delegate('loggedIn', 'change', can.proxy(bindLoggedInState, this));
 				
 				this.loadSession(function( data ) {
 					self.attr( dataHelpers.cleanup(data) );
-					self.attr('isLoggedIn', true);
+					self.attr('loggedIn', true);
 				}, function( response ) {
-					self.attr('isLoggedIn', false);
+					self.attr('loggedIn', false);
 					console.error( response );
 				});
 			},
@@ -61,7 +61,7 @@ steal(
 			},
 			
 			isLoggedIn: function() {
-				return this.attr('isLoggedIn');
+				return this.attr('loggedIn');
 			},
 
 			isAdmin: function() {

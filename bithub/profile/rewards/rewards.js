@@ -32,7 +32,7 @@ steal('can',
 				  }
 			  },
 
-			  '{currentUser} isLoggedIn' : "matchRewards",
+			  '{currentUser} loggedIn' : "matchRewards",
 			  '{rewards} length': "matchRewards",
 			  '{users} length': "matchRewards", // check top user
 

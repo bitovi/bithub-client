@@ -85,7 +85,7 @@ steal('can',
 					  }
 				  },
 
-				  '{currentUser} isLoggedIn change': function() {
+				  '{currentUser} loggedIn change': function() {
 					  this.loadGithub();
 					  this.loadEvents();
 					  this.loadTopPosts();

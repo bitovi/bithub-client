@@ -45,7 +45,7 @@ steal(
 				}
 			},
 
-			'{currentUser} isLoggedIn' : function () {
+			'{currentUser} loggedIn' : function () {
 				var self = this;
 				setTimeout(function() {
 					self.initControl(can.route.attr('page'))
