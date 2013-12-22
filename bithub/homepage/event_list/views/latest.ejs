@@ -4,7 +4,7 @@
   <div class="day">
 	<div class="sep-wrapper wrapper" style="height: 42px;">
 	  <div class="sep blue">
-		<h4 class="flag blue"><%== prettifyTs(day.date, "date") %> <% if(day.stopDate) { %>- <%== prettifyTs(day.stopDate, "date") %><% } %></h4>
+		<h4 class="flag blue"><% if(day.stopDate) { %><%== prettifyTs(day.stopDate, "date") %> - <% } %><%== prettifyTs(day.date, "date") %> </h4>
 	  </div>
 	</div>
 
