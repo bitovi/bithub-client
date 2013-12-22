@@ -11,13 +11,11 @@ steal(
 		};
 
 		var User = can.Model.extend('Bithub.Models.User', {
-			init: function () {},
 
-			// CRUD
-			findAll : 'GET /api/users',
-			findOne : 'GET /api/users/{id}',
-			create  : 'POST /api/users',
-			update  : 'PUT /api/users/{id}'
+			findAll : 'GET  /api/users',
+			findOne : 'GET  /api/users/{id}',
+			//create  : 'POST /api/users',
+			update  : 'PUT  /api/users/{id}'
 
 		}, {
 			fromSession: function() {
@@ -104,7 +102,6 @@ steal(
 				}, 'title');
 				
 				return _.map(watches, function( account ) {
-					//return account.split('/')[1];
 					var repo = github.matchRepo(account);
 					return repo && repo.repo;
 				});
@@ -119,22 +116,6 @@ steal(
 				return _.map(followes, function( account ) {
 					return account.split('@')[1];
 				});
-			},
-
-			queryGithub: function( endpoint, cb ) {
-				var	provider = this.getIdentity('github');
-
-				if( !provider ) return;
-
-				var user = provider.source_data.login || provider.source_data.nickname;
-				
-				var endpoints = {
-					// later switch to "watched";  http://developer.github.com/changes/2012-9-5-watcher-api/
-					watched: "https://api.github.com/users/" + user + "/subscriptions",
-					starred: "https://api.github.com/users/" + user + "/starred"
-				}
-
-				github.query( endpoints[endpoint], cb );
 			}
 
 		});
