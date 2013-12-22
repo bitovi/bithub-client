@@ -3,12 +3,25 @@ steal(
 	'../helpers/auth.js',
 	'../helpers/github.js',
 	'../helpers/data.js',
+	'can/observe/delegate',
 	function (can, auth, github, dataHelpers) {
 
 		var providers = {
 			twitter: { url: '/api/auth/twitter' },
 			github: { url: '/api/auth/github' }			
 		};
+
+		var bindLoggedInState = function(ev, attr, how, newVal, oldVal) {
+			var self = this,
+				speed = 300;
+
+			newVal === true ? $('.logged-out').fadeOut( speed ) : $('.logged-in').fadeOut( speed );
+			setTimeout(function() {
+				self.attr('loggedInDelayed', newVal );
+				newVal === true ? $('.logged-in').fadeIn( speed ) : $('.logged-out').fadeIn( speed );
+			}, speed - 10 );
+		};
+			
 
 		var User = can.Model.extend('Bithub.Models.User', {
 
@@ -21,6 +34,8 @@ steal(
 			fromSession: function() {
 				var self = this;
 
+				this.delegate('isLoggedIn', 'change', can.proxy(bindLoggedInState, this));
+				
 				this.loadSession(function( data ) {
 					self.attr( dataHelpers.cleanup(data) );
 					self.attr('isLoggedIn', true);

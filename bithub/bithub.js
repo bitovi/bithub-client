@@ -175,19 +175,6 @@ steal(
 		CURRENT_USER = currentUser;
 		QUERY_TRACKER = queryTracker;
 
-		// move this somewhere else
-		currentUser.bind('change', function(ev, attr, how, newVal, oldVal) {
-			var self = this,
-				speed = 300;
-
-			if( attr === 'isLoggedIn' ) {
-				newVal === true ? $('.logged-out').fadeOut( speed ) : $('.logged-in').fadeOut( speed );
-				setTimeout(function() {
-					self.attr('loggedInDelayed', newVal );
-					newVal === true ? $('.logged-in').fadeIn( speed ) : $('.logged-out').fadeIn( speed );
-				}, speed - 10 );
-			}
-		});
 
 		// Initialize the current user (if there is one)
 		currentUser.fromSession();
