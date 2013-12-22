@@ -33,7 +33,7 @@ steal(
 				new Sidebar(elem.find('#sidebar-container'), this.options);
 
 				// sometimes responses from /auth/session comes before this control is initialized
-				var isLoggedIn = opts.currentUser.attr('loggedIn');
+				var isLoggedIn = opts.currentUser.loggedIn();
 				if (defined(isLoggedIn)) {
 					opts.currentUser._triggerChange('loggedIn', 'change', isLoggedIn, isLoggedIn);
 				}

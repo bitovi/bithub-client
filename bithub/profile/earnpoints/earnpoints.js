@@ -36,7 +36,7 @@ steal('can',
 					  var self = this,
 						  user = opts.currentUser;
 
-					  user.isLoggedIn() && user.refreshSession();
+					  user.loggedIn() && user.refreshSession();
 					  
 					  this.element.html(initView({
 						  user: user,
@@ -68,7 +68,7 @@ steal('can',
 
 					  this.loadTopPosts();
 
-					  if( user.isLoggedIn() ) {
+					  if( user.loggedIn() ) {
 						  this.loadGithub();
 						  this.loadEvents();
 					  }
@@ -85,10 +85,12 @@ steal('can',
 					  }
 				  },
 
-				  '{currentUser} loggedIn change': function() {
-					  this.loadGithub();
-					  this.loadEvents();
-					  this.loadTopPosts();
+				  '{currentUser} authStatus' : function() {
+					  if( this.options.currentUser.loggedIn() ) {
+						  this.loadGithub();
+						  this.loadEvents();
+						  this.loadTopPosts();
+					  }				  
 				  },
 
 				  loadGithub: function() {
@@ -125,7 +127,7 @@ steal('can',
 					  var user = this.options.currentUser;
 					  var params = can.extend({}, topPostsParams);
 					  
-					  if( user.isLoggedIn() ) params.author_id = user.attr('id');
+					  if( user.loggedIn() ) params.author_id = user.attr('id');
 					  
 					  Bithub.Models.Event.findAll(params, function( data ) {
 						  topPosts.replace( data );

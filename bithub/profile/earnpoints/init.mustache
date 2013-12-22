@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span8 earn-points">
 
-	{{^if user.isLoggedIn}}
+	{{^if user.loggedIn}}
 	<h1>Support open source. Get free stuff.</h1>
 	<p>
 	  Contribute to our open source community and be awarded with free stuff. Tweet, comment, fix bugs. The community votes for you and you get awesome rewards for helping.
@@ -155,7 +155,7 @@
 		<h2>Get Votes</h2>
 		<p>All the content you post can be upvoted by community.</p>
 		
-		  	  {{^if user.isLoggedIn}}
+		  	  {{^if user.loggedIn}}
 	  <div class="btn-wrapper logged-out">
 		<button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button>
 	  </div>
@@ -166,7 +166,7 @@
 
 	  
 	  <div class="toprated widget">
-		<h4>{{#if user.isLoggedIn}}Your{{/if}} Top-Rated Posts</h4>
+		<h4>{{#if user.loggedIn}}Your{{/if}} Top-Rated Posts</h4>
 		<ul class="unstyled">
 		  {{#posts}}
 		  <li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li><br />

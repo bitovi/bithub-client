@@ -13,7 +13,8 @@ steal(
 
 		var bindLoggedInState = function(ev, attr, how, newVal, oldVal) {
 			var self = this,
-				speed = 300;
+				speed = 300,
+				newVal = this.loggedIn();
 
 			newVal === true ? $('.logged-out').fadeOut( speed ) : $('.logged-in').fadeOut( speed );
 			setTimeout(function() {
@@ -34,14 +35,12 @@ steal(
 			fromSession: function() {
 				var self = this;
 
-				this.delegate('loggedIn', 'change', can.proxy(bindLoggedInState, this));
+				this.delegate('authStatus', 'change', can.proxy(bindLoggedInState, this));
 
 				this.loadSession(function( data ) {
 					self.attr( dataHelpers.cleanup(data) );
-					self.attr('loggedIn', true);
 					self.attr('authStatus', 'loggedIn');
 				}, function( response ) {
-					self.attr('loggedIn', false);
 					self.attr('authStatus', 'loggedOut');
 					console.error( response );
 				});
@@ -62,8 +61,20 @@ steal(
 				}).done( cbDone ).fail( cbFail );
 			},
 			
-			isLoggedIn: function() {
-				return this.attr('loggedIn');
+			loggedIn: function( val ) {
+				if( val == undefined ) {
+					return this.attr('authStatus') == 'loggedIn';
+
+					// check providers
+				} else if( ['twitter','github'].indexOf(val) >= 0 ) {
+					this.login(val);
+				} else if( val == false ) {
+					this.logout();
+				}
+			},
+			
+			loggingIn: function() {
+				return this.attr('authStatus') == 'loggingIn';
 			},
 
 			isAdmin: function() {
@@ -89,10 +100,12 @@ steal(
 			},
 
 			login: function(provider) {
+				this.attr('authStatus', 'loggingIn');
 				auth.login.call(this, providers[provider] );
 			},
 
 			logout: function() {
+				this.attr('authStatus', 'loggedOut');
 				auth.logout.apply(this);
 			},
 

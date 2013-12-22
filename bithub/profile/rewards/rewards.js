@@ -1,7 +1,6 @@
 steal('can',
 	  './init.mustache',
 	  'bithub/models/reward.js',
-	  'vendor/moment',
 	  function(can, initView, Reward){
 
 		  return can.Control.extend({
@@ -27,12 +26,16 @@ steal('can',
 					  }
 				  }));
 
-				  if( opts.currentUser.isLoggedIn() ) {
+				  if( opts.currentUser.loggedIn() ) {
 					  this.matchRewards();
 				  }
 			  },
 
-			  '{currentUser} loggedIn' : "matchRewards",
+			  '{currentUser} authStatus' : function() {
+				  if( this.options.currentUser.loggedIn() ) {
+					  this.matchRewards();
+				  }				  
+			  },
 			  '{rewards} length': "matchRewards",
 			  '{users} length': "matchRewards", // check top user
 

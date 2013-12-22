@@ -237,7 +237,7 @@ steal(
 				' submit': function( el, ev ) {
 					ev.preventDefault();
 
-					if( !this.options.currentUser.isLoggedIn() ) {
+					if( !this.options.currentUser.loggedIn() ) {
 						this.options.modals.showLogin();
 						return;
 					}

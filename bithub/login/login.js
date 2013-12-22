@@ -28,7 +28,6 @@ steal(
 				ev.preventDefault();
 
 				var user = this.options.currentUser;
-				user.attr('authStatus', 'loggingIn');
 				user.login('github');
 			},
 
@@ -36,7 +35,6 @@ steal(
 				ev.preventDefault();
 				
 				var user = this.options.currentUser;
-				user.attr('authStatus', 'loggingIn');
 				user.login('twitter');
 			},
 

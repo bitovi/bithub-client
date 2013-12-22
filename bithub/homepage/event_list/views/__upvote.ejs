@@ -11,7 +11,7 @@
   </div>
 
   <% if ( (typeof(award) != "undefined") && award ) { %>
-  <% if (!event.attr('props.thread_awarded') && user.isLoggedIn() && user.isAdmin()) { %>
+  <% if (!event.attr('props.thread_awarded') && user.loggedIn() && user.isAdmin()) { %>
   <div class="award-btn">
 	<div class="word"><span>Award</span></div>
 	<div class="caret-right"></div>

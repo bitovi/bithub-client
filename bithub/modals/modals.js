@@ -6,11 +6,20 @@ steal('can',
 			  {
 				  defaults : {}
 			  }, {
-				  init : function(){
+				  init : function( elem, opts ){
 					  this.element.html( initView({}) );
+
+					  $('#login-modal').on('show', function( ev ) {
+						  var user = opts.currentUser;
+
+						  // prevent when user is logged in
+						  if( user.loggedIn() || user.loggingIn() ) {
+							  ev.preventDefault();
+						  }
+					  });
 				  },
 
-				  '{currentUser} loggedIn': function(user, ev, newVal, oldVal) {
+				  '{currentUser} authStatus': function(user, ev, newVal, oldVal) {
 					  // will execute only fetching non logged user's session (oldVal = undefined, newVal = false) 
 					  !newVal && !oldVal && can.route.attr('login') && this.showLogin();
 				  },
@@ -18,19 +27,17 @@ steal('can',
 				  '#login-modal .providers .twitter a click': function( el, ev ) {					  
 					  ev.preventDefault();
 					  el.closest('.modal').modal('hide');
-					  this.options.currentUser.attr('authStatus', 'loggingIn');
 					  this.options.currentUser.login('twitter');
 				  },
 				  
 				  '#login-modal .providers .github a click': function( el, ev ) {
 					  ev.preventDefault();
 					  el.closest('.modal').modal('hide');
-					  this.options.currentUser.attr('authStatus', 'loggingIn');
 					  this.options.currentUser.login('github');
 				  },
 
 				  showLogin: function () {
-					  this.element.find('#login-modal').modal('show');					  
+					  this.element.find('#login-modal').modal('show');
 				  },
 
 				  showTwitter: function() {

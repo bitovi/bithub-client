@@ -15,7 +15,7 @@ steal(
 			upvote: function( el, ev ) {
 				var event = can.data( el.closest('.reply-event, .event'), 'eventObj' );
 
-				if ( this.options.currentUser.attr('loggedIn') ) {
+				if ( this.options.currentUser.loggedIn() ) {
 					(new Upvote({event: event})).upvote();
 
 					el.closest('.reply-event, .event').addClass('upvoted').find('.votes .caption').html('Voted');

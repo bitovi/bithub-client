@@ -79,7 +79,7 @@ steal(
 								start = 0,
 								stop = 2;
 							
-							if( user.isLoggedIn() ) {
+							if( user.loggedIn() ) {
 								start = rewards.nextRewardIdx( user.attr('achievements') );
 								if( start >= rewards.attr('length')-1 ) start--;
 								stop = start + 2;
@@ -104,14 +104,18 @@ steal(
 					}
 				}));
 				
-				if( opts.currentUser.isLoggedIn() ) {
+				if( opts.currentUser.loggedIn() ) {
 					this.matchRewards();
 				}
 				
 				new Leaderboard(elem.find('#leaderboard'), opts);
 			},
 
-			'{currentUser} loggedIn' : "onLogin",
+			'{currentUser} authStatus' : function() {
+				if( this.options.currentUser.loggedIn() ) {
+					this.onLogin();
+				}				
+			},
 			'{rewards} length': "onLogin",
 			'{users} length': "onLogin",
 
