@@ -82,6 +82,7 @@ steal(
 				this.spinnerBottom = can.compute(false);
 				this.canLoad = can.compute(true);
 				this.canFetch = can.compute(true);
+				this._newPaginationLoaded = can.compute(true);
 
 				window.LATEST = this.latestEvents = new LatestEventsSorter;
 				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
@@ -179,11 +180,15 @@ steal(
 
 			reload: function () {
 				var self = this;
-				this.element.find('.events-list-wrapper').html('');
 
 				this.canLoad(true);
+				this._newPaginationLoaded(false);
+				
+				this.element.find('.events-list-wrapper').html('');
+
 				this.options.queryTracker.reset(function() {
 					self.spinnerTop(true);
+					self._newPaginationLoaded(true);
 					self.load(self.updateEvents);
 				});
 			},
@@ -200,7 +205,7 @@ steal(
 
 			fillDocumentHeight: function() {
 				if( $(document).height() <= ($(window).height() * 1.5) ) {
-					this.canLoad() && $(window).trigger('onbottom');
+					this.canLoad() && this._newPaginationLoaded() && $(window).trigger('onbottom');
 				}
 			},
 
