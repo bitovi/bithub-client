@@ -48,7 +48,7 @@ steal(
 		var datespanBuilder = function(days, opts ) {
 			opts = opts || {};
 			var treshold = opts['treshold'] || TRESHOLD;
-			
+
 			var datespans = [],
 				startDate, stopDate,
 				height, currentHeight = 0,
@@ -77,9 +77,13 @@ steal(
 		}
 		
 		return can.Model.extend('Bithub.Models.Pagination', {
-			id: 'date',			
 			findAll : 'GET /api/events/pagination',
 
+			model : function(data){
+				data.id = Math.random();
+				return this._super(data)
+			},
+			
 			defaultParams: function() {
 				return can.extend({}, defaultParams);
 			},

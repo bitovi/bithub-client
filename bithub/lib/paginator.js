@@ -35,8 +35,6 @@ steal(
 			},
 
 			next: function() {
-				var selft = this;
-				
 				if(this.idx < this.list.length-1) { this.idx++; }
 				
 				if( this.canLoad && (this.idx >= this.list.length-3) ) {
