@@ -238,6 +238,13 @@ steal(
 		
 		// Load category tags
 		Tag.findAll({type: 'category'}, function (data) {
+
+			var blacklisted = ['digest'], remove = [];
+			data.each(function(el, i) {
+				(blacklisted.indexOf(el.attr('name')) >= 0) && remove.push(i);
+			});
+			for(var idx=0; idx < remove.length; idx++) { data.splice(remove[idx], 1) }
+			
 			categories.replace(data);
 			updateVisibleTags( data, {type: 'category'} );
 		});
