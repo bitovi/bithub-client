@@ -68,6 +68,7 @@ steal(
 
 			reset: function( cb ) {
 				this.idx = 0;
+				this.params.offset = 0;
 				this.updateList( cb );
 			}
 		});
