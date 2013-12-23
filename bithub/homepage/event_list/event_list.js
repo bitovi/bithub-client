@@ -253,7 +253,7 @@ steal(
 				window.scrollTo(0, 0);
 
 				// load events until document height exceeds window height
-				//this.fillDocumentHeight();
+				this.fillDocumentHeight();
 			},
 
 			appendEvents: function (events) {
