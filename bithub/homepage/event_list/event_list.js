@@ -57,6 +57,14 @@ steal(
 			}
 		});
 
+		var isLatest = function() {
+			return can.route.attr('view') == 'latest';
+		}
+		var	isGreatest = function() {
+			return can.route.attr('view') == 'greatest';
+		}
+
+		
 		/* Some event_list specific helpers */
 		can.extend(can.EJS.Helpers.prototype, {
 			applyMore: function () {
@@ -78,17 +86,15 @@ steal(
 		}, {
 
 			init: function (elem, opts) {
-				this.spinnerTop = can.compute(false);
-				this.spinnerBottom = can.compute(false);
-				this.canLoad = can.compute(true);
-				this.canFetch = can.compute(true);
-				this._newPaginationLoaded = can.compute(true);
+				this.spinnerTop      = can.compute(false);
+				this.spinnerBottom   = can.compute(false);
+				this._canLoad        = can.compute(true);
+				this._paginatorReady = can.compute(true);
+				
 
 				window.LATEST = this.latestEvents = new LatestEventsSorter;
 				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
 				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
-
-				this.currentView = can.compute('latest');
 
 				this.data = {
 					days: this.latestIndex,
@@ -102,11 +108,10 @@ steal(
 
 				this.element.html(initView({
 					data: this.data,
-					view: this.currentView,
 					latestView: latestView,
 					greatestView: greatestView,
 					partials: eventPartials,
-					canLoad: this.canLoad
+					canLoad: this._canLoad
 				}));
 
 				new Handlers(this.element, {
@@ -170,44 +175,50 @@ steal(
 
 			// can.route listeners
 
-			'{can.route} view': "reload",
-			'{can.route} project': "reload",
+			'{can.route} view':     "reload",
+			'{can.route} project':  "reload",
 			'{can.route} category': "reload",
 			'{can.route} timespan': "reload",
-			'{can.route} state': "reload",
-
+			'{can.route} state':    "reload",
 			'{Bithub.Models.Event} reload': "reload",
 
 			reload: function () {
 				var self = this;
 
-				this.canLoad(true);
-				this._newPaginationLoaded(false);
-				
 				this.element.find('.events-list-wrapper').html('');
+				window.scrollTo(0, 0);
+
+				this._canLoad(true);
+				this._paginatorReady(false);					
+				this.spinnerTop(true);
 
 				this.options.queryTracker.reset(function() {
-					self.spinnerTop(true);
-					self._newPaginationLoaded(true);
-					self.load(self.updateEvents);
+					self._paginatorReady(true);					
+					self.load();
 				});
 			},
 
 			// infinite scroll
 
 			'{window} onbottom': function (el, ev) {
-				if( !this.canLoad() || !this.canFetch() ) { return; }
+				
+				if( !this._paginatorReady() ) { return; }
 
 				this.options.queryTracker.next();
-				this.spinnerBottom(true);
-				this.load(this.appendEvents);
+				this.options.queryTracker._onEndOfList() && this._canLoad(false);
+
+				if( !this._canLoad() ) { return; }
+
+				this.spinnerBottom(true);				
+				this.load();
 			},
 
 			fillDocumentHeight: function() {
-				if( $(document).height() <= ($(window).height() * 1.5) ) {
-					this.canLoad() && this._newPaginationLoaded() && $(window).trigger('onbottom');
+				if( $(document).height() <= ($(window).height() * 2) ) {
+					$(window).trigger('onbottom');
 				}
 			},
+
 
 			/*
 			 * Functions
@@ -217,31 +228,26 @@ steal(
 				// events are preloaded in bithub.js immediately after can.route is initalized
 				if (!window.EVENTS_PRELOADED) return;
 
-				this.canFetch(false);
-				
+				var self = this;
+								
 				clearTimeout(this.loadTimeout);
-				this.loadTimeout = setTimeout(this.proxy(function () {
-					Event.findAll(this.options.queryTracker.current(), this.proxy(cb));
-				}), 10);
+				this.loadTimeout = setTimeout(function () {
+					Event.findAll(self.options.queryTracker.current(), self.proxy(self.updateEvents));
+				}, 10);
 			},
 
-			updateEvents: function (events) {
-				var view = can.route.attr('view');
-
-				events.length == 0 && this.canLoad(false);
-
+			updateEvents: function( events ) {				
 				var data = can.extend({}, this.data),
 					sortedEvents = new LatestEventsSorter(),
-					renderer;
-
-				if( view === 'latest' ) {
-					renderer = latestView;
-					sortedEvents.appendEvents( events );
-					can.extend(data, {eventList: sortedEvents});
-				} else {
-					renderer = greatestView;
-					can.extend(data, {eventList: events});
+					renderer = isLatest() ? latestView : greatestView;
+									
+				// this will block loading of greatest list
+				if(events.length == 0) {
+					this._canLoad(false);
 				}
+				
+				isLatest() && sortedEvents.appendEvents( events );						
+				can.extend(data, {eventList: isLatest() ? sortedEvents : events});
 
 				this.element.find('.events-list-wrapper').append(
 					renderer({
@@ -249,53 +255,14 @@ steal(
 						data: data
 					})
 				);
-				
-				this.currentView(can.route.attr('view'));
-				this.spinnerTop(false);
+
+				this.spinnerTop(false);				
 				this.spinnerBottom(false);
-				this.canFetch(true);
-				this.postRendering();
-				window.scrollTo(0, 0);
-
-				// load events until document height exceeds window height
-				this.fillDocumentHeight();
-			},
-
-			appendEvents: function (events) {
-				var view = can.route.attr('view'),
-				daysNum = this.latestEvents.days.length;
-
-				if (events.length === 0) {
-					this.canLoad(false);
-					this.spinnerBottom(false);
-					return;
-				}
-
-				var data = can.extend({}, this.data),
-					sortedEvents = new LatestEventsSorter(),
-					renderer;
-
-				if( view === 'latest' ) {
-					renderer = latestView;
-					sortedEvents.appendEvents( events );
-					can.extend(data, {eventList: sortedEvents});
-				} else {
-					renderer = greatestView;
-					can.extend(data, {eventList: events});
-				}
-
-				this.element.find('.events-list-wrapper').append(
-					renderer({
-						partials: eventPartials,
-						data: data
-					})
-				);
 				
-				this.spinnerBottom(false);
-				this.canFetch(true);
 				this.postRendering();
+				this.fillDocumentHeight();				
 			},
-
+			
 			postRendering: function () {
 				this.element.trigger('rendered');
 			}
