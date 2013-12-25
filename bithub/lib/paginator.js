@@ -35,7 +35,11 @@ steal(
 			},
 
 			next: function() {
-				if(this.idx < this.list.length-1) { this.idx++; }
+				if(this.idx < this.list.length-1) {
+					this.idx++;
+				} else {
+					return false;
+				}
 				
 				if( this.canLoad && (this.idx >= this.list.length-3) ) {
 					this.params.offset += this.params.limit;
@@ -69,6 +73,7 @@ steal(
 			reset: function( cb ) {
 				this.idx = 0;
 				this.params.offset = 0;
+				this.canLoad = true;
 				this.updateList( cb );
 			}
 		});
