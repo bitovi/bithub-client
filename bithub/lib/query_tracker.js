@@ -84,7 +84,7 @@ steal(
 		}
 
 		var iterLatest = function() {
-			this.paginator.next();
+			if( !this.paginator.next() ) this._onEndOfList(true);
 		}
 
 		var iterGreatest = function() {
@@ -101,12 +101,14 @@ steal(
 		var resetState = function( cb ) {
 			var self = this;
 
+			this._onEndOfList(false);
+
 			if (can.route.attr('view') == 'latest') {
-				if( !this.pending ) {
-					this.pending = true;
+				if( !this._pending ) {
+					this._pending = true;
 					this.paginator.reset(function() {
 						cb && cb();
-						self.pending = false;
+						self._pending = false;
 					});
 				}
 			} else {
@@ -154,11 +156,12 @@ steal(
 				
 				this.state = new can.Observe( defaultState );
 				this.paginator = new Paginator( cb );
+				this._onEndOfList = can.compute(false);
 			},
 
 			reset:   resetState,
 			current: currentParams,
-			next:    next			
+			next:    next
 		});
 
 	});
