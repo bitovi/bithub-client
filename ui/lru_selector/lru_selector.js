@@ -71,7 +71,7 @@ steal(
 							items.splice(items.indexOf(selectedItem), 1);
 							items.unshift(selectedItem);
 							// sort the rest and save to cookie
-							this.sortItems(); 
+							//this.sortItems(); 
 							this.saveOrderingToCookie();
 						}
 					}
@@ -83,7 +83,7 @@ steal(
 					items.push({name: item.name, display_name: item.display_name });
 				});
 				this.loadOrderingFromCookie();
-				this.sortItems();
+				//this.sortItems();
 			},
 
 			sortItems: function() {

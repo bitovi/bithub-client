@@ -237,7 +237,7 @@ steal(
 		}
 		
 		// Load category tags
-		Tag.findAll({type: 'category'}, function (data) {
+		Tag.findAll({type: 'category', order: 'priority:desc'}, function (data) {
 
 			var blacklisted = ['digest','issue'], remove = [];
 			data.each(function(el, i) {
