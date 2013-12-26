@@ -1,8 +1,10 @@
 steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
 	can.Mustache.registerHelper('prettifyTs', function( ts, format, opts ) {
-		
-		ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
+
+		ts     = moment.utc(can.isFunction(ts) ? ts() : ts);
+		format = can.isFunction(format) ? format() : format;
+
 		var formats = {
 			date: {
 				today: "[Today]",
