@@ -14,7 +14,7 @@ steal(
 	'bithub/models/award.js',
 	'bithub/helpers/fun_helpers.js',
 	'can/construct/proxy',
-	'bithub/helpers/ejsHelpers.js',
+	'bithub/helpers/mustacheHelpers.js',
 	'ui/more',
 	'can/map/delegate',
 	'bithub/entities',
@@ -193,7 +193,7 @@ steal(
 			},
 
 			fillDocumentHeight: function() {
-				return
+				//return
 				if( $(document).height() <= ($(window).height() * 2) ) {
 					$(window).trigger('onbottom');
 				}
@@ -228,7 +228,7 @@ steal(
 				
 				isLatest() && sortedEvents.appendEvents( events );						
 				can.extend(data, {eventList: isLatest() ? sortedEvents : events});
-
+				console.time('renderEvents')
 				this.element.find('.events-list-wrapper').append(
 					renderer({
 						partials: eventPartials,
@@ -237,20 +237,17 @@ steal(
 						entityComponent : function(){
 							return ""
 						},
-						prettifyTS : function(){
-
-						},
 						hasCategoryFilter : function(){
 
 						}
 					})
 				);
-
-				this.spinnerTop(false);				
+				console.timeEnd('renderEvents')
+				this.spinnerTop(false);
 				this.spinnerBottom(false);
 				
 				this.postRendering();
-				this.fillDocumentHeight();				
+				this.fillDocumentHeight();
 			},
 			
 			postRendering: function () {

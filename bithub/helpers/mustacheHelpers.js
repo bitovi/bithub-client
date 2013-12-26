@@ -1,8 +1,8 @@
-steal('can/view/mustache', 'vendor/moment').then(function () {
+steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
-	Mustache.registerHelper('prettifyTs', function( ts, opts ) {
+	can.Mustache.registerHelper('prettifyTs', function( ts, format, opts ) {
+		
 		ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
-
 		var formats = {
 			date: {
 				today: "[Today]",
@@ -31,7 +31,6 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 			}
 		};
 
-		var format = (opts.hash && opts.hash.format && formats[opts.hash.format]) ? opts.hash.format : 'datetime';
 
 		// calculate diff from date
 		var diff = moment.utc().second(0).minute(0).hour(0).diff( moment.utc(ts).second(0).minute(0).hour(0), 'days', true );
@@ -50,8 +49,8 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 
 		return ts.local().format(format);
 	});
-
-	Mustache.registerHelper('loop', function( collection, opts ) {
+	
+	can.Mustache.registerHelper('loop', function( collection, opts ) {
 		var buffer = "",
 			begin = (opts.hash && opts.hash.begin) || 0,
 			length = (opts.hash && opts.hash.length) || collection.length,
@@ -81,27 +80,27 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 		return buffer;
 	});
 
-	Mustache.registerHelper('ifequal', function( a, b, opts ) {
+	can.Mustache.registerHelper('ifequal', function( a, b, opts ) {
 		a = (typeof(a) === 'function') ? a() : a;
 		b = (typeof(b) === 'function') ? b() : b;
 
 		return (a === b) ? opts.fn(this) : opts.inverse(this);
 	});
 
-	Mustache.registerHelper('substring', function( str, start, length, opts ) {
+	can.Mustache.registerHelper('substring', function( str, start, length, opts ) {
 		str = (typeof(str) === 'function') ? str() : str;
 		return str.substr( start, length );
 	});
 
-	Mustache.registerHelper('capitalize', function( str, opts ) {
+	can.Mustache.registerHelper('capitalize', function( str, opts ) {
 		return can.capitalize( typeof(str) === 'function' ? str() : str );
 	});
 
-	Mustache.registerHelper('logObj', function( obj, opts ) {
+	can.Mustache.registerHelper('logObj', function( obj, opts ) {
 		console.log( obj );
 	});
 
-	Mustache.registerHelper('stripHtml', function( str, opts ) {
+	can.Mustache.registerHelper('stripHtml', function( str, opts ) {
 		str = (typeof(str) == 'function') ? str() : str;
 		return $('<div>' + str + '</div>').text();
 	});

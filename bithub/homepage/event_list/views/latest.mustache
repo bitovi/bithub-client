@@ -5,12 +5,8 @@
 			<div class="sep-wrapper wrapper" style="height: 42px;">
 				<div class="sep blue">
 				<h4 class="flag blue">
-					{{#if stopDate}}
-						{{ prettifyTs day.stopDate "date" }}
-						-
-					{{/if}}
-					{{ prettifyTs day.date "date" }}
-
+					{{#if stopDate}}{{ prettifyTs stopDate "date" }} - {{/if}}
+					{{ prettifyTs date "date" }}
 					</h4>
 				</div>
 			</div>
@@ -28,8 +24,8 @@
 				</div>
 			{{/dailyCategories}}
 
-			{{#if day.types.code}}
-				<bh-code></bh-code>
+			{{#if types.code}}
+				<bh-code events="code"></bh-code>
 			{{/if}}
 			
 		</div>

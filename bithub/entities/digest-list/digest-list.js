@@ -1,4 +1,5 @@
 steal('can/component', './digest-list.mustache', function(Component, digestListView){
+	
 	var digestDict = {
 		actions: {
 			fork: 'forked',
@@ -28,12 +29,7 @@ steal('can/component', './digest-list.mustache', function(Component, digestListV
 		tag : 'bh-digest-list',
 		template : digestListView,
 		scope : {
-			digestTypes : function(){
-				var digest = this.attr('digest');
-				return can.grep(digestTypes, function(digestType){
-					return can.Map.keys(digest.attr(digestType)).length > 0;
-				})
-			}
+			digestTypes : ['follow', 'fork', 'watch']
 		},
 		helpers : {
 			digestsFor : function(digestType, opts){
