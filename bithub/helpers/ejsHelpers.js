@@ -1,4 +1,4 @@
-steal('can', 'can/observe/sort', 'vendor/moment').then(function() {
+steal('can', 'can/map/sort', 'vendor/moment', 'can/view/ejs').then(function() {
 
 	can.extend(can.EJS.Helpers.prototype, {
 		

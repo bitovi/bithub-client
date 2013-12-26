@@ -2,7 +2,7 @@ steal(
 	'can',
 	'./leaderboard.mustache',
 	'bithub/models/user.js',
-	'can/observe/delegate',
+	'can/map/delegate',
 	'bithub/helpers/mustacheHelpers.js',
 	function(can, leaderBoardView, User){
 

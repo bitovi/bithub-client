@@ -1,4 +1,4 @@
-steal('can/observe', 'can/observe/list', function(Observe, List){
+steal('can/map', 'can/list', function(Observe, List){
 
 	var types = ['follow', 'watch', 'fork'];
 
@@ -15,7 +15,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter'];
 	var allowedDigest = ['follow_event','watch_event','fork_event']
 
-	var Day = can.Observe({
+	var Day = can.Map({
 		init : function(){
 			this._super.apply(this, arguments);
 			this.attr('types', {});

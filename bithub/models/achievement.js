@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'can/observe/list',
+	'can/list',
 	'vendor/moment',
 	function (can) {
 		

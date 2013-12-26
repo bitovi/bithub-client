@@ -1,7 +1,7 @@
 steal(
 	'can',
 	'vendor/moment',
-	'can/model/list',
+	'can/list',
 	
 	function (can) {
 		

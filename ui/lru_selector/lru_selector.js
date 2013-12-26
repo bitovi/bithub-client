@@ -2,7 +2,7 @@ steal(
 	'can',
 	'./init.ejs',
 	'jquerypp/dom/cookie',
-	'can/observe/delegate',
+	'can/map/delegate',
 	function(can, initView){
 		var items = new can.Observe.List();
 		

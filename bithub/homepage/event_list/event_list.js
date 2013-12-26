@@ -1,8 +1,8 @@
 steal(
 	'can',
 	'bithub/homepage/event_list/views/init.ejs',
-	'bithub/homepage/event_list/views/latest.ejs',
-	'bithub/homepage/event_list/views/greatest.ejs',
+	'bithub/homepage/event_list/views/latest.mustache',
+	'bithub/homepage/event_list/views/greatest.mustache',
 	'bithub/homepage/event_list/event_partials.js',
 	'bithub/homepage/event_list/handlers',
 	'ui/html_select',
@@ -16,35 +16,15 @@ steal(
 	'can/construct/proxy',
 	'bithub/helpers/ejsHelpers.js',
 	'ui/more',
-	'can/observe/delegate',
+	'can/map/delegate',
+	'bithub/entities',
 	function (can, initView, latestView, greatestView, eventPartials, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
 		// used for ordering categories on latest view
-		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'event'],
-		digestDict = {
-			actions: {
-				fork: 'forked',
-				follow: 'followed',
-				watch: 'started watching'
-			},
-			targetUrl: {
-				fork: 'http://github.com/',
-				watch: 'http://github.com/',
-				follow: 'http://twitter.com/'
-			},
-			targetName: {
-				fork: function(repo) { return repo.split('/')[1]; },
-				watch: function(repo) { return repo.split('/')[1]; },
-				follow: function(account) { return '@' + account; }
-			},
-			actorUrl: {
-				fork: 'http://github.com/',
-				watch: 'http://github.com/',
-				follow: 'http://twitter.com/'
-			}
-		};
+		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'event'];
+		
 
 		var ChatScroll = can.Control.extend({
 			init : function(){
@@ -93,7 +73,7 @@ steal(
 				
 
 				window.LATEST = this.latestEvents = new LatestEventsSorter;
-				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
+				window.LATEST_IDX = this.latestIndex = new can.List([{}]);
 				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 
 				this.data = {
@@ -102,7 +82,6 @@ steal(
 					projects: opts.projects,
 					categories: opts.categories,
 					visibleTags: opts.visibleTags,
-					digestDict: digestDict,
 					user: this.options.currentUser
 				}
 
@@ -214,6 +193,7 @@ steal(
 			},
 
 			fillDocumentHeight: function() {
+				return
 				if( $(document).height() <= ($(window).height() * 2) ) {
 					$(window).trigger('onbottom');
 				}
@@ -253,6 +233,16 @@ steal(
 					renderer({
 						partials: eventPartials,
 						data: data
+					}, {
+						entityComponent : function(){
+							return ""
+						},
+						prettifyTS : function(){
+
+						},
+						hasCategoryFilter : function(){
+
+						}
 					})
 				);
 

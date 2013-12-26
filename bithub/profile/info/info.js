@@ -3,7 +3,7 @@ steal(
 	'./info.mustache',
 	'ui/bootstrap_dropdown',
 	'bithub/models/country.js',
-	'can/model/list',
+	'can/list',
 	'jquerypp/dom/form_params',
 	function(can, profileInfoView, Dropdown, Country){
 

@@ -1,0 +1,29 @@
+<div class="category-digest">
+	<div class="truncated">
+		<ul class="digest-event-info unstyled">
+			{{#digestTypes}}
+				{{#digestsFor this}}
+					<li class="total {{ type }}ers">
+						{{#isSingular}}
+							<a href="{{ digestUrl digests.0 type }}">{{ digests.0.props.origin_author_name }}</a>
+						{{ else }}
+							{{ digests.length }} people
+						{{/isSingular}}
+						{{ digestAction type }}
+						<span class="popup">
+							<a href="{{ targetUrl type project }}">{{ targetName type project }}</a>
+							{{^isSingular}}
+								<div>
+									<span class="people-caret"></span>
+									{{#digests}}
+										<a href="{{ digestUrl this type}}">{{ props.origin_author_name }}</a>
+									{{/digests}}
+								</div>
+							{{/isSingular}}
+						</span>
+					</li>
+				{{/digestsFor}}
+			{{/digestTypes}}
+		</ul>
+	</div>
+</div>

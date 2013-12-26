@@ -28,7 +28,6 @@ steal(
 		if( steal.isBuilding ) {
 			return
 		}
-		can.route.ready(false);
 
 		// Display load time 
 		loadtime();
@@ -266,5 +265,7 @@ steal(
 		});
 
 		new UI.Onbottom(document, {treshold: $(window).innerHeight()/2 });
+
+		can.route.ready()
 	}
 );

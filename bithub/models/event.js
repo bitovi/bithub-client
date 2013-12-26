@@ -1,9 +1,8 @@
 steal('can',
 	'./upvote.js',
 	'vendor/moment',
-	'can/model/list',
-	'can/observe/validations',
-	'can/observe/lazy',
+	'can/list',
+	'can/map/validations',
 	function (can, Upvote) {
 		// methods shared by 'regular' Event model and LazyEvent object
 		var prototypeMethods = {
@@ -26,7 +25,7 @@ steal('can',
 			 */
 		}
 			
-		var EventObj = can.LazyMap.extend( prototypeMethods );
+		//var EventObj = can.LazyMap.extend( prototypeMethods );
 
 		// 'regular' Event model
 		var Event = can.Model('Bithub.Models.Event', {
