@@ -1,5 +1,4 @@
-steal(
-function(){
+steal(function(){
 
 	var eventPartialsLookup = [{
 		template: 'bh-push',

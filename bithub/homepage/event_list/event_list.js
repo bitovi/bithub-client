@@ -3,7 +3,7 @@ steal(
 	'bithub/homepage/event_list/views/init.ejs',
 	'bithub/homepage/event_list/views/latest.mustache',
 	'bithub/homepage/event_list/views/greatest.mustache',
-	'bithub/homepage/event_list/event_partials.js',
+	'bithub/homepage/event_list/determine_event_partial.js',
 	'bithub/homepage/event_list/handlers',
 	'ui/html_select',
 	'bithub/homepage/event_list/spinner',
@@ -18,7 +18,7 @@ steal(
 	'ui/more',
 	'can/map/delegate',
 	'bithub/entities',
-	function (can, initView, latestView, greatestView, eventPartials, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
+	function (can, initView, latestView, greatestView, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
@@ -89,7 +89,6 @@ steal(
 					data: this.data,
 					latestView: latestView,
 					greatestView: greatestView,
-					partials: eventPartials,
 					canLoad: this._canLoad
 				}));
 
@@ -226,28 +225,59 @@ steal(
 					this._canLoad(false);
 				}
 				
-				isLatest() && sortedEvents.appendEvents( events );						
+				isLatest() && sortedEvents.appendEvents( events );
 				can.extend(data, {eventList: isLatest() ? sortedEvents : events});
-				console.time('renderEvents')
-				this.element.find('.events-list-wrapper').append(
-					renderer({
-						partials: eventPartials,
-						data: data
-					}, {
-						entityComponent : function(){
-							return ""
-						},
-						hasCategoryFilter : function(){
 
+				console.time('renderEvents')
+				var content = renderer({
+					data: data,
+					hasCategoryFilter : function(){
+						return can.route.attr('category') !== 'all';
+					}
+				}, {
+					dailyCategories : function(opts){
+						return can.map(latestCategories, function(category){
+							var events = opts.context.attr('types.' + category);
+							if(events && events.attr('length')){
+								return opts.fn({
+									currentCategory : category,
+									events          : events,
+									date            : opts.context.attr('date')
+								})
+							}
+							return '';
+						}).join('')
+					},
+					entityComponent : function(events, date){
+
+						if(typeof events.length === 'undefined'){
+							events = [events];
 						}
-					})
-				);
-				console.timeEnd('renderEvents')
-				this.spinnerTop(false);
-				this.spinnerBottom(false);
+
+						return can.map(events, function(event){
+							var component = determineEventPartial(event.attr('tags')),
+								template = '<{c} currentdate="date" event="event" data="data"></{c}>';
+
+							return can.view.mustache(can.sub(template, {c: component})).render({
+								data  : data,
+								date  : date,
+								event : event
+							});
+
+						}).join('')
+					}
+				})
+
+				setTimeout(this.proxy(function(){
+					this.element.find('.events-list-wrapper').append(content);
+					console.timeEnd('renderEvents')
+					this.spinnerTop(false);
+					this.spinnerBottom(false);
+					
+					this.postRendering();
+					this.fillDocumentHeight();
+				}), 1)
 				
-				this.postRendering();
-				this.fillDocumentHeight();
 			},
 			
 			postRendering: function () {

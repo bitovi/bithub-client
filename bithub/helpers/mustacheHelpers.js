@@ -106,4 +106,10 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 		str = (typeof(str) == 'function') ? str() : str;
 		return $('<div>' + str + '</div>').text();
 	});
+
+	can.Mustache.registerHelper('applyMore',function () {
+		return function (el) {
+			$(el).addClass('no-more');
+		}
+	}) 
 });

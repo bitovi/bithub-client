@@ -142,8 +142,7 @@ steal(
 		//can.route('/profile/earn-points', { page: 'profile', view: 'earnpoints' });
 
 		can.route('/event/:id', { page: 'eventdetails' });
-		
-		can.route.ready(true);
+
 		
 		var	newpostVisibility = can.compute(false),
 			projects          = new can.Model.List(),
@@ -179,8 +178,9 @@ steal(
 		});
 
 		// expose some as globals
-		CURRENT_USER = currentUser;
+		CURRENT_USER  = currentUser;
 		QUERY_TRACKER = queryTracker;
+		VISIBLE_TAGS  = visibleTags;
 
 
 		// Initialize the current user (if there is one)

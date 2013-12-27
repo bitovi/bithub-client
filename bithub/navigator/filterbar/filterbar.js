@@ -12,7 +12,7 @@ steal(
 		}, {
 
 			init: function( elem, options ) {
-				elem.html(filterbarView());
+				elem.html(filterbarView({}));
 
 				new RadioSelector(elem.find('#viewFilter'), {
 					items: [{ 

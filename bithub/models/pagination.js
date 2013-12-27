@@ -25,7 +25,7 @@ steal(
 			'question': ASHCurried100,
 			'twitter': ASHCurried100
 		},
-			TRESHOLD = 500,
+			TRESHOLD = 300,
 			SECTION_TITLE = 35;		
 
 		

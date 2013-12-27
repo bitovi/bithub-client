@@ -1,7 +1,0 @@
-<div>
-<% list( data.eventList, function( event ) { %>
-
-<%== partials.determineEvent(event.attr('tags')).render({event: event, partials: partials, data: data, orderChildrenBy: 'origin_ts', date: null}) %>
-
-<% }) %>
-</div>

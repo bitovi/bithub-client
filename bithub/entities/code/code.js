@@ -1,4 +1,12 @@
-steal('can/component', './code.mustache', function(Component, codeView){
+steal(
+'can/component',
+'./code.mustache',
+'bithub/homepage/event_list/components/status-bar',
+'bithub/homepage/event_list/components/toolbar',
+'bithub/homepage/event_list/components/manage-bar',
+'bithub/homepage/event_list/components/upvote',
+'bithub/homepage/event_list/components/tags',
+function(Component, codeView){
 
 	var titles = {
 		push : {
@@ -83,39 +91,6 @@ steal('can/component', './code.mustache', function(Component, codeView){
 					url = event.attr('url');
 				}
 				return url;
-			},
-			eventTags: function (tags, opts) {
-				var buffer, linkTags, visibleTags;
-				
-				tags        = can.isFunction(tags) ? tags() : tags;
-				buffer      = "";
-				linkTags    = can.route.attr('page') === 'homepage';
-				visibleTags = this.attr('visibletags');
-
-				visibleTags.attr('length');
-
-				can.each(tags, function( eventTag ) {
-					var matched = false;
-
-					can.each(visibleTags, function( visibleTag ) {
-						var name = visibleTag.attr('name'),
-							url = "",
-							routeParams = can.extend({}, can.route.attr());
-
-						if( name == eventTag && !matched ) {
-							if( linkTags ) {
-								routeParams[visibleTag.attr('type')] = name;
-								url = can.route.url( routeParams, false );
-								buffer += "<li class=\"tag-name " + name +  "\"><a href=\"" + url +  "\"><small>" + name + "</small></a></li>";
-							} else {
-								buffer += "<li class=\"tag-name " + name +  "\"><small>" + name + "</small></li>";
-							}
-							matched = true;
-						}
-					});
-				});
-				
-				return buffer;
 			}
 		}
 	})

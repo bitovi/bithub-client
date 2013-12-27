@@ -1,0 +1,67 @@
+{{#event}}
+	<div class="event list-element {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}} clearfix" {{data 'eventObj'}}>
+
+		<bh-toolbar user="user"></bh-toolbar>
+		<bh-upvote event="this" user="user"></bh-upvote>
+
+		<!-- content -->
+		<div class="span7 content clearfix">
+
+			<div class="row clearfix">
+				<div class="twitter-profile-pic pull-left">
+					<a href="{{ linkToTwitterProfile props.origin_author_name }}">
+						<img {{#props.origin_author_avatar_url}}src="{{.}}"{{/props.origin_author_avatar_url}} alt="Avatar" />
+					</a>
+				</div>
+
+				<h5 class="title">
+					{{ authorName}}
+					<a href="{{ linkToTwitterProfile props.origin_author_name }}">
+						<small>@{{props.origin_author_name}}</small>
+					</a>
+				</h5>
+				<div class="body">{{{ title }}}</div>
+			</div>
+
+
+			<div class="status row">
+				<div class="metadata-container pull-right">
+
+					{{#if children.length}}
+						<div class="retweets-container">
+							<i class="icon-retweet"></i>
+
+							{{#children}}
+								<a href="https://twitter.com/{{ props.origin_author_name }}">
+									<img class="profile-icon" {{#props.origin_author_avatar_url}}src="{{.}}"{{/props.origin_author_avatar_url}} alt="Avatar" />
+								</a>
+							{{/children}}
+
+						</div><!-- .rewtweets-container -->
+					{{/if}}
+
+
+					<div class="event-metadata pull-right">
+						<small>
+							{{ prettifyTs origin_ts dateFormat }} via
+							<strong><a href="{{ url }}">{{ feed }}</a></strong>
+						</small>
+					</div>
+
+				</div>
+
+				<bh-tags tags="tags"></bh-tags>
+
+				{{#if user.isAdmin}}
+					<!-- ADMIN -->
+					<a href="#" class="expand-manage-bar"></a>
+					<!-- /ADMIN -->
+				{{/if}}
+
+			</div>
+
+			<bh-manage-bar event="this" data="data" user="user"></bh-manage-bar>
+
+		</div>
+	</div>
+{{/event}}
