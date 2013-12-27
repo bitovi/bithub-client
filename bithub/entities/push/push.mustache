@@ -1,7 +1,7 @@
 {{#event}}
 	<div class="truncated code-events clearfix">
 
-		<h5 class="title"><a href="{{ eventUrl this }}">{{ title }}</a></h5>
+		<h5 class="title"><a href="{{ eventUrl this }}">{{v title }}</a></h5>
 		{{#children}}
 
 			<div class="event list-element commit clearfix" {{data 'eventObj'}}>  
@@ -19,7 +19,7 @@
 
 					<div class="row clearfix">
 						<h5 class="title">
-							- {{ substring source_data.sha 0 6 }} {{ title }}
+							- {{ substring source_data.sha 0 6 }} {{v title }}
 						</h5>
 					</div>
 

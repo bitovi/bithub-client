@@ -78,6 +78,8 @@ function(Component, codeView){
 					title = can.trim((event.attr('source_data.sha') || '').substring(0, 6) + ' ' + title);
 				}
 
+				can.__clearReading();
+
 				return title;
 			},
 			eventUrl : function(event, eventType){
@@ -90,6 +92,9 @@ function(Component, codeView){
 				} else {
 					url = event.attr('url');
 				}
+
+				can.__clearReading();
+
 				return url;
 			}
 		}

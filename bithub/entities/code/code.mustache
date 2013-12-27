@@ -1,9 +1,9 @@
 <div class="truncated code-events">
 	{{#events}}
 		{{#userEvents}}
-			<h5 class="author-title">{{ authorName }}:</h5>
+			<h5 class="author-title">{{v authorName }}:</h5>
 			{{#groupedEvents repo}}
-				<h5 class="category-title">{{ title }}</h5>
+				<h5 class="category-title">{{v title }}</h5>
 				<div><!-- break --></div>
 				{{#repoUserEvents}}
 					<div class="event list-element commit-event" {{ data 'eventObj'}}>  

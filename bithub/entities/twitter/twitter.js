@@ -24,6 +24,9 @@ function(Component, twitterView, sharedHelpers){
 		helpers : {
 			linkToTwitterProfile: function(username) {
 				username = can.isFunction(username) ? username() : username;
+
+				can.__clearReading();
+
 				return "https://twitter.com/" + username;
 			},
 			isEventUpvoted : sharedHelpers.isEventUpvoted

@@ -12,9 +12,9 @@
 					<img class="thumb" {{#image_url}}src="{{ . }}"{{/image_url}} alt="Thumb" />
 				{{/if}}
 				<h5 class="title">
-					<a href="{{eventUrl this}}">{{{ title }}}</a>
+					<a href="{{eventUrl this}}">{{{v title }}}</a>
 				</h5>
-				<div class="body" {{ applyMore }}>{{{ body }}}</div>
+				<div class="body" {{ applyMore }}>{{{v body }}}</div>
 			</div>
 
 			<bh-status-bar event="event" user="user" currentdate="currentdate" expanded="childrenExpanded"></bh-status-bar>

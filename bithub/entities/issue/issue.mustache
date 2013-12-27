@@ -12,7 +12,7 @@
 				{{/if}}
 
 				<h5 class="title">
-					<a href="{{ eventUrl this }}">{{ title }}</a>
+					<a href="{{ eventUrl this }}">{{v title }}</a>
 
 					{{#if props.thread_awarded}}
 						<span class="awarded">Awarded + {{ double upvotes }}</span>
@@ -25,7 +25,7 @@
 					{{/if}}
 				</h5>
 
-				<div class="body" {{ applyMore }}>{{{ body }}}</div>
+				<div class="body" {{ applyMore }}>{{{v body }}}</div>
 
 			</div>
 

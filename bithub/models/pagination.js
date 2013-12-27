@@ -25,7 +25,7 @@ steal(
 			'question': ASHCurried100,
 			'twitter': ASHCurried100
 		},
-			TRESHOLD = 300,
+			THRESHOLD = 500,
 			SECTION_TITLE = 35;		
 
 		
@@ -47,7 +47,7 @@ steal(
 		
 		var datespanBuilder = function(days, opts ) {
 			opts = opts || {};
-			var treshold = opts['treshold'] || TRESHOLD;
+			var threshold = opts['threshold'] || THRESHOLD;
 
 			var datespans = [],
 				startDate, stopDate,
@@ -60,7 +60,7 @@ steal(
 
 				height = approximateDayHeight( days[i] );
 				
-				if( (currentHeight + height) >= treshold ) {
+				if( (currentHeight + height) >= threshold ) {
 					startDate === stopDate ? datespans.push( startDate) : datespans.push( stopDate + ':' + startDate);
 					startDate = null; stopDate = null; currentHeight = 0;
 				} else {

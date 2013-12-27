@@ -18,17 +18,17 @@
 	<div class="body reply">
 		
 		{{#if isCommit}}
-			<a href="{{ url }}">{{ substring source_data.sha 0 6 }}</a> = {{ title }}
+			<a href="{{ url }}">{{ substring source_data.sha 0 6 }}</a> = {{v title }}
 		{{ else }}
 			{{#if isIssue}}
-				Issue {{ props.action }}
+				Issue {{v props.action }}
 			{{ else }}
-				{{#if body}}{{{ body}}}{{ else }}{{{ title}}}{{/if}}
+				{{#if body}}{{{v body}}}{{ else }}{{{v title}}}{{/if}}
 			{{/if}}
 		{{/if}}
 
 		<div class="event-metadata pull-right">
-			{{ authorName }}
+			{{v authorName }}
 			{{ prettifyTs origin_ts 'datetime' }}
 		</div>
 

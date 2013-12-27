@@ -10,41 +10,41 @@
 			<div class="row clearfix">
 				<div class="twitter-profile-pic pull-left">
 					<a href="{{ linkToTwitterProfile props.origin_author_name }}">
-						<img {{#props.origin_author_avatar_url}}src="{{.}}"{{/props.origin_author_avatar_url}} alt="Avatar" />
+						{{{img props.origin_author_avatar_url 'Avatar'}}}
 					</a>
 				</div>
 
 				<h5 class="title">
-					{{ authorName}}
+					{{v authorName}}
 					<a href="{{ linkToTwitterProfile props.origin_author_name }}">
-						<small>@{{props.origin_author_name}}</small>
+						<small>@{{v props.origin_author_name}}</small>
 					</a>
 				</h5>
-				<div class="body">{{{ title }}}</div>
+				<div class="body">{{{v title }}}</div>
 			</div>
 
 
 			<div class="status row">
 				<div class="metadata-container pull-right">
 
-					{{#if children.length}}
+					{{#when children.length}}
 						<div class="retweets-container">
 							<i class="icon-retweet"></i>
 
 							{{#children}}
-								<a href="https://twitter.com/{{ props.origin_author_name }}">
-									<img class="profile-icon" {{#props.origin_author_avatar_url}}src="{{.}}"{{/props.origin_author_avatar_url}} alt="Avatar" />
+								<a href="https://twitter.com/{{v props.origin_author_name }}">
+									{{{img props.origin_author_avatar_url 'Avatar' 'profile-icon'}}}
 								</a>
 							{{/children}}
 
 						</div><!-- .rewtweets-container -->
-					{{/if}}
+					{{/when}}
 
 
 					<div class="event-metadata pull-right">
 						<small>
 							{{ prettifyTs origin_ts dateFormat }} via
-							<strong><a href="{{ url }}">{{ feed }}</a></strong>
+							<strong><a href="{{v url }}">{{v feed }}</a></strong>
 						</small>
 					</div>
 

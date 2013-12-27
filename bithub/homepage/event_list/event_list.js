@@ -25,6 +25,8 @@ steal(
 		// used for ordering categories on latest view
 		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'event'];
 		
+		var __templatesCache = {};
+
 
 		var ChatScroll = can.Control.extend({
 			init : function(){
@@ -229,6 +231,7 @@ steal(
 				can.extend(data, {eventList: isLatest() ? sortedEvents : events});
 
 				console.time('renderEvents')
+
 				var content = renderer({
 					data: data,
 					hasCategoryFilter : function(){
@@ -238,7 +241,7 @@ steal(
 					dailyCategories : function(opts){
 						return can.map(latestCategories, function(category){
 							var events = opts.context.attr('types.' + category);
-							if(events && events.attr('length')){
+							if(events && events.length){
 								return opts.fn({
 									currentCategory : category,
 									events          : events,
@@ -258,7 +261,11 @@ steal(
 							var component = determineEventPartial(event.attr('tags')),
 								template = '<{c} currentdate="date" event="event" data="data"></{c}>';
 
-							return can.view.mustache(can.sub(template, {c: component})).render({
+							if(typeof __templatesCache[component] === 'undefined'){
+								__templatesCache[component] = can.view.mustache(can.sub(template, {c: component}));
+							}
+
+							return __templatesCache[component].render({
 								data  : data,
 								date  : date,
 								event : event
@@ -268,7 +275,7 @@ steal(
 					}
 				})
 
-				setTimeout(this.proxy(function(){
+				//setTimeout(this.proxy(function(){
 					this.element.find('.events-list-wrapper').append(content);
 					console.timeEnd('renderEvents')
 					this.spinnerTop(false);
@@ -276,7 +283,7 @@ steal(
 					
 					this.postRendering();
 					this.fillDocumentHeight();
-				}), 1)
+				//}), 1)
 				
 			},
 			

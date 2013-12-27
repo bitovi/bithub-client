@@ -5,9 +5,9 @@
 				{{#digestsFor this}}
 					<li class="total {{ type }}ers">
 						{{#isSingular}}
-							<a href="{{ digestUrl digests.0 type }}">{{ digests.0.props.origin_author_name }}</a>
+							<a href="{{ digestUrl digests.0 type }}">{{v digests.0.props.origin_author_name }}</a>
 						{{ else }}
-							{{ digests.length }} people
+							{{v digests.length }} people
 						{{/isSingular}}
 						{{ digestAction type }}
 						<span class="popup">
@@ -16,7 +16,7 @@
 								<div>
 									<span class="people-caret"></span>
 									{{#digests}}
-										<a href="{{ digestUrl this type}}">{{ props.origin_author_name }}</a>
+										<a href="{{ digestUrl this type}}">{{v props.origin_author_name }}</a>
 									{{/digests}}
 								</div>
 							{{/isSingular}}

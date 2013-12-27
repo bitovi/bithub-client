@@ -7,12 +7,14 @@ steal('./child.mustache', function(childEventView){
 			return check ? opts.fn() : "";
 		},
 		eventUrl : function(event){
+			var url = "";
 			if (event.attr('url')) {
-				return event.attr('url');
+				url = event.attr('url');
 			} else if (event.attr('feed') === 'bithub') {
-				return can.route.url({id: event.attr('id')});
+				url = can.route.url({id: event.attr('id')});
 			}
-			return "";
+			can.__clearReading();
+			return url;
 		},
 		renderChildEvent : function(){
 			var isCommit = false,

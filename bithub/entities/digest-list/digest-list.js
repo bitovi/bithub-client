@@ -51,8 +51,12 @@ steal('can/component', './digest-list.mustache', function(Component, digestListV
 				}
 			},
 			digestUrl : function(digestFn, type, opts){
-				var digest = can.isFunction(digestFn) ? digestFn() : digestFn;
-				return digestDict.actorUrl[type] + digest.attr('props.origin_author_name');
+				var digest = can.isFunction(digestFn) ? digestFn() : digestFn,
+					author = digest.attr('props.origin_author_name');
+
+				can.__clearReading();
+				
+				return digestDict.actorUrl[type] + author;
 			},
 			digestAction : function(type){
 				return digestDict.actions[type];

@@ -49,6 +49,8 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 			format = formats[format]._default;
 		}
 
+		can.__clearReading();
+
 		return ts.local().format(format);
 	});
 	
@@ -91,6 +93,9 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
 	can.Mustache.registerHelper('substring', function( str, start, length, opts ) {
 		str = (typeof(str) === 'function') ? str() : str;
+
+		can.__clearReading();
+
 		return str.substr( start, length );
 	});
 
@@ -111,5 +116,38 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 		return function (el) {
 			$(el).addClass('no-more');
 		}
-	}) 
+	})
+
+	can.Mustache.registerHelper('img', function(src){
+		var alt = '', 
+			klass = '';
+
+		src = can.isFunction(src) ? src() : src;
+
+		if(arguments.length > 2){
+			alt = arguments[1];
+			alt = can.isFunction(alt) ? alt() : alt;
+		}
+
+		if(arguments.length > 3){
+			klass = arguments[2];
+			klass = can.isFunction(klass) ? klass() : klass;
+		}
+
+		can.__clearReading();
+
+		return !!src ? '<img src="' + src + '" alt="' + alt + '" class="' + klass + '">' : "";
+	})
+
+	can.Mustache.registerHelper("v", function(compute){
+		var val = can.isFunction(compute) ? compute() : compute;
+		can.__clearReading();
+		return val;
+	})
+
+	can.Mustache.registerHelper("when", function(compute, opts){
+		var val = can.isFunction(compute) ? compute() : compute;
+		can.__clearReading();
+		return val ? opts.fn(opts.scope) : "";
+	})
 });

@@ -11,12 +11,12 @@
 					<img class="thumb" {{#image_url}}src="{{ . }}"{{/image_url}} alt="Thumb" />
 				{{/if}}
 				<h5 class="title">
-					<a href="{{eventUrl this}}">{{{ title }}}</a>
+					<a href="{{eventUrl this}}">{{{v title }}}</a>
 				</h5>
 				<div class="location-time">
-					{{ props.location }} / {{ prettifyTs props.scheduled_for 'datetime'}}
+					{{v props.location }} / {{ prettifyTs props.scheduled_for 'datetime'}}
 				</div>
-				<div class="body">{{{ body }}}</div>
+				<div class="body">{{{v body }}}</div>
 			</div>
 
 			<bh-status-bar event="event" user="user" currentdate="currentdate" expanded="childrenExpanded"></bh-status-bar>
