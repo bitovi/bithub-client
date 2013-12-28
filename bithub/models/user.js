@@ -3,7 +3,7 @@ steal(
 	'../helpers/auth.js',
 	'../helpers/github.js',
 	'../helpers/data.js',
-	'can/observe/delegate',
+	'can/map/delegate',
 	function (can, auth, github, dataHelpers) {
 
 		var providers = {

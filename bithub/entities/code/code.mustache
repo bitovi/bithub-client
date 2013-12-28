@@ -1,0 +1,36 @@
+<div class="truncated code-events">
+	{{#events}}
+		{{#userEvents}}
+			<h5 class="author-title">{{v authorName }}:</h5>
+			{{#groupedEvents repo}}
+				<h5 class="category-title">{{v title }}</h5>
+				<div><!-- break --></div>
+				{{#repoUserEvents}}
+					<div class="event list-element commit-event" {{ data 'eventObj'}}>  
+						<bh-upvote event="this"></bh-upvote>
+						<div class="span7 content">
+							<div class="row">
+								<div class="metadata-container pull-right">
+									<div class="event-metadata pull-right">
+										<small>{{ prettifyTs origin_ts dateFormat }}</small>
+									</div>
+								</div>
+								<h5 class="title">
+									<a href="{{ eventUrl this eventType }}">{{ eventTitle this eventType }}</a>
+								</h5>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				{{/repoUserEvents}}
+			{{/groupedEvents}}
+			<div class="status row" style="margin-left: 67px; margin-top: 5px;">
+				<div class="metadata-container pull-right">
+					<div class="event-metadata pull-right"><small>via Github</small></div>
+				</div>
+				<bh-tags tags="tags"></bh-tags>
+			</div>
+		{{/userEvents}}
+	{{/events}}
+</div>

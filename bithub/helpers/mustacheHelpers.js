@@ -1,7 +1,9 @@
-steal('can/view/mustache', 'vendor/moment').then(function () {
+steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
-	Mustache.registerHelper('prettifyTs', function( ts, opts ) {
-		ts = moment.utc(typeof(ts) === 'function' ? ts() : ts);
+	can.Mustache.registerHelper('prettifyTs', function( ts, format, opts ) {
+
+		ts     = moment.utc(can.isFunction(ts) ? ts() : ts);
+		format = can.isFunction(format) ? format() : format;
 
 		var formats = {
 			date: {
@@ -31,7 +33,6 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 			}
 		};
 
-		var format = (opts.hash && opts.hash.format && formats[opts.hash.format]) ? opts.hash.format : 'datetime';
 
 		// calculate diff from date
 		var diff = moment.utc().second(0).minute(0).hour(0).diff( moment.utc(ts).second(0).minute(0).hour(0), 'days', true );
@@ -48,10 +49,12 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 			format = formats[format]._default;
 		}
 
+		can.__clearReading();
+
 		return ts.local().format(format);
 	});
-
-	Mustache.registerHelper('loop', function( collection, opts ) {
+	
+	can.Mustache.registerHelper('loop', function( collection, opts ) {
 		var buffer = "",
 			begin = (opts.hash && opts.hash.begin) || 0,
 			length = (opts.hash && opts.hash.length) || collection.length,
@@ -81,28 +84,70 @@ steal('can/view/mustache', 'vendor/moment').then(function () {
 		return buffer;
 	});
 
-	Mustache.registerHelper('ifequal', function( a, b, opts ) {
+	can.Mustache.registerHelper('ifequal', function( a, b, opts ) {
 		a = (typeof(a) === 'function') ? a() : a;
 		b = (typeof(b) === 'function') ? b() : b;
 
 		return (a === b) ? opts.fn(this) : opts.inverse(this);
 	});
 
-	Mustache.registerHelper('substring', function( str, start, length, opts ) {
+	can.Mustache.registerHelper('substring', function( str, start, length, opts ) {
 		str = (typeof(str) === 'function') ? str() : str;
+
+		can.__clearReading();
+
 		return str.substr( start, length );
 	});
 
-	Mustache.registerHelper('capitalize', function( str, opts ) {
+	can.Mustache.registerHelper('capitalize', function( str, opts ) {
 		return can.capitalize( typeof(str) === 'function' ? str() : str );
 	});
 
-	Mustache.registerHelper('logObj', function( obj, opts ) {
+	can.Mustache.registerHelper('logObj', function( obj, opts ) {
 		console.log( obj );
 	});
 
-	Mustache.registerHelper('stripHtml', function( str, opts ) {
+	can.Mustache.registerHelper('stripHtml', function( str, opts ) {
 		str = (typeof(str) == 'function') ? str() : str;
 		return $('<div>' + str + '</div>').text();
 	});
+
+	can.Mustache.registerHelper('applyMore',function () {
+		return function (el) {
+			$(el).addClass('no-more');
+		}
+	})
+
+	can.Mustache.registerHelper('img', function(src){
+		var alt = '', 
+			klass = '';
+
+		src = can.isFunction(src) ? src() : src;
+
+		if(arguments.length > 2){
+			alt = arguments[1];
+			alt = can.isFunction(alt) ? alt() : alt;
+		}
+
+		if(arguments.length > 3){
+			klass = arguments[2];
+			klass = can.isFunction(klass) ? klass() : klass;
+		}
+
+		can.__clearReading();
+
+		return !!src ? '<img src="' + src + '" alt="' + alt + '" class="' + klass + '">' : "";
+	})
+
+	can.Mustache.registerHelper("v", function(compute){
+		var val = can.isFunction(compute) ? compute() : compute;
+		can.__clearReading();
+		return val;
+	})
+
+	can.Mustache.registerHelper("when", function(compute, opts){
+		var val = can.isFunction(compute) ? compute() : compute;
+		can.__clearReading();
+		return val ? opts.fn(opts.scope) : opts.inverse(opts.scope);
+	})
 });

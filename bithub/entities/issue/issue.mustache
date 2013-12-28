@@ -1,0 +1,62 @@
+{{#inited}}
+	{{#event}}
+		<div class="event list-element clearfix {{#isAwarded this}}awarded{{/isAwarded}} {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}}" {{ data 'eventObj'}}>
+
+			<bh-toolbar user="user"></bh-toolbar>
+			<bh-upvote event="this" user="user" award="true"></bh-upvote>
+
+			<div class="span7 content clearfix">
+
+				<div class="row clearfix">
+					{{{img image_url "Thumb" "thumb"}}}
+
+					<h5 class="title">
+						<a href="{{ eventUrl this }}">{{v title }}</a>
+
+						{{#if props.thread_awarded}}
+							<span class="awarded">Awarded + {{ double upvotes }}</span>
+						{{/if}}
+
+						{{#if upvotes}}
+							{{#unless props.thread_awarded}}
+								<span class='badge'>+{{ double upvotes }}</span>
+							{{/unless}}
+						{{/if}}
+					</h5>
+
+					<div class="body no-more">{{{v body }}}</div>
+
+				</div>
+
+				<bh-status-bar event="event" user="user" currentdate="currentdate" expanded="childrenExpanded"></bh-status-bar>
+				<bh-manage-bar event="this" user="user"></bh-manage-bar>
+
+				{{#if childrenExistAndExpanded}}
+					<div class="replies row">
+						<span class="replies-caret"></span>
+
+						{{#children}}
+
+							{{#if isPush}}
+								{{#children}}
+									{{{ renderChildEvent "commit" }}}
+								{{/children}}
+							{{/if}}
+
+							{{#if isPullRequest}}
+								{{{ renderChildEvent "pull_request" }}}
+							{{/if}}
+
+							{{#unless isPushOrPullReq}}
+								{{{ renderChildEvent }}}
+							{{/unless}}
+
+						{{/children}}
+
+					</div>
+				{{/if}}
+
+			</div>
+		</div>
+	{{/event}}
+{{/inited}}

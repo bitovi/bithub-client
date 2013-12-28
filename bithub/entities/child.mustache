@@ -1,0 +1,37 @@
+<div class="reply-event row {{ eventType }} {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}}" {{ data 'eventObj' }}>
+
+	{{#if hasAwardValue}}
+		<div class="awarded-badge"><span>+{{ props.awarded_value }}</span></div>
+	{{/if}}
+
+	{{#canBeAwarded this}}
+		<div class="award-btn">
+			<a href="#"><span class="caret"></span>Award</a>
+		</div>
+	{{/if}}
+
+	<div class="votes vote-btn">
+		<div class="uparrow"></div>
+		<div class="count">{{ upvotes }}</div>
+	</div>
+
+	<div class="body reply">
+		
+		{{#if isCommit}}
+			<a href="{{ url }}">{{ substring source_data.sha 0 6 }}</a> = {{v title }}
+		{{ else }}
+			{{#if isIssue}}
+				Issue {{v props.action }}
+			{{ else }}
+				{{#if body}}{{{v body}}}{{ else }}{{{v title}}}{{/if}}
+			{{/if}}
+		{{/if}}
+
+		<div class="event-metadata pull-right">
+			{{v authorName }}
+			{{ prettifyTs origin_ts 'datetime' }}
+		</div>
+
+	</div>
+
+</div>

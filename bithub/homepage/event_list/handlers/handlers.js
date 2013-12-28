@@ -7,12 +7,13 @@ steal(
 
 			// Upvoting
 			
-			'.event > .votes .voteup-btn click': "upvote",
-			'.event > .votes .count click': "upvote",
-			'.event > .votes .uparrow click': "upvote",
+			'.event .votes .voteup-btn click': "upvote",
+			'.event .votes .count click': "upvote",
+			'.event .votes .uparrow click': "upvote",
 			'.replies .reply-event .vote-btn click': "upvote",
 			
 			upvote: function( el, ev ) {
+				console.log('FOOO')
 				var event = can.data( el.closest('.reply-event, .event'), 'eventObj' ),
 					user = this.options.currentUser;
 
@@ -42,10 +43,6 @@ steal(
 			},
 
 			// Other
-			
-			'.expand-replies click': function( el, ev ) {
-				el.find('span.icon').toggleClass('collapse').closest('.event').find('.replies').toggle();
-			},
 			
 			'.event-metadata a click': function( el, ev ) {
 				window.location = el.attr('href');

@@ -1,0 +1,42 @@
+{{#inited}}
+	{{#event}}
+		<div class="truncated code-events clearfix">
+
+			<h5 class="title"><a href="{{ eventUrl this }}">{{v title }}</a></h5>
+			{{#children}}
+
+				<div class="event list-element commit clearfix" {{data 'eventObj'}}>  
+				
+					<!-- upvotes -->
+					<div class="span1 votes clearfix">
+						<div class="uparrow"></div>
+						<div class="count">
+							{{ upvotes }}
+						</div>
+					</div>
+
+					<!-- content -->
+					<div class="span7 content">
+
+						<div class="row clearfix">
+							<h5 class="title">
+								- {{ substring source_data.sha 0 6 }} {{v title }}
+							</h5>
+						</div>
+
+					</div>
+
+				</div>
+
+			{{/children}}
+
+			<div class="status row" style="margin-left: 67px; margin-top: 5px;">
+				<div class="metadata-container pull-right">
+					<div class="event-metadata pull-right"><small>{{ pretiffyTs origin_ts dateFormat }} via Github</small></div>
+				</div>
+				<bh-tags tags="tags"></bh-tags>
+			</div>
+
+		</div>
+	{{/event}}
+{{/inited}}

@@ -1,0 +1,38 @@
+<div>
+	{{#data.eventList.days}}
+		<div class="day">
+
+			<div class="sep-wrapper wrapper" style="height: 42px;">
+				<div class="sep blue">
+				<h4 class="flag blue">
+					{{#if stopDate}}{{ prettifyTs stopDate "date" }} - {{/if}}
+					{{ prettifyTs date "date" }}
+					</h4>
+				</div>
+			</div>
+
+			{{#if hasDigest}}
+				<bh-digest-list digest="digest"></bh-digest-list>
+			{{/if}}
+
+			{{#dailyCategories}}
+				<div class="category-{{ currentCategory }}">
+					{{^hasCategoryFilter}}
+						<h3 class="section-title"><i class="icon-{{ currentCategory }}"></i>{{ currentCategory }}</h3>
+					{{/hasCategoryFilter}}
+					{{{ entityComponent events date }}}
+				</div>
+			{{/dailyCategories}}
+
+			{{#if types.code}}
+				<div class="category-code">
+					{{^hasCategoryFilter}}
+						<h3 class="section-title"><i class="icon-code"></i>Code</h3>
+					{{/hasCategoryFilter}}
+					<bh-code events="code" currentdate="date"></bh-code>
+				</div>
+			{{/if}}
+			
+		</div>
+	{{/data.eventList.days}}
+</div>

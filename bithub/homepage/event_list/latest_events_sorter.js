@@ -1,4 +1,4 @@
-steal('can/observe', 'can/observe/list', function(Observe, List){
+steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 
 	var types = ['follow', 'watch', 'fork'];
 
@@ -15,7 +15,7 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter'];
 	var allowedDigest = ['follow_event','watch_event','fork_event']
 
-	var Day = can.Observe({
+	var Day = can.Map({
 		init : function(){
 			this._super.apply(this, arguments);
 			this.attr('types', {});
@@ -23,11 +23,11 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 		
 		addEvent : function(event){
 			var types = this.attr('types'),
-			category = event.attr('category'),
-			method   = category === 'chat' ? 'unshift' : 'push';
+				category = event.attr('category'),
+				method   = category === 'chat' ? 'unshift' : 'push';
 
-			if(!types[category]){
-				this.attr('types.' + category, []);
+			if(!this.attr('types.' + category)){
+				this.attr('types').attr(category, []);
 			}
 			this.attr('types.' + category)[method](event);
 		},
@@ -90,50 +90,34 @@ steal('can/observe', 'can/observe/list', function(Observe, List){
 				// ignore push events without commits
 				if( type == 'push_event' && event.attr('children').length == 0 ) continue;
 
-				if( grouped[repo] ) {
-
-					if( !grouped[repo][author] ) {
-						grouped[repo][author] = {
-							push_event: {}, // grouped by title
-							create_event: [],
-							pull_request_event: [],
-							delete_event: [],
-							authorName: event.attr('author.name') || event.attr('actor') || author,
-							eventForTags: events[i]
-						}
-					}
-					
-					// push_events (commits) are additonally grouped by title
-					if( type == 'push_event' ) {
-						if( grouped[repo][author][type][title] ) {
-							grouped[repo][author][type][title].push( event );
-						} else {
-							grouped[repo][author][type][title] = [ event ];
-						}
-					} else {
-						grouped[repo][author][type].push( event );
-					}
-				} else {
-					grouped[repo] = {};
-					grouped[repo][author] = {						
-						push_event: {}, // grouped by title
+				if( !grouped[repo] ) {
+					grouped[repo] = {}
+				}
+				if( !grouped[repo][author] ) {
+					grouped[repo][author] = {
+						push_event: [], // grouped by title
 						create_event: [],
 						pull_request_event: [],
 						delete_event: [],
-						authorName: event.attr('author.name') || event.attr('actor'),
-						eventForTags: events[i]
-					};
-					if( type == 'push_event' ) {
-						grouped[repo][author][type][title] = [ event ];
-					} else {
-						grouped[repo][author][type].push( event );
+						authorName: event.attr('author.name') || event.attr('actor') || author,
+						tags: events[i].attr('tags').serialize()
 					}
 				}
+
+				grouped[repo][author][type].push( event );
+
 			}
 
-			//console.log( grouped );
+			var regrouped = can.map(grouped, function(repoEvents, repo){
+				return {
+					repo       : repo,
+					userEvents : can.map(repoEvents, function(userEvents, user){
+						return userEvents
+					})
+				}
+			})
 			
-			return grouped;
+			return regrouped;
 		}
 	})
 

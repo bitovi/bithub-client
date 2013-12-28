@@ -28,7 +28,6 @@ steal(
 		if( steal.isBuilding ) {
 			return
 		}
-		can.route.ready(false);
 
 		// Display load time 
 		loadtime();
@@ -143,8 +142,7 @@ steal(
 		//can.route('/profile/earn-points', { page: 'profile', view: 'earnpoints' });
 
 		can.route('/event/:id', { page: 'eventdetails' });
-		
-		can.route.ready(true);
+
 		
 		var	newpostVisibility = can.compute(false),
 			projects          = new can.Model.List(),
@@ -180,8 +178,12 @@ steal(
 		});
 
 		// expose some as globals
-		CURRENT_USER = currentUser;
+		CURRENT_USER  = currentUser;
 		QUERY_TRACKER = queryTracker;
+		VISIBLE_TAGS  = visibleTags;
+
+		CATEGORIES = categories;
+		PROJECTS   = projects;
 
 
 		// Initialize the current user (if there is one)
@@ -266,5 +268,7 @@ steal(
 		});
 
 		new UI.Onbottom(document, {treshold: $(window).innerHeight()/2 });
+
+		can.route.ready()
 	}
 );

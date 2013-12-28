@@ -2,7 +2,7 @@ steal(
 	'can',
 	'bithub/lib/paginator.js',
 	'can/route',
-	'can/observe/delegate',
+	'can/map/delegate',
 	'vendor/moment',
 	function(can, Paginator) {
 
@@ -20,7 +20,7 @@ steal(
 					order: 'upvotes:desc',
 					exclude: 'source_data',
 					offset: 0,
-					limit: 25
+					limit: 15
 				},
 				details: {},
 				rewards: {}

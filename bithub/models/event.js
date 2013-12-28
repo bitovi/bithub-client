@@ -1,15 +1,33 @@
 steal('can',
 	'./upvote.js',
 	'vendor/moment',
-	'can/model/list',
-	'can/observe/validations',
-	'can/observe/lazy',
+	'can/list',
+	'can/map/validations',
+	'can/map/attributes',
 	function (can, Upvote) {
 		// methods shared by 'regular' Event model and LazyEvent object
 		var prototypeMethods = {
 
 			upvote: function( success, error ) {
 				(new Upvote({event: this})).upvote();
+			},
+			isPush : function(){
+				return this.attr('tags').indexOf('pull_request_event') >= 0;
+			},
+			isPullRequest : function(){
+				return this.attr('tags').indexOf('pull_request_event') >= 0;
+			},
+			isPushOrPullReq : function(){
+				return this.isPush() || this.isPullRequest();
+			},
+			isIssue : function(){
+				return this.attr('tags').indexOf('issues_event') >= 0;
+			},
+			hasAwardValue : function(){
+				return this.attr('props.awarded_value') && this.attr('props.awarded_value') >= 0;
+			},
+			authorName : function(){
+				return this.attr('author.name') || this.attr('props.origin_author_name');
 			}
 
 			/*
@@ -26,7 +44,7 @@ steal('can',
 			 */
 		}
 			
-		var EventObj = can.LazyMap.extend( prototypeMethods );
+		//var EventObj = can.LazyMap.extend( prototypeMethods );
 
 		// 'regular' Event model
 		var Event = can.Model('Bithub.Models.Event', {
@@ -73,7 +91,11 @@ steal('can',
 			findOne : 'GET /api/events/{id}',
 			create  : 'POST /api/events',
 			update  : 'PUT /api/events/{id}',
-			destroy : 'DELETE /api/events/{id}'
+			destroy : 'DELETE /api/events/{id}',
+
+			attributes : {
+				children : 'Bithub.Models.Event.models'
+			}
 
 			// overriden b/c can.Model would return new can.Observe,
 			//model: function( attrs ) {

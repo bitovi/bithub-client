@@ -1,9 +1,9 @@
 steal(
 	'can',
 	'bithub/homepage/event_list/views/init.ejs',
-	'bithub/homepage/event_list/views/latest.ejs',
-	'bithub/homepage/event_list/views/greatest.ejs',
-	'bithub/homepage/event_list/event_partials.js',
+	'bithub/homepage/event_list/views/latest.mustache',
+	'bithub/homepage/event_list/views/greatest.mustache',
+	'bithub/homepage/event_list/determine_event_partial.js',
 	'bithub/homepage/event_list/handlers',
 	'ui/html_select',
 	'bithub/homepage/event_list/spinner',
@@ -14,37 +14,19 @@ steal(
 	'bithub/models/award.js',
 	'bithub/helpers/fun_helpers.js',
 	'can/construct/proxy',
-	'bithub/helpers/ejsHelpers.js',
+	'bithub/helpers/mustacheHelpers.js',
 	'ui/more',
-	'can/observe/delegate',
-	function (can, initView, latestView, greatestView, eventPartials, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
+	'can/map/delegate',
+	'bithub/entities',
+	function (can, initView, latestView, greatestView, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {
 
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
 		// used for ordering categories on latest view
-		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'event'],
-		digestDict = {
-			actions: {
-				fork: 'forked',
-				follow: 'followed',
-				watch: 'started watching'
-			},
-			targetUrl: {
-				fork: 'http://github.com/',
-				watch: 'http://github.com/',
-				follow: 'http://twitter.com/'
-			},
-			targetName: {
-				fork: function(repo) { return repo.split('/')[1]; },
-				watch: function(repo) { return repo.split('/')[1]; },
-				follow: function(account) { return '@' + account; }
-			},
-			actorUrl: {
-				fork: 'http://github.com/',
-				watch: 'http://github.com/',
-				follow: 'http://twitter.com/'
-			}
-		};
+		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'event'];
+		
+		var __templatesCache = {};
+
 
 		var ChatScroll = can.Control.extend({
 			init : function(){
@@ -93,24 +75,14 @@ steal(
 				
 
 				window.LATEST = this.latestEvents = new LatestEventsSorter;
-				window.LATEST_IDX = this.latestIndex = new can.Observe.List([{}]);
+				window.LATEST_IDX = this.latestIndex = new can.List([{}]);
 				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 
 				this.data = {
-					days: this.latestIndex,
-					latestCategories: latestCategories,
-					projects: opts.projects,
-					categories: opts.categories,
-					visibleTags: opts.visibleTags,
-					digestDict: digestDict,
 					user: this.options.currentUser
 				}
 
 				this.element.html(initView({
-					data: this.data,
-					latestView: latestView,
-					greatestView: greatestView,
-					partials: eventPartials,
 					canLoad: this._canLoad
 				}));
 
@@ -214,6 +186,7 @@ steal(
 			},
 
 			fillDocumentHeight: function() {
+				//return
 				if( $(document).height() <= ($(window).height() * 2) ) {
 					$(window).trigger('onbottom');
 				}
@@ -245,22 +218,90 @@ steal(
 				if(events.length == 0) {
 					this._canLoad(false);
 				}
-				
-				isLatest() && sortedEvents.appendEvents( events );						
+				can.batch.start();
+				isLatest() && sortedEvents.appendEvents( events );
+				can.batch.stop();
 				can.extend(data, {eventList: isLatest() ? sortedEvents : events});
 
-				this.element.find('.events-list-wrapper').append(
-					renderer({
-						partials: eventPartials,
-						data: data
-					})
-				);
+				console.time('renderEvents')
 
-				this.spinnerTop(false);				
-				this.spinnerBottom(false);
+
+				var initGroups = [];
+
+				var content = renderer({
+					data: data,
+					hasCategoryFilter : function(){
+						return can.route.attr('category') !== 'all';
+					}
+				}, {
+					dailyCategories : function(opts){
+						return can.map(latestCategories, function(category){
+							var events = opts.context.attr('types.' + category);
+							if(events && events.length){
+								return opts.fn({
+									currentCategory : category,
+									events : events,
+									date   : opts.context.attr('date')
+								})
+							}
+							return '';
+						}).join('')
+					},
+					entityComponent : function(events, date){
+						var counter = 0;
+						if(typeof events.length === 'undefined'){
+							events = [events];
+						}
+
+						return can.map(events, function(event){
+							var component = determineEventPartial(event.attr('tags')),
+								template = '<{c} currentdate="date" event="event" inited="inited"></{c}>',
+								result;
+
+							if(counter % 2 === 0){
+								counter = 0;
+								initGroups.push(can.compute(false));
+							}
+
+							if(typeof __templatesCache[component] === 'undefined'){
+								__templatesCache[component] = can.view.mustache(can.sub(template, {c: component}));
+							}
+
+							result = __templatesCache[component].render({
+								date  : date,
+								event : event,
+								inited : initGroups[initGroups.length - 1]
+							});
+
+							counter++
+
+							return result;
+
+						}).join('')
+					}
+				})
+
+				var append = this.proxy(function(){
+					this.element.find('.events-list-wrapper').append(content);
+					console.timeEnd('renderEvents')
+					this.spinnerTop(false);
+					this.spinnerBottom(false);
+					
+					this.postRendering();
+					this.fillDocumentHeight();
+				})
+
+				var initGroup = function(){
+					initGroups.shift()(true);
+					if(initGroups.length){
+						setTimeout(initGroup, 1);
+					} else {
+						setTimeout(append, 1);
+					}
+				}
+
+				initGroup();
 				
-				this.postRendering();
-				this.fillDocumentHeight();				
 			},
 			
 			postRendering: function () {
