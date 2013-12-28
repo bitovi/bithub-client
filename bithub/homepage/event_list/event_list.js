@@ -294,9 +294,9 @@ steal(
 				var initGroup = function(){
 					initGroups.shift()(true);
 					if(initGroups.length){
-						setTimeout(initGroup, 1)
+						setTimeout(initGroup, 1);
 					} else {
-						setTimeout(append, 1)
+						setTimeout(append, 1);
 					}
 				}
 

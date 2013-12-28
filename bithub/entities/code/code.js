@@ -65,6 +65,8 @@ function(Component, codeView){
 						eventType      : type
 					};
 
+					can.__clearReading();
+
 					return length > 0 ? opts.fn(data) : '';
 
 				}).join('');

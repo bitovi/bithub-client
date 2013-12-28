@@ -34,21 +34,31 @@ steal('can/component', './digest-list.mustache', function(Component, digestListV
 		helpers : {
 			digestsFor : function(digestType, opts){
 				var digests = this.attr('digest.' + digestType);
-				return can.map(can.Map.keys(digests), function(digest){
+				var result = can.map(can.Map.keys(digests), function(digest){
 					return opts.fn({
 						project : digest,
 						digests : digests.attr(digest),
 						type    : digestType
 					});
 				}).join('');
+
+				can.__clearReading();
+
+				return result;
 			},
 			isSingular : function(opts){
-				var digests = opts.context.digests;
+				var digests = opts.context.digests,
+					result;
+					
 				if(digests.attr('length') === 1){
-					return opts.fn(opts.context);
+					result = opts.fn(opts.context);
 				} else {
-					return opts.inverse(opts.context);
+					result = opts.inverse(opts.context);
 				}
+
+				can.__clearReading();
+
+				return result;
 			},
 			digestUrl : function(digestFn, type, opts){
 				var digest = can.isFunction(digestFn) ? digestFn() : digestFn,
