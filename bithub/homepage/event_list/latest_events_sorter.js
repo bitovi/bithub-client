@@ -1,4 +1,4 @@
-steal('can/map', 'can/list', function(Observe, List){
+steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 
 	var types = ['follow', 'watch', 'fork'];
 
@@ -23,11 +23,11 @@ steal('can/map', 'can/list', function(Observe, List){
 		
 		addEvent : function(event){
 			var types = this.attr('types'),
-			category = event.attr('category'),
-			method   = category === 'chat' ? 'unshift' : 'push';
+				category = event.attr('category'),
+				method   = category === 'chat' ? 'unshift' : 'push';
 
-			if(!types[category]){
-				this.attr('types.' + category, []);
+			if(!this.attr('types.' + category)){
+				this.attr('types').attr(category, []);
 			}
 			this.attr('types.' + category)[method](event);
 		},

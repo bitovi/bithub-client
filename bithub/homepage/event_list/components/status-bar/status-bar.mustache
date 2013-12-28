@@ -2,17 +2,17 @@
 	<div class="metadata-container">
 		<div class="event-metadata pull-right">
 			<small>
-			{{ event.authorName }}
-			{{ prettifyTs event.origin_ts dateFormat }}
-			via <strong><a href="{{ event.url }}">{{ event.feed }}</a></strong></small>
+			{{v event.authorName}}
+			{{prettifyTs event.origin_ts dateFormat}}
+			via <strong><a href="{{v event.url }}">{{v event.feed}}</a></strong></small>
 		</div>
 	</div>
 	
-	{{#if event.children.length}}
+	{{#when event.children.length}}
 		<a class="expand-replies" can-click="toggleChildren">
-			<span class="icon {{#if expanded}}collapse{{/if}}"></span>Earlier ({{ event.children.length}})
+			<span class="icon {{#if expanded}}collapse{{/if}}"></span>Earlier ({{v event.children.length}})
 		</a>
-	{{/if}}
+	{{/when}}
 	
 	<bh-tags tags="event.tags"></bh-tags>
 

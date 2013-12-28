@@ -20,7 +20,7 @@ steal(
 					order: 'upvotes:desc',
 					exclude: 'source_data',
 					offset: 0,
-					limit: 25
+					limit: 15
 				},
 				details: {},
 				rewards: {}

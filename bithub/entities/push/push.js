@@ -12,6 +12,7 @@ function(Component, pushView, sharedHelpers){
 		tag : 'bh-push',
 		template : pushView,
 		scope : {
+			inited : true,
 			dateFormat : function(){
 				var format = 'datetime',
 					date = this.attr('currentdate');

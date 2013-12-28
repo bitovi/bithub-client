@@ -1,7 +1,7 @@
 {{#if user.isAdmin}}
 	<div class="manage-bar row">
 		<ul class="nav">
-			{{#data.projects}}
+			{{#projects}}
 				<li data-tag="{{ name }}" class="tag-action present_remove">
 					<a href="javascript://" ><small>{{ name }}</small></a>
 				</li>
@@ -17,7 +17,7 @@
 						{{/categories}}
 					</ul>
 				</li>
-			{{/data}}
+			{{/projects}}
 		</ul>
 		<input type="text" class="transfer-ownership typeahead" placeholder="Transfer ownership">
 	</div>

@@ -29,6 +29,7 @@ function(Component, codeView){
 		scope : {
 			currentdate : null,
 			visibletags : [],
+			inited : true,
 			dateFormat : function(){
 				var format = 'datetime',
 					date = this.attr('currentdate');

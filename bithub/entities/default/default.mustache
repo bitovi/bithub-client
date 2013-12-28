@@ -1,35 +1,35 @@
-{{#event}}
-	<div class="event list-element {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}} clearfix" {{ data 'eventObj'}}>
+{{#inited}}
+	{{#event}}
+		<div class="event list-element {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}} clearfix" {{ data 'eventObj'}}>
 
-		<bh-toolbar user="user"></bh-toolbar>
-		<bh-upvote event="this" user="user" award="true"></bh-upvote>
+			<bh-toolbar user="user"></bh-toolbar>
+			<bh-upvote event="this" user="user" award="true"></bh-upvote>
 
-		<!-- content -->
-		<div class="span7 content clearfix">
+			<!-- content -->
+			<div class="span7 content clearfix">
 
-			<div class="row">
-				{{#if image_url}}
-					<img class="thumb" {{#image_url}}src="{{ . }}"{{/image_url}} alt="Thumb" />
+				<div class="row">
+					{{{img image_url "Thumb" "thumb"}}}
+					<h5 class="title">
+						<a href="{{eventUrl this}}">{{{v title }}}</a>
+					</h5>
+					<div class="body no-more">{{{v body }}}</div>
+				</div>
+
+				<bh-status-bar event="event" user="user" currentdate="currentdate" expanded="childrenExpanded"></bh-status-bar>
+				<bh-manage-bar event="this" user="user"></bh-manage-bar>
+
+				{{#if childrenExistAndExpanded}}
+					<div class="replies row">
+						<span class="replies-caret"></span>
+						{{#children}}
+							{{{ renderChildEvent }}}
+						{{/children}}
+					</div>
 				{{/if}}
-				<h5 class="title">
-					<a href="{{eventUrl this}}">{{{v title }}}</a>
-				</h5>
-				<div class="body" {{ applyMore }}>{{{v body }}}</div>
+
 			</div>
 
-			<bh-status-bar event="event" user="user" currentdate="currentdate" expanded="childrenExpanded"></bh-status-bar>
-			<bh-manage-bar event="this" data="data" user="user"></bh-manage-bar>
-
-			{{#if childrenExistAndExpanded}}
-				<div class="replies row">
-					<span class="replies-caret"></span>
-					{{#children}}
-						{{{ renderChildEvent }}}
-					{{/children}}
-				</div>
-			{{/if}}
-
 		</div>
-
-	</div>
-{{/event}}
+	{{/event}}
+{{/inited}}

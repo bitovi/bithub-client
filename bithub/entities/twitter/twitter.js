@@ -12,6 +12,7 @@ function(Component, twitterView, sharedHelpers){
 		tag : 'bh-twitter',
 		template : twitterView,
 		scope : {
+			inited : true,
 			dateFormat : function(){
 				var format = 'datetime',
 					date = this.attr('currentdate');
@@ -19,7 +20,7 @@ function(Component, twitterView, sharedHelpers){
 				if( date && can.route.attr('view') == 'latest' && date == moment.utc(this.attr('origin_ts')).format('YYYY-MM-DD') ) format = 'time';
 			
 				return format;
-			}
+			},
 		},
 		helpers : {
 			linkToTwitterProfile: function(username) {

@@ -182,6 +182,9 @@ steal(
 		QUERY_TRACKER = queryTracker;
 		VISIBLE_TAGS  = visibleTags;
 
+		CATEGORIES = categories;
+		PROJECTS   = projects;
+
 
 		// Initialize the current user (if there is one)
 		currentUser.fromSession();

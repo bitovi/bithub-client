@@ -79,18 +79,10 @@ steal(
 				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 
 				this.data = {
-					days: this.latestIndex,
-					latestCategories: latestCategories,
-					projects: opts.projects,
-					categories: opts.categories,
-					visibleTags: opts.visibleTags,
 					user: this.options.currentUser
 				}
 
 				this.element.html(initView({
-					data: this.data,
-					latestView: latestView,
-					greatestView: greatestView,
 					canLoad: this._canLoad
 				}));
 
@@ -226,11 +218,15 @@ steal(
 				if(events.length == 0) {
 					this._canLoad(false);
 				}
-				
+				can.batch.start();
 				isLatest() && sortedEvents.appendEvents( events );
+				can.batch.stop();
 				can.extend(data, {eventList: isLatest() ? sortedEvents : events});
 
 				console.time('renderEvents')
+
+
+				var initGroups = [];
 
 				var content = renderer({
 					data: data,
@@ -244,38 +240,48 @@ steal(
 							if(events && events.length){
 								return opts.fn({
 									currentCategory : category,
-									events          : events,
-									date            : opts.context.attr('date')
+									events : events,
+									date   : opts.context.attr('date')
 								})
 							}
 							return '';
 						}).join('')
 					},
 					entityComponent : function(events, date){
-
+						var counter = 0;
 						if(typeof events.length === 'undefined'){
 							events = [events];
 						}
 
 						return can.map(events, function(event){
 							var component = determineEventPartial(event.attr('tags')),
-								template = '<{c} currentdate="date" event="event" data="data"></{c}>';
+								template = '<{c} currentdate="date" event="event" inited="inited"></{c}>',
+								result;
+
+							if(counter % 2 === 0){
+								counter = 0;
+								initGroups.push(can.compute(false));
+							}
 
 							if(typeof __templatesCache[component] === 'undefined'){
 								__templatesCache[component] = can.view.mustache(can.sub(template, {c: component}));
 							}
 
-							return __templatesCache[component].render({
-								data  : data,
+							result = __templatesCache[component].render({
 								date  : date,
-								event : event
+								event : event,
+								inited : initGroups[initGroups.length - 1]
 							});
+
+							counter++
+
+							return result;
 
 						}).join('')
 					}
 				})
 
-				//setTimeout(this.proxy(function(){
+				var append = this.proxy(function(){
 					this.element.find('.events-list-wrapper').append(content);
 					console.timeEnd('renderEvents')
 					this.spinnerTop(false);
@@ -283,7 +289,18 @@ steal(
 					
 					this.postRendering();
 					this.fillDocumentHeight();
-				//}), 1)
+				})
+
+				var initGroup = function(){
+					initGroups.shift()(true);
+					if(initGroups.length){
+						setTimeout(initGroup, 1)
+					} else {
+						setTimeout(append, 1)
+					}
+				}
+
+				initGroup();
 				
 			},
 			

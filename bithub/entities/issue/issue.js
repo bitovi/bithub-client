@@ -13,6 +13,7 @@ function(Component, issueView, childEventView, sharedHelpers){
 		tag : 'bh-issue',
 		template : issueView,
 		scope : {
+			inited : false,
 			childrenExpanded : false,
 			childrenExistAndExpanded : function(){
 				return this.attr('childrenExpanded') && this.attr('event.children').attr('length') > 0;
@@ -27,6 +28,7 @@ function(Component, issueView, childEventView, sharedHelpers){
 			},
 			double : function(val){
 				val = can.isFunction(val) ? val() : val;
+				can.__clearReading();
 				return parseInt(val) * 2;
 			},
 			canBeAwarded : function(event, opts){

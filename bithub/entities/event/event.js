@@ -12,6 +12,7 @@ function(Component, eventView, sharedHelpers){
 		tag : 'bh-event',
 		template : eventView,
 		scope : {
+			inited : true,
 			dateFormat : function(){
 				var format = 'datetime',
 					date = this.attr('currentdate');

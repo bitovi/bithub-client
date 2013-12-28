@@ -12,6 +12,7 @@ function(Component, defaultView, sharedHelpers){
 		tag : 'bh-default',
 		template : defaultView,
 		scope : {
+			inited : true,
 			childrenExpanded : false,
 			childrenExistAndExpanded : function(){
 				return this.attr('childrenExpanded') && this.attr('event.children').attr('length') > 0;

@@ -148,6 +148,6 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 	can.Mustache.registerHelper("when", function(compute, opts){
 		var val = can.isFunction(compute) ? compute() : compute;
 		can.__clearReading();
-		return val ? opts.fn(opts.scope) : "";
+		return val ? opts.fn(opts.scope) : opts.inverse(opts.scope);
 	})
 });

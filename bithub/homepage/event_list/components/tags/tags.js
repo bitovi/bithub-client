@@ -39,6 +39,8 @@ steal('can/component', function(Component){
 						}
 					});
 				});
+
+				can.__clearReading();
 				
 				return buffer;
 			}
