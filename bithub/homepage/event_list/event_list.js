@@ -227,7 +227,7 @@ steal(
 
 
 				var initGroups = [];
-
+				
 				var content = renderer({
 					data: data,
 					hasCategoryFilter : function(){

@@ -1,44 +1,46 @@
 steal('can/component', './digest-list.mustache', function(Component, digestListView){
 	
+	// We use `wtch` instead of `watch` because of https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/watch
+
 	var digestDict = {
 		actions: {
 			fork: 'forked',
 			follow: 'followed',
-			watch: 'started watching'
+			wtch: 'started watching'
 		},
 		targetUrl: {
 			fork: 'http://github.com/',
-			watch: 'http://github.com/',
+			wtch: 'http://github.com/',
 			follow: 'http://twitter.com/'
 		},
 		targetName: {
 			fork: function(repo) { return repo.split('/')[1]; },
-			watch: function(repo) { return repo.split('/')[1]; },
+			wtch: function(repo) { return repo.split('/')[1]; },
 			follow: function(account) { return '@' + account; }
 		},
 		actorUrl: {
 			fork: 'http://github.com/',
-			watch: 'http://github.com/',
+			wtch: 'http://github.com/',
 			follow: 'http://twitter.com/'
 		}
 	};
 
-	var digestTypes = ['follow', 'fork', 'watch'];
 
 	Component.extend({
 		tag : 'bh-digest-list',
 		template : digestListView,
 		scope : {
-			digestTypes : ['follow', 'fork', 'watch']
+			digestTypes : ['follow', 'fork', 'wtch']
 		},
 		helpers : {
 			digestsFor : function(digestType, opts){
 				var digests = this.attr('digest.' + digestType);
 				var result = can.map(can.Map.keys(digests), function(digest){
 					return opts.fn({
-						project : digest,
-						digests : digests.attr(digest),
-						type    : digestType
+						project        : digest,
+						digests        : digests.attr(digest),
+						type           : digestType,
+						normalizedType : digestType === 'wtch' ? 'watch' : digestType
 					});
 				}).join('');
 

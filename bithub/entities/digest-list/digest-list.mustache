@@ -3,7 +3,7 @@
 		<ul class="digest-event-info unstyled">
 			{{#digestTypes}}
 				{{#digestsFor this}}
-					<li class="total {{ type }}ers">
+					<li class="total {{ normalizedType }}ers">
 						{{#isSingular}}
 							<a href="{{ digestUrl digests.0 type }}">{{v digests.0.props.origin_author_name }}</a>
 						{{ else }}

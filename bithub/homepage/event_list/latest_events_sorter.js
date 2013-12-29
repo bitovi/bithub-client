@@ -7,7 +7,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 		for(var i = 0; i < types.length; i++){
 			type = types[i];
 			if(can.inArray(type + '_event', tags) > -1){
-				return type;
+				return type === 'watch' ? 'wtch' : type; // watch breaks in Firefox because of https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/watch
 			}
 		}
 	};
@@ -41,7 +41,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 			length  = digests.attr('length'),
 			grouped = {
 				follow : {},
-				watch  : {},
+				wtch  : {},
 				fork   : {}
 			},
 			digest, what, type;
@@ -52,7 +52,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 
 				if(type === 'follow'){
 					what = digest.attr('props.target');
-				} else if(type === 'watch'){
+				} else if(type === 'wtch'){
 					what = digest.attr('props.repo_name');
 				} else if(type === 'fork'){
 					what = digest.attr('props.repo_name');
