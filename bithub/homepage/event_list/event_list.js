@@ -185,9 +185,10 @@ steal(
 			fillDocumentHeight: function() {
 				var self = this;
 				setTimeout(function(){
-					var fillHeight = self.element.find('.events-list-wrapper').innerHeight();
+					var fillHeight = self.element.find('.events-list-wrapper').innerHeight(),
+						windowHeight = $(window).height() 
 
-					if( fillHeight - 200 < $(window).height() ) {
+					if( fillHeight < windowHeight + (windowHeight / 2)  ) {
 						$(window).trigger('onbottom');
 					}
 				}, 1)
