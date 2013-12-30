@@ -2,8 +2,8 @@
 	{{#event}}
 		<div class="event list-element {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}} clearfix" {{data 'eventObj'}}>
 
-			<bh-toolbar user="user"></bh-toolbar>
-			<bh-upvote event="this" user="user"></bh-upvote>
+			{{{ renderToolbar }}}
+			{{{ renderUpvote this true }}}
 
 			<!-- content -->
 			<div class="span7 content clearfix">
@@ -50,7 +50,7 @@
 
 					</div>
 
-					<bh-tags tags="tags"></bh-tags>
+					{{{ renderEventTags tags }}}
 
 					{{#if user.isAdmin}}
 						<!-- ADMIN -->
@@ -60,7 +60,7 @@
 
 				</div>
 
-				<bh-manage-bar event="this" user="user"></bh-manage-bar>
+				{{{ renderManageBar }}}
 
 			</div>
 		</div>

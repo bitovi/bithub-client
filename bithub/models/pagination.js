@@ -17,7 +17,7 @@ steal(
 			'bug': ASHCurried100,
 			'app': ASHCurried100,
 			'article': ASHCurried100,
-			'chat': 30,
+			'chat': 0, //30,
 			'code': function(n) { return (approximateSectionHeight(n, 45)) },
 			'comment': ASHCurried100,
 			'event': ASHCurried100, 

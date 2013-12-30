@@ -218,10 +218,9 @@ steal(
 				if(events.length == 0) {
 					this._canLoad(false);
 				}
-				can.batch.start();
+
 				isLatest() && sortedEvents.appendEvents( events );
-				can.batch.stop();
-				can.extend(data, {eventList: isLatest() ? sortedEvents : events});
+				can.extend(data, {eventList: isLatest() ? sortedEvents.attr('days.0') : events});
 
 				console.time('renderEvents')
 
@@ -235,13 +234,14 @@ steal(
 					}
 				}, {
 					dailyCategories : function(opts){
+						var date = opts.context.attr('date');
 						return can.map(latestCategories, function(category){
 							var events = opts.context.attr('types.' + category);
 							if(events && events.length){
 								return opts.fn({
 									currentCategory : category,
 									events : events,
-									date   : opts.context.attr('date')
+									date   : date
 								})
 							}
 							return '';
@@ -281,6 +281,15 @@ steal(
 					}
 				})
 
+				var initGroup = function(){
+					initGroups.shift()(true);
+					if(initGroups.length){
+						setTimeout(initGroup, 1);
+					} else {
+						setTimeout(append, 1);
+					}
+				}
+
 				var append = this.proxy(function(){
 					this.element.find('.events-list-wrapper').append(content);
 					console.timeEnd('renderEvents')
@@ -290,15 +299,6 @@ steal(
 					this.postRendering();
 					this.fillDocumentHeight();
 				})
-
-				var initGroup = function(){
-					initGroups.shift()(true);
-					if(initGroups.length){
-						setTimeout(initGroup, 1);
-					} else {
-						setTimeout(append, 1);
-					}
-				}
 
 				initGroup();
 				

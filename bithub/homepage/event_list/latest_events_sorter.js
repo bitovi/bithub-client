@@ -38,13 +38,13 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 		
 		digest : function(){
 			var digests = this.attr('types.digest'),
-			length  = digests.attr('length'),
-			grouped = {
-				follow : {},
-				wtch  : {},
-				fork   : {}
-			},
-			digest, what, type;
+				length  = digests.attr('length'),
+				grouped = {
+					follow : {},
+					wtch  : {},
+					fork   : {}
+				},
+				digest, what, type;
 
 			for(var i = 0; i < length; i++){
 				digest = digests[i],
@@ -64,6 +64,9 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 				}
 
 			}
+
+			
+			
 			return grouped;
 		},
 
