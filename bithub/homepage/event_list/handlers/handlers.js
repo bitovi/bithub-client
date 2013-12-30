@@ -13,7 +13,6 @@ steal(
 			'.replies .reply-event .vote-btn click': "upvote",
 			
 			upvote: function( el, ev ) {
-				console.log('FOOO')
 				var event = can.data( el.closest('.reply-event, .event'), 'eventObj' ),
 					user = this.options.currentUser;
 

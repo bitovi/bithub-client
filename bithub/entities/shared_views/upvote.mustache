@@ -8,11 +8,11 @@
 	<div class="voteup-btn">
 		<span class="upvote-caret"></span>
 		<span class="caption">
-			{{#eventIsUpvoted event}}
+			{{#if eventIsUpvoted}}
 				Voted
 			{{else}}
 				Vote up
-			{{/eventIsUpvoted}}
+			{{/if}}
 		</span>
 	</div>
 
