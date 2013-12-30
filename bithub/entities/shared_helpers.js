@@ -42,16 +42,16 @@ function(childEventView, statusBarView, manageBarView, upvoteView, toolbarView){
 		return '<ul class="tag-list nav">' + buffer + '</ul>';
 	}
 
-	var isEventUpvoted = function(event, opts){
-		var upvotedEvents, eventId, check;
+	var isEventUpvoted = function(opts){
+		var event, upvotedEvents, eventId, check;
 
-		event = can.isFunction(event) ? event() : event;
+		event = this.attr('event');
 
 		upvotedEvents = this.attr('user.upvoted_events');
 		eventId       = event.attr('id');
 		check         = upvotedEvents && upvotedEvents.indexOf(eventId) > -1;
 
-		return check ? opts.fn() : opts.inverse();
+		return !!check;
 	}
 
 	return {
