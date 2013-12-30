@@ -2,8 +2,8 @@
 	{{#event}}
 		<div class="event list-element clearfix {{#isAwarded this}}awarded{{/isAwarded}} {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}}" {{ data 'eventObj'}}>
 
-			<bh-toolbar user="user"></bh-toolbar>
-			<bh-upvote event="this" user="user" award="true"></bh-upvote>
+			{{{ renderToolbar }}}
+			{{{ renderUpvote this true }}}
 
 			<div class="span7 content clearfix">
 
@@ -28,8 +28,8 @@
 
 				</div>
 
-				<bh-status-bar event="event" user="user" currentdate="currentdate" expanded="childrenExpanded"></bh-status-bar>
-				<bh-manage-bar event="this" user="user"></bh-manage-bar>
+				{{{ renderStatusBar this }}}
+				{{{ renderManageBar }}}
 
 				{{#if childrenExistAndExpanded}}
 					<div class="replies row">

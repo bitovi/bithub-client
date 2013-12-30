@@ -1,19 +1,19 @@
 <div>
-	{{#data.eventList.days}}
+	{{#data.eventList}}
 		<div class="day">
 
 			<div class="sep-wrapper wrapper" style="height: 42px;">
 				<div class="sep blue">
 				<h4 class="flag blue">
-					{{#if stopDate}}{{ prettifyTs stopDate "date" }} - {{/if}}
+					{{#when stopDate}}{{ prettifyTs stopDate "date" }} - {{/when}}
 					{{ prettifyTs date "date" }}
 					</h4>
 				</div>
 			</div>
 
-			{{#if hasDigest}}
+			{{#when hasDigest}}
 				<bh-digest-list digest="digest"></bh-digest-list>
-			{{/if}}
+			{{/when}}
 
 			{{#dailyCategories}}
 				<div class="category-{{ currentCategory }}">
@@ -24,15 +24,15 @@
 				</div>
 			{{/dailyCategories}}
 
-			{{#if types.code}}
+			{{#when types.code}}
 				<div class="category-code">
 					{{^hasCategoryFilter}}
 						<h3 class="section-title"><i class="icon-code"></i>Code</h3>
 					{{/hasCategoryFilter}}
 					<bh-code events="code" currentdate="date"></bh-code>
 				</div>
-			{{/if}}
+			{{/when}}
 			
 		</div>
-	{{/data.eventList.days}}
+	{{/data.eventList}}
 </div>

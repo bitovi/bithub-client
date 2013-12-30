@@ -1,4 +1,8 @@
-steal('can/component', './digest-list.mustache', function(Component, digestListView){
+steal(
+'can/component',
+'./digest-list.mustache',
+'bithub/entities/entity_state.js',
+function(Component, digestListView, EntityState){
 	
 	// We use `wtch` instead of `watch` because of https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/watch
 
@@ -29,9 +33,9 @@ steal('can/component', './digest-list.mustache', function(Component, digestListV
 	Component.extend({
 		tag : 'bh-digest-list',
 		template : digestListView,
-		scope : {
+		scope : EntityState.extend({
 			digestTypes : ['follow', 'fork', 'wtch']
-		},
+		}),
 		helpers : {
 			digestsFor : function(digestType, opts){
 				var digests = this.attr('digest.' + digestType);
