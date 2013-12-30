@@ -691,12 +691,20 @@ ul.tag-list li, .event .manage-bar ul.nav > li {
 	color: red;
 }
 
+
+
 .twitter-profile-pic, .event .thumb {
 	margin: 4px 9px 0 0;
 	padding: 3px;
 	max-width: 60px;
 	background-color: #b2b2b2;
 }
+
+.twitter-profile-pic img {
+	width: 48px;
+	height: 48px;
+}
+
 .twitter-actions-list .twitter-action {
 	background-image: url(/assets/images/twitter-actions.png);
 	float: left;
@@ -748,4 +756,36 @@ input.transfer-ownership {
 	font-size: 11px;
 	height: 12px;
 	width: 200px;
+}
+
+.chat-message {
+	position: relative;
+	padding-left : 55px;
+	.time {
+		padding-top: 1px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 50px;
+		font-size: 11px;
+	}
+	
+}
+bh-chat {
+	margin-bottom: 10px;
+	display: block;
+	hr, .section-title {
+		margin: 10px 0;
+	}
+}
+
+.expand-chat {
+	background: #71bee5;
+	text-shadow: 0 -1px 0 #5394d9;
+	color: white;
+	cursor: pointer;
+	&:hover {
+		background: #4995bb;
+	}
 }

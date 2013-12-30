@@ -118,6 +118,28 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 		}
 	})
 
+	var imgRenderer = can.view.mustache('<img src="{{ src }}" alt="{{ alt }}" class="{{ klass }}" {{imgErrorHandler}}>');
+
+	var fallbacks = {
+
+	}
+
+	var ImgErrorHandler = can.Control({
+		" load" : function(){
+			this.destroy(); // cleanup after ourselves
+		}, 
+		" error" : function(){
+			this.element.attr('src', '/assets/images/fallback.png');
+			this.destroy();
+		}
+	})
+
+	can.Mustache.registerHelper('imgErrorHandler', function(fallback){
+		return function(el){
+			new ImgErrorHandler(el);
+		}
+	})
+
 	can.Mustache.registerHelper('img', function(src){
 		var alt = '', 
 			klass = '';
@@ -136,7 +158,12 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
 		can.__clearReading();
 
-		return !!src ? '<img src="' + src + '" alt="' + alt + '" class="' + klass + '">' : "";
+		return !!src ? imgRenderer.render({
+			src : src,
+			alt : alt,
+			klass : klass
+			
+		}) : "";
 	})
 
 	can.Mustache.registerHelper("v", function(compute){

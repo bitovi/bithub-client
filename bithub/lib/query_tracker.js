@@ -60,7 +60,7 @@ steal(
 		}
 		
 		// calculates day/week/month date spans
-		var dateSpan = function( span ) {						
+		var dateSpan = function( span ) {
 			var	format = 'YYYY-MM-DD';
 			
 			var datespans = {
@@ -91,55 +91,6 @@ steal(
 			var greatest = this.state.homepage.greatest;
 			this.state.attr('homepage.greatest.offset', greatest.offset + greatest.limit);
 		}
-
-		
-		/*
-		 * PROTOTYPE FUNCTIONS
-		 */
-
-		// resets query tracker state
-		var resetState = function( cb ) {
-			var self = this;
-
-			this._onEndOfList(false);
-
-			if (can.route.attr('view') == 'latest') {
-				if( !this._pending ) {
-					this._pending = true;
-					this.paginator.reset(function() {
-						cb && cb();
-						self._pending = false;
-					});
-				}
-			} else {
-				this.state.attr( defaultState );
-				cb && cb();
-			}						
-		};
-
-		// calculates query params
-		var currentParams = function( params ) {
-
-			// determine current page/view combo
-			var currentPage = can.route.attr('page') || 'homepage',
-				currentView = can.route.attr('view') || 'latest',
-				cq = this.state[currentPage][currentView];
-
-			// build and return query
-			return can.extend({}, (cq ? cq.attr() : {}), filters() || {},  params || {});
-		}
-
-		// 
-		var next = function() {
-			if( can.route.attr('view') == 'latest' ) {
-				iterLatest.call(this);
-			} else if( can.route.attr('view') == 'greatest' ) {
-				iterGreatest.call(this);
-			}
-
-			return currentParams.call(this);
-		}
-
 		
 		/*
 		 * CONSTRUCTOR
@@ -155,13 +106,48 @@ steal(
 				};
 				
 				this.state = new can.Observe( defaultState );
-				this.paginator = new Paginator( cb );
+				this.paginator = new Paginator(cb);
+
 				this._onEndOfList = can.compute(false);
 			},
 
-			reset:   resetState,
-			current: currentParams,
-			next:    next
+			reset:   function( cb ) {
+				var self = this;
+
+				this._onEndOfList(false);
+
+				if (can.route.attr('view') == 'latest') {
+					if( !this._pending ) {
+						this._pending = true;
+						this.paginator.reset(function() {
+							cb && cb();
+							self._pending = false;
+						});
+					}
+				} else {
+					this.state.attr( defaultState );
+					cb && cb();
+				}
+			},
+			current: function( params ) {
+
+				// determine current page/view combo
+				var currentPage = can.route.attr('page') || 'homepage',
+					currentView = can.route.attr('view') || 'latest',
+					cq = this.state[currentPage][currentView];
+
+				// build and return query
+				return can.extend({}, (cq ? cq.attr() : {}), filters() || {},  params || {});
+			},
+			next: function() {
+				if( can.route.attr('view') == 'latest' ) {
+					iterLatest.call(this);
+				} else if( can.route.attr('view') == 'greatest' ) {
+					iterGreatest.call(this);
+				}
+
+				return this.current()
+			}
 		});
 
 	});

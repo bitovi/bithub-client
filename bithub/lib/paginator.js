@@ -67,7 +67,7 @@ steal(
 					if( spans.length == 0) { self.canLoad = false; }
 					self.list.push.apply(self.list, spans);
 					cb && cb();
-				});				
+				});
 			},
 
 			reset: function( cb ) {

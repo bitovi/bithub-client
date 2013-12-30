@@ -1,15 +1,17 @@
-<div>
+<div class="events-group">
 	{{#data.eventList}}
 		<div class="day">
 
-			<div class="sep-wrapper wrapper" style="height: 42px;">
-				<div class="sep blue">
-				<h4 class="flag blue">
-					{{#when stopDate}}{{ prettifyTs stopDate "date" }} - {{/when}}
-					{{ prettifyTs date "date" }}
-					</h4>
+			{{#if hasEvents}}
+				<div class="sep-wrapper wrapper" style="height: 42px;">
+					<div class="sep blue">
+					<h4 class="flag blue">
+						{{#when stopDate}}{{ prettifyTs stopDate "date" }} - {{/when}}
+						{{ prettifyTs date "date" }}
+						</h4>
+					</div>
 				</div>
-			</div>
+			{{/if}}
 
 			{{#when hasDigest}}
 				<bh-digest-list digest="digest"></bh-digest-list>
@@ -31,6 +33,10 @@
 					{{/hasCategoryFilter}}
 					<bh-code events="code" currentdate="date"></bh-code>
 				</div>
+			{{/when}}
+
+			{{#when types.chat}}
+				<bh-chat messages="types.chat"></bh-chat>
 			{{/when}}
 			
 		</div>

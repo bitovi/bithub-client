@@ -1,0 +1,22 @@
+{{#if showMessages}}
+
+	{{#if canBeCollapsed}}
+		<h3 class="section-title expand-chat" can-click="toggleMessages"><i class="icon-chat"></i>Collapse chat</h3>
+	{{/if}}
+
+	{{#reversedMessages}}
+		{{#showDateHeader}}
+			<h3 class="section-title"><i class="icon-calendar"></i>Chat Messages for {{ prettifyTs date 'date' }}</h3>
+		{{/showDateHeader}}
+		{{{separator}}}
+		<div class="chat-message">
+			<div class="time">{{ prettifyTs origin_ts 'time' }}</div>
+			<strong class="actor">{{ actor }}</strong> {{ title }}
+		</div>
+	{{/reversedMessages}}
+
+{{else}}
+
+	<h3 class="section-title expand-chat" can-click="toggleMessages"><i class="icon-chat"></i>{{ messages.length }} messages in chat. Click to expand</h3>
+
+{{/if}}

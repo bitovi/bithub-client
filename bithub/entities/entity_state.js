@@ -1,6 +1,7 @@
 steal('can/map', function(Map){
 
 	return Map.extend({
+		inited : false,
 		projects : function(){
 			return window.PROJECTS;
 		},

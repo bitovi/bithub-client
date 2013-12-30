@@ -143,6 +143,7 @@ steal(
 
 		can.route('/event/:id', { page: 'eventdetails' });
 
+		can.route.ready();
 		
 		var	newpostVisibility = can.compute(false),
 			projects          = new can.Model.List(),
@@ -164,9 +165,9 @@ steal(
 		window.EVENTS_PRELOADED = false;
 
 		// Init query tracker and preload events
-		var queryTracker = new QueryTracker({}, function() {
+		var queryTracker = new QueryTracker({}, function(params) {
 			Event.findAll(
-				queryTracker.current(),
+				params || queryTracker.current(),
 				function( events ) {
 					// this prevents events control to trigger on initial can.route change
 					window.EVENTS_PRELOADED = true;
@@ -269,6 +270,6 @@ steal(
 
 		new UI.Onbottom(document, {treshold: $(window).innerHeight()/2 });
 
-		can.route.ready()
+		
 	}
 );

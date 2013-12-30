@@ -4,7 +4,7 @@ steal(
 		return Control.extend({
 			'{spinnerTop} change': function( fn, ev, newVal, oldVal ) {
 				var el = this.element,
-				preservedHeight = el.css('height'); // To prevent content bobbing (caused by removing of scrollbar in FF);
+					preservedHeight = el.css('height'); // To prevent content bobbing (caused by removing of scrollbar in FF);
 
 				if( newVal ) {
 					$(document).scrollTop(0);

@@ -72,11 +72,6 @@ steal(
 				this.spinnerBottom   = can.compute(false);
 				this._canLoad        = can.compute(true);
 				this._paginatorReady = can.compute(true);
-				
-
-				window.LATEST = this.latestEvents = new LatestEventsSorter;
-				window.LATEST_IDX = this.latestIndex = new can.List([{}]);
-				window.GREATEST = this.greatestEvents = new Bithub.Models.Event.List([{}]);
 
 				this.data = {
 					user: this.options.currentUser
@@ -147,25 +142,27 @@ steal(
 
 			// can.route listeners
 
-			'{can.route} view':     "reload",
-			'{can.route} project':  "reload",
-			'{can.route} category': "reload",
-			'{can.route} timespan': "reload",
-			'{can.route} state':    "reload",
+			'{can.route} view'            : "reload",
+			'{can.route} project'         : "reload",
+			'{can.route} category'        : "reload",
+			'{can.route} timespan'        : "reload",
+			'{can.route} state'           : "reload",
 			'{Bithub.Models.Event} reload': "reload",
 
 			reload: function () {
-				var self = this;
+				var self = this, eventsGroup, removeEventGroup;
 
-				this.element.find('.events-list-wrapper').html('');
 				window.scrollTo(0, 0);
-
 				this._canLoad(true);
-				this._paginatorReady(false);					
+				this._paginatorReady(false);
 				this.spinnerTop(true);
 
+				this.__cleanup = function(){
+					self.element.find('.events-list-wrapper').empty();
+				}
+
 				this.options.queryTracker.reset(function() {
-					self._paginatorReady(true);					
+					self._paginatorReady(true);
 					self.load();
 				});
 			},
@@ -181,15 +178,19 @@ steal(
 
 				if( !this._canLoad() ) { return; }
 
-				this.spinnerBottom(true);				
+				this.spinnerBottom(true);
 				this.load();
 			},
 
 			fillDocumentHeight: function() {
-				//return
-				if( $(document).height() <= ($(window).height() * 2) ) {
-					$(window).trigger('onbottom');
-				}
+				var self = this;
+				setTimeout(function(){
+					var fillHeight = self.element.find('.events-list-wrapper').innerHeight();
+
+					if( fillHeight - 200 < $(window).height() ) {
+						$(window).trigger('onbottom');
+					}
+				}, 1)
 			},
 
 
@@ -198,36 +199,39 @@ steal(
 			 */
 
 			load: function (cb, params) {
+				var self = this;
+
 				// events are preloaded in bithub.js immediately after can.route is initalized
 				if (!window.EVENTS_PRELOADED) return;
 
-				var self = this;
-								
 				clearTimeout(this.loadTimeout);
 				this.loadTimeout = setTimeout(function () {
+					if(self.__cleanup){
+						self.__cleanup();
+						delete self.__cleanup;
+					}
 					Event.findAll(self.options.queryTracker.current(), self.proxy(self.updateEvents));
 				}, 10);
 			},
 
-			updateEvents: function( events ) {				
-				var data = can.extend({}, this.data),
+			updateEvents: function( events ) {
+				var data         = can.extend({}, this.data),
 					sortedEvents = new LatestEventsSorter(),
-					renderer = isLatest() ? latestView : greatestView;
-									
+					renderer     = isLatest() ? latestView : greatestView,
+					initGroups   = [],
+					content, initGroup, append;
+
 				// this will block loading of greatest list
 				if(events.length == 0) {
 					this._canLoad(false);
 				}
 
 				isLatest() && sortedEvents.appendEvents( events );
-				can.extend(data, {eventList: isLatest() ? sortedEvents.attr('days.0') : events});
+				can.extend(data, {eventList: isLatest() ? sortedEvents : events});
 
 				console.time('renderEvents')
-
-
-				var initGroups = [];
 				
-				var content = renderer({
+				content = renderer({
 					data: data,
 					hasCategoryFilter : function(){
 						return can.route.attr('category') !== 'all';
@@ -245,7 +249,7 @@ steal(
 								})
 							}
 							return '';
-						}).join('')
+						}).join('');
 					},
 					entityComponent : function(events, date){
 						var counter = 0;
@@ -273,15 +277,15 @@ steal(
 								inited : initGroups[initGroups.length - 1]
 							});
 
-							counter++
+							counter++;
 
 							return result;
 
-						}).join('')
+						}).join('');
 					}
 				})
 
-				var initGroup = function(){
+				initGroup = function(){
 					initGroups.shift()(true);
 					if(initGroups.length){
 						setTimeout(initGroup, 1);
@@ -290,9 +294,9 @@ steal(
 					}
 				}
 
-				var append = this.proxy(function(){
+				append = this.proxy(function(){
 					this.element.find('.events-list-wrapper').append(content);
-					console.timeEnd('renderEvents')
+					console.timeEnd('renderEvents');
 					this.spinnerTop(false);
 					this.spinnerBottom(false);
 					
@@ -300,7 +304,7 @@ steal(
 					this.fillDocumentHeight();
 				})
 
-				initGroup();
+				initGroups.length ? initGroup() : append();
 				
 			},
 			

@@ -15,12 +15,32 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter'];
 	var allowedDigest = ['follow_event','watch_event','fork_event']
 
-	var Day = can.Map({
+	return can.Map({
+		hasEvents : false,
 		init : function(){
 			this._super.apply(this, arguments);
 			this.attr('types', {});
 		},
-		
+		appendEvents : function(events){
+			var event, startDate, stopDate;
+
+			if(!events.attr('length')) return;
+
+			startDate = events[0].attr('thread_updated_date');
+			stopDate = events[events.length-1].attr('thread_updated_date');
+
+			this.attr({date: startDate, stopDate: (stopDate == startDate) ? undefined : stopDate });
+			
+			for(var i = 0; i < events.length; i++){
+				event = events[i];
+
+				// skip events that are not whitelisted
+				if( !_.contains(allowedCategories, event.attr('category')) ) continue;
+				if( event.attr('category') === 'digest' && _.intersection(allowedDigest, event.attr('tags')).length == 0 ) continue;
+				
+				this.addEvent(event)
+			}
+		},
 		addEvent : function(event){
 			var types = this.attr('types'),
 				category = event.attr('category'),
@@ -30,6 +50,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 				this.attr('types').attr(category, []);
 			}
 			this.attr('types.' + category)[method](event);
+			this.attr('hasEvents', true);
 		},
 		
 		hasDigest : function(){
@@ -121,37 +142,6 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 			})
 			
 			return regrouped;
-		}
-	})
-
-
-	return Observe.extend({
-		init : function(){			
-			this.attr('days', new List());
-		},
-		appendEvents : function(events){
-			var days = this.attr('days'),
-			event;
-
-			var startDate = events[0].attr('thread_updated_date'),
-				stopDate = events[events.length-1].attr('thread_updated_date');			
-
-			var datespan = new Day({date: startDate, stopDate: (stopDate == startDate) ? undefined : stopDate });
-			days.push( datespan );
-			
-			for(var i = 0; i < events.length; i++){
-				event = events[i];
-
-				// skip events that are not whitelisted
-				if( !_.contains(allowedCategories, event.attr('category')) ) continue;
-				if( event.attr('category') === 'digest' && _.intersection(allowedDigest, event.attr('tags')).length == 0 ) continue;
-				
-				datespan.addEvent(event)
-			}
-		},
-		replace : function(events){
-			this.attr('days').splice(0);
-			this.appendEvents(events);
 		}
 	})
 })

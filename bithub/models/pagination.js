@@ -12,12 +12,17 @@ steal(
 		
 
 		var RULES = {
-			'digest': 50,
+			'digest': 0, // don't include digest in the calculations
 			'feature': ASHCurried100,
 			'bug': ASHCurried100,
 			'app': ASHCurried100,
 			'article': ASHCurried100,
-			'chat': 0, //30,
+			'chat': function(n){ 
+				if(can.route.attr('category') === 'chat'){
+					return (approximateSectionHeight(n, 30)) 
+				}
+				return 50;
+			},
 			'code': function(n) { return (approximateSectionHeight(n, 45)) },
 			'comment': ASHCurried100,
 			'event': ASHCurried100, 
@@ -40,12 +45,13 @@ steal(
 				if( !rule ) continue;
 				
 				height += (typeof rule === "function") ? rule(day[category]) : rule;
-			}
 
+			}
 			return height;
 		}
 		
 		var datespanBuilder = function(days, opts ) {
+
 			opts = opts || {};
 			var threshold = opts['threshold'] || THRESHOLD;
 
@@ -75,12 +81,14 @@ steal(
 			limit: 30,
 			offset: 0
 		}
+
+		var paginationId = 0;
 		
 		return can.Model.extend('Bithub.Models.Pagination', {
 			findAll : 'GET /api/events/pagination',
 
 			model : function(data){
-				data.id = Math.random();
+				data.id = ++paginationId;
 				return this._super(data)
 			},
 			

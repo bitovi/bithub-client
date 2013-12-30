@@ -1,4 +1,4 @@
-{{#inited}}
+{{#if inited}}
 	{{#event}}
 		<div class="event list-element clearfix {{#isAwarded this}}awarded{{/isAwarded}} {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}}" {{ data 'eventObj'}}>
 
@@ -59,4 +59,4 @@
 			</div>
 		</div>
 	{{/event}}
-{{/inited}}
+{{/if}}
