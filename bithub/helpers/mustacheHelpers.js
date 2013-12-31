@@ -96,7 +96,7 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
 		can.__clearReading();
 
-		return str.substr( start, length );
+		return (str || "").substr( start, length );
 	});
 
 	can.Mustache.registerHelper('capitalize', function( str, opts ) {

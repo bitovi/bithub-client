@@ -34,6 +34,10 @@ steal(
 				return this.list[this.idx];
 			},
 
+			hasNext : function(){
+				return this.idx < this.list.length - 1;
+			},
+
 			next: function() {
 				if(this.idx < this.list.length-1) {
 					this.idx++;
@@ -53,7 +57,9 @@ steal(
 					params = can.extend({}, this.params, filters());
 
 				this.canLoad && Pagination.getDateSpans(params, function( spans ) {
-					if( spans.length == 0) { self.canLoad = false; }
+					if( spans.length == 0) { 
+						self.canLoad = false; 
+					}
 					self.list.replace( spans );
 					cb && cb();
 				});
@@ -64,8 +70,15 @@ steal(
 					params = can.extend({}, this.params, filters());
 
 				this.canLoad && Pagination.getDateSpans(params, function( spans ) {
-					if( spans.length == 0) { self.canLoad = false; }
-					self.list.push.apply(self.list, spans);
+
+					if( spans.length == 0) { 
+						self.canLoad = false; 
+					}
+
+					if(spans.length && self.list.indexOf(spans[0]) === -1){
+						self.list.push.apply(self.list, spans);
+					}
+
 					cb && cb();
 				});
 			},

@@ -84,7 +84,9 @@ steal(
 		}
 
 		var iterLatest = function() {
-			if( !this.paginator.next() ) this._onEndOfList(true);
+			if( !this.paginator.next() ){
+				this._onEndOfList(true);
+			}
 		}
 
 		var iterGreatest = function() {
@@ -147,6 +149,9 @@ steal(
 				}
 
 				return this.current()
+			},
+			hasNext : function(){
+				return this.paginator.hasNext();
 			}
 		});
 

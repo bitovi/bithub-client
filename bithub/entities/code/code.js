@@ -3,7 +3,8 @@ steal(
 './code.mustache',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
-function(Component, codeView, EntityState, sharedHelpers){
+'bithub/models/event.js',
+function(Component, codeView, EntityState, sharedHelpers, EventModel){
 
 	var titles = {
 		push : {
@@ -38,10 +39,10 @@ function(Component, codeView, EntityState, sharedHelpers){
 
 					if(type === 'push'){
 						can.each(currentEvents.attr('push_event'), function(pushEvent){
-							events.push.apply(events, pushEvent.attr('children'));
+							events.push.apply(events, pushEvent.attr('children').sortByOriginTS());
 						});
 					} else {
-						events = opts.context.attr(type + '_event');
+						events = EventModel.List.prototype.sortByOriginTS.call(opts.context.attr(type + '_event'));
 					}
 
 					length = events.attr('length');

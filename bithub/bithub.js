@@ -268,8 +268,7 @@ steal(
 			users.replace(data);
 		});
 
-		new UI.Onbottom(document, {treshold: $(window).innerHeight()/2 });
+		new UI.Onbottom(document, {threshold: $(window).innerHeight() / 2 });
 
-		
 	}
 );

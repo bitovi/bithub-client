@@ -16,9 +16,9 @@
 			<img src="/assets/images/ajax-loader-sm-blue.gif" alt="loading...">
 		</div>
 
-		<% if( !canLoad() ) { %>
+		{{#if doneLoading}}
 			<div class="noMoreContent">... that's all there is ...</div>
-		<% } %>
+		{{/if}}
 	</div>  
 
 </div>

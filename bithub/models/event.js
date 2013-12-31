@@ -43,10 +43,7 @@ steal('can',
 			}
 			 */
 		}
-			
-		//var EventObj = can.LazyMap.extend( prototypeMethods );
 
-		// 'regular' Event model
 		var Event = can.Model('Bithub.Models.Event', {
 
 			init: function () {
@@ -81,7 +78,7 @@ steal('can',
 						if( !url.match("^http[s]?:\\/\\/(www\\.)?") ) { return "Invalid URL (don't forget 'http[s]://')" }
 					}
 				});
-				this.validate('location', function(location) {					
+				this.validate('location', function(location) {
 					if (location != undefined && location == '') { return "Events should have a location" }
 				});
 
@@ -97,30 +94,26 @@ steal('can',
 				children : 'Bithub.Models.Event.models'
 			}
 
-			// overriden b/c can.Model would return new can.Observe,
-			//model: function( attrs ) {
-			//	return attrs;
-			//}
 			
 		}, prototypeMethods );
 
 
-		/*
-        can.Model.List('Bithub.Models.Event.List', {
-
-            // creates new event of LazyMap and extends it with instance props from Event model
-            Observe: function( data ) {
-                var event = new can.LazyMap( data );
-
-                can.extend(
-                    event,
-                    prototypeMethods
-                );
-                
-                return event;
-            }
-        }, {});
-		*/
+		
+		can.Model.List('Bithub.Models.Event.List', {
+			sortByOriginTS : function(){
+				return [].sort.call(this, function(a, b){
+					var aTS = moment(a.attr('origin_ts')).toDate().getTime(),
+						bTS = moment(b.attr('origin_ts')).toDate().getTime();
+					if(aTS < bTS){
+						return -1;
+					} else if(aTS > bTS){
+						return 1;
+					}
+					return 0;
+				});
+			}
+		});
+		
 		
 		return Event;
 	});

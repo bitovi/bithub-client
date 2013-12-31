@@ -21,11 +21,11 @@
 				{{{ renderManageBar }}}
 
 				{{#if childrenExistAndExpanded}}
-					<div class="replies row">
+					<div class="replies row" {{ brokenImagesCleanup }}>
 						<span class="replies-caret"></span>
-						{{#children}}
+						{{#children.sortByOriginTS}}
 							{{{ renderChildEvent }}}
-						{{/children}}
+						{{/children.sortByOriginTS}}
 					</div>
 				{{/if}}
 

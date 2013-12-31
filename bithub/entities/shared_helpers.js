@@ -110,6 +110,19 @@ function(childEventView, statusBarView, manageBarView, upvoteView, toolbarView){
 			});
 
 			return childEventView.render(scope);
+		},
+		brokenImagesCleanup : function(){
+			return function(el){
+				setTimeout(function(){
+					$(el).find('img').each(function(i, img){
+						var $img = $(img);
+						if(!img.complete || (typeof img.naturalWidth !== 'undefined' && img.naturalWidth === 0)){
+							$img.remove();
+						}
+					});
+				}, 1);
+				
+			}
 		}
 	}
 })

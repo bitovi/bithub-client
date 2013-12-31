@@ -50,7 +50,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 				this.attr('types').attr(category, []);
 			}
 			this.attr('types.' + category)[method](event);
-			this.attr('hasEvents', true);
+			this.attr('hasEvents', (this.attr('hasEvents') || 0) + 1);
 		},
 		
 		hasDigest : function(){
@@ -109,10 +109,16 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 				});
 
 				// this check can be removed once all existing push_event/commits are grouped in db
-				if( !type ) continue;
+				if( !type ){
+					this.attr('hasEvents', (this.attr('hasEvents') || 1) - 1);
+					continue;
+				}
 
 				// ignore push events without commits
-				if( type == 'push_event' && event.attr('children').length == 0 ) continue;
+				if( type == 'push_event' && event.attr('children').length == 0 ){
+					this.attr('hasEvents', (this.attr('hasEvents') || 1) - 1);
+					continue;
+				}
 
 				if( !grouped[repo] ) {
 					grouped[repo] = {}

@@ -32,15 +32,15 @@
 				{{{ renderManageBar }}}
 
 				{{#if childrenExistAndExpanded}}
-					<div class="replies row">
+					<div class="replies row" {{ brokenImagesCleanup }}>
 						<span class="replies-caret"></span>
 
-						{{#children}}
+						{{#children.sortByOriginTS}}
 
 							{{#if isPush}}
-								{{#children}}
+								{{#children.sortByOriginTS}}
 									{{{ renderChildEvent "commit" }}}
-								{{/children}}
+								{{/children.sortByOriginTS}}
 							{{/if}}
 
 							{{#if isPullRequest}}
@@ -51,7 +51,7 @@
 								{{{ renderChildEvent }}}
 							{{/unless}}
 
-						{{/children}}
+						{{/children.sortByOriginTS}}
 
 					</div>
 				{{/if}}

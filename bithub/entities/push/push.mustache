@@ -3,7 +3,7 @@
 		<div class="truncated code-events clearfix">
 
 			<h5 class="title"><a href="{{ eventUrl this }}">{{v title }}</a></h5>
-			{{#children}}
+			{{#children.sortByOriginTS}}
 
 				<div class="event list-element commit clearfix" {{data 'eventObj'}}>  
 				
@@ -28,7 +28,7 @@
 
 				</div>
 
-			{{/children}}
+			{{/children.sortByOriginTS}}
 
 			<div class="status row" style="margin-left: 67px; margin-top: 5px;">
 				<div class="metadata-container pull-right">

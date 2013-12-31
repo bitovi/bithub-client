@@ -60,18 +60,32 @@ steal(
 				height, currentHeight = 0,
 				i,j;
 
-			for(i=0; i<days.length; i++) {
-				if( !startDate) startDate = days[i].date;
+			for(i = 0; i < days.length; i++) {
+
+				if( !startDate){
+					startDate = days[i].date;
+				}
+
 				stopDate = days[i].date;
 
 				height = approximateDayHeight( days[i] );
 				
-				if( (currentHeight + height) >= threshold ) {
+
+				if( (currentHeight + height) >= threshold || i === days.length - 1) {
+
 					startDate === stopDate ? datespans.push( startDate) : datespans.push( stopDate + ':' + startDate);
-					startDate = null; stopDate = null; currentHeight = 0;
+
+					startDate     = null; 
+					stopDate      = null; 
+					currentHeight = 0;
+
 				} else {
 					currentHeight += height;
 				}
+			}
+
+			if(datespans.length === 0){
+				datespans.push(moment().format('YYYY-MM-DD'))
 			}
 
 			return datespans;

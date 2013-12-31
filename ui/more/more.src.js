@@ -5,7 +5,7 @@
 	 *   moreHTML: "<a href='javascript://' class='more'>...</a>",
 	 *   moreWidth: 50,
 	 *   lessHTML: " <a href='javascript://' class='less'>less</a>",
-     *   lines: 2
+	 *   lines: 2
 	 * })
 	 */
 	$.fn.more = function(options){
@@ -14,10 +14,10 @@
 				lessHTML: " <a href='javascript://' class='less'>-</a>",
 				moreHTML: " <a href='javascript://' class='more'>+</a>",
 				moreWidth: 50,
-                lines: 2
+				lines: 2
 			},options||{});
 			
-	    this.each(function(el){
+		this.each(function(el){
 			var $el = $(this);
 
 			// skip if there is no content
@@ -43,7 +43,7 @@
 			// go until we reach the end of the body 
 			while(range.compare("START_TO_START",end) != 0){
 				range.end("+1").start("+1");
-                
+				
 				var rect = range.rect();
 				// if the charcter is on a new line
 				if( rect && (rect.top -prevRect.top  > 4) ) {
@@ -66,12 +66,14 @@
 			prevChar(range, start)
 			
 			var movedLeft = false,
-                offset = $el.offset(),
-				width = $el.width();
-            
+				offset = $el.offset(),
+				width = $el.width(),
+				rangeRect;
+			
 			// keep moving back until there is room for more
 			while(range.compare("START_TO_START",start) != -1 ){
-				if( range.rect(true).left <= (offset.left+width-options.moreWidth) ) {
+				rangeRect = range.rect(true);
+				if(!rangeRect || rangeRect.left <= (offset.left+width-options.moreWidth) ) {
 					break;
 				}
 				movedLeft = true;
@@ -85,40 +87,46 @@
 			var parent = range.start().container;
 			// remove remaining text
 			if( parent.nodeType === Node.TEXT_NODE ||
-			 	parent.nodeType === Node.CDATA_SECTION_NODE ) {
-			     parent.nodeValue = parent.nodeValue.slice(0,range.start().offset+1)
+				parent.nodeType === Node.CDATA_SECTION_NODE ) {
+				parent.nodeValue = parent.nodeValue.slice(0,range.start().offset+1)
 			}
 			var removeAfter =  parent;
 			// remove everything after
-			while(removeAfter !== this){
-				var parentEl = removeAfter.parentNode,
-					childNodes = parentEl.childNodes,
+			while(removeAfter !== this && removeAfter){
+				var parentEl, childNodes, index;
+				parentEl = removeAfter.parentNode;
+				if(parentEl){
+					childNodes = parentEl.childNodes;
 					index = $.inArray(removeAfter,childNodes );
-				
-				for(var i = parentEl.childNodes.length-1; i > index; i--){
-					parentEl.removeChild( childNodes[i] );
+					
+					for(var i = parentEl.childNodes.length-1; i > index; i--){
+						parentEl.removeChild( childNodes[i] );
+					}
+
+					
 				}
+
 				removeAfter = parentEl;
 			}
 			
-	        // add more after parent
-	        if( parent.nodeType === Node.TEXT_NODE ||
-			 	parent.nodeType === Node.CDATA_SECTION_NODE ) {
-			     parent = parent.parentElement
+			// add more after parent
+			if( parent.nodeType === Node.TEXT_NODE ||
+				parent.nodeType === Node.CDATA_SECTION_NODE ) {
+				 parent = parent.parentElement
 			}
-	      	$(parent).append(options.moreHTML);
-	      	$el.data('shortenedHTML',$el.html())
-                // show more / hide listeners
+			$(parent).append(options.moreHTML);
+			$el.data('shortenedHTML',$el.html())
+				// show more / hide listeners
 				.on("click","a.more",function(){
 					$el.html($el.data('originalHTML')+options.lessHTML)
 				})
 				.on("click","a.less",function(){
 					$el.html($el.data('shortenedHTML'))
 				});
-	    })
+		})
 	};
 	
-    // Moves the range until it hits something other than a space
+	// Moves the range until it hits something other than a space
 	var nextChar = function(range, boundary){
 		while(/[\s\n]/.test(range) && range.compare("END_TO_END",boundary) != 1){
 			range.start("+1").end("+1")
@@ -132,5 +140,5 @@
 		}
 		return range;
 	}
-    
+	
 })();

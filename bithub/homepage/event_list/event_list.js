@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'bithub/homepage/event_list/views/init.ejs',
+	'bithub/homepage/event_list/views/init.mustache',
 	'bithub/homepage/event_list/views/latest.mustache',
 	'bithub/homepage/event_list/views/greatest.mustache',
 	'bithub/homepage/event_list/determine_event_partial.js',
@@ -68,6 +68,7 @@ steal(
 		}, {
 
 			init: function (elem, opts) {
+				var self = this;
 				this.spinnerTop      = can.compute(false);
 				this.spinnerBottom   = can.compute(false);
 				this._canLoad        = can.compute(true);
@@ -78,7 +79,10 @@ steal(
 				}
 
 				this.element.html(initView({
-					canLoad: this._canLoad
+					doneLoading: function(){
+						var check = !self._canLoad();
+						return check && !self.spinnerTop() && !self.spinnerBottom();
+					}
 				}));
 
 				new Handlers(this.element, {
@@ -153,7 +157,7 @@ steal(
 				var self = this, eventsGroup, removeEventGroup;
 
 				window.scrollTo(0, 0);
-				this._canLoad(true);
+				this.setCanLoad(true);
 				this._paginatorReady(false);
 				this.spinnerTop(true);
 
@@ -174,9 +178,12 @@ steal(
 				if( !this._paginatorReady() ) { return; }
 
 				this.options.queryTracker.next();
-				this.options.queryTracker._onEndOfList() && this._canLoad(false);
 
-				if( !this._canLoad() ) { return; }
+				if(this.options.queryTracker._onEndOfList()){
+					this.setCanLoad(false);
+					return;
+
+				}
 
 				this.spinnerBottom(true);
 				this.load();
@@ -188,7 +195,7 @@ steal(
 					var fillHeight = self.element.find('.events-list-wrapper').innerHeight(),
 						windowHeight = $(window).height() 
 
-					if( fillHeight < windowHeight + (windowHeight / 2) ) {
+					if(self._canLoad() && (fillHeight < windowHeight + (windowHeight / 2)) ) {
 						$(window).trigger('onbottom');
 					}
 				}, 1)
@@ -211,6 +218,8 @@ steal(
 						self.__cleanup();
 						delete self.__cleanup;
 					}
+					self.spinnerBottom(true);
+
 					Event.findAll(self.options.queryTracker.current(), self.proxy(self.updateEvents));
 				}, 10);
 			},
@@ -223,8 +232,12 @@ steal(
 					content, initGroup, append;
 
 				// this will block loading of greatest list
-				if(events.length == 0) {
-					this._canLoad(false);
+				if(!isLatest() && events.length === 0) {
+					this.setCanLoad(false);
+				} else if(!this.options.queryTracker.hasNext() && events.length === 0){
+					this.setCanLoad(false);
+				} else if(events.length === 0){
+					$(window).trigger('resetOnBottom');
 				}
 
 				isLatest() && sortedEvents.appendEvents( events );
@@ -307,6 +320,10 @@ steal(
 
 				initGroups.length ? initGroup() : append();
 				
+			},
+
+			setCanLoad : function(canLoad){
+				this._canLoad(canLoad);
 			},
 			
 			postRendering: function () {
