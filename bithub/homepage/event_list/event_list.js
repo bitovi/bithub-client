@@ -188,7 +188,7 @@ steal(
 					var fillHeight = self.element.find('.events-list-wrapper').innerHeight(),
 						windowHeight = $(window).height() 
 
-					if( fillHeight < windowHeight + (windowHeight / 2)  ) {
+					if( fillHeight < windowHeight + (windowHeight / 2) ) {
 						$(window).trigger('onbottom');
 					}
 				}, 1)

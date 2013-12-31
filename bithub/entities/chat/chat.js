@@ -3,6 +3,7 @@ steal(
 './chat.mustache',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
+'can/construct/proxy',
 function(Component, chatView, EntityState, sharedHelpers){
 
 	Component.extend({
@@ -59,7 +60,20 @@ function(Component, chatView, EntityState, sharedHelpers){
 					return '<hr>';
 				}
 			}
-		}, sharedHelpers)
+		}, sharedHelpers),
+		events : {
+		"{scope} expandedMessages" : function(scope, ev, val){
+			this.element.toggleClass('expanded', val);
+			if(val){
+				setTimeout(this.proxy('scrollDown'), 1);
+			}
+		},
+		scrollDown : function(){
+			this.scrollArea = this.element.find('.chat-messages');
+			this.scrollArea[0].scrollTop = this.scrollArea[0].scrollHeight;
+		}
+	}
 	})
+
 
 })
