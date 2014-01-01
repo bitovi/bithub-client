@@ -9,7 +9,7 @@ function(Component, issueView, childEventView, EntityState, sharedHelpers){
 		tag : 'bh-issue',
 		template : issueView,
 		scope : EntityState.extend({
-			inited : false,
+			inited : true,
 			childrenExpanded : false,
 			childrenExistAndExpanded : function(){
 				return this.attr('childrenExpanded') && this.attr('event.children').attr('length') > 0;
