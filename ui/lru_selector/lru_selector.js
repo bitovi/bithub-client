@@ -17,11 +17,14 @@ steal(
 		};
 
 		var smartSelectorItemRoute = function (item) {
+			var view = currentViewFiltered(),
+				isGreatest = view === 'greatest';
+			
 			return can.route.url({
 				category: item.name,
 				project: can.route.attr('project') || 'all',
-				timespan: can.route.attr('timespan') || 'week',
-				view: currentViewFiltered()
+				timespan: isGreatest ? (can.route.attr('timespan') || 'week') : undefined,
+				view: view
 			}, false);
 		};
 

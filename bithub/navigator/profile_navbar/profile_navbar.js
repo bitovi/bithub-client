@@ -20,7 +20,6 @@ steal(
 				}, {
 					helpers: {
 						isShown: function( opts ) {
-							console.log('IS SHOWN', self.options.currentUser.isLoggedIn(), self.isRoute() )
 							if( self.options.currentUser.isLoggedIn() && self.isRoute() ) {
 								return opts.fn(this);
 							} else {

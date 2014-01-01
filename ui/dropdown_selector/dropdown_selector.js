@@ -15,11 +15,14 @@ steal(
 		};
 				
 		var dropdownItemRoute = function (item) {
+			var view = currentViewFiltered(),
+				isGreatest = view === 'greatest';
+
 			var routes = {
 				project: item.name,
 				category: can.route.attr('category'),
-				timespan: can.route.attr('timespan') || 'week',
-				view: currentViewFiltered()
+				timespan: isGreatest ? (can.route.attr('timespan') || 'week') : undefined,
+				view: view
 			}
 
 			if (can.route.attr('category') === 'bug') {
