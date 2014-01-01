@@ -9968,6 +9968,28 @@ bh-chat .expand-status {
   line-height: 11px;
   margin-right: -4px;
 }
+a.more,
+a.less {
+  border-radius: 1px;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+  color: white;
+  text-align: center;
+  line-height: 13px;
+  background: #4995bb;
+}
+a.more:hover,
+a.less:hover {
+  color: white;
+  background: #2578b4;
+  text-decoration: none;
+}
+a.less {
+  line-height: 11px;
+}
 .expand-chat {
   background: #71bee5;
   text-shadow: 0 -1px 0 #5394d9;

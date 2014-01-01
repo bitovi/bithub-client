@@ -8,6 +8,14 @@
 	 *   lines: 2
 	 * })
 	 */
+	
+
+	var stripHTML = function(html){ 
+		var tmp = document.createElement("DIV"); 
+		tmp.innerHTML = html; 
+		return tmp.textContent || tmp.innerText || "";
+	}
+
 	$.fn.more = function(options){
 		//return this
 		// setup defaults
@@ -16,10 +24,10 @@
 				moreHTML: " <a href='javascript://' class='more'>+</a>",
 				moreWidth: 50,
 				lines: 2
-			},options||{});
+			}, options||{});
 			
 		this.each(function(el){
-			var $el = $(this);
+			var $el = $(this), elementHTML, processedHTML;
 
 			// skip if there is no content
 			if ( can.trim($el.text()).length == 0 ) {
@@ -29,9 +37,11 @@
 			// save current HTML for later
 			$el.data('originalHTML', $el.html())
 
-			$el.find('p').after('<span>[breaks]</span>')
+			$el.find('p').after('<span>[br]</span>')
 
-			$el.html('<p>' + $el.text().replace('[breaks]', '<br>') + '</p>')
+			$el.html('<p>' + stripHTML($el.text()).replace(/\[br\]/g, '<br>') + '</p>');
+
+			elementHTML = $el.html();
 
 			// the active range we will be moving around
 			var range = $el.range(),
@@ -86,6 +96,7 @@
 			}
 			// exit if we don't need to add more button
 			if(!movedLeft && (lines < options.lines ) ) {
+				$el.html($el.data('originalHTML'));
 				return
 			}
 			
