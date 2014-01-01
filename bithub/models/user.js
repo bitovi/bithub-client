@@ -168,6 +168,9 @@ steal(
 				return _.map(followes, function( account ) {
 					return account.split('@')[1];
 				});
+			},
+			isLoggedIn : function(){
+				return this.attr('authStatus') === 'loggedIn';
 			}
 
 		});

@@ -1,18 +1,17 @@
 steal(
 	'can',
+	'bithub/models/activity.js',
 	'./activities.mustache',
-	function(can, activitiesView){
-
-		var parse10 = function(str) { return parseInt(str, 10) };
+	function(can, ActivityModel, activitiesView){
 
 		var whitelistedTypes = ['author','award', 'internal'];
 
 		var calcPoints = function( event ) {
-			var sum = parse10( event.attr('value') );
+			var sum = parseInt( event.attr('value') );
 			
-			if( event.attr('upvotes') ) sum += parse10( event.attr('upvotes') );
+			if( event.attr('upvotes') ) sum += parseInt( event.attr('upvotes'), 10 );
 
-			return sum;			
+			return sum;
 		}
 		
 		return can.Control.extend({
@@ -22,17 +21,30 @@ steal(
 			init : function(element, options){
 				var user = options.currentUser,
 					routes = options.routes;
+
+				this.params = {
+					limit: 200,
+					offset : 0
+				}
+
+				this.canLoad = true;
 				
-				// refresh user session to get fresh activities list
-				user.refreshSession();
+				this.isLoading = can.compute(false);
+
+				this.activities = new ActivityModel.List();
 				
 				element.html(activitiesView({
-					user: user,
-					routes: routes
+					activities: this.activities,
+					routes: routes,
+					isLoading : this.isLoading,
+					isLoggedIn : function(){
+						return user.isLoggedIn();
+					}
 				}, {
 					helpers: {
 						display: function(opts) {
-							return _.contains(whitelistedTypes, this.attr('type')) && calcPoints(this) ? opts.fn(this) : opts.inverse(this);
+							var ctx = opts.context;
+							return _.contains(whitelistedTypes, ctx.attr('type')) && calcPoints(ctx) ? opts.fn(ctx) : opts.inverse(ctx);
 						},
 						calcPoints: function() {
 							var sum = calcPoints( this );
@@ -59,7 +71,36 @@ steal(
 					},
 					partials: {}
 				}));
+				if(user.isLoggedIn()){
+					this.loadActivities();
+				}
+			},
+			"{currentUser} authStatus" : function(user, ev, newVal){
+				if(newVal === 'loggedIn'){
+					this.loadActivities();
+				}
+			},
+			"{window} onbottom" : "loadActivities",
+			loadActivities : function(){
+				if(this.canLoad){
+					this.isLoading(true);
+
+					ActivityModel.findAll(can.extend({
+						userId : this.options.currentUser.attr('id')
+					}, this.params), this.proxy('updateActivities'))
+
+					this.params.offset = this.params.offset + this.params.limit;
+				}
+			},
+			updateActivities :  function(activities){
+				this.activities.push.apply(this.activities, activities);
+				this.isLoading(false);
+
+				if(activities.length < this.params.limit){
+					this.canLoad = false
+				}
 			}
+
 		});
 	}
 );

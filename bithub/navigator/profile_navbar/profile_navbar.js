@@ -20,7 +20,8 @@ steal(
 				}, {
 					helpers: {
 						isShown: function( opts ) {
-							if( self.options.currentUser.loggedIn() && self.isRoute() ) {
+							console.log('IS SHOWN', self.options.currentUser.isLoggedIn(), self.isRoute() )
+							if( self.options.currentUser.isLoggedIn() && self.isRoute() ) {
 								return opts.fn(this);
 							} else {
 								return opts.inverse(this);
@@ -40,7 +41,7 @@ steal(
 					routes = this.options.routes;
 
 				for( var key in routes ) {
-					if( routes[key]() == currRoute ) {
+					if( routes[key]().replace(/^\//, '') == currRoute ) {
 						return currRoute;
 					}
 				}
