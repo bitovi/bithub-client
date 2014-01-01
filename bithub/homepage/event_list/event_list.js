@@ -193,7 +193,7 @@ steal(
 				var self = this;
 				setTimeout(function(){
 					var fillHeight = self.element.find('.events-list-wrapper').innerHeight(),
-						windowHeight = $(window).height() 
+						windowHeight = $(window).height();
 
 					if(self._canLoad() && (fillHeight < windowHeight + (windowHeight / 2)) ) {
 						$(window).trigger('onbottom');
@@ -234,9 +234,9 @@ steal(
 				// this will block loading of greatest list
 				if(!isLatest() && events.length === 0) {
 					this.setCanLoad(false);
-				} else if(!this.options.queryTracker.hasNext() && events.length === 0){
+				} else if(!this.options.queryTracker.hasNext() && events.length === 0){ // end of latest
 					this.setCanLoad(false);
-				} else if(events.length === 0){
+				} else if(events.length === 0){ // sometimes pagination says there's an event when there is none
 					$(window).trigger('resetOnBottom');
 				}
 

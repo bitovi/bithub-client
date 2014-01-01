@@ -9,6 +9,7 @@
 	 * })
 	 */
 	$.fn.more = function(options){
+		//return this
 		// setup defaults
 			options = $.extend({
 				lessHTML: " <a href='javascript://' class='less'>-</a>",
@@ -27,6 +28,10 @@
 			
 			// save current HTML for later
 			$el.data('originalHTML', $el.html())
+
+			$el.find('p').after('<span>[breaks]</span>')
+
+			$el.html('<p>' + $el.text().replace('[breaks]', '<br>') + '</p>')
 
 			// the active range we will be moving around
 			var range = $el.range(),
@@ -114,7 +119,9 @@
 				parent.nodeType === Node.CDATA_SECTION_NODE ) {
 				 parent = parent.parentElement
 			}
-			$(parent).append(options.moreHTML);
+			
+			$el.find('p').append( options.moreHTML)
+
 			$el.data('shortenedHTML',$el.html())
 				// show more / hide listeners
 				.on("click","a.more",function(){
