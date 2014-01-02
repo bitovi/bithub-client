@@ -8664,23 +8664,48 @@ a.btn.connect {
   width: 90px;
 }
 #activity-list {
-  border: 1px solid #f3f4f4;
   list-style: none;
   margin: 0 0 15px;
+  border: none;
 }
 #activity-list li {
-  padding: 5px 10px;
+  padding: 10px 10px 10px 120px;
+  border-bottom: 1px solid #eee;
+  background: none;
+  position: relative;
 }
 #activity-list li:nth-child(even) {
-  background-color: #f3f4f4;
+  background: none;
 }
 #activity-list li .points {
   color: #169410;
   font-weight: bold;
   margin-right: 10px;
   width: 40px;
-  text-align: center;
+  text-align: right;
   display: inline-block;
+}
+#activity-list li .type {
+  background: #999;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  width: 60px;
+  text-align: center;
+  font-size: 80%;
+  color: white;
+  text-shadow: 0 -1px 0 #888888;
+}
+#activity-list li .points,
+#activity-list li .type {
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+#activity-list li .type {
+  left: 50px;
+  line-height: 16px;
+  top: 12px;
 }
 #activity-list li small {
   color: #777;
@@ -8694,6 +8719,9 @@ a.btn.connect {
   display: block;
   margin-top: 0px;
   width: auto;
+}
+.repos {
+  margin: -10px 0 20px;
 }
 .repos li {
   display: inline-block;
@@ -8718,67 +8746,74 @@ a.btn.connect {
   font-size: 23px;
   margin-bottom: 0px;
 }
-.profile {
-  padding-top: 30px;
-  margin-left: 20px;
-}
-.profile .icon-check {
-  font-size: 22px;
+.earn-points .icon-check {
+  font-size: 18px;
   line-height: 10px;
   color: #26931d;
   position: relative;
-  top: -3px;
+  top: -1pxpx;
 }
-.profile .points-wrapper {
-  padding-bottom: 25px;
-}
-.profile .points-wrapper > p:last-child,
-.profile .points-wrapper > ul {
-  margin-bottom: 0;
-}
-.profile .complete {
+.earn-points .complete {
   color: #999999;
 }
-.profile .twitter-accounts {
-  margin-left: 27px;
+.earn-points .twitter-accounts {
+  margin-top: -5px;
+}
+.earn-points .points-wrapper {
+  padding: 0 10px 10px;
+}
+.earn-points .points-wrapper > p:last-child,
+.earn-points .points-wrapper > ul {
+  margin-bottom: 0;
+}
+.earn-points .points-wrapper h3 {
+  margin: 0 -10px 10px;
 }
 .toprated {
   font-size: 14px;
-  font-weight: bold;
   height: auto;
-}
-.toprated:after {
-  display: block;
-  clear: both;
-  content: " ";
-  height: 0;
-  overflow: hidden;
+  font-weight: normal;
 }
 .toprated li {
-  line-height: 18px;
+  line-height: 16px;
+  border-bottom: 1px solid #eee;
+  padding-top: 10px;
+}
+.toprated li:first-child {
+  padding-top: 0;
+}
+.toprated li:last-child {
+  border-bottom: none;
 }
 .toprated li a {
   color: #2578b4;
   display: block;
   float: left;
-  width: 90%;
+  width: 95%;
   padding-left: 10px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
   margin-bottom: 10px;
-  text-decoration: underline;
+  text-decoration: none;
   text-overflow: ellipsis;
 }
 .toprated li a:hover {
-  text-decoration: none;
+  text-decoration: underline;
 }
 .toprated li .points {
   color: #000000;
   display: block;
   float: left;
-  width: 10%;
+  width: 5%;
+}
+.sidebar .toprated ul {
+  margin-top: 20px;
+}
+.sidebar .toprated li {
+  padding-top: 0;
+  border-bottom: none;
 }
 #activities h1 {
   margin-bottom: 15px;
