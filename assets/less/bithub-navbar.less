@@ -322,18 +322,18 @@ button#show-newpost-form-btn {
 .subnav-wrapper {
 	background: #f3f4f4;
 	width: 100%;
-	height: 35px;
+	height: 34px;
 	box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
 	border-bottom: 1px solid @white;
 	z-index: 105;
 	position: fixed;
-	width: 100%;
+	
 }
 .subnav {
 	margin: 0;
 	list-style: none;
 	list-style-type: none;
-	padding: 0;
+	padding: 1px 0 0;
 	font-size: 13px;
 	
 	
@@ -345,7 +345,7 @@ button#show-newpost-form-btn {
 			display: block;
 			color: @grayLight;
 			.text-shadow-light;
-			&:hover {
+			&:hover, &.active {
 				text-decoration: none;
 				color: @black;
 			}
@@ -359,6 +359,8 @@ button#show-newpost-form-btn {
 	li {
 		&.account {
 			color: @black;
+			float: right;
+			margin-right: 0;
 		}
 		&.active > a {
 			font-weight: bold;

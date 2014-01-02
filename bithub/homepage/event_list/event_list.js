@@ -220,7 +220,7 @@ steal(
 					}
 					self.spinnerBottom(true);
 
-					Event.findAll(self.options.queryTracker.current(), self.proxy(self.updateEvents));
+					Event.findAll(self.options.queryTracker.next(), self.proxy(self.updateEvents));
 				}, 10);
 			},
 

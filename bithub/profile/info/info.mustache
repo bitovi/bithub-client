@@ -1,99 +1,97 @@
-<div id="profile" class="span12">
-  <div class="content">
-	<div class="row">
-	  <div class="span5 offset3">
 
-		<form id="edit-profile-form">
-		  
-		  <div class="control-group">
-			<label class="wrapped-label-input">
-			  <span>Name:</span>
-			  <input type="text" name="name" value="{{user.name}}">
-			</label>
-		  </div>
+<div class="content">
+<div class="row">
+	<div class="span5 offset3">
 
-		  <div class="control-group">
-			<label class="wrapped-label-input">
-			  <span>Email:</span>
-			  <input type="text" name="email" value="{{user.email}}">
-			</label>
-		  </div>
-
-		  <p class="mailing-addr-caption">Mailing Address (so we can send you swag):</p>
-
-		  <div class="control-group">
-			<label class="wrapped-label-input">
-			  <span>Street:</span>
-			  <input type="text" name="address" style="width: 330px;" value="{{user.address}}">
-			</label>
-		  </div>
-
-		  <div class="controls controls-row">
-			<label class="wrapped-label-input">
-			  <span>City:</span>
-			  <input type="text" name="city" value="{{user.city}}">
-			</label>
-			<label class="wrapped-label-input">
-			  <span>State/Province:</span>
-			  <input type="text" name="state" value="{{user.state}}">
-			</label>
-		  </div>
-
-		  <div class="controls controls-row">
-			<label class="wrapped-label-input">
-			  <span>Postal Code:</span>
-			  <input type="text" name="postal" value="{{user.postal}}">
-			</label>
-			
-			<select id="countryISO" name="countryISO">
-			  {{#countries}}
-			  <option value="{{iso}}">{{name}}</option>
-			  {{/countries}}
-			</select>
-		  </div>
-
-		  <div class="control-group">
-			<button type="submit" name="update" class="btn-bigass light" data-loading-text="Saving...">Update</button>
-
-			<div class="form-status">
-			  <p class="success">Saved!</p>
-			  <p class="error">Something went wrong!</p>
-			</div>
-		  </div>
-
-		</form>
+	<form id="edit-profile-form">
 		
-	  </div>
-
-	  <div class="span2">
-		{{#if user.avatar_url}}
-		<div class="avatar">
-		  {{#user.avatar_url}}<img src="{{.}}" alt="avatar">{{/user.avatar_url}}
+		<div class="control-group">
+		<label class="wrapped-label-input">
+			<span>Name:</span>
+			<input type="text" name="name" value="{{user.name}}">
+		</label>
 		</div>
-		{{/if}}
 
-		<ul class="providers">
+		<div class="control-group">
+		<label class="wrapped-label-input">
+			<span>Email:</span>
+			<input type="text" name="email" value="{{user.email}}">
+		</label>
+		</div>
 
-		  <li class="github">
-			{{#hasProvider 'github'}}
-			<span class="login-github"></span>Github
-			{{else}}
-			<a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
-			{{/hasProvider}}
-		  </li>
+		<p class="mailing-addr-caption">Mailing Address (so we can send you swag):</p>
 
-		  <li class="twitter">
-			{{#hasProvider 'twitter'}}
-			<span class="login-twitter"></span>Twitter
-			{{else}}
-			<a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
-			{{/hasProvider}}
-		  </li>
-		  
-		</ul>
-	  </div>
+		<div class="control-group">
+		<label class="wrapped-label-input">
+			<span>Street:</span>
+			<input type="text" name="address" style="width: 330px;" value="{{user.address}}">
+		</label>
+		</div>
 
+		<div class="controls controls-row">
+		<label class="wrapped-label-input">
+			<span>City:</span>
+			<input type="text" name="city" value="{{user.city}}">
+		</label>
+		<label class="wrapped-label-input">
+			<span>State/Province:</span>
+			<input type="text" name="state" value="{{user.state}}">
+		</label>
+		</div>
+
+		<div class="controls controls-row">
+		<label class="wrapped-label-input">
+			<span>Postal Code:</span>
+			<input type="text" name="postal" value="{{user.postal}}">
+		</label>
+		
+		<select id="countryISO" name="countryISO">
+			{{#countries}}
+			<option value="{{iso}}">{{name}}</option>
+			{{/countries}}
+		</select>
+		</div>
+
+		<div class="control-group">
+		<button type="submit" name="update" class="btn-bigass light" data-loading-text="Saving...">Update</button>
+
+		<div class="form-status">
+			<p class="success">Saved!</p>
+			<p class="error">Something went wrong!</p>
+		</div>
+		</div>
+
+	</form>
+	
 	</div>
-  </div>
 
+	<div class="span2">
+	{{#if user.avatar_url}}
+	<div class="avatar">
+		{{#user.avatar_url}}<img src="{{.}}" alt="avatar">{{/user.avatar_url}}
+	</div>
+	{{/if}}
+
+	<ul class="providers">
+
+		<li class="github">
+		{{#hasProvider 'github'}}
+		<span class="login-github"></span>Github
+		{{else}}
+		<a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
+		{{/hasProvider}}
+		</li>
+
+		<li class="twitter">
+		{{#hasProvider 'twitter'}}
+		<span class="login-twitter"></span>Twitter
+		{{else}}
+		<a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
+		{{/hasProvider}}
+		</li>
+		
+	</ul>
+	</div>
+
+</div>
 </div>

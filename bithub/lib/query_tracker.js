@@ -75,10 +75,18 @@ steal(
 		var filters = function() {
 			var params = {};
 			
-			if (can.route.attr('project') !== 'all') params.tag = can.route.attr('project');
-			if (can.route.attr('category') !== 'all') params.category = can.route.attr('category');
-			if (can.route.attr('timespan') !== 'all') params.thread_updated_date = dateSpan(can.route.attr('timespan'));
-			if (can.route.attr('state') !== 'both') params.state = can.route.attr('state');
+			if(can.route.attr('project') !== 'all'){
+				params.tag = can.route.attr('project');
+			}
+			if(can.route.attr('category') !== 'all'){
+				params.category = can.route.attr('category');
+			}
+			if(can.route.attr('timespan') !== 'all' && can.route.attr('view') !== 'latest'){
+				params.thread_updated_date = dateSpan(can.route.attr('timespan'))
+			}
+			if(can.route.attr('state') !== 'both'){
+				params.state = can.route.attr('state');
+			}
 
 			return params;
 		}
