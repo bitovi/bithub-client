@@ -40,10 +40,10 @@ steal(
 		});
 
 		var isLatest = function() {
-			return can.route.attr('view') == 'latest';
+			return can.route.attr('view') === 'latest';
 		}
 		var	isGreatest = function() {
-			return can.route.attr('view') == 'greatest';
+			return can.route.attr('view') === 'greatest';
 		}
 
 		
@@ -156,6 +156,11 @@ steal(
 			reload: function () {
 				var self = this, eventsGroup, removeEventGroup;
 
+				if(this._loader){
+					this._loader.abort();
+					delete this._loader;
+				}
+
 				window.scrollTo(0, 0);
 				this.setCanLoad(true);
 				this._paginatorReady(false);
@@ -167,7 +172,7 @@ steal(
 
 				this.options.queryTracker.reset(function() {
 					self._paginatorReady(true);
-					self.load();
+					self.load(true);
 				});
 			},
 
@@ -175,18 +180,17 @@ steal(
 
 			'{window} onbottom': function (el, ev) {
 				
-				if( !this._paginatorReady() ) { return; }
+				if( !this._paginatorReady() || this._loader ) { return; }
 
 				this.options.queryTracker.next();
 
 				if(this.options.queryTracker._onEndOfList()){
 					this.setCanLoad(false);
 					return;
-
 				}
 
 				this.spinnerBottom(true);
-				this.load();
+				this.load(true);
 			},
 
 			fillDocumentHeight: function() {
@@ -206,8 +210,9 @@ steal(
 			 * Functions
 			 */
 
-			load: function (cb, params) {
-				var self = this;
+			load: function (useCurrent) {
+				var self   = this,
+					method = useCurrent ? 'current' : 'next';
 
 				// events are preloaded in bithub.js immediately after can.route is initalized
 				if (!window.EVENTS_PRELOADED) return;
@@ -220,7 +225,7 @@ steal(
 					}
 					self.spinnerBottom(true);
 
-					Event.findAll(self.options.queryTracker.next(), self.proxy(self.updateEvents));
+					self._loader = Event.findAll(self.options.queryTracker[method](), self.proxy('updateEvents'));
 				}, 10);
 			},
 
@@ -230,6 +235,8 @@ steal(
 					renderer     = isLatest() ? latestView : greatestView,
 					initGroups   = [],
 					content, initGroup, append;
+
+				delete this._loader;
 
 				// this will block loading of greatest list
 				if(!isLatest() && events.length === 0) {
@@ -309,6 +316,7 @@ steal(
 				}
 
 				append = this.proxy(function(){
+					this.element.find((isLatest() ? '.greatest' : '.latest') + '-group').remove();
 					this.element.find('.events-list-wrapper').append(content);
 					console.timeEnd('renderEvents');
 					this.spinnerTop(false);

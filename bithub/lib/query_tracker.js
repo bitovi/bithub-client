@@ -144,10 +144,11 @@ steal(
 				// determine current page/view combo
 				var currentPage = can.route.attr('page') || 'homepage',
 					currentView = can.route.attr('view') || 'latest',
-					cq = this.state[currentPage][currentView];
+					cq = this.state[currentPage][currentView],
+					currentParams =  can.extend({}, (cq ? cq.attr() : {}), filters() || {},  params || {});
 
-				// build and return query
-				return can.extend({}, (cq ? cq.attr() : {}), filters() || {},  params || {});
+				// return query
+				return currentParams;
 			},
 			next: function() {
 				if( can.route.attr('view') == 'latest' ) {
