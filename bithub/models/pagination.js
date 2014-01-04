@@ -84,10 +84,6 @@ steal(
 				}
 			}
 
-			if(datespans.length === 0){
-				datespans.push(moment().format('YYYY-MM-DD'))
-			}
-
 			return datespans;
 		}
 

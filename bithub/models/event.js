@@ -90,6 +90,24 @@ steal('can',
 			update  : 'PUT /api/events/{id}',
 			destroy : 'DELETE /api/events/{id}',
 
+			findGreatest : function(){
+				return this.findAll.apply(this, arguments);
+			},
+
+			findLatest : function(params, success, error){
+				var deferred;
+				if(can.isFunction(params.thread_updated_date)){
+					params.thread_updated_date = params.thread_updated_date();
+					if(typeof params.thread_updated_date === 'undefined'){
+						deferred = $.Deferred();
+						success && deferred.done(success);
+						deferred.resolve({data : []});
+						return deferred;
+					}
+				}
+				return this.findAll.apply(this, arguments);
+			},
+
 			attributes : {
 				children : 'Bithub.Models.Event.models'
 			}
