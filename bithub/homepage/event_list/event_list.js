@@ -189,8 +189,12 @@ steal(
 					return;
 				}
 
-				this.spinnerBottom(true);
-				this.load(true);
+				if(this._canLoad()){
+					this.spinnerBottom(true);
+					this.load(true);
+				}
+
+				
 			},
 
 			fillDocumentHeight: function() {
