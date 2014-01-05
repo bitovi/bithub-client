@@ -20,6 +20,10 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					this.attr('event', new EventModel);
 				}
 
+				if(!this.attr('event').isNew()){
+					this.attr('event.project', this.getProjectForEvent())
+				}
+
 				this.attr('__dirtyAttrs', []);
 				this.attr('__errors', {});
 
@@ -38,6 +42,17 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			},
 			currentUser : function(){
 				return window.CURRENT_USER;
+			},
+			getProjectForEvent : function(){
+				var event = this.attr('event'),
+					tags = event.attr('tags').attr(),
+					allowedTags = TagModel.allowedProjectsForNewPost;
+
+				for(var i = 0; i < tags.length; i++){
+					if(can.inArray(tags[i], allowedTags) > -1){
+						return tags[i];
+					}
+				}
 			}
 		},
 		helpers : {

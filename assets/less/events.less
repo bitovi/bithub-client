@@ -83,28 +83,34 @@
 	.toolbar {
 		display: none;
 		position: absolute;
-		float: right;
-		color: @black;
-		top: 2px;
-		right: 3px;
+		top: 10px;
 		
-		.delete-event.close {
-			color: @red;
-			.border-radius(30px);
-			width: 15px;
-			height: 15px;
-			padding: 0;
-			text-align: center;
-			.text-shadow(0);
-			font-size: 15px;
-			line-height: 14px;
-			
+		.delete-event, .edit-event {
+			float: right;
+			font-size: 10px;
+			margin-left: 1px;
+			background: #71bee5;
+			text-transform: uppercase;
+			font-weight: bold;
+			color: white;
+			padding: 0 7px;
+			text-decoration: none;
+		}
+		.edit-event {
+			.border-radius-left(3px);
 			&:hover {
-				opacity: 1;
-				color: @white;
-				background: @red;
+				background: black;
+				text-decoration: none;
 			}
 		}
+		.delete-event {
+			.border-radius-right(3px);
+			&:hover {
+				background: red;
+				text-decoration: none;
+			}
+		}
+		
 	}
 	.title {
 		margin: 0;
@@ -842,5 +848,22 @@ a.less {
 	cursor: pointer;
 	&:hover {
 		background: #4995bb;
+	}
+}
+
+.edit-post-modal {
+	width: 696px;
+	margin-left: -348px;
+	
+	.modal-body {
+		padding-left: 0;
+		padding-right: 0;
+		overflow-x: hidden;
+	}
+	.newpost-form {
+		margin: 10px 0 0 0;
+	}
+	.row {
+		margin-left: 3px;
 	}
 }
