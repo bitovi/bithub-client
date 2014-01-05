@@ -242,7 +242,7 @@ steal(
 		// Load category tags
 		Tag.findAll({type: 'category', order: 'priority:desc'}, function (data) {
 
-			var blacklisted = ['digest','issue'], remove = [];
+			var blacklisted = ['digest','issue','github_comment'], remove = [];
 			data.each(function(el, i) {
 				(blacklisted.indexOf(el.attr('name')) >= 0) && remove.unshift(i);
 			});
