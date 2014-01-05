@@ -74,6 +74,8 @@ steal(
 				this._canLoad        = can.compute(true);
 				this._paginatorReady = can.compute(true);
 
+				this.__updateCounter = 0;
+
 				this.data = {
 					user: this.options.currentUser
 				}
@@ -157,7 +159,7 @@ steal(
 				var self = this, eventsGroup, removeEventGroup;
 
 				if(this._loader){
-					this._loader.abort();
+					this._loader.abort && this._loader.abort();
 					delete this._loader;
 				}
 
@@ -216,7 +218,8 @@ steal(
 
 			load: function (useCurrent) {
 				var self   = this,
-					method = useCurrent ? 'current' : 'next';
+					method = useCurrent ? 'current' : 'next',
+					finder = isLatest() ? 'Latest' : 'Greatest';
 
 				// events are preloaded in bithub.js immediately after can.route is initalized
 				if (!window.EVENTS_PRELOADED) return;
@@ -229,12 +232,13 @@ steal(
 					}
 					self.spinnerBottom(true);
 
-					self._loader = Event.findAll(self.options.queryTracker[method](), self.proxy('updateEvents'));
+					self._loader = Event['find' + finder](self.options.queryTracker[method](), self.proxy('updateEvents'));
 				}, 10);
 			},
 
 			updateEvents: function( events ) {
-				var data         = can.extend({}, this.data),
+				var self         = this,
+					data         = can.extend({}, this.data),
 					sortedEvents = new LatestEventsSorter(),
 					renderer     = isLatest() ? latestView : greatestView,
 					initGroups   = [],
@@ -284,7 +288,7 @@ steal(
 
 						return can.map(events, function(event){
 							var component = determineEventPartial(event.attr('tags')),
-								template = '<{c} currentdate="date" event="event" inited="inited"></{c}>',
+								template = '<{c} currentdate="date" event="event" inited="inited" user="user"></{c}>',
 								result;
 
 							if(counter % 2 === 0){
@@ -297,9 +301,10 @@ steal(
 							}
 
 							result = __templatesCache[component].render({
-								date  : date,
-								event : event,
-								inited : initGroups[initGroups.length - 1]
+								date   : date,
+								event  : event,
+								inited : initGroups[initGroups.length - 1],
+								user   : self.options.currentUser
 							});
 
 							counter++;
@@ -319,16 +324,27 @@ steal(
 					}
 				}
 
-				append = this.proxy(function(){
-					this.element.find((isLatest() ? '.greatest' : '.latest') + '-group').remove();
-					this.element.find('.events-list-wrapper').append(content);
-					console.timeEnd('renderEvents');
-					this.spinnerTop(false);
-					this.spinnerBottom(false);
-					
-					this.postRendering();
-					this.fillDocumentHeight();
-				})
+
+				// Sometimes there is a request that's already being rendered, but it
+				// still isn't appended an there was another request rendered and appended
+				// in the meantime so we use the counter to know if we should append the 
+				// current block
+				append = (function(counter){
+					return function(){
+						if(counter === self.__updateCounter){
+							self.element.find((isLatest() ? '.greatest' : '.latest') + '-group').remove();
+							self.element.find('.events-list-wrapper').append(content);
+							console.timeEnd('renderEvents');
+							self.spinnerTop(false);
+							self.spinnerBottom(false);
+							
+							self.postRendering();
+							self.fillDocumentHeight();
+							self.__updateCounter++;
+						}
+					}
+				})(this.__updateCounter);
+
 
 				initGroups.length ? initGroup() : append();
 				

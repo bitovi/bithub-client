@@ -7,10 +7,12 @@ steal(
 			},
 
 			hasPermissions: function(user, control) {
+				var roles;
 				if (!this.needsPermissions(control)) {
 					return true;
 				} else {
-					return _.has(user, 'roles') && _.isEqual(_.intersection(control.requiredPermissions, user.roles), control.requiredPermissions);
+					roles = user.attr('roles') || [];
+					return _.isEqual(_.intersection(control.requiredPermissions, roles), control.requiredPermissions);
 				}
 			}
 

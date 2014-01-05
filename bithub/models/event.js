@@ -4,48 +4,52 @@ steal('can',
 	'can/list',
 	'can/map/validations',
 	'can/map/attributes',
+	'can/map/setter',
+	'can/construct/super',
 	function (can, Upvote) {
-		// methods shared by 'regular' Event model and LazyEvent object
-		var prototypeMethods = {
 
-			upvote: function( success, error ) {
-				(new Upvote({event: this})).upvote();
-			},
-			isPush : function(){
-				return this.attr('tags').indexOf('pull_request_event') >= 0;
-			},
-			isPullRequest : function(){
-				return this.attr('tags').indexOf('pull_request_event') >= 0;
-			},
-			isPushOrPullReq : function(){
-				return this.isPush() || this.isPullRequest();
-			},
-			isIssue : function(){
-				return this.attr('tags').indexOf('issues_event') >= 0;
-			},
-			hasAwardValue : function(){
-				return this.attr('props.awarded_value') && this.attr('props.awarded_value') >= 0;
-			},
-			authorName : function(){
-				return this.attr('author.name') || this.attr('props.origin_author_name');
-			}
-
-			/*
-			destroy: function( success, error ) {
-				return can.ajax({
-					url: '/api/events/' + this.attr('id'),
-					type: 'DELETE',
-					async: false,
-					dataType: 'json',
-					success: success,
-					error: error
+		var formatAttrName = function(key, prefix){
+			if(prefix){
+				return can.sub('{prefix}[{key}]', {
+					prefix : prefix,
+					key    : key
 				});
 			}
-			 */
+			return key;
 		}
 
 		var Event = can.Model('Bithub.Models.Event', {
 
+			findAll : 'GET /api/events',
+			findOne : 'GET /api/events/{id}',
+			create  : 'POST /api/events',
+			update  : 'PUT /api/events/{id}',
+			destroy : 'DELETE /api/events/{id}',
+
+			findGreatest : function(){
+				return this.findAll.apply(this, arguments);
+			},
+
+			findLatest : function(params, success, error){
+				var deferred;
+				// If we are loading the latest, we need the thread_updated_date
+				// param, but sometimes it doesn't exist because there is nothing
+				// in the current category, so we resolve with the empty data set
+				if(can.isFunction(params.thread_updated_date)){
+					params.thread_updated_date = params.thread_updated_date();
+					if(typeof params.thread_updated_date === 'undefined'){
+						deferred = $.Deferred();
+						success && deferred.done(success);
+						deferred.resolve(Event.models({data : []}));
+						return deferred;
+					}
+				}
+				return this.findAll.apply(this, arguments);
+			},
+
+			attributes : {
+				children : 'Bithub.Models.Event.models'
+			},
 			init: function () {
 				var self = this;
 				
@@ -63,59 +67,88 @@ steal('can',
 					if (!project) { return "Please choose a project" }
 					if (Bithub.Models.Tag.allowedProjectsForNewPost.indexOf(project) < 0) { return "Picked project doesn't exist" }
 				});
-				this.validate('datetime', function(datetimeStr) {
-					if (datetimeStr) {
-						var dt = datetimeStr.split('T'),
-						date = dt[0], time = dt[1],
-						datetime = moment(datetimeStr, "YYYY-MM-DDTHH:mm:ss.S Z");
-
-						if (!time) { return "Time can't be blank" }
-						if (!datetime || !datetime.isValid()) { return "Time format should be<br> hh:mm am/pm" }
-					}
-				});
 				this.validate('url', function(url) {
 					if( url ) {
-						if( !url.match("^http[s]?:\\/\\/(www\\.)?") ) { return "Invalid URL (don't forget 'http[s]://')" }
+						if( !url.match("^http[s]?:\\/\\/(www\\.)?") ) { 
+							return "Invalid URL (don't forget 'http[s]://')" 
+						}
 					}
 				});
 				this.validate('location', function(location) {
-					if (location != undefined && location == '') { return "Events should have a location" }
-				});
+					var normalizedLocation = can.trim(location || "");
 
-			},
-
-			findAll : 'GET /api/events',
-			findOne : 'GET /api/events/{id}',
-			create  : 'POST /api/events',
-			update  : 'PUT /api/events/{id}',
-			destroy : 'DELETE /api/events/{id}',
-
-			findGreatest : function(){
-				return this.findAll.apply(this, arguments);
-			},
-
-			findLatest : function(params, success, error){
-				var deferred;
-				if(can.isFunction(params.thread_updated_date)){
-					params.thread_updated_date = params.thread_updated_date();
-					if(typeof params.thread_updated_date === 'undefined'){
-						deferred = $.Deferred();
-						success && deferred.done(success);
-						deferred.resolve({data : []});
-						return deferred;
+					if(this.isEvent() && normalizedLocation === ''){
+						return "Events should have a location"
 					}
-				}
-				return this.findAll.apply(this, arguments);
-			},
-
-			attributes : {
-				children : 'Bithub.Models.Event.models'
+				});
 			}
 
-			
-		}, prototypeMethods );
+		}, {
 
+			upvote: function( success, error ) {
+				(new Upvote({event: this})).upvote();
+			},
+			isPush : function(){
+				return this.attr('tags').indexOf('pull_request_event') >= 0;
+			},
+			isPullRequest : function(){
+				return this.attr('tags').indexOf('pull_request_event') >= 0;
+			},
+			isPushOrPullReq : function(){
+				return this.isPush() || this.isPullRequest();
+			},
+			isIssue : function(){
+				return this.attr('tags').indexOf('issues_event') >= 0;
+			},
+			isEvent : function(){
+				return this.attr('category') === 'event';
+			},
+			hasAwardValue : function(){
+				return this.attr('props.awarded_value') && this.attr('props.awarded_value') >= 0;
+			},
+			authorName : function(){
+				return this.attr('author.name') || this.attr('props.origin_author_name');
+			},
+			serializeToArray : function(prefix){
+				var data = this.serialize().event,
+					result = [];
 
+				for(var k in data){
+					if(data.hasOwnProperty(k)){
+						result.push({
+							name : formatAttrName(k, prefix),
+							value : data[k]
+						})
+					}
+				}
+
+				return result;
+			},
+			serialize : function(){
+				var data = this._super.apply(this, arguments);
+				if(typeof data.datetime !== 'string'){
+					data.datetime = moment(data.datetime).format('YYYY-MM-DDTHH:mm');
+				}
+				if(typeof data.feed === 'undefined'){
+					data.feed = 'bithub';
+				}
+				return {
+					event : data
+				};
+			},
+			setDatetime : function(raw){
+				if(typeof raw === 'string'){
+					return moment(raw).toDate();
+				}
+				return raw;
+			},
+			date : function(){
+				return moment(this.attr('datetime')).format('MM/DD/YYYY');
+			},
+			time : function(){
+				return moment(this.attr('datetime')).format('hh:mmA');
+			}
+		});
 		
 		can.Model.List('Bithub.Models.Event.List', {
 			sortByOriginTS : function(){
@@ -131,7 +164,6 @@ steal('can',
 				});
 			}
 		});
-		
 		
 		return Event;
 	});
