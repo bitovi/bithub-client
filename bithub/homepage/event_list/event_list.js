@@ -40,10 +40,10 @@ steal(
 		});
 
 		var isLatest = function() {
-			return can.route.attr('view') == 'latest';
+			return can.route.attr('view') === 'latest';
 		}
 		var	isGreatest = function() {
-			return can.route.attr('view') == 'greatest';
+			return can.route.attr('view') === 'greatest';
 		}
 
 		
@@ -73,6 +73,8 @@ steal(
 				this.spinnerBottom   = can.compute(false);
 				this._canLoad        = can.compute(true);
 				this._paginatorReady = can.compute(true);
+
+				this.__updateCounter = 0;
 
 				this.data = {
 					user: this.options.currentUser
@@ -156,6 +158,11 @@ steal(
 			reload: function () {
 				var self = this, eventsGroup, removeEventGroup;
 
+				if(this._loader){
+					this._loader.abort && this._loader.abort();
+					delete this._loader;
+				}
+
 				window.scrollTo(0, 0);
 				this.setCanLoad(true);
 				this._paginatorReady(false);
@@ -167,7 +174,7 @@ steal(
 
 				this.options.queryTracker.reset(function() {
 					self._paginatorReady(true);
-					self.load();
+					self.load(true);
 				});
 			},
 
@@ -175,18 +182,21 @@ steal(
 
 			'{window} onbottom': function (el, ev) {
 				
-				if( !this._paginatorReady() ) { return; }
+				if( !this._paginatorReady() || this._loader ) { return; }
 
 				this.options.queryTracker.next();
 
 				if(this.options.queryTracker._onEndOfList()){
 					this.setCanLoad(false);
 					return;
-
 				}
 
-				this.spinnerBottom(true);
-				this.load();
+				if(this._canLoad()){
+					this.spinnerBottom(true);
+					this.load(true);
+				}
+
+				
 			},
 
 			fillDocumentHeight: function() {
@@ -206,8 +216,10 @@ steal(
 			 * Functions
 			 */
 
-			load: function (cb, params) {
-				var self = this;
+			load: function (useCurrent) {
+				var self   = this,
+					method = useCurrent ? 'current' : 'next',
+					finder = isLatest() ? 'Latest' : 'Greatest';
 
 				// events are preloaded in bithub.js immediately after can.route is initalized
 				if (!window.EVENTS_PRELOADED) return;
@@ -220,16 +232,19 @@ steal(
 					}
 					self.spinnerBottom(true);
 
-					Event.findAll(self.options.queryTracker.next(), self.proxy(self.updateEvents));
+					self._loader = Event['find' + finder](self.options.queryTracker[method](), self.proxy('updateEvents'));
 				}, 10);
 			},
 
 			updateEvents: function( events ) {
-				var data         = can.extend({}, this.data),
+				var self         = this,
+					data         = can.extend({}, this.data),
 					sortedEvents = new LatestEventsSorter(),
 					renderer     = isLatest() ? latestView : greatestView,
 					initGroups   = [],
 					content, initGroup, append;
+
+				delete this._loader;
 
 				// this will block loading of greatest list
 				if(!isLatest() && events.length === 0) {
@@ -273,7 +288,7 @@ steal(
 
 						return can.map(events, function(event){
 							var component = determineEventPartial(event.attr('tags')),
-								template = '<{c} currentdate="date" event="event" inited="inited"></{c}>',
+								template = '<{c} currentdate="date" event="event" inited="inited" user="user"></{c}>',
 								result;
 
 							if(counter % 2 === 0){
@@ -286,9 +301,10 @@ steal(
 							}
 
 							result = __templatesCache[component].render({
-								date  : date,
-								event : event,
-								inited : initGroups[initGroups.length - 1]
+								date   : date,
+								event  : event,
+								inited : initGroups[initGroups.length - 1],
+								user   : self.options.currentUser
 							});
 
 							counter++;
@@ -308,15 +324,27 @@ steal(
 					}
 				}
 
-				append = this.proxy(function(){
-					this.element.find('.events-list-wrapper').append(content);
-					console.timeEnd('renderEvents');
-					this.spinnerTop(false);
-					this.spinnerBottom(false);
-					
-					this.postRendering();
-					this.fillDocumentHeight();
-				})
+
+				// Sometimes there is a request that's already being rendered, but it
+				// still isn't appended an there was another request rendered and appended
+				// in the meantime so we use the counter to know if we should append the 
+				// current block
+				append = (function(counter){
+					return function(){
+						if(counter === self.__updateCounter){
+							self.element.find((isLatest() ? '.greatest' : '.latest') + '-group').remove();
+							self.element.find('.events-list-wrapper').append(content);
+							console.timeEnd('renderEvents');
+							self.spinnerTop(false);
+							self.spinnerBottom(false);
+							
+							self.postRendering();
+							self.fillDocumentHeight();
+							self.__updateCounter++;
+						}
+					}
+				})(this.__updateCounter);
+
 
 				initGroups.length ? initGroup() : append();
 				

@@ -1,5 +1,5 @@
 steal(
-	'can/observe',
+	'can/map',
 	function(Observe) {
 
 		var parse10 = function(val) { return parseInt(val, 10) },

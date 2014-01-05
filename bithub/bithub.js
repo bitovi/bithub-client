@@ -166,7 +166,8 @@ steal(
 
 		// Init query tracker and preload events
 		var queryTracker = new QueryTracker({}, function(params) {
-			Event.findAll(
+			var finder = can.route.attr('view') === 'latest' ? 'Latest' : 'Greatest';
+			Event['find' + finder](
 				params || queryTracker.current(),
 				function( events ) {
 					// this prevents events control to trigger on initial can.route change

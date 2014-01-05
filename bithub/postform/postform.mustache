@@ -1,0 +1,134 @@
+<form id="newpost-form" class="form-horizontal" action="/api/events" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+
+		<fieldset>
+			<div class="row">
+
+				<div class="span left">
+					<div class="image-uploader">
+						<span>Add An <br>Image</span>
+						<div class="image-preview"></div>
+						{{#if imageUploadProgress}}
+							<div class="progress">
+								<div class="bar" style="width: {{ imageUploadProgress }}%;"></div>
+							</div>
+						{{/if}}
+						{{#if imageUploadError}}
+							<div class="text-error">Unsupported filetype!</div>
+						{{/if}}
+						<input type="file" name="event[image]" size="1"/>
+					</div>
+
+					<div class="control-group" id="newpost-form-project">
+
+						{{#errorsFor 'project'}}
+							<p class="text-error">{{{ . }}}</p>
+						{{/errorsFor}}
+
+						<div class="select-menu">
+							<select can-value="event.project">
+								<option value="">Pick a Project</option>
+								{{#eventProjects}}
+									<option value="{{name}}">{{display_name}}</option>
+								{{/eventProjects}}
+							</select>
+						</div>
+
+					</div>
+
+					<div class="control-group" style="margin-left: 0px;" id="newpost-form-category">
+						{{#errorsFor 'category'}}
+							<p class="text-error">{{{ . }}}</p>
+						{{/errorsFor}}
+
+						<div class="select-menu">
+							<select can-value="event.category">
+								<option value="">Pick a Category</option>
+								{{#eventCategories}}
+									<option value="{{name}}">{{display_name}}</option>
+								{{/eventCategories}}
+							</select>
+						</div>
+
+					</div>
+
+					{{#if event.isEvent}}
+						<div class="btn-group control-group date" id="newpost-form-date" style="margin-left: 0px;">
+							<div class="input-append date newpost-datepicker" {{ datepicker }}>
+								<input class="span2" type="text" can-value="event.date" readonly>
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+
+						<div class="btn-group control-group time" id="newpost-form-time" style="margin-left: 0px;">
+							<div class="input-append time newpost-timepicker">
+								<input class="span2 event-time" type="text" placeholder="" value="{{ event.time }}">
+								<span class="add-on"><i class="icon-time"></i></span>
+							</div>
+						</div>
+					{{/if}}
+
+				</div>
+
+				<div class="span right">
+
+					<div class="control-group title" id="newpost-form-title">
+						{{#errorsFor 'title'}}
+							<p class="text-error">{{{ . }}}</p>
+						{{/errorsFor}}
+						<input can-value="event.title" type="text" class="title span3" data-toggle="toggle" placeholder="Title:"/>
+					</div>
+
+					<div class="control-group url" id="newpost-form-url">
+						{{#errorsFor 'url'}}
+							<p class="text-error">{{{ . }}}</p>
+						{{/errorsFor}}
+						<input can-value="event.url" type="text" class="url span3" placeholder="URL:"/>
+					</div>
+
+					{{#if event.isEvent}}
+						<div class="control-group location" id="newpost-form-location">
+							{{#errorsFor 'location'}}
+								<p class="text-error">{{{ . }}}</p>
+							{{/errorsFor}}
+							<input can-value="event.location" type="text" class="url span3" placeholder="Location:"/>
+						</div>
+					{{/if}}
+
+					<div class="control-group body" id="newpost-form-body">
+						{{#errorsFor 'body'}}
+							<p class="text-error">{{{ . }}}</p>
+						{{/errorsFor}}
+						<textarea can-value="event.body" rows="6" class="body span5" placeholder="Write something:"></textarea>
+					</div>
+
+					{{#if currentUser.isAdmin}}
+						<div class="control-group post-as" id="newpost-form-post-as">
+							<label style="float: left; width: 50px;">
+								<input type="radio" can-value="event.origin_author_feed" class="origin-feed" value="github"/>GH
+							</label>
+							<label style="float: left; width: 50px;">
+								<input type="radio" can-value="event.origin_author_feed" class="origin-feed" value="twitter"/>TW
+							</label>
+							<input name="postas" type="text" autocomplete="off" class="title span1 typeahead" data-toggle="toggle" placeholder="Post as:" {{typeahead}}/>
+							{{#postAsAvatar}}
+								<img class="postas avatar float-right" src="{{ . }}" alt="" />
+							{{/postAsAvatar}}
+						</div>
+					{{/if}}
+
+					<div class="control-group">
+						{{#if isLoading}}
+							<div class="spinner-top">
+								<img src="/assets/images/ajax-loader-sm-blue.gif" alt="loading...">
+							</div>
+						{{else}}
+							<button id="newpost-form-submit" type="submit" class="btn-bigass light">
+								Submit
+							</button>
+						{{/if}}
+					</div>
+				</div>
+
+			</div>
+		</fieldset>
+	</form>

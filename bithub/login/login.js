@@ -44,6 +44,13 @@ steal(
 
 			'#logout-btn click': function( el, ev ) {
 				this.options.currentUser.logout();
+			},
+			"{currentUser} authStatus" : function(user, ev, newVal){
+				if(newVal === 'loggedIn'){
+					setTimeout(function(){
+						$('#show-newpost-form-btn').click()
+					}, 1)
+				}
 			}
 		});
 	}

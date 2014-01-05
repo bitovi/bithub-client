@@ -8,7 +8,7 @@ steal(
 
 		var providers = {
 			twitter: { url: '/api/auth/twitter' },
-			github: { url: '/api/auth/github' }			
+			github: { url: '/api/auth/github' }
 		};
 
 		var bindLoggedInState = function(ev, attr, how, newVal, oldVal) {

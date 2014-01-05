@@ -45,11 +45,13 @@ steal(
 				}
 			},
 
-			'{currentUser} loggedIn' : function () {
-				var self = this;
-				setTimeout(function() {
-					self.initControl(can.route.attr('page'))
-				}, 0);
+			'{currentUser} authStatus' : function (user) {
+				if(user.isLoggedIn()){
+					var self = this;
+					setTimeout(function() {
+						self.initControl(can.route.attr('page'))
+					}, 0);
+				}
 			}
 		});
 	}
