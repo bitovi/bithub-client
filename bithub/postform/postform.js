@@ -83,9 +83,10 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			formAction : function(){
 				var event = this.attr('event');
 
-				if(!(event instanceof EventModel) || event.isNew()){
+				if(event.isNew()){
 					return "/api/events";
 				}
+
 				return can.sub("/api/events/{id}", event);
 			},
 			removeTag : function(tag, el, ev){
@@ -291,6 +292,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			},
 			eventSaved : function(event){
 				if(!(event instanceof EventModel)){
+					console.log('EVENT FROM THE UPLOAD', event)
 					this.scope.attr('event', event);
 				}
 
