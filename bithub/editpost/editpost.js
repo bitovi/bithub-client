@@ -7,7 +7,7 @@ steal('can/control', './editpost.mustache', 'bithub/postform', function(Control,
 				new this(div);
 				$('#container').append(div);
 			}
-			div.trigger('openModal', [event])
+			div.trigger('openModal', [event]);
 		}
 	}, {
 		init : function(){
@@ -18,8 +18,13 @@ steal('can/control', './editpost.mustache', 'bithub/postform', function(Control,
 			})).modal()
 		},
 		" openModal" : function(el, ev, event){
+			this.currentEvent(null);
 			this.currentEvent(event);
+			console.log(event)
 			this.element.modal('show')
+		},
+		" event.saved" : function(){
+			this.element.modal('hide');
 		}
 	})
 })

@@ -18,6 +18,17 @@ steal('can',
 			return key;
 		}
 
+		var attrsToCleanForUpdate = [
+			'parent_id',
+			'upvotes',
+			'actor',
+			'has_parent',
+			'image_url',
+			'children',
+			'props',
+			'author'
+		];
+
 		var Event = can.Model('Bithub.Models.Event', {
 
 			findAll : 'GET /api/events',
@@ -60,8 +71,12 @@ steal('can',
 					if (!body) { return "Please write something about this" }
 				});
 				this.validate('category', function(category) {
+					var method;
 					if (!category) { return "Please choose a category" }
-					if (Bithub.Models.Tag.allowedCategoriesForNewPost.indexOf(category) < 0) { return "Picked category doesn't exist" }
+
+					method = this.isNew() ? 'NewPost' : 'ExistingPost';
+
+					if (Bithub.Models.Tag['allowedCategoriesFor' + method].indexOf(category) < 0) { return "Picked category doesn't exist" }
 				});
 				this.validate('project', function(project) {
 					if (!project) { return "Please choose a project" }
@@ -126,12 +141,20 @@ steal('can',
 			},
 			serialize : function(){
 				var data = this._super.apply(this, arguments);
+
 				if(typeof data.datetime !== 'string'){
 					data.datetime = moment(data.datetime).format('YYYY-MM-DDTHH:mm');
 				}
 				if(typeof data.feed === 'undefined'){
 					data.feed = 'bithub';
 				}
+
+				if(!this.isNew()){
+					can.each(attrsToCleanForUpdate, function(attr){
+						delete data[attr];
+					});
+				}
+
 				return {
 					event : data
 				};

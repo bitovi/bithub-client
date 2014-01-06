@@ -4,7 +4,8 @@ steal(
 './child.mustache',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
-function(Component, issueView, childEventView, EntityState, sharedHelpers){
+'bithub/entities/events.js',
+function(Component, issueView, childEventView, EntityState, sharedHelpers, sharedEvents){
 	can.Component.extend({
 		tag : 'bh-issue',
 		template : issueView,
@@ -24,6 +25,7 @@ function(Component, issueView, childEventView, EntityState, sharedHelpers){
 				can.__clearReading();
 				return parseInt(val) * 2;
 			}
-		}, sharedHelpers)
+		}, sharedHelpers),
+		events : can.extend({}, sharedEvents)
 	})
 })

@@ -1,4 +1,4 @@
-<form id="newpost-form" class="form-horizontal" action="/api/events" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form id="newpost-form" class="form-horizontal" action="{{ formAction }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 
 		<fieldset>
 			<div class="row">
@@ -6,7 +6,11 @@
 				<div class="span left">
 					<div class="image-uploader">
 						<span>Add An <br>Image</span>
-						<div class="image-preview"></div>
+						<div class="image-preview">
+							{{#if event.image_url}}
+								<img src="{{ event.image_url }}" {{ removeBrokenPreviewImage }} />
+							{{/if}}
+						</div>
 						{{#if imageUploadProgress}}
 							<div class="progress">
 								<div class="bar" style="width: {{ imageUploadProgress }}%;"></div>

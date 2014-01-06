@@ -10075,6 +10075,7 @@ a.less {
   padding-left: 0;
   padding-right: 0;
   overflow-x: hidden;
+  max-height: 600px;
 }
 .edit-post-modal .newpost-form {
   margin: 10px 0 0 0;
@@ -10241,6 +10242,8 @@ a.less {
 }
 .newpost-form .image-uploader .image-preview img {
   z-index: 105;
+  max-width: 150px;
+  max-height: 120px;
 }
 .newpost-sidebar h4 {
   color: #666;

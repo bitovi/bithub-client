@@ -29,9 +29,11 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 
 			},
 			eventCategories : function(){
-				var categories = []
+				var categories = [],
+					method = this.attr('event').isNew() ? 'NewPost' : 'ExistingPost';
+
 				window.CATEGORIES.each(function(cat){
-					if(TagModel.allowedCategoriesForNewPost.indexOf(cat.attr('name')) > -1){
+					if(TagModel['allowedCategoriesFor' + method].indexOf(cat.attr('name')) > -1){
 						categories.push(cat);
 					}
 				});
@@ -53,6 +55,13 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 						return tags[i];
 					}
 				}
+			},
+			formAction : function(){
+				var event = this.attr('event');
+				if(event.isNew()){
+					return "/api/events";
+				}
+				return can.sub("/api/events/{id}", event);
 			}
 		},
 		helpers : {
@@ -68,7 +77,6 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				return function(el){
 					$datepicker = $(el);
 					$datepicker.datepicker({format: 'mm/dd/yyyy', weekStart: 0});
-					currentDateTime.attr('date', $datepicker.find('input').val());
 				}
 			},
 			typeahead : function(){
@@ -116,14 +124,23 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					});
 
 				}
+			},
+			removeBrokenPreviewImage : function(){
+				return function(el){
+					var $el = $(el);
+					$el.on('error', function(){
+						$el.remove();
+					})
+				}
 			}
 		},
 		events : {
 			" inserted" : function(){
 				this.element.fileupload({
-					datatype: 'json',
-					limitMultiFileUploads: 1,
-					add : $.noop
+					datatype              : 'json',
+					limitMultiFileUploads : 1,
+					add                   : $.noop,
+					type                  : this.scope.attr('event').isNew() ? "POST" : "PUT"
 				});
 			},
 			' fileuploadadd': function( el, ev, data ) {
