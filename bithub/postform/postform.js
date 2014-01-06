@@ -293,7 +293,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			eventSaved : function(event){
 				if(!(event instanceof EventModel)){
 					console.log('EVENT FROM THE UPLOAD', event)
-					this.scope.attr('event', event);
+					EventModel.model(event);
 				}
 
 				if(this.scope.__oldEvent){
