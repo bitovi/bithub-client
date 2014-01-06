@@ -21,6 +21,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				}
 
 				if(!this.attr('event').isNew()){
+					this.attr('event', new EventModel(this.attr('event').attr()))
 					this.attr('event.project', this.getProjectForEvent())
 				}
 
@@ -45,6 +46,28 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			currentUser : function(){
 				return window.CURRENT_USER;
 			},
+			availableTags : function(){
+				var eventTags = this.attr('event.tags');
+
+				window.VISIBLE_TAGS.attr('length'); // trigger live binding
+				eventTags.attr('length'); // trigger live binding
+
+				return can.grep(window.VISIBLE_TAGS, function(tag){
+					return eventTags.indexOf(tag.attr('name')) === -1;
+				});
+			},
+			eventTags : function(){
+				var event    = this.attr('event'),
+					category = event.attr('category'),
+					project  = event.attr('project')
+					tags     = event.attr('tags');
+
+				tags.attr('length'); // trigger live binding
+
+				return _.uniq(can.grep(tags, function(tag){
+					return tag !== project && tag !== category;
+				}))
+			},
 			getProjectForEvent : function(){
 				var event = this.attr('event'),
 					tags = event.attr('tags').attr(),
@@ -62,6 +85,17 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					return "/api/events";
 				}
 				return can.sub("/api/events/{id}", event);
+			},
+			removeTag : function(tag, el, ev){
+				var tags = this.attr('event.tags'),
+					index = tags.indexOf(tag);
+
+				if(index > -1){
+					tags.splice(index, 1);
+				}
+			},
+			addTag : function(tag, el, ev){
+				this.attr('event.tags').push(tag.attr('name'));
 			}
 		},
 		helpers : {
@@ -258,7 +292,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					this.scope.attr('event', event);
 				}
 
-				this.element.trigger('event.saved');
+				this.element.trigger('event.saved', [event]);
 			},
 			eventErrored : function(){
 				this.scope.attr('isLoading', false);

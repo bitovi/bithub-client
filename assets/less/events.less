@@ -868,3 +868,31 @@ a.less {
 		margin-left: 3px;
 	}
 }
+.tag-control-group {
+	margin-right: -13px;
+	.available-tags, .event-tags {
+		float: left;
+		width: 49%;
+		ul {
+			border: 1px solid #ccc;
+			.border-radius(3px);
+			padding: 2px 2px 0;
+			height: 100px;
+			overflow-y: scroll;
+			li {
+				.border-radius(1px);
+				margin-bottom: 2px;
+				background: #ddd;
+				cursor: pointer;
+				padding: 1px 5px;
+				&:hover {
+					background: #4995bb;
+					color: white;
+				}
+			}
+		}
+	}
+	.event-tags {
+		float: right;
+	}
+}

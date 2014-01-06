@@ -23,6 +23,12 @@ steal(
 	//'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
 	function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, loadtime) {
+		var href = window.location.href
+
+		if(href.substr(href.length - 1) === '/' && href !== window.location.origin + "/"){
+			window.location.href = href.substr(0, href.length - 1);
+		}
+
 		var self = this;
 
 		if( steal.isBuilding ) {

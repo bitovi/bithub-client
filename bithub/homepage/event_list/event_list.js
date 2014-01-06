@@ -242,7 +242,8 @@ steal(
 					sortedEvents = new LatestEventsSorter(),
 					renderer     = isLatest() ? latestView : greatestView,
 					initGroups   = [],
-					content, initGroup, append;
+					content, initGroup, append,
+					shouldInitedBeFalse = true;
 
 				delete this._loader;
 
@@ -282,6 +283,7 @@ steal(
 					},
 					entityComponent : function(events, date){
 						var counter = 0;
+
 						if(typeof events.length === 'undefined'){
 							events = [events];
 						}
@@ -293,7 +295,7 @@ steal(
 
 							if(counter % 2 === 0){
 								counter = 0;
-								initGroups.push(can.compute(false));
+								initGroups.push(can.compute(!shouldInitedBeFalse));
 							}
 
 							if(typeof __templatesCache[component] === 'undefined'){
@@ -345,7 +347,7 @@ steal(
 					}
 				})(this.__updateCounter);
 
-
+				shouldInitedBeFalse = false;
 				initGroups.length ? initGroup() : append();
 				
 			},

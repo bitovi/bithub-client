@@ -10083,6 +10083,42 @@ a.less {
 .edit-post-modal .row {
   margin-left: 3px;
 }
+.tag-control-group {
+  margin-right: -13px;
+}
+.tag-control-group .available-tags,
+.tag-control-group .event-tags {
+  float: left;
+  width: 49%;
+}
+.tag-control-group .available-tags ul,
+.tag-control-group .event-tags ul {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  padding: 2px 2px 0;
+  height: 100px;
+  overflow-y: scroll;
+}
+.tag-control-group .available-tags ul li,
+.tag-control-group .event-tags ul li {
+  border-radius: 1px;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  margin-bottom: 2px;
+  background: #ddd;
+  cursor: pointer;
+  padding: 1px 5px;
+}
+.tag-control-group .available-tags ul li:hover,
+.tag-control-group .event-tags ul li:hover {
+  background: #4995bb;
+  color: white;
+}
+.tag-control-group .event-tags {
+  float: right;
+}
 /* New post ------------------------------------------------------- */
 #newpost-form-wrapper {
   position: fixed;
