@@ -27,7 +27,7 @@ steal('can/map', function(Map){
 			
 			check = award !== false;
 			check = check && !event.attr('props.thread_awarded');
-			check = check && user.loggedIn();
+			check = check && user.isLoggedIn();
 			check = check && user.isAdmin();
 
 			return check;

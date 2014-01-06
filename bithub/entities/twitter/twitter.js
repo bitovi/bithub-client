@@ -3,7 +3,8 @@ steal(
 './twitter.mustache',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
-function(Component, twitterView, EntityState, sharedHelpers){
+'bithub/entities/events.js',
+function(Component, twitterView, EntityState, sharedHelpers, sharedEvents){
 	Component.extend({
 		tag : 'bh-twitter',
 		template : twitterView,
@@ -18,6 +19,7 @@ function(Component, twitterView, EntityState, sharedHelpers){
 
 				return "https://twitter.com/" + username;
 			}
-		}, sharedHelpers)
+		}, sharedHelpers),
+		events : can.extend({}, sharedEvents)
 	})
 })

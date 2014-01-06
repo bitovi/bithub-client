@@ -2,7 +2,8 @@ steal(
 	'can/control',
 	'bithub/models/upvote.js',
 	'bithub/models/award.js',
-	function(Control, Upvote, Award){
+	'bithub/editpost',
+	function(Control, Upvote, Award, EditPostModal){
 		return Control.extend({
 
 			// Upvoting
@@ -78,6 +79,11 @@ steal(
 				event.destroy( function() {
 					el.closest('.event.list-element').fadeOut();
 				});
+			},
+			'.edit-event click': function( el, ev ) {
+				ev.preventDefault();
+				var event = can.data(el.closest('.event.list-element'), 'eventObj');
+				EditPostModal.open(event)
 			}
 			
 		})

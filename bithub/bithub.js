@@ -23,6 +23,12 @@ steal(
 	//'assets/styles/bootstrap-datepicker.css',
 	'assets/styles/app.css',
 	function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, loadtime) {
+		var href = window.location.href
+
+		if(href.substr(href.length - 1) === '/' && href !== window.location.origin + "/"){
+			window.location.href = href.substr(0, href.length - 1);
+		}
+
 		var self = this;
 
 		if( steal.isBuilding ) {
@@ -166,7 +172,8 @@ steal(
 
 		// Init query tracker and preload events
 		var queryTracker = new QueryTracker({}, function(params) {
-			Event.findAll(
+			var finder = can.route.attr('view') === 'latest' ? 'Latest' : 'Greatest';
+			Event['find' + finder](
 				params || queryTracker.current(),
 				function( events ) {
 					// this prevents events control to trigger on initial can.route change
@@ -242,7 +249,7 @@ steal(
 		// Load category tags
 		Tag.findAll({type: 'category', order: 'priority:desc'}, function (data) {
 
-			var blacklisted = ['digest','issue'], remove = [];
+			var blacklisted = ['digest','issue','github_comment'], remove = [];
 			data.each(function(el, i) {
 				(blacklisted.indexOf(el.attr('name')) >= 0) && remove.unshift(i);
 			});
