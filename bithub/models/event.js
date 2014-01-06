@@ -18,15 +18,17 @@ steal('can',
 			return key;
 		}
 
-		var attrsToCleanForUpdate = [
-			'parent_id',
-			'upvotes',
-			'actor',
-			'has_parent',
-			'image_url',
-			'children',
-			'props',
-			'author'
+		var whiteListedForUpdate = [
+			'title',
+			'body',
+			'category',
+			'tags',
+			'url',
+			'location',
+			'datetime',
+			'origin_author_feed',
+			'origin_author_id',
+			'feed'
 		];
 
 		var Event = can.Model('Bithub.Models.Event', {
@@ -68,7 +70,12 @@ steal('can',
 					if (!title) { return "Please add a title" }
 				});
 				this.validate('body', function(body) {
-					if (!body) { return "Please write something about this" }
+					var category = this.attr('category'),
+						checkCategories = Bithub.Models.Tag.allowedCategoriesForNewPost;
+
+					if (can.inArray(category, checkCategories) > -1 && !body){
+						return "Please write something about this"
+					}
 				});
 				this.validate('category', function(category) {
 					var method;
@@ -150,9 +157,11 @@ steal('can',
 				}
 
 				if(!this.isNew()){
-					can.each(attrsToCleanForUpdate, function(attr){
-						delete data[attr];
-					});
+					for(var k in data){
+						if(whiteListedForUpdate.indexOf(k) === -1){
+							delete data[k];
+						}
+					}
 				}
 
 				return {

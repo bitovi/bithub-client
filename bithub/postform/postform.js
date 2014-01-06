@@ -21,6 +21,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				}
 
 				if(!this.attr('event').isNew()){
+					this.__oldEvent = this.attr('event');
 					this.attr('event', new EventModel(this.attr('event').attr()))
 					this.attr('event.project', this.getProjectForEvent())
 				}
@@ -292,7 +293,12 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					this.scope.attr('event', event);
 				}
 
-				this.element.trigger('event.saved', [event]);
+				if(this.scope.__oldEvent){
+					this.scope.__oldEvent.attr(event.attr());
+					can.trigger(this.scope.__oldEvent, 'updated');
+				}
+
+				this.element.trigger('event.saved');
 			},
 			eventErrored : function(){
 				this.scope.attr('isLoading', false);
