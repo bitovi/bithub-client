@@ -82,7 +82,10 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			},
 			formAction : function(){
 				var event = this.attr('event');
-				if(event.isNew()){
+
+				console.log('EVENT', event)
+
+				if(!event.isNew || event.isNew()){
 					return "/api/events";
 				}
 				return can.sub("/api/events/{id}", event);

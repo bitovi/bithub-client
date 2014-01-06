@@ -69,7 +69,6 @@ function(childEventView, statusBarView, manageBarView, upvoteView, toolbarView){
 			return manageBarView.render(opts.scope);
 		},
 		renderToolbar : function(opts){
-			console.log('RENDERING TOOLBAR')
 			return toolbarView.render(opts.scope);
 		},
 		renderUpvote : function(event, award, opts){
