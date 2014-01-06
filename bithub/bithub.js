@@ -18,10 +18,6 @@ steal(
 	'vendor/lodash',
 	'vendor/jstz',
 
-	// replace with '/assets/less/production.less'
-	//'assets/styles/bootstrap.css',
-	//'assets/styles/bootstrap-datepicker.css',
-	'assets/styles/app.css',
 	function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, loadtime) {
 		var href = window.location.href
 
