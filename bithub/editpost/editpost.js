@@ -23,11 +23,6 @@ steal('can/control', './editpost.mustache', 'bithub/postform', function(Control,
 			this.element.modal('show')
 		},
 		" event.saved" : function(el, ev, event){
-			var currentEvent = this.currentEvent();
-
-			currentEvent.attr(event.attr(), true);
-			can.trigger(currentEvent, 'updated');
-
 			this.element.modal('hide');
 		}
 	})
