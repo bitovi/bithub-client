@@ -8549,7 +8549,6 @@ button#show-newpost-form-btn .caret {
 }
 .profile-content {
   padding-top: 30px;
-  margin-bottom: 50px;
 }
 #edit-profile-form p.mailing-addr-caption {
   margin: 10px 0px 4px 10px;
@@ -10779,4 +10778,22 @@ a.less {
     background-image: url(/assets/images/you-badge-x2.gif);
     background-size: 12px 40px;
   }
+}
+.user-roles .roles {
+  margin-top: 5px;
+  margin-right: 50px;
+}
+.user-roles .roles li {
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+.user-roles .roles li .btn {
+  border-width: 1px;
+  font-weight: bold;
+  font-size: 110%;
+  width: 16px;
+  line-height: 100%;
+  padding: 0;
+  float: right;
 }

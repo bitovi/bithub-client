@@ -38,7 +38,7 @@ steal(
 			loadList: function () {
 				var self = this;
 				User.findAll(paginator.currentState(), function(users) {
-					self.element.html(usersListView({
+					self.element && self.element.html(usersListView({
 						users: users,
 						prevOffset: paginator.prevOffset(),
 						nextOffset: paginator.nextOffset()

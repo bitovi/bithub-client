@@ -12,6 +12,10 @@ steal(
 
 		}, {
 
+			init : function(){
+				var event = this.attr('event');
+				event && this.attr('eventId', event.attr('id'));
+			},
 			upvote: function () {
 				var self = this;
 				this.sumUpvotes();
@@ -20,8 +24,6 @@ steal(
 			unvote: function () {
 				var self = this;
 				this.sumUpvotes(-1);
-
-				this.attr('eventId', this.attr('event.id'));				
 				
 				return this.destroy().fail( function() { self.sumUpvotes(1) } );
 			},
@@ -40,11 +42,6 @@ steal(
 					if(index > -1){
 						upvotedEvents.splice(index, 1);
 					}
-				}
-			},
-			serialize : function(){
-				return {
-					eventId : this.attr('event.id')
 				}
 			}
 		});

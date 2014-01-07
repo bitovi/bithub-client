@@ -1,13 +1,18 @@
 steal(
 	'can',
-	'./form.ejs',
+	'./form.mustache',
 	'bithub/models/user.js',
-	function(can, userFormView, User){
+	'bithub/profile/info',
+	function(can, userFormView, User, UserInfo){
 		return can.Control.extend({
 			defaults : { 'User': User }
 		}, {
-			init : function(element, opts){
-				element.html(userFormView({user: opts.user}));
+			init : function(){
+				this.element.html(userFormView({user: this.options.user}));
+				new UserInfo(this.element.find('.user-info'), {
+					currentUser : this.options.user,
+					isEditing : true
+				})
 			},
 
 			'{can.route} action': function (f, ev, newVal, oldVal) {
@@ -20,11 +25,11 @@ steal(
 			},
 
 			'li button.remove-role click' : function (el, ev) {
-				var role = el.closest('li').data('role');
-				this.options.user.manageRoles('remove', role);
-			},
-
-			'{User} updated' : function(el, ev) {
+				if(confirm('Are you sure?')){
+					var role = el.closest('li').data('role');
+					this.options.user.manageRoles('remove', role);
+				}
+				
 			}
 			
 		});

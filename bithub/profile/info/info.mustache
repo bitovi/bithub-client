@@ -51,14 +51,19 @@
 		</select>
 		</div>
 
-		<div class="control-group">
-		<button type="submit" name="update" class="btn-bigass light" data-loading-text="Saving...">Update</button>
+		{{#unless isEditing}}
 
-		<div class="form-status">
-			<p class="success">Saved!</p>
-			<p class="error">Something went wrong!</p>
-		</div>
-		</div>
+			<div class="control-group">
+			<button type="submit" name="update" class="btn-bigass light" data-loading-text="Saving...">Update</button>
+
+			<div class="form-status">
+				<p class="success">Saved!</p>
+				<p class="error">Something went wrong!</p>
+			</div>
+			</div>
+		
+		{{/unless}}
+
 
 	</form>
 	

@@ -14,16 +14,18 @@ steal(
 		
 		return can.Control.extend({
 			pluginName: 'profile-info',
-			defaults : { }
+			defaults : { 
+				isEditing : false
+			}
 		}, {
-			init: function(element, opts) {
+			init: function() {
 				var self = this,
 					countries = this.loadCountries();
 
-				element.html(profileInfoView({
+				this.element.html(profileInfoView({
 					countries: countries,
-					user: opts.currentUser,
-					routes: opts.routes
+					user: this.options.currentUser,
+					isEditing : this.options.isEditing
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {
@@ -32,6 +34,10 @@ steal(
 					},
 					partials: {}
 				}));
+
+				if(this.options.isEditing){
+					this.element.find(':input').prop('disabled', true).addClass('disabled');
+				}
 			},
 
 			loadCountries: function() {
