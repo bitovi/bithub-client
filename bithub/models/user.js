@@ -173,6 +173,9 @@ steal(
 				return this.attr('authStatus') === 'loggedIn';
 			},
 			hasVotedFor : function(event){
+				if(!event){
+					return false;
+				}
 				return this.attr('upvoted_events').indexOf(event.attr('id')) > -1;
 			}
 

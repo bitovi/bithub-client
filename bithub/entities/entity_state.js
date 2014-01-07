@@ -40,7 +40,7 @@ steal('can/map', function(Map){
 			this.attr('childrenExpanded', !this.attr('childrenExpanded'));
 		},
 		eventIsUpvoted : function(){
-			return this.attr('user').hasVotedFor(this.attr('event'));
+			return window.CURRENT_USER.hasVotedFor(this.attr('event'));
 		}
 	})
 
