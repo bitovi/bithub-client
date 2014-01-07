@@ -1,10 +1,9 @@
 steal(
 './shared_views/child.mustache', 
 './shared_views/status_bar.mustache',
-'./shared_views/manage_bar.mustache',
 './shared_views/upvote.mustache',
 './shared_views/toolbar.mustache',
-function(childEventView, statusBarView, manageBarView, upvoteView, toolbarView){
+function(childEventView, statusBarView, upvoteView, toolbarView){
 
 	var renderEventTags = function (tags, opts) {
 		var buffer, linkTags, visibleTags;
@@ -64,9 +63,6 @@ function(childEventView, statusBarView, manageBarView, upvoteView, toolbarView){
 			}), {
 				renderEventTags : $.proxy(renderEventTags, scope)
 			});
-		},
-		renderManageBar : function(opts){
-			return manageBarView.render(opts.scope);
 		},
 		renderToolbar : function(opts){
 			return toolbarView.render(opts.scope);

@@ -28,7 +28,8 @@ steal('can',
 			'datetime',
 			'origin_author_feed',
 			'origin_author_id',
-			'feed'
+			'feed',
+			'id'
 		];
 
 		var Event = can.Model('Bithub.Models.Event', {
@@ -108,7 +109,14 @@ steal('can',
 		}, {
 
 			upvote: function( success, error ) {
-				(new Upvote({event: this})).upvote();
+				return (new Upvote({event: this})).upvote();
+			},
+			unvote: function( success, error ) {
+				return (new Upvote({event: this})).unvote();
+			},
+			upvoteOrUnvote : function(){
+				var method = CURRENT_USER.hasVotedFor(this) ? 'unvote' : 'upvote';
+				this[method]();
 			},
 			isPush : function(){
 				return this.attr('tags').indexOf('pull_request_event') >= 0;

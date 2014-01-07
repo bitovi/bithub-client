@@ -1,32 +1,47 @@
 steal(
 	'can',
+	'can/model',
 	'can/construct/proxy',
 	'can/construct/super',
-	function (can) {
-		return can.Model('Bithub.Models.Upvote', {
-			init: function () {},
+	function (can, Model) {
+		return Model('Bithub.Models.Upvote', {
 
-			//findAll : 'GET /api/events',
-			//findOne : 'GET /api/events/{id}',
-			create    : 'POST /api/events/{event.id}/upvote'
-			//update  : 'PUT /api/events/{id}',
-			//destroy : 'DELETE /api/events/{id}'
+			create : 'POST /api/events/{eventId}/upvote',
+			destroy : 'DELETE /api/events/{eventId}/upvote'
 
 		}, {
-			upvote: function () {
-				var self = this,
-					timer;
 
-				clearTimeout(timer);				
-				timer = setTimeout(function() {
-					// updates DOM immediately, then wait for response and reduce on failure
-					self.sum_upvotes();
-					return self.save().fail( function() { self.sum_upvotes(-1) } );
-				}, 0);
+			upvote: function () {
+				var self = this;
+				this.sumUpvotes();
+				return this.save().fail( function() { self.sumUpvotes(-1) } );
 			},
-			sum_upvotes: function ( value ) {
+			unvote: function () {
+				var self = this;
+				this.sumUpvotes(-1);
+				return this.destroy().fail( function() { self.sumUpvotes(1) } );
+			},
+			sumUpvotes: function ( value ) {
+				var upvotedEvents = window.CURRENT_USER.attr('upvoted_events'),
+					eventId = this.event.attr('id'),
+					index;
+
 				value = value || 1;
+
 				this.event.attr('upvotes', this.event.attr('upvotes') + value);
+				if(value > 0){
+					upvotedEvents.push(eventId);
+				} else {
+					index = upvotedEvents.indexOf(eventId);
+					if(index > -1){
+						upvotedEvents.splice(index, 1);
+					}
+				}
+			},
+			serialize : function(){
+				return {
+					eventId : this.attr('event.id')
+				}
 			}
 		});
 	});

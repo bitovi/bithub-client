@@ -17,17 +17,14 @@ steal(
 				var event = can.data( el.closest('.reply-event, .event'), 'eventObj' ),
 					user = this.options.currentUser;
 
-				if ( user.loggedIn() ) {
-					(new Upvote({event: event})).upvote();
-					el.closest('.reply-event, .event').addClass('upvoted').find('.votes .caption').html('Voted');
+				if ( user.isLoggedIn() ) {
+					event.upvoteOrUnvote();
 				} else {
 					this.options.modals.showLogin();
 					
 					user.delayedActions( function() {
-						(new Upvote({event: event})).upvote();
-						el.closest('.reply-event, .event').addClass('upvoted').find('.votes .caption').html('Voted');
+						event.upvoteOrUnvote();
 					});
-					
 				}
 			},
 

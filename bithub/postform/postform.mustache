@@ -112,7 +112,7 @@
 									<h5>Available Tags</h5>
 									<ul class="unstyled">
 										{{#availableTags}}
-											<li can-click="addTag">{{ name }}</li>
+											<li can-click="addTag">{{ name }}<span class="tag-icon">&#9656;</span></li>
 										{{/availableTags}}
 									</ul>
 								</div>
@@ -120,7 +120,7 @@
 									<h5>Event Tags</h5>
 									<ul class="unstyled">
 										{{#eventTags}}
-											<li can-click="removeTag">{{ . }}</li>
+											<li can-click="removeTag">{{ . }}<span class="tag-icon">&times;</span></li>
 										{{/eventTags}}
 									</ul>
 								</div>
@@ -133,7 +133,7 @@
 							<label style="float: left; width: 50px;">
 								<input type="radio" can-value="event.origin_author_feed" class="origin-feed" value="twitter"/>TW
 							</label>
-							<input name="postas" type="text" autocomplete="off" class="title span1 typeahead" data-toggle="toggle" placeholder="Post as:" {{typeahead}}/>
+							<input name="postas" type="text" autocomplete="off" class="title span1 typeahead" data-toggle="toggle" placeholder="{{#if event.isNew}}Post as{{else}}Transfer ownership{{/if}}:" {{typeahead}}/>
 							{{#postAsAvatar}}
 								<img class="postas avatar float-right" src="{{ . }}" alt="" />
 							{{/postAsAvatar}}

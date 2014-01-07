@@ -10,7 +10,7 @@
 	
 	{{#when event.children.length}}
 		<a class="expand-replies" can-click="toggleChildren">
-			<span class="icon {{#if expanded}}collapse{{/if}}"></span>Earlier ({{v event.children.length}})
+			<span class="icon {{#if childrenExpanded}}collapse{{/if}}"></span>Earlier ({{v event.children.length}})
 		</a>
 	{{/when}}
 	

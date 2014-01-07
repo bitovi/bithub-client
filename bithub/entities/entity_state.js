@@ -38,6 +38,9 @@ steal('can/map', function(Map){
 		},
 		toggleChildren : function(){
 			this.attr('childrenExpanded', !this.attr('childrenExpanded'));
+		},
+		eventIsUpvoted : function(){
+			return this.attr('user').hasVotedFor(this.attr('event'));
 		}
 	})
 
