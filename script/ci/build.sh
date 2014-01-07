@@ -1,1 +1,1 @@
-echo "All tests succeeded!"
+echo "All (none) tests succeeded!"
