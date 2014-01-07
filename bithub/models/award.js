@@ -20,10 +20,20 @@ steal(
 				return this.save().done(this.proxy( 'awardEvent' ));
 			},
 			awardEvent: function( data ) {
-				this.attr('event.props').attr({
+				var event = this.attr('event'),
+					parentId = event.attr('parent_id'),
+					parent = event.constructor.store && event.constructor.store[parentId];
+
+				event.attr('props').attr({
 					'awarded_value': data.value,
 					'thread_awarded': true
 				});
+
+				if(parent){
+					can.map(parent.attr('children'), function(child){
+						child.attr('props.thread_awarded', true);
+					})
+				}
 			}
 		});
 	});

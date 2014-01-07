@@ -9271,11 +9271,11 @@ h4.handwriting {
   padding: 10px 0px;
 }
 .event.notified {
-  background-color: #e9f8ff;
-  border: 1px solid #71bee5;
   border-radius: 6px;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
+  background-color: #e9f8ff;
+  border: 1px solid #71bee5;
   padding: 10px;
   margin: 10px -10px;
 }
@@ -9285,8 +9285,12 @@ h4.handwriting {
 .event .toolbar {
   display: none;
   position: absolute;
-  top: 10px;
+  top: 11px;
   right: 0;
+  z-index: 10000;
+  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 .event .toolbar .delete-event,
 .event .toolbar .edit-event {

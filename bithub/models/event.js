@@ -135,7 +135,6 @@ steal('can',
 				return this.attr('tags').indexOf('issues_event') >= 0;
 			},
 			isAwardable : function(){
-				console.log('IS AWARDABLE', this)
 				return this.attr('tags').indexOf('issue_comment_event') >= 0;
 			},
 			isEvent : function(){

@@ -71,9 +71,10 @@
 	padding: 10px 0px;
 
 	&.notified {
+		.border-radius(6px);
 		background-color: #e9f8ff;
 		border: 1px solid #71bee5;
-		.border-radius(6px);	
+		
 		padding: 10px;
 		margin: 10px -10px;
 	}
@@ -83,8 +84,10 @@
 	.toolbar {
 		display: none;
 		position: absolute;
-		top: 10px;
+		top: 11px;
 		right: 0;
+		z-index: 10000;
+		.box-shadow;
 		
 		.delete-event, .edit-event {
 			float: right;
