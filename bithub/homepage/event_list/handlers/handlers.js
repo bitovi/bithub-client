@@ -26,6 +26,7 @@ steal(
 						event.upvoteOrUnvote();
 					});
 				}
+				ev.stopImmediatePropagation();
 			},
 
 			// Awarding
@@ -34,7 +35,7 @@ steal(
 				ev.preventDefault();
 				
 				var event = can.data(el.closest('.reply-event'), 'eventObj');
-				(new Award({event: event})).award();
+				event.award();
 
 				(can.data(el.closest('.event'), 'eventObj')).attr('props.thread_awarded', true);
 			},

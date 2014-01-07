@@ -5,9 +5,8 @@ steal(
 	'can/construct/super',
 	function (can, Model) {
 		return Model('Bithub.Models.Upvote', {
-			id: 'eventId',
 			
-			create : 'POST /api/events/{eventId}/upvote',
+			update : 'POST /api/events/{eventId}/upvote',
 			destroy : 'DELETE /api/events/{eventId}/upvote'
 
 		}, {
@@ -43,6 +42,9 @@ steal(
 						upvotedEvents.splice(index, 1);
 					}
 				}
+			},
+			isNew : function(){
+				return false;
 			}
 		});
 	});

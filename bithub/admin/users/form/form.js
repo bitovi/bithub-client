@@ -22,9 +22,11 @@ steal(
 				ev.preventDefault();
 				var role = el.find("input[name=role]").val();
 				this.options.user.manageRoles('add', role);
+				this.element.find('input[name=role]').val("");
 			},
 
 			'li button.remove-role click' : function (el, ev) {
+				ev.preventDefault();
 				if(confirm('Are you sure?')){
 					var role = el.closest('li').data('role');
 					this.options.user.manageRoles('remove', role);

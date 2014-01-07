@@ -41,16 +41,8 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 		return '<ul class="tag-list nav">' + buffer + '</ul>';
 	}
 
-	var isEventUpvoted = function(opts){
-		var event, upvotedEvents, eventId, check;
-
-		event = this.attr('event');
-
-		upvotedEvents = this.attr('user.upvoted_events');
-		eventId       = event.attr('id');
-		check         = upvotedEvents && upvotedEvents.indexOf(eventId) > -1;
-
-		return !!check;
+	var isEventUpvoted = function(event, opts){
+		return window.CURRENT_USER.hasVotedFor(event) ? opts.fn(opts.scope) : "";
 	}
 
 	return {
@@ -102,10 +94,24 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 
 			scope = opts.scope.add({
 				isCommit  : isCommit,
-				eventType : type
+				eventType : type,
+				event     : opts.context
 			});
 
-			return childEventView.render(scope);
+			return childEventView.render(scope, {
+				isEventUpvoted : isEventUpvoted,
+				canBeAwarded : function(event, opts){
+					var user  = window.CURRENT_USER,
+						check;
+					
+					check = !event.attr('props.thread_awarded');
+					check = check && user.isLoggedIn();
+					check = check && user.isAdmin();
+					check = check && event.isAwardable();
+
+					return check ? opts.fn(scope) : "";
+				}
+			});
 		},
 		brokenImagesCleanup : function(){
 			return function(el){

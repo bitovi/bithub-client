@@ -1,14 +1,14 @@
-<div class="reply-event row {{ eventType }} {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}}" {{ data 'eventObj' }}>
+<div class="reply-event row {{ eventType }} {{#isEventUpvoted event}}upvoted{{/isEventUpvoted}}" {{#event}}{{ data 'eventObj' }}{{/event}}>
 
 	{{#if hasAwardValue}}
 		<div class="awarded-badge"><span>+{{ props.awarded_value }}</span></div>
 	{{/if}}
 
-	{{#canBeAwarded this}}
+	{{#canBeAwarded event}}
 		<div class="award-btn">
 			<a href="#"><span class="caret"></span>Award</a>
 		</div>
-	{{/if}}
+	{{/canBeAwarded}}
 
 	<div class="votes vote-btn">
 		<div class="uparrow"></div>

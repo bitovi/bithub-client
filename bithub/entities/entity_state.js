@@ -19,19 +19,6 @@ steal('can/map', function(Map){
 		
 			return format;
 		},
-		award : false,
-		canBeAwarded : function(){
-			var award = this.attr('award'),
-				user  = this.attr('user'),
-				check;
-			
-			check = award !== false;
-			check = check && !event.attr('props.thread_awarded');
-			check = check && user.isLoggedIn();
-			check = check && user.isAdmin();
-
-			return check;
-		},
 		childrenExpanded : false,
 		childrenExistAndExpanded : function(){
 			return this.attr('childrenExpanded') && this.attr('event.children').attr('length') > 0;

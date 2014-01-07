@@ -8,18 +8,21 @@ steal(
 
 			//findAll : 'GET /api/events',
 			//findOne : 'GET /api/events/{id}',
-			create  : 'POST /api/events/{event.id}/award'
+			create  : 'POST /api/events/{eventId}/award'
 			//update  : 'PUT /api/events/{id}',
 			//destroy : 'DELETE /api/events/{id}'
 
 		}, {
+			init : function(){
+				this.attr('eventId', this.attr('event.id'));
+			},
 			award: function() {
 				return this.save().done(this.proxy( 'awardEvent' ));
 			},
 			awardEvent: function( data ) {
-				this.event.attr({
-					'props.awarded_value': data.value,
-					'props.thread_awarded': true
+				this.attr('event.props').attr({
+					'awarded_value': data.value,
+					'thread_awarded': true
 				});
 			}
 		});

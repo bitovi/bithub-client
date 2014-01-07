@@ -1,12 +1,13 @@
 steal('can',
 	'./upvote.js',
+	'./award.js',
 	'vendor/moment',
 	'can/list',
 	'can/map/validations',
 	'can/map/attributes',
 	'can/map/setter',
 	'can/construct/super',
-	function (can, Upvote) {
+	function (can, Upvote, Award) {
 
 		var formatAttrName = function(key, prefix){
 			if(prefix){
@@ -118,6 +119,9 @@ steal('can',
 				var method = CURRENT_USER.hasVotedFor(this) ? 'unvote' : 'upvote';
 				this[method]();
 			},
+			award : function(){
+				return (new Award({event: this})).award();
+			},
 			isPush : function(){
 				return this.attr('tags').indexOf('pull_request_event') >= 0;
 			},
@@ -129,6 +133,10 @@ steal('can',
 			},
 			isIssue : function(){
 				return this.attr('tags').indexOf('issues_event') >= 0;
+			},
+			isAwardable : function(){
+				console.log('IS AWARDABLE', this)
+				return this.attr('tags').indexOf('issue_comment_event') >= 0;
 			},
 			isEvent : function(){
 				return this.attr('category') === 'event';
