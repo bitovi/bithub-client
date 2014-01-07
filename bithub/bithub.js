@@ -266,10 +266,13 @@ steal(
 			feeds.replace(data);
 		});
 
-		// Load leaderboar
-		User.findAll( {cached: true}, function (data) {
-			users.replace(data);
-		});
+		// Load leaderboard
+		(function loadUsers() {
+			User.findAll( {cached: true}, function (data) {
+				users.replace(data);
+			});
+			setTimeout(loadUsers, 60000);
+		})();
 
 		new UI.Onbottom(document, {threshold: $(window).innerHeight() / 2 });
 
