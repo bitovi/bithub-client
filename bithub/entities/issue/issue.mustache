@@ -10,11 +10,11 @@
 				<div class="row clearfix">
 					{{{img image_url "Thumb" "thumb"}}}
 
-					<h5 class="title">
+					<h5 class="title {{#if isOrCanBeAwarded}}has-badge{{/if}} clearfix">
 						<a href="{{ eventUrl this }}">{{v title }}</a>
 
 						{{#if props.thread_awarded}}
-							<span class="awarded">Awarded + {{ double upvotes }}</span>
+							<span class="badge awarded">Awarded +{{ double upvotes }}</span>
 						{{/if}}
 
 						{{#if upvotes}}

@@ -9330,18 +9330,33 @@ h4.handwriting {
 }
 .event .title {
   margin: 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
 .event .title a {
   font-size: 14px;
   margin: 0;
   line-height: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  float: left;
+  max-width: 100%;
+}
+.event .title .badge {
+  float: left;
+  margin-top: 2px;
+  margin-left: 10px;
+  margin-right: 0;
+}
+.event .title .awarded {
+  padding-left: 3px;
 }
 .event .title .expand-body {
   color: #777;
   margin-left: 10px;
+}
+.event .has-badge a {
+  max-width: 535px;
 }
 .event .body {
   color: #333333;
@@ -9551,15 +9566,10 @@ ul.tag-list li,
 }
 .event .title .awarded {
   display: inline-block;
-  color: #fff;
-  font-size: 11px;
   background-color: #ff8d1a;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  text-align: center;
-  padding: 0px 8px;
-  font-weight: normal;
+}
+.event .title .awarded:before {
+  border-right-color: #ff8d1a;
 }
 .event .status .expand-replies {
   color: #666666;

@@ -142,6 +142,9 @@ steal('can',
 			isEvent : function(){
 				return this.attr('category') === 'event';
 			},
+			isOrCanBeAwarded : function(){
+				return (this.attr('props.thread_awarded') || this.attr('upvotes') > 0);
+			},
 			hasAwardValue : function(){
 				return this.attr('props.awarded_value') && this.attr('props.awarded_value') >= 0;
 			},
