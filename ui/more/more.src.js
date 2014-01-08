@@ -27,7 +27,7 @@
 			}, options||{});
 			
 		this.each(function(el){
-			var $el = $(this), elementHTML, processedHTML;
+			var $el = $(this), elementHTML, processedHTML, newHTML;
 
 			// skip if there is no content
 			if ( can.trim($el.text()).length == 0 ) {
@@ -41,7 +41,10 @@
 
 			$el.find('p, div, ul, ol, br').after('<span>[br]</span>');
 
-			$el.html('<p>' + stripHTML($el.text()).replace(/\[br\]/g, '<br>') + '</p>');
+			newHTML = can.trim(stripHTML($el.text()).replace(/\[br\]/g, '<br>'));
+			newHTML = newHTML.replace(/&nbsp;/g, '').replace(/^<br>/, '');
+
+			$el.html('<p>' + newHTML + '</p>');
 
 			elementHTML = $el.html();
 
