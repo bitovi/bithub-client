@@ -9287,7 +9287,7 @@ h4.handwriting {
   position: absolute;
   top: 11px;
   right: 0;
-  z-index: 10000;
+  z-index: 9;
   -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -10133,6 +10133,9 @@ a.less {
 }
 .tag-control-group .tag-icon {
   float: right;
+}
+.title-body-wrap {
+  width: 100%;
 }
 .has-image .title-body-wrap {
   float: left;
