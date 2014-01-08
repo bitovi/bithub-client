@@ -100,13 +100,19 @@ steal('can',
 						}
 					}
 				});
-				this.validate('location', function(location) {
+				this.validate('location', function() {
 					var normalizedLocation = can.trim(location || "");
 
 					if(this.isEvent() && normalizedLocation === ''){
 						return "Events should have a location"
 					}
 				});
+			},
+			model : function(data){
+				if(data.id && data.props && data.props.location){
+					data.location = data.props.location;
+				}
+				return this._super(data);
 			}
 
 		}, {
