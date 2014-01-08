@@ -22,7 +22,6 @@ function(Component, issueView, childEventView, EntityState, sharedHelpers, share
 			},
 			double : function(val){
 				val = can.isFunction(val) ? val() : val;
-				can.__clearReading();
 				return parseInt(val) * 2;
 			}
 		}, sharedHelpers),

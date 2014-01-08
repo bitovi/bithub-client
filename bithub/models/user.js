@@ -176,7 +176,7 @@ steal(
 				if(!event){
 					return false;
 				}
-				return this.attr('upvoted_events').indexOf(event.attr('id')) > -1;
+				return (this.attr('upvoted_events') || []).indexOf(event.attr('id')) > -1;
 			}
 
 		});

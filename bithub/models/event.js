@@ -199,6 +199,20 @@ steal('can',
 			},
 			time : function(){
 				return moment(this.attr('datetime')).format('hh:mmA');
+			},
+			awardedValue : function(){
+				var children = this.attr('children') || [],
+					length = children.attr ? children.attr('length') : children.length,
+					awardedValue;
+
+				for(var i = 0; i < length; i++){
+					awardedValue = children[i].attr('props.awarded_value');
+					if(awardedValue){
+						return awardedValue;
+					}
+				}
+
+				return 0;
 			}
 		});
 		

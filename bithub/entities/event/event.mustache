@@ -7,15 +7,20 @@
 
 			<div class="span7 content clearfix">
 
-				<div class="row">
+				<div class="row {{#if image_url}}has-image{{/if}}">
 					{{{img image_url "Thumb" "thumb"}}}
-					<h5 class="title">
-						<a href="{{eventUrl this}}">{{{v title }}}</a>
-					</h5>
-					<div class="location-time">
-						{{v props.location }} / {{ prettifyTs props.scheduled_for 'datetime'}}
+	
+					<div class="title-body-wrap">
+						<h5 class="title clearfix">
+							<a href="{{eventUrl this}}">{{{v title }}}</a>
+						</h5>
+						<div class="location-time">
+							{{v props.location }} / {{ prettifyTs props.scheduled_for 'datetime'}}
+						</div>
+						<div class="body">{{{v body }}}</div>
 					</div>
-					<div class="body">{{{v body }}}</div>
+
+					
 				</div>
 
 				{{{ renderStatusBar this }}}

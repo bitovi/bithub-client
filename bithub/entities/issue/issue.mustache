@@ -7,24 +7,27 @@
 
 			<div class="span7 content clearfix">
 
-				<div class="row clearfix">
+				<div class="row clearfix {{#if image_url}}has-image{{/if}}">
 					{{{img image_url "Thumb" "thumb"}}}
 
-					<h5 class="title {{#if isOrCanBeAwarded}}has-badge{{/if}} clearfix">
-						<a href="{{ eventUrl this }}">{{v title }}</a>
+					<div class="title-body-wrap">
+						<h5 class="title {{#if isOrCanBeAwarded}}has-badge{{/if}} clearfix">
+							<a href="{{ eventUrl this }}">{{v title }}</a>
 
-						{{#if props.thread_awarded}}
-							<span class="badge awarded">Awarded +{{ double upvotes }}</span>
-						{{/if}}
+							{{#if props.thread_awarded}}
+								<span class="badge awarded">Awarded +{{ awardedValue }}</span>
+							{{/if}}
 
-						{{#if upvotes}}
-							{{#unless props.thread_awarded}}
-								<span class='badge'>+{{ double upvotes }}</span>
-							{{/unless}}
-						{{/if}}
-					</h5>
+							{{#if upvotes}}
+								{{#unless props.thread_awarded}}
+									<span class='badge'>+{{ double upvotes }}</span>
+								{{/unless}}
+							{{/if}}
+						</h5>
 
-					<div class="body no-more">{{{v body }}}</div>
+						<div class="body no-more">{{{v body }}}</div>
+					</div>
+					
 
 				</div>
 

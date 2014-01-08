@@ -10134,6 +10134,10 @@ a.less {
 .tag-control-group .tag-icon {
   float: right;
 }
+.has-image .title-body-wrap {
+  float: left;
+  width: 528px;
+}
 /* New post ------------------------------------------------------- */
 #newpost-form-wrapper {
   position: fixed;

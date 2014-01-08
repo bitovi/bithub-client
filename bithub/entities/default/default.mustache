@@ -2,19 +2,21 @@
 	{{#event}}
 		<div class="event list-element {{#isEventUpvoted this}}upvoted{{/isEventUpvoted}} clearfix" {{ data 'eventObj'}}>
 
-			
+
 			{{{ renderToolbar }}}
 			{{{ renderUpvote this true }}}
 
 			<!-- content -->
 			<div class="span7 content clearfix">
 
-				<div class="row">
+				<div class="row {{#if image_url}}has-image{{/if}}">
 					{{{img image_url "Thumb" "thumb"}}}
-					<h5 class="title">
-						<a href="{{eventUrl this}}">{{{v title }}}</a>
-					</h5>
-					<div class="body no-more">{{{v body }}}</div>
+					<div class="title-body-wrap">
+						<h5 class="title clearfix">
+							<a href="{{eventUrl this}}">{{{v title }}}</a>
+						</h5>
+						<div class="body no-more">{{{v body }}}</div>
+					</div>
 				</div>
 
 				{{{ renderStatusBar this }}}
