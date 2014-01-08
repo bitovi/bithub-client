@@ -77,6 +77,7 @@
 				range.end('-1').start('-1');
 			}
 			
+
 			// get the last visible text element
 			prevChar(range, start)
 			
