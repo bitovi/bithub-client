@@ -37,7 +37,9 @@
 			// save current HTML for later
 			$el.data('originalHTML', $el.html())
 
-			$el.find('p').after('<span>[br]</span>')
+			$el.find('li').append('<span>[br]</span>');
+
+			$el.find('p, div, ul, ol, br').after('<span>[br]</span>');
 
 			$el.html('<p>' + stripHTML($el.text()).replace(/\[br\]/g, '<br>') + '</p>');
 
