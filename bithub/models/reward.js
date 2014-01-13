@@ -29,6 +29,9 @@ steal(
 			},
 			greyscaleImageUrl : function(){
 				return imageFormat(this.attr('original_image_url'), '240x240,greyscale');
+			},
+			imageUrlBasedOnShipping : function(){
+				return this.attr('shipped_at') ? this.greyscaleImageUrl() : this.imageUrl();
 			}
 		});
 
