@@ -37,14 +37,14 @@
 			// save current HTML for later
 			$el.data('originalHTML', $el.html())
 
-			$el.find('li').append('<span>[br]</span>');
+			/*$el.find('li').append('<span>[br]</span>');
 
 			$el.find('p, div, ul, ol, br').after('<span>[br]</span>');
 
 			newHTML = can.trim(stripHTML($el.text()).replace(/\[br\]/g, '<br>'));
-			newHTML = newHTML.replace(/&nbsp;/g, '').replace(/^<br>/, '').replace(/<br>[\s\S]*?<br>/g, '<br>').replace(/<br>[\s\S]*?<br>/g, '<br>');
+			newHTML = newHTML.replace(/&nbsp;/g, '').replace(/^<br>/, '').replace(/<br>[\s\S]*?<br>/g, '<br>');
 
-			$el.html('<p>' + newHTML + '</p>');
+			$el.html('<p>' + newHTML + '</p>');*/
 
 			elementHTML = $el.html();
 
@@ -102,7 +102,6 @@
 			}
 			// exit if we don't need to add more button
 			if(!movedLeft && (lines < options.lines ) ) {
-				$el.html($el.data('originalHTML'));
 				return
 			}
 			
@@ -137,7 +136,19 @@
 				 parent = parent.parentElement
 			}
 			
-			$el.find('p').append( options.moreHTML)
+			$el.find('li').append('<span>[br]</span>');
+
+			$el.find('p, div, ul, ol, br').after('<span>[br]</span>');
+
+			newHTML = can.trim(stripHTML($el.text()).replace(/\[br\]/g, '<br>'));
+			newHTML = newHTML.replace(/&nbsp;/g, '')
+							 .replace(/^<br>/, '')
+							 .replace(/<br>$/, '')
+							 .replace(/<br>[\s\S]*?<br>/g, '<br>');
+
+			console.log('NEWHTML', newHTML)
+
+			$el.html('<p>' + newHTML + options.moreHTML + '</p>');
 
 			$el.data('shortenedHTML',$el.html())
 				// show more / hide listeners
