@@ -56,7 +56,7 @@
 	<h4 class="handwriting rightalign"><a href="/rewards">Get Free Stuff <span class="rightarrow"></span></a></h4>
 	<div class="rewards">
 	  {{#iterRewards}}
-	  <a href="{{{rewardsUrl}}}" class="item" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
+	  <a href="{{{rewardsUrl}}}" class="item" {{#reward.thumbUrl}}style="background-image: url({{.}})"{{/reward.thumbUrl}}>
 		<span class="points">{{#if reward.display_point_minimum}}{{reward.display_point_minimum}}{{else}}{{reward.point_minimum}}{{/if}}</span>
 	  </a>
 	  {{/iterRewards}}
