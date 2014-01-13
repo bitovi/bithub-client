@@ -73,8 +73,9 @@ steal('can',
 				this.validate('title', function(title) {
 					if (!title) { return "Please add a title" }
 				});
-				this.validate('body', function(body) {
-					var category = this.attr('category'),
+				this.validate('body', function() {
+					var body            = this.isNew() ? this.attr('body') : this.attr('source_body'),
+						category        = this.attr('category'),
 						checkCategories = Bithub.Models.Tag.allowedCategoriesForNewPost;
 
 					if (can.inArray(category, checkCategories) > -1 && !body){
@@ -183,6 +184,7 @@ steal('can',
 				}
 
 				if(!this.isNew()){
+					data.body = data.source_body;
 					for(var k in data){
 						if(whiteListedForUpdate.indexOf(k) === -1){
 							delete data[k];

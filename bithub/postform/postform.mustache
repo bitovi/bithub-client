@@ -102,7 +102,11 @@
 						{{#errorsFor 'body'}}
 							<p class="text-error">{{{ . }}}</p>
 						{{/errorsFor}}
-						<textarea can-value="event.body" rows="6" class="body span5" placeholder="Write something:"></textarea>
+						{{#if event.isNew}}
+							<textarea can-value="event.body" rows="6" class="body span5" placeholder="Write something:"></textarea>
+						{{else}}
+							<textarea can-value="event.source_body" rows="6" class="body span5" placeholder="Write something:"></textarea>
+						{{/event}}
 					</div>
 
 					{{#if currentUser.isAdmin}}

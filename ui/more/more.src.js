@@ -42,7 +42,7 @@
 			$el.find('p, div, ul, ol, br').after('<span>[br]</span>');
 
 			newHTML = can.trim(stripHTML($el.text()).replace(/\[br\]/g, '<br>'));
-			newHTML = newHTML.replace(/&nbsp;/g, '').replace(/^<br>/, '');
+			newHTML = newHTML.replace(/&nbsp;/g, '').replace(/^<br>/, '').replace(/<br>[\s\S]*?<br>/g, '<br>').replace(/<br>[\s\S]*?<br>/g, '<br>');
 
 			$el.html('<p>' + newHTML + '</p>');
 
