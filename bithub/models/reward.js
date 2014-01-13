@@ -29,9 +29,6 @@ steal(
 			},
 			greyscaleImageUrl : function(){
 				return imageFormat(this.attr('original_image_url'), '240x240,greyscale');
-			},
-			imageUrlBasedOnShipping : function(){
-				return this.attr('shipped_at') ? this.greyscaleImageUrl() : this.imageUrl();
 			}
 		});
 
@@ -50,12 +47,14 @@ steal(
 							if( achievement.attr('shipped_at') ) {
 								reward.attr({
 									status_cssClass: 'achieved',
-									status_inlineMessage: 'Shipped ' + moment( achievement.attr('shipped_at') ).format('MM/DD/YY')
+									status_inlineMessage: 'Shipped ' + moment( achievement.attr('shipped_at') ).format('MM/DD/YY'),
+									imageUrlBasedOnShipping : reward.greyscaleImageUrl()
 								});
 							} else if( achievement.attr('achieved_at') ) {
 								reward.attr({
 									status_cssClass: 'shipping',
-									status_message: 'Shipping soon!'
+									status_message: 'Shipping soon!',
+									imageUrlBasedOnShipping : reward.imageUrl()
 								});
 							}
 
