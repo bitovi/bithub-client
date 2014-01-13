@@ -56,9 +56,17 @@ steal(
 									status_message: 'Shipping soon!',
 									imageUrlBasedOnShipping : reward.imageUrl()
 								});
+							} else {
+								reward.attr({
+									imageUrlBasedOnShipping : reward.imageUrl()
+								});
 							}
 
 							lastAchievedIdx = idx;
+						} else {
+							reward.attr({
+								imageUrlBasedOnShipping : reward.imageUrl()
+							});
 						}
 						
 					});
