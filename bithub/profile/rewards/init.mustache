@@ -23,7 +23,7 @@
 		{{#if user.isLoggedIn}}
 		
 		{{#rewards}} <!-- css classes: achieved, shipping, almost -->
-		<div class="item {{status_cssClass}}" style="background-image: url({{image.image.large.url}})">
+		<div class="item {{status_cssClass}}" style="background-image: url({{greyscaleImageUrl}})">
 			<span class="points">{{#if display_point_minimum}}{{display_point_minimum}}{{else}}{{point_minimum}}{{/if}}</span>
 			{{#if status_message}}<span class="message">{{ status_message }}</span>{{/if}}
 			<span class="title">{{title}}{{#if status_inlineMessage}}<span class="message">{{ status_inlineMessage }}</span>{{/if}}</span>
@@ -33,7 +33,7 @@
 		{{else}}
 
 		{{#rewards}} <!-- css classes: achieved, shipping, almost -->
-		<div class="item" style="background-image: url({{image.image.large.url}})">
+		<div class="item" style="background-image: url({{imageUrl}})">
 			<span class="points">{{#if display_point_minimum}}{{display_point_minimum}}{{else}}{{point_minimum}}{{/if}}</span>
 			<span class="title">{{title}}</span>
 		</div>

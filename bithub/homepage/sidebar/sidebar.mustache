@@ -30,7 +30,7 @@
 	<h4>Rewards</h4>
 	<div class="rewards">
 	  {{#iterRewards}}
-	  <a href="{{{rewardsUrl}}}" class="item {{reward.status_cssClass}}" {{#reward.image.image.large.url}}style="background-image: url({{.}})"{{/reward.image.image}}>
+	  <a href="{{{rewardsUrl}}}" class="item {{reward.status_cssClass}}" {{#reward.thumbUrl}}style="background-image: url({{.}})"{{/reward.thumbUrl}}>
 		<span class="points">{{#if reward.display_point_minimum}}{{reward.display_point_minimum}}{{else}}{{reward.point_minimum}}{{/if}}</span>
 		{{#if reward.status_message}}<span class="message">{{ reward.status_message }}</span>{{/if}}
 	  </a>

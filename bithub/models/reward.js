@@ -3,6 +3,14 @@ steal(
 	'can/list',
 	'vendor/moment',
 	function (can) {
+
+		var imageFormat = function(imageUrl, format){
+			var imageUrlArr = imageUrl.split('/');
+
+			imageUrlArr[imageUrlArr.length - 1] = format + "_" + imageUrlArr[imageUrlArr.length - 1];
+
+			return imageUrlArr.join('/');
+		}
 		
 		var Reward = can.Model('Bithub.Models.Reward', {
 
@@ -12,7 +20,17 @@ steal(
 			update  : 'PUT /api/rewards/{id}',
 			destroy : 'DELETE /api/rewards/{id}'
 
-		}, {});
+		}, {
+			imageUrl : function(){
+				return imageFormat(this.attr('original_image_url'), '240x240');
+			},
+			thumbUrl : function(){
+				return imageFormat(this.attr('original_image_url'), '124x124');
+			},
+			greyscaleImageUrl : function(){
+				return imageFormat(this.attr('original_image_url'), '240x240,greyscale');
+			}
+		});
 
 		can.Model.List('Bithub.Models.Reward.List', {
 			matchAchievements: function( user, users ) {
