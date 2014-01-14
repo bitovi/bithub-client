@@ -10292,6 +10292,7 @@ h5.twitter-title {
   -moz-opacity: 0;
   /* filter:alpha(opacity: 0); */
   opacity: 0;
+  cursor: pointer;
 }
 .newpost-form .image-uploader:focus {
   border: 1px solid #969595;
@@ -10310,11 +10311,14 @@ h5.twitter-title {
   bottom: 0px;
   left: 0px;
   z-index: 100;
+  line-height: 108px;
+  padding: 5px;
 }
 .newpost-form .image-uploader .image-preview img {
   z-index: 105;
-  max-width: 150px;
-  max-height: 120px;
+  max-width: 140px;
+  max-height: 110px;
+  display: inline-block;
 }
 .newpost-sidebar h4 {
   color: #666;
@@ -10355,6 +10359,25 @@ h5.twitter-title {
   font-size: 11px;
   margin: 0;
   font-weight: bold;
+}
+.remove-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 200;
+  background: #333;
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  color: #ccc;
+  border-radius: 100%;
+  font-size: 15px;
+  text-align: center;
+  margin: -9px;
+  cursor: pointer;
+}
+.remove-image:hover {
+  color: white;
 }
 .getSwagContainer {
   margin-top: 20px;

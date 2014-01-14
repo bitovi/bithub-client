@@ -16,6 +16,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			__showAllErrors : false,
 			postAsAvatar : null,
 			serverError : null,
+			hasImage : false,
 			init : function(){
 				if(this.attr('event') === null){
 					this.attr('event', new EventModel);
@@ -100,6 +101,9 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			},
 			addTag : function(tag, el, ev){
 				this.attr('event.tags').push(tag.attr('name'));
+			},
+			removeImage : function(){
+				this.attr('hasImage', false);
 			}
 		},
 		helpers : {
@@ -115,6 +119,18 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				return function(el){
 					$datepicker = $(el);
 					$datepicker.datepicker({format: 'mm/dd/yyyy', weekStart: 0});
+				}
+			},
+			fileupload : function(){
+				var self = this;
+				return function(el){
+					$(el).fileupload({
+						datatype              : 'json',
+						limitMultiFileUploads : 1,
+						add                   : $.noop,
+						type                  : self.attr('event').isNew() ? "POST" : "PUT",
+						replaceFileInput      : false
+					});
 				}
 			},
 			typeahead : function(){
@@ -141,7 +157,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 									}))
 								});
 							}, 200);
-							
+
 						},
 						matcher: function(item) {
 							return (item && item.toLowerCase().indexOf(this.query.trim().toLowerCase()) > -1)
@@ -173,41 +189,46 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			}
 		},
 		events : {
-			" inserted" : function(){
-				this.element.fileupload({
-					datatype              : 'json',
-					limitMultiFileUploads : 1,
-					add                   : $.noop,
-					type                  : this.scope.attr('event').isNew() ? "POST" : "PUT"
-				});
-			},
 			' fileuploadadd': function( el, ev, data ) {
 				for( var i = 0; i < data.files.length; i++ ) {
 					if( !data.files[i].name.match( /(\.|\/)(gif|jpe?g|png)$/i ) ) {
-						this.scope.attr('imageUploadError', true);
+						this.scope.attr({
+							imageUploadError : true,
+							hasImage : false
+						});
 						el.find('.image-uploader .image-preview img').remove();
+
 						delete this.__filedata;
 						return;
 					}
 				}
-				
-				this.scope.attr('imageUploadError', false);
+
+				this.scope.attr({
+					imageUploadError : false,
+					hasImage : true
+				});
 
 				this.__fileData = data;
-				
+
 				window.loadImage(
 					data.files[0],
 					function (img) {
 						el.find('.image-uploader .image-preview').html(img);
 					}, {
-						maxWidth: 150,
-						maxHeight: 120,
+						maxWidth: 140,
+						maxHeight: 110,
 						noRevoke: true
 					}
 				);
 			},
 			' fileuploadprogress' : function( el, ev, data ){
 				this.scope.attr('imageUploadProgress', parseInt(data.loaded / data.total * 100, 10));
+			},
+			"{scope} hasImage" : function(hasImage, ev, newVal){
+				if(newVal === false){
+					delete this.__fileData;
+					this.element.find('.image-uploader .image-preview img').remove();
+				}
 			},
 			"{scope.event} change" : function(event, ev, attr, how, newVal, oldVal){
 				var dirty = this.scope.attr('__dirtyAttrs');

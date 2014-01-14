@@ -5,7 +5,7 @@
 	top: 62px;
 	z-index: 905;
 	width: 100%;
-	
+
 	.select-menu {
 		width: 100%;
 		margin-right: 0;
@@ -86,7 +86,7 @@
 	line-height: 15px;
 	z-index: 10;
 	background: lighten(@yellow,45%);
-	
+
 	&:before {
 		.icon-font;
 		content: '\e043';
@@ -106,13 +106,13 @@
 	color: #969595;
 	cursor:pointer;
 }
- 
+
 .newpost-form .image-uploader input {
 	position: absolute;
 	top: 0px;
 	right: 0px;
 	bottom: 0px;
-	left: 0px;	
+	left: 0px;
 	z-index: 101;
 	display:block;
 
@@ -124,6 +124,7 @@
 	-moz-opacity:0;
 	/* filter:alpha(opacity: 0); */
 	opacity: 0;
+	cursor: pointer;
 }
 
 .newpost-form .image-uploader:focus {
@@ -145,13 +146,15 @@
 	bottom: 0px;
 	left: 0px;
 	z-index: 100;
-
+	line-height: 108px;
+	padding: 5px;
 }
 
 .newpost-form .image-uploader .image-preview img {
 	z-index: 105;
-	max-width: 150px;
-	max-height: 120px;
+	max-width: 140px;
+	max-height: 110px;
+	display: inline-block;
 }
 
 .newpost-sidebar h4 {
@@ -164,13 +167,13 @@
 		right: 10px;
 		top: 28px;
 		padding-right: 15px;
-		
+
 		&:before {
 			left: -14px;
 			top: 0px;
 			border-top: 14px solid transparent;
-			border-bottom: 14px solid transparent; 
-			border-right:14px solid @green; 
+			border-bottom: 14px solid transparent;
+			border-right:14px solid @green;
 		}
 	}
 }
@@ -195,4 +198,23 @@
 	font-size: 11px;
 	margin: 0;
 	font-weight: bold;
+}
+.remove-image {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 200;
+	background: #333;
+	width: 17px;
+	height: 17px;
+	line-height: 17px;
+	color: #ccc;
+	border-radius: 100%;
+	font-size: 15px;
+	text-align: center;
+	margin: -9px;
+	cursor: pointer;
+	&:hover {
+		color: white;
+	}
 }
