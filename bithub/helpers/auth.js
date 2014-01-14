@@ -3,7 +3,7 @@ steal(
 		return {
 			login: function(options) {
 				var self = this;
-				var windowPropsStr = options.windowPropsStr ? options.windowPropsStr : "width=600,height=300";
+				var windowPropsStr = options.windowPropsStr ? options.windowPropsStr : "width=600,height=300,scrollbars=yes";
 				var title = options.title ? options.title : "Oauth login";
 				var url = options.url ? options.url : '/api/auth/github';
 
@@ -25,7 +25,7 @@ steal(
 						for(var key in self.attr()) {
 							if (blacklist.indexOf(key) < 0) self.removeAttr(key);
 						}
-						
+
 					}, 500);
 
 					// if not on homepage redirect to homepage latest
