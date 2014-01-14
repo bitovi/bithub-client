@@ -17,9 +17,9 @@
 						<div class="remove-image" can-click="removeImage">&times;</div>
 					{{/if}}
 					<div class="image-preview">
-						{{#if event.image_url}}
-							<img src="{{ event.image_url }}" {{ removeBrokenPreviewImage }} />
-						{{/if}}
+						{{#event.postImageUrl}}
+							<img src="{{ . }}" {{ removeBrokenPreviewImage }}>
+						{{/event.postImageUrl}}
 					</div>
 					{{#if imageUploadProgress}}
 						<div class="progress">

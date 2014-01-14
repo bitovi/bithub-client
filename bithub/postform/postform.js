@@ -225,9 +225,13 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				this.scope.attr('imageUploadProgress', parseInt(data.loaded / data.total * 100, 10));
 			},
 			"{scope} hasImage" : function(hasImage, ev, newVal){
+				var imageUrl;
 				if(newVal === false){
 					delete this.__fileData;
 					this.element.find('.image-uploader .image-preview img').remove();
+					if(imageUrl = this.scope.attr('event').postImageUrl()){
+						this.element.find('.image-uploader .image-preview').html('<img src="'+imageUrl+'">');
+					}
 				}
 			},
 			"{scope.event} change" : function(event, ev, attr, how, newVal, oldVal){

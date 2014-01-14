@@ -19,6 +19,14 @@ steal('can',
 			return key;
 		}
 
+		var imageFormat = function(imageUrl, format){
+			var imageUrlArr = imageUrl.split('/');
+
+			imageUrlArr[imageUrlArr.length - 1] = format + "_" + imageUrlArr[imageUrlArr.length - 1];
+
+			return imageUrlArr.join('/');
+		}
+
 		var whiteListedForUpdate = [
 			'title',
 			'body',
@@ -69,7 +77,7 @@ steal('can',
 			},
 			init: function () {
 				var self = this;
-				
+
 				this.validate('title', function(title) {
 					if (!title) { return "Please add a title" }
 				});
@@ -96,8 +104,8 @@ steal('can',
 				});
 				this.validate('url', function(url) {
 					if( url ) {
-						if( !url.match("^http[s]?:\\/\\/(www\\.)?") ) { 
-							return "Invalid URL (don't forget 'http[s]://')" 
+						if( !url.match("^http[s]?:\\/\\/(www\\.)?") ) {
+							return "Invalid URL (don't forget 'http[s]://')"
 						}
 					}
 				});
@@ -221,9 +229,16 @@ steal('can',
 				}
 
 				return 0;
+			},
+			postImageUrl : function(){
+				var imageUrl = this.attr('original_image_url');
+				if(imageUrl){
+					return imageFormat(imageUrl, '140x110')
+				}
+				return null;
 			}
 		});
-		
+
 		can.Model.List('Bithub.Models.Event.List', {
 			sortByOriginTS : function(){
 				return [].sort.call(this, function(a, b){
@@ -238,6 +253,6 @@ steal('can',
 				});
 			}
 		});
-		
+
 		return Event;
 	});
