@@ -85,6 +85,9 @@ steal(
 			'#login-twitter-link click': function( el, ev ) {
 				ev.preventDefault();
 				this.options.currentUser.login('twitter');
+			},
+			"{window} userLinkError" : function(el, ev, msg){
+				alert(msg);
 			}
 		});
 	}

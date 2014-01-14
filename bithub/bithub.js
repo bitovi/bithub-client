@@ -274,6 +274,13 @@ steal(
 			setTimeout(loadUsers, 60000);
 		})();
 
+		window.addEventListener('message', function(event){
+			var data = event.data;
+			if(window.location.origin === event.origin && data.type && data.message){
+				can.trigger(window, data.type, data.message);
+			}
+		})
+
 		new UI.Onbottom(document, {threshold: $(window).innerHeight() / 2 });
 
 	}
