@@ -146,8 +146,6 @@
 							 .replace(/<br>$/, '')
 							 .replace(/<br>[\s\S]*?<br>/g, '<br>');
 
-			console.log('NEWHTML', newHTML)
-
 			$el.html('<p>' + newHTML + options.moreHTML + '</p>');
 
 			$el.data('shortenedHTML',$el.html())
