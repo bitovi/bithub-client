@@ -7,7 +7,7 @@ steal(
 	function(can, initView, EventModel, initTypeahead){
 		/**
 		 * @class bithub/newpost
-		 * @alias Newpost   
+		 * @alias Newpost
 		 */
 
 		return can.Control('Bithub.Newpost',
@@ -22,7 +22,7 @@ steal(
 					}));
 
 				},
-				
+
 				'#hide-newpost-form-btn click': function( el, ev ) {
 					ev.preventDefault();
 					this.options.visibility( !this.options.visibility() );
@@ -56,7 +56,7 @@ steal(
 							view: 'latest',
 							category: eventObj.category,
 							project: eventObj.project
-						});
+						}, true);
 					}
 
 					this.options.visibility(false);
@@ -69,10 +69,10 @@ steal(
 				'{can.route} newpost_c': function( route, ev, newVal, oldVal ) {
 					//currentCategory( newVal );
 				},
-				
+
 				'{can.route} newpost_p': function( route, ev, newVal, oldVal ) {
 					//currentProject( newVal );
 				}
-				
+
 			});
 	});
