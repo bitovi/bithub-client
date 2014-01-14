@@ -2,7 +2,7 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
 	can.Mustache.registerHelper('prettifyTs', function( ts, format, opts ) {
 
-		ts     = moment.utc(can.isFunction(ts) ? ts() : ts);
+		ts     = moment(can.isFunction(ts) ? ts() : ts);
 		format = can.isFunction(format) ? format() : format;
 
 		var formats = {
@@ -35,7 +35,7 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
 
 		// calculate diff from date
-		var diff = moment.utc().second(0).minute(0).hour(0).diff( moment.utc(ts).second(0).minute(0).hour(0), 'days', true );
+		var diff = moment().second(0).minute(0).hour(0).diff( moment(ts).second(0).minute(0).hour(0), 'days', true );
 
 		if (diff < 1) {
 			format = formats[format].today;

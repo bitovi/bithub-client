@@ -26,8 +26,10 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 
 			if(!events.attr('length')) return;
 
-			startDate = events[0].attr('thread_updated_date');
-			stopDate = events[events.length-1].attr('thread_updated_date');
+			startDate = moment(events[0].attr('thread_updated_at')).format('YYYY-MM-DD');
+			stopDate = moment(events[events.length-1].attr('thread_updated_at')).format('YYYY-MM-DD');
+
+			console.log(startDate, stopDate)
 
 			this.attr({date: startDate, stopDate: (stopDate == startDate) ? undefined : stopDate });
 			
