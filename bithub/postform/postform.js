@@ -15,6 +15,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			imageUploadError : false,
 			__showAllErrors : false,
 			postAsAvatar : null,
+			serverError : null,
 			init : function(){
 				if(this.attr('event') === null){
 					this.attr('event', new EventModel);
@@ -270,6 +271,8 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 
 				ev.preventDefault();
 
+				this.scope.attr('serverError', null);
+
 				if(errors){
 					can.batch.start();
 					this.scope.attr('__errors').attr(errors, true);
@@ -302,7 +305,9 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 
 				this.element.trigger('event.saved');
 			},
-			eventErrored : function(){
+			eventErrored : function(req){
+				var errorJSON = JSON.parse(req.responseText || "{}");
+				this.scope.attr('serverError', errorJSON.errors || null);
 				this.scope.attr('isLoading', false);
 			}
 		}

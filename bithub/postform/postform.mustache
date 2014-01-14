@@ -2,7 +2,15 @@
 
 		<fieldset>
 			<div class="row">
-
+				{{#serverError}}
+					<div class="alert alert-error post-error">
+						<ul class="unstyled">
+							{{#this}}
+								<li>{{ . }}</li>
+							{{/this}}
+						</ul>
+					</div>
+				{{/serverError}}
 				<div class="span left">
 					<div class="image-uploader">
 						<span>Add An <br>Image</span>

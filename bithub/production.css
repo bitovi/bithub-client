@@ -10148,6 +10148,12 @@ a.less {
 h5.twitter-title {
   margin: 0;
 }
+.post-error {
+  margin: 0 20px 15px 10px;
+}
+.post-error ul {
+  margin: 0;
+}
 /* New post ------------------------------------------------------- */
 #newpost-form-wrapper {
   position: fixed;
