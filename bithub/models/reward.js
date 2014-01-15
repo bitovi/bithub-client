@@ -11,7 +11,7 @@ steal(
 
 			return imageUrlArr.join('/');
 		}
-		
+
 		var Reward = can.Model('Bithub.Models.Reward', {
 
 			findAll : 'GET /api/rewards',
@@ -21,6 +21,9 @@ steal(
 			destroy : 'DELETE /api/rewards/{id}'
 
 		}, {
+			init : function(){
+				this.attr('imageUrlBasedOnShipping', this.imageUrl());
+			},
 			imageUrl : function(){
 				return imageFormat(this.attr('original_image_url'), '240x240');
 			},
@@ -41,7 +44,7 @@ steal(
 				// match achievements against rewards
 				_.each(self, function( reward, idx ) {
 					_.each(achievements, function( achievement ) {
-						
+
 						if( reward.attr('id') == achievement.attr('reward_id') ) {
 
 							if( achievement.attr('shipped_at') ) {
@@ -68,7 +71,7 @@ steal(
 								imageUrlBasedOnShipping : reward.imageUrl()
 							});
 						}
-						
+
 					});
 				});
 
@@ -90,14 +93,14 @@ steal(
 
 			nextRewardIdx: function( achievements ) {
 				if( !(achievements && achievements.attr('length')) ) return 0;
-				
+
 				var self = this,
 					currIdx= 0,
 					lastIdx = _.last(achievements).attr('reward_id');
 
 				_.each( self, function( reward, idx ) {
 					if( reward.attr('id') == lastIdx ) currIdx = idx;
-				});				
+				});
 
 				return (currIdx == achievements.attr('length')-1) ? currIdx : currIdx + 1;
 			}

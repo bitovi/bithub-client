@@ -5,23 +5,23 @@
 		{{#if user.isLoggedIn}}
 
 		{{^if user.isCompleted}}<div class="alert alert-danger alert-block"><p>We can't send you stuff because you haven't completed your profile! <a href="{{routes.profile}}" class="pull-right btn btn-small btn-danger">Complete Profile</a><br /></p></div>{{/if}}
-		
+
 		<p>When you reach these point levels, we'll send you this stuff. We send swag to US addresses every month and to non-US addresses every six months.</p>
-		
+
 		{{else}}
-		
+
 		<div class="btn-wrapper logged-out pull-right">
 		<button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button>
 		</div>
-		
+
 		<p>When you reach these point levels, we'll send you stuff.<br></p>
-		
+
 		{{/if}}
-		
+
 		<div class="rewards">
 
 		{{#if user.isLoggedIn}}
-		
+
 		{{#rewards}} <!-- css classes: achieved, shipping, almost -->
 		<div class="item {{status_cssClass}}" style="background-image: url({{imageUrlBasedOnShipping}})">
 			<span class="points">{{#if display_point_minimum}}{{display_point_minimum}}{{else}}{{point_minimum}}{{/if}}</span>
@@ -33,16 +33,16 @@
 		{{else}}
 
 		{{#rewards}} <!-- css classes: achieved, shipping, almost -->
-		<div class="item" style="background-image: url({{imageUrl}})">
-			<span class="points">{{#if display_point_minimum}}{{display_point_minimum}}{{else}}{{point_minimum}}{{/if}}</span>
-			<span class="title">{{title}}</span>
-		</div>
+			<div class="item" style="background-image: url({{imageUrl}})">
+				<span class="points">{{#if display_point_minimum}}{{display_point_minimum}}{{else}}{{point_minimum}}{{/if}}</span>
+				<span class="title">{{title}}</span>
+			</div>
 		{{/rewards}}
 
-		
+
 		{{/if}}
 
 		</div>
-		
+
 	</div>
 </div>
