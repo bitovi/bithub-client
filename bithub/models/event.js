@@ -47,9 +47,9 @@ steal('can',
 
 			findAll : 'GET /api/events',
 			findOne : 'GET /api/events/{id}',
-			create  : 'POST /api/events',
-			update  : 'PUT /api/events/{id}',
-			destroy : 'DELETE /api/events/{id}',
+			create  : 'POST /api/v1/events',
+			update  : 'PUT /api/v1/events/{id}',
+			destroy : 'DELETE /api/v1/events/{id}',
 
 			findGreatest : function(){
 				return this.findAll.apply(this, arguments);
