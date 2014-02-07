@@ -12,10 +12,15 @@
 	
 					<div class="title-body-wrap">
 						<h5 class="title clearfix">
-							<a href="{{eventUrl this}}">{{{v title }}}</a>
+							<a href="{{eventUrl this}}">
+								<span class="event-date-wrap">
+									{{ prettifyTs props.scheduled_at 'datetime'}}
+								</span>
+								{{{v title }}}
+							</a>
 						</h5>
 						<div class="location-time">
-							{{v props.location }} / {{ prettifyTs props.scheduled_for 'datetime'}}
+							{{v props.location }}
 						</div>
 						<div class="body">{{{v body }}}</div>
 					</div>
@@ -23,7 +28,22 @@
 					
 				</div>
 
-				{{{ renderStatusBar this }}}
+				{{{ renderStatusBar this 'RSVPs' }}}
+
+				{{#if childrenExistAndExpanded}}
+					<div class="replies row">
+						<span class="replies-caret"></span>
+						{{#sortedChildren}}
+							<div class="reply-event row rsvp-row">
+								<div class="rsvp-response rsvp-response-{{ props.response }}">{{ props.response }}</div> {{ actor }}
+								<div class="rsvp-thumb-wrap">
+									{{{ img props.origin_author_avatar_url }}}
+								</div>
+							</div>
+						{{/sortedChildren}}
+						
+					</div>
+				{{/if}}
 				
 			</div>
 

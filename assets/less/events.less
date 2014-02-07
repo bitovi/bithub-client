@@ -1,3 +1,5 @@
+@import "custom-mixins.less";
+
 #pages, .event-list-container, .event-list {
 	position: relative;
 }
@@ -936,4 +938,58 @@ h5.twitter-title {
 	ul {
 		margin: 0;
 	}
+}
+.rsvp-row {
+	line-height: 26px;
+}
+.rsvp-thumb-wrap {
+	width: 24px;
+	height: 24px;
+	float: right;
+	margin-left: 5px;
+	overflow: hidden;
+	text-align: center;
+	line-height: 22px;
+	background: #ccc;
+	border: 1px solid #999;
+	img {
+		display: inline-block;
+	}
+}
+
+.rsvp-response {
+	.border-radius(30px);
+	float: left;
+	margin-right: 10px;
+	background: #26931d;
+	width: 60px;
+	text-transform: uppercase;
+	color: white;
+	text-align: center;
+	font-size: 9px;
+	height: 16px;
+	line-height: 16px;
+	font-weight: bold;
+	margin-top: 5px;
+}
+.rsvp-response-waitlist {
+	background: #666;
+}
+.rsvp-response-no {
+	background: #a31413;
+}
+.event-date-wrap {
+	.border-radius(30px);
+	float: left;
+	margin-right: 5px;
+	background: #4995bb;
+	padding: 0 10px;
+	text-transform: uppercase;
+	color: white;
+	text-align: center;
+	font-size: 10px;
+	height: 16px;
+	line-height: 16px;
+	font-weight: bold;
+	margin-top: 1px;
 }
