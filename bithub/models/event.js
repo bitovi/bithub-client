@@ -45,8 +45,8 @@ steal('can',
 
 		var Event = can.Model('Bithub.Models.Event', {
 
-			findAll : 'GET /api/events',
-			findOne : 'GET /api/events/{id}',
+			findAll : 'GET /api/v1/events',
+			findOne : 'GET /api/v1/events/{id}',
 			create  : 'POST /api/v1/events',
 			update  : 'PUT /api/v1/events/{id}',
 			destroy : 'DELETE /api/v1/events/{id}',
@@ -62,6 +62,7 @@ steal('can',
 				// in the current category, so we resolve with the empty data set
 				if(can.isFunction(params.thread_updated_date)){
 					params.thread_updated_date = params.thread_updated_date();
+					
 					if(typeof params.thread_updated_date === 'undefined'){
 						deferred = $.Deferred();
 						success && deferred.done(success);

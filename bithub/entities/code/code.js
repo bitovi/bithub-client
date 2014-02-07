@@ -38,11 +38,11 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 						data, length;
 
 					if(type === 'push'){
-						can.each(currentEvents.attr('push_event'), function(pushEvent){
+						can.each(currentEvents.attr('push'), function(pushEvent){
 							events.push.apply(events, pushEvent.attr('children').sortByOriginTS());
 						});
 					} else {
-						events = EventModel.List.prototype.sortByOriginTS.call(opts.context.attr(type + '_event'));
+						events = EventModel.List.prototype.sortByOriginTS.call(opts.context.attr(type));
 					}
 
 					length = events.attr('length');
