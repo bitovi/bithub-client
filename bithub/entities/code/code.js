@@ -63,10 +63,12 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 				var title;
 
 				event = can.isFunction(event) ? event() : event;
-				title = event.attr('title');
-
+				
 				if(eventType === 'push'){
-					title = can.trim((event.attr('source_data.sha') || '').substring(0, 6) + ' ' + title);
+					title = event.attr('source_body');
+					title = can.trim((event.attr('props.sha') || '').substring(0, 6) + ' ' + title);
+				} else {
+					title = event.attr('title');
 				}
 
 				can.__clearReading();
