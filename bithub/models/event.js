@@ -142,19 +142,19 @@ steal('can',
 				return (new Award({event: this})).award();
 			},
 			isPush : function(){
-				return this.attr('tags').indexOf('pull_request_event') >= 0;
+				return this.attr('tags').indexOf('pull_request') >= 0;
 			},
 			isPullRequest : function(){
-				return this.attr('tags').indexOf('pull_request_event') >= 0;
+				return this.attr('tags').indexOf('pull_request') >= 0;
 			},
 			isPushOrPullReq : function(){
 				return this.isPush() || this.isPullRequest();
 			},
 			isIssue : function(){
-				return this.attr('tags').indexOf('issues_event') >= 0;
+				return this.attr('tags').indexOf('issues') >= 0;
 			},
 			isAwardable : function(){
-				return this.attr('tags').indexOf('issue_comment_event') >= 0;
+				return this.attr('tags').indexOf('issue_comment') >= 0;
 			},
 			isEvent : function(){
 				return this.attr('category') === 'event';
