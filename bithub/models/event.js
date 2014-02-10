@@ -207,8 +207,6 @@ steal('can',
 					delete data.origin_author_name;
 				}
 
-				console.log(data)
-
 				return {
 					event : data
 				};

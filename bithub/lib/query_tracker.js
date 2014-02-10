@@ -72,6 +72,16 @@ steal(
 			return datespans[span];
 		}
 
+		var filteringClean = function(params){
+			var attrs = ['tag', 'category', 'timespan', 'state'];
+			for(var i = 0; i < attrs.length; i++){
+				if(typeof params[attrs[i]] !== 'undefined'){
+					return false;
+				}
+			}
+			return true;
+		}
+
 		var filters = function() {
 			var params = {};
 
@@ -86,6 +96,10 @@ steal(
 			}
 			if(can.route.attr('state') !== 'both'){
 				params.state = can.route.attr('state');
+			}
+
+			if(filteringClean(params)){
+
 			}
 
 			return params;

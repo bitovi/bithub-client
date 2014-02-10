@@ -10,7 +10,7 @@ steal('can',
 				destroy : 'DELETE /api/v1/tags/{id}',
 
 				allowedCategoriesForNewPost: ['article', 'app', 'plugin', 'event'],
-				allowedCategoriesForExistingPost: ['article', 'app', 'plugin', 'event', 'twitter', 'bug', 'feature', 'question', 'comment'],
-				allowedProjectsForNewPost: ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui', 'document_js', 'testee']
+				allowedCategoriesForExistingPost: ['article', 'app', 'plugin', 'event', 'twitter', 'bug', 'feature', 'question', 'comment', 'document_js'],
+				allowedProjectsForNewPost: ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui', 'document_js', 'testee', 'documentjs']
 			}, {});
 		});
