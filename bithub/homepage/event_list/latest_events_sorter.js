@@ -72,7 +72,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 				type   = getType(digest);
 
 				if(type === 'follow'){
-					what = digest.attr('props.target');
+					what = digest.attr('props.target') || digest.attr('props.target_screen_name');
 				} else if(type === 'wtch'){
 					what = digest.attr('props.repo_name');
 				} else if(type === 'fork'){
