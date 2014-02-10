@@ -11,6 +11,7 @@ steal('can',
 
 				allowedCategoriesForNewPost: ['article', 'app', 'plugin', 'event'],
 				allowedCategoriesForExistingPost: ['article', 'app', 'plugin', 'event', 'twitter', 'bug', 'feature', 'question', 'comment', 'document_js'],
-				allowedProjectsForNewPost: ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui', 'document_js', 'testee', 'documentjs']
+				allowedProjectsForNewPost: ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui', 'document_js', 'testee', 'documentjs'],
+				allowedProjectsForExistingPost: ['canjs', 'jquerypp', 'donejs', 'javascriptmvc', 'funcunit', 'stealjs', 'canui', 'document_js', 'testee', 'documentjs']
 			}, {});
 		});

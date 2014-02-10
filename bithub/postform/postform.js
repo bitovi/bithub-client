@@ -47,7 +47,15 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				return categories;
 			},
 			eventProjects : function(){
-				return window.PROJECTS;
+				var projects = [],
+					method = this.attr('event').isNew() ? 'NewPost' : 'ExistingPost';
+
+				window.PROJECTS.each(function(project){
+					if(TagModel['allowedProjectsFor' + method].indexOf(project.attr('name')) > -1){
+						projects.push(project);
+					}
+				});
+				return projects;
 			},
 			currentUser : function(){
 				return window.CURRENT_USER;
