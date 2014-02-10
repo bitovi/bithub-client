@@ -39,17 +39,18 @@ steal('can',
 			'datetime',
 			'origin_author_feed',
 			'origin_author_id',
+			'origin_author_name',
 			'feed',
 			'id'
 		];
 
 		var Event = can.Model('Bithub.Models.Event', {
 
-			findAll : 'GET /api/events',
-			findOne : 'GET /api/events/{id}',
-			create  : 'POST /api/events',
-			update  : 'PUT /api/events/{id}',
-			destroy : 'DELETE /api/events/{id}',
+			findAll : 'GET /api/v1/events',
+			findOne : 'GET /api/v1/events/{id}',
+			create  : 'POST /api/v1/events',
+			update  : 'PUT /api/v1/events/{id}',
+			destroy : 'DELETE /api/v1/events/{id}',
 
 			findGreatest : function(){
 				return this.findAll.apply(this, arguments);
@@ -62,6 +63,7 @@ steal('can',
 				// in the current category, so we resolve with the empty data set
 				if(can.isFunction(params.thread_updated_date)){
 					params.thread_updated_date = params.thread_updated_date();
+					
 					if(typeof params.thread_updated_date === 'undefined'){
 						deferred = $.Deferred();
 						success && deferred.done(success);
@@ -199,6 +201,13 @@ steal('can',
 						}
 					}
 				}
+
+				if(typeof data.origin_author_id === 'undefined'){
+					delete data.origin_author_feed;
+					delete data.origin_author_name;
+				}
+
+				console.log(data)
 
 				return {
 					event : data

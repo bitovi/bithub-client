@@ -26,10 +26,10 @@ steal(
 
 		var User = can.Model.extend('Bithub.Models.User', {
 
-			findAll : 'GET  /api/users',
-			findOne : 'GET  /api/users/{id}',
+			findAll : 'GET  /api/v1/users',
+			findOne : 'GET  /api/v1/users/{id}',
 			//create  : 'POST /api/users',
-			update  : 'PUT  /api/users/{id}'
+			update  : 'PUT  /api/v1/users/{id}'
 
 		}, {
 			fromSession: function() {

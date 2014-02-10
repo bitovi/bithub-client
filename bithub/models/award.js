@@ -8,7 +8,7 @@ steal(
 
 			//findAll : 'GET /api/events',
 			//findOne : 'GET /api/events/{id}',
-			create  : 'POST /api/events/{eventId}/award'
+			create  : 'POST /api/v1/events/{eventId}/award'
 			//update  : 'PUT /api/events/{id}',
 			//destroy : 'DELETE /api/events/{id}'
 
