@@ -86,6 +86,11 @@ steal(
 				ev.preventDefault();
 				this.options.currentUser.login('twitter');
 			},
+
+			'#login-meetup-link click': function( el, ev ) {
+				ev.preventDefault();
+				this.options.currentUser.login('meetup');
+			},
 			"{window} userLinkError" : function(el, ev, msg){
 				alert(msg);
 			}
