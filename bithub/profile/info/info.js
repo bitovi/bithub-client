@@ -51,10 +51,10 @@ steal(
 
 				Country.findAll( countriesParams, function (data) {
 					countries.push.apply(countries, data);
-					self.element.find('#countryISO').val( self.options.currentUser.attr('country.iso') );
+					self.element && self.element.find('#countryISO').val( self.options.currentUser.attr('country.iso') );
 				});
 
-				return countries;	
+				return countries;
 			},
 
 			' submit': function( el, ev ) {
