@@ -30,7 +30,7 @@ namespace :deploy do
 
   desc "Put production index.html in to place"
   task :production_index do
-    run "mv /home/#{user}/#{application}/current/index.prod.html /home/#{user}/#{application}/current/index.html"
+    run "mv /home/#{user}/#{application}/current/index.production.html /home/#{user}/#{application}/current/index.html"
   end
 end
 
