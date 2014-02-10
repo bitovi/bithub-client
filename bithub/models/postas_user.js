@@ -6,13 +6,17 @@ steal(
 			findAll : 'GET /api/v1/users/{feed}',
 			model : function(data){
 				data.from = data.screen_name ? 'twitter' : 'github';
-				data.username = data.screen_name || data.username;
-				data.id = (data.from == 'github') ? parseInt(data.id.replace('user-', ''), 10) : data.id; 
+				data.username = data.screen_name || data.username || data.login;
+
 				return this._super(data);
 			}
 		}, {
 			fullName : function() {
-				return [this.username, this.name].join(' / ');
+				var fullName = [this.username];
+				if(this.name){
+					fullName.push(this.name);
+				}
+				return fullName.join(' / ');
 			},
 			profileImageUrl: function() {
 				var githubUrl = function (gravatarId) { return 'https://www.gravatar.com/avatar/' + gravatarId + '?s=48' };

@@ -39,6 +39,7 @@ steal('can',
 			'datetime',
 			'origin_author_feed',
 			'origin_author_id',
+			'origin_author_name',
 			'feed',
 			'id'
 		];
@@ -200,6 +201,13 @@ steal('can',
 						}
 					}
 				}
+
+				if(typeof data.origin_author_id === 'undefined'){
+					delete data.origin_author_feed;
+					delete data.origin_author_name;
+				}
+
+				console.log(data)
 
 				return {
 					event : data

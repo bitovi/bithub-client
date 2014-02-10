@@ -73,14 +73,14 @@ steal(
 				});
 
 				// mark next reward with 'almost' status
-				if( lastAchievedIdx < self.attr('length')-1) {
+				if( lastAchievedIdx < self.attr('length') - 1) {
 					self[lastAchievedIdx + 1].attr({
 						status_cssClass: "almost",
 						status_message: self.attr(lastAchievedIdx + 1).attr('point_minimum') - user.attr('score') + " points to go!"
 					});
 
 					// overall leader
-					if( lastAchievedIdx + 1 == self.attr('length')-1) {
+					if( lastAchievedIdx + 1 == self.attr('length') - 1) {
 						if( users.attr('length') ) {
 							self.attr((lastAchievedIdx + 1) + '.status_message', users.topUser().attr('score') - user.attr('score') + " points to go!" );
 						}
