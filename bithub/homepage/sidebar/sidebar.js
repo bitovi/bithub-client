@@ -113,7 +113,7 @@ steal(
 				}
 				
 				new Leaderboard(elem.find('#leaderboard'), opts);
-				Bithub.Models.Event.findLatest({category: 'event', limit: 3}).then(this.proxy('fillEvents'));
+				Bithub.Models.Event.findLatest({category: 'event', limit: 3, order: 'thread_updated_ts:asc'}).then(this.proxy('fillEvents'));
 			},
 			fillEvents : function(events){
 				this.meetupList.replace(events);
