@@ -99,7 +99,7 @@ steal(
 			}
 
 			if(filteringClean(params)){
-
+				params.no_type = 'event';
 			}
 
 			return params;
