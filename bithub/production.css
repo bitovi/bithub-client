@@ -9067,6 +9067,25 @@ h4.handwriting {
   border-top-color: #ffffff;
   border-bottom-color: #ffffff;
 }
+.visit-meetups li {
+  border-bottom: 1px solid #eee;
+  padding: 5px 0;
+}
+.visit-meetups li.all-meetups {
+  border-bottom: none;
+  padding: 10px 0;
+  font-weight: bold;
+}
+.visit-meetups a {
+  font-size: 110%;
+  padding-bottom: 3px;
+}
+.visit-meetups .event-date-wrap {
+  background: #eee;
+  color: #666;
+  float: left;
+  margin-top: 3px;
+}
 /* Watchers ------------------------------------------------------- */
 .digest-event-info {
   margin-bottom: 6px;

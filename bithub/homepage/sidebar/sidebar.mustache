@@ -1,7 +1,36 @@
 <div class="sidebar">
 
+	{{#if meetups.length}}
+		<div class="visit-meetups">
+			<h4>Upcoming Meetups</h4>
+			<div>
+				<ul class="unstyled">
+					{{#meetups}}
+						<li class="clearfix">
+							<a href="{{eventUrl this}}">
+								<span class="event-date-wrap">
+									{{ prettifyTs props.scheduled_at 'date'}}
+								</span>
+								<strong>
+									{{{v title }}}
+								</strong>
+							</a>
+							<br>
+							{{v props.location }}
+						</li>
+					{{/meetup}}
+					<li class="all-meetups">
+						<a href="{{ routes.meetups }}">All Meetups</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	{{/if}}
+
+
+
   {{#if user.loggedInDelayed}} 
-  <div class="scorings logged-in">
+  <div clss="scorings logged-in">
 	<h4>Earn More Points</h4>
 	<div  class="well">
 	  <ul>

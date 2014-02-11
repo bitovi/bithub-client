@@ -40,6 +40,8 @@ steal(
 					rewards = this.options.rewards,
 					user = this.options.currentUser;
 
+				this.meetupList = new can.List;
+
 				Reward.findAll({order: 'point_minimum'}, function( data ) {
 					var filtered = _.filter(data, function( reward ) {
 						if (!reward.disabled_ts) return reward;
@@ -52,9 +54,11 @@ steal(
 					user: user,
 					rewards: rewards,
 					accomplishments: accomplishments,
+					meetups : this.meetupList,
 					routes: {
 						earnpoints: can.route.url({page: 'earnpoints'}, false),
-						rewards: can.route.url({page: 'rewards'}, false)
+						rewards: can.route.url({page: 'rewards'}, false),
+						meetups : can.route.url({category: 'event'}, true)
 					}
 				}, {
 					helpers: {
@@ -109,8 +113,11 @@ steal(
 				}
 				
 				new Leaderboard(elem.find('#leaderboard'), opts);
+				Bithub.Models.Event.findLatest({category: 'event', limit: 3}).then(this.proxy('fillEvents'));
 			},
-
+			fillEvents : function(events){
+				this.meetupList.replace(events);
+			},
 			'{currentUser} authStatus' : function() {
 				if( this.options.currentUser.loggedIn() ) {
 					this.onLogin();
