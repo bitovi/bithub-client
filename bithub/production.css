@@ -9067,6 +9067,9 @@ h4.handwriting {
   border-top-color: #ffffff;
   border-bottom-color: #ffffff;
 }
+.visit-meetups {
+  margin-top: 25px;
+}
 .visit-meetups li {
   border-bottom: 1px solid #eee;
   padding: 5px 0;

@@ -1,34 +1,5 @@
 <div class="sidebar">
 
-	{{#if meetups.length}}
-		<div class="visit-meetups">
-			<h4>Upcoming Events</h4>
-			<div>
-				<ul class="unstyled">
-					{{#meetups}}
-						<li class="clearfix">
-							<a href="{{url}}">
-								<span class="event-date-wrap">
-									{{ prettifyTs props.scheduled_at 'date'}}
-								</span>
-								<strong>
-									{{{v title }}}
-								</strong>
-							</a>
-							<br>
-							{{v props.location }}
-						</li>
-					{{/meetup}}
-					<li class="all-meetups">
-						<a href="{{ routes.meetups }}">All events</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	{{/if}}
-
-
-
   {{#if user.loggedInDelayed}} 
   <div clss="scorings logged-in">
 	<h4>Earn More Points</h4>
@@ -96,4 +67,31 @@
   {{/if}}
 
   <div id="leaderboard" class="leaderboard logged-out logged-in"></div>
+
+  {{#if meetups.length}}
+		<div class="visit-meetups">
+			<h4>Upcoming Events</h4>
+			<div>
+				<ul class="unstyled">
+					{{#meetups}}
+						<li class="clearfix">
+							<a href="{{url}}">
+								<span class="event-date-wrap">
+									{{ prettifyTs props.scheduled_at 'date'}}
+								</span>
+								<strong>
+									{{{v title }}}
+								</strong>
+							</a>
+							<br>
+							{{v props.location }}
+						</li>
+					{{/meetup}}
+					<li class="all-meetups">
+						<a href="{{ routes.meetups }}">All events &raquo;</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	{{/if}}
 </div>
