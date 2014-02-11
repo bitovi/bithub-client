@@ -104,7 +104,14 @@ steal('can',
 						eventsParams.author_id = this.options.currentUser.attr('id');
 
 						_.each(_.keys(events), function(category) {
-							Bithub.Models.Event.findAll(can.extend({category: category}, eventsParams), function( data ) {
+							var params = can.extend({category: category}, eventsParams);
+
+							if(category === 'event'){
+								params.order     = 'thread_updated_ts:asc';
+								params.in_future = true;
+							}
+
+							Bithub.Models.Event.findAll(params, function( data ) {
 								events[category].replace( data );
 								loaded( loaded()-1 );
 							});
@@ -144,6 +151,11 @@ steal('can',
 					'#connect-twitter-link click': function( el, ev ) {
 						ev.preventDefault();
 						this.options.currentUser.login('twitter');
+					},
+
+					'#connect-meetup-link click': function( el, ev ) {
+						ev.preventDefault();
+						this.options.currentUser.login('meetup');
 					},
 
 					'#submit-article-link click': function( el, ev ) {

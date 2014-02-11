@@ -26,6 +26,12 @@
 		<p><a href="javascript://" id="connect-github-link">Connect your GitHub account</a></p>
 		{{/hasProvider}}
 
+		{{#hasProvider 'meetup'}}
+		<p class="complete"><i class="icon-check"></i> Connect your Meetup account</p>
+		{{else}}
+		<p><a href="javascript://" id="connect-meetup-link">Connect your Meetup account</a></p>
+		{{/hasProvider}}
+
 		{{#if user.isCompleted}}
 		<p class="complete"><i class="icon-check"></i> Complete your profile</p>
 		{{else}}
@@ -118,7 +124,7 @@
 
 		<ul class="toprated unstyled clearfix">
 		{{#events.app}}
-		<li><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
+		<li class="clearfix"><span class="points">{{upvotes}}</span> <a href="{{eventDetailsUrl}}">{{stripHtml title}}</a></li>
 		{{/events.app}}
 		</ul>
 	</div>

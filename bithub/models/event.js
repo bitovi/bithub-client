@@ -187,7 +187,8 @@ steal('can',
 				var data = this._super.apply(this, arguments);
 
 				if(typeof data.datetime !== 'string'){
-					data.datetime = moment(data.datetime).format('YYYY-MM-DDTHH:mm');
+					data.scheduled_at = moment(data.datetime).format('YYYY-MM-DDTHH:mm');
+					delete moment(data.datetime).utc().format();
 				}
 				if(typeof data.feed === 'undefined'){
 					data.feed = 'bithub';
