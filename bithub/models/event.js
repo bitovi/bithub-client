@@ -39,17 +39,18 @@ steal('can',
 			'datetime',
 			'origin_author_feed',
 			'origin_author_id',
+			'origin_author_name',
 			'feed',
 			'id'
 		];
 
 		var Event = can.Model('Bithub.Models.Event', {
 
-			findAll : 'GET /api/events',
-			findOne : 'GET /api/events/{id}',
-			create  : 'POST /api/events',
-			update  : 'PUT /api/events/{id}',
-			destroy : 'DELETE /api/events/{id}',
+			findAll : 'GET /api/v1/events',
+			findOne : 'GET /api/v1/events/{id}',
+			create  : 'POST /api/v1/events',
+			update  : 'PUT /api/v1/events/{id}',
+			destroy : 'DELETE /api/v1/events/{id}',
 
 			findGreatest : function(){
 				return this.findAll.apply(this, arguments);
@@ -62,6 +63,7 @@ steal('can',
 				// in the current category, so we resolve with the empty data set
 				if(can.isFunction(params.thread_updated_date)){
 					params.thread_updated_date = params.thread_updated_date();
+					
 					if(typeof params.thread_updated_date === 'undefined'){
 						deferred = $.Deferred();
 						success && deferred.done(success);
@@ -140,19 +142,19 @@ steal('can',
 				return (new Award({event: this})).award();
 			},
 			isPush : function(){
-				return this.attr('tags').indexOf('pull_request_event') >= 0;
+				return this.attr('tags').indexOf('pull_request') >= 0;
 			},
 			isPullRequest : function(){
-				return this.attr('tags').indexOf('pull_request_event') >= 0;
+				return this.attr('tags').indexOf('pull_request') >= 0;
 			},
 			isPushOrPullReq : function(){
 				return this.isPush() || this.isPullRequest();
 			},
 			isIssue : function(){
-				return this.attr('tags').indexOf('issues_event') >= 0;
+				return this.attr('tags').indexOf('issues') >= 0;
 			},
 			isAwardable : function(){
-				return this.attr('tags').indexOf('issue_comment_event') >= 0;
+				return this.attr('tags').indexOf('issue_comment') >= 0;
 			},
 			isEvent : function(){
 				return this.attr('category') === 'event';
@@ -185,7 +187,8 @@ steal('can',
 				var data = this._super.apply(this, arguments);
 
 				if(typeof data.datetime !== 'string'){
-					data.datetime = moment(data.datetime).format('YYYY-MM-DDTHH:mm');
+					data.scheduled_at = moment(data.datetime).format('YYYY-MM-DDTHH:mm');
+					delete moment(data.datetime).utc().format();
 				}
 				if(typeof data.feed === 'undefined'){
 					data.feed = 'bithub';
@@ -198,6 +201,11 @@ steal('can',
 							delete data[k];
 						}
 					}
+				}
+
+				if(typeof data.origin_author_id === 'undefined'){
+					delete data.origin_author_feed;
+					delete data.origin_author_name;
 				}
 
 				return {

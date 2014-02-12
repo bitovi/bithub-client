@@ -38,6 +38,13 @@ steal(
 				user.login('twitter');
 			},
 
+			'#login-meetup-link click': function( el, ev ) {				
+				ev.preventDefault();
+				
+				var user = this.options.currentUser;
+				user.login('meetup');
+			},
+
 			'#show-newpost-form-btn click': function( el, ev ) {
 				this.options.newpostVisibility( !this.options.newpostVisibility() );
 			},

@@ -8,7 +8,8 @@ steal(
 
 		var providers = {
 			twitter: { url: '/api/auth/twitter' },
-			github: { url: '/api/auth/github' }
+			github: { url: '/api/auth/github' },
+			meetup: { url: '/api/auth/meetup' }
 		};
 
 		var bindLoggedInState = function(ev, attr, how, newVal, oldVal) {
@@ -26,10 +27,10 @@ steal(
 
 		var User = can.Model.extend('Bithub.Models.User', {
 
-			findAll : 'GET  /api/users',
-			findOne : 'GET  /api/users/{id}',
+			findAll : 'GET  /api/v1/users',
+			findOne : 'GET  /api/v1/users/{id}',
 			//create  : 'POST /api/users',
-			update  : 'PUT  /api/users/{id}'
+			update  : 'PUT  /api/v1/users/{id}'
 
 		}, {
 			fromSession: function() {
@@ -67,7 +68,7 @@ steal(
 					return this.attr('authStatus') == 'loggedIn';
 
 					// check providers
-				} else if( ['twitter','github'].indexOf(val) >= 0 ) {
+				} else if( ['twitter','github','meetup'].indexOf(val) >= 0 ) {
 					this.login(val);
 				} else if( val == false ) {
 					this.logout();

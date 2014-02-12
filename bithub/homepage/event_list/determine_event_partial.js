@@ -2,13 +2,13 @@ steal(function(){
 
 	var eventPartialsLookup = [{
 		template: 'bh-push',
-		tags: ['push_event']
+		tags: ['push']
 	}, {
 		template: 'bh-issue',
 		tags: ['bug', 'feature']
 	}, {
 		template: 'bh-twitter',
-		tags: ['status_event']
+		tags: ['tweet']
 	}, {
 		template: 'bh-event',
 		tags: ['event']

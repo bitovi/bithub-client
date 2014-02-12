@@ -6,8 +6,8 @@ steal(
 	function (can, Model) {
 		return Model('Bithub.Models.Upvote', {
 			
-			update : 'POST /api/events/{eventId}/upvote',
-			destroy : 'DELETE /api/events/{eventId}/upvote'
+			update : 'POST /api/v1/events/{eventId}/upvote',
+			destroy : 'DELETE /api/v1/events/{eventId}/upvote'
 
 		}, {
 

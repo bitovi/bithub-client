@@ -6,14 +6,14 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 		var tags = digest.attr('tags'), type;
 		for(var i = 0; i < types.length; i++){
 			type = types[i];
-			if(can.inArray(type + '_event', tags) > -1){
+			if(can.inArray(type, tags) > -1){
 				return type === 'watch' ? 'wtch' : type; // watch breaks in Firefox because of https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/watch
 			}
 		}
 	};
 
 	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter'];
-	var allowedDigest = ['follow_event','watch_event','fork_event']
+	var allowedDigest = ['follow','watch','fork']
 
 	return can.Map({
 		hasEvents : false,
@@ -26,8 +26,8 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 
 			if(!events.attr('length')) return;
 
-			startDate = moment(events[0].attr('thread_updated_at')).format('YYYY-MM-DD');
-			stopDate = moment(events[events.length-1].attr('thread_updated_at')).format('YYYY-MM-DD');
+			startDate = moment(events[0].attr('thread_updated_ts')).format('YYYY-MM-DD');
+			stopDate = moment(events[events.length-1].attr('thread_updated_ts')).format('YYYY-MM-DD');
 
 			this.attr({date: startDate, stopDate: (stopDate == startDate) ? undefined : stopDate });
 			
@@ -72,7 +72,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 				type   = getType(digest);
 
 				if(type === 'follow'){
-					what = digest.attr('props.target');
+					what = digest.attr('props.target') || digest.attr('props.target_screen_name');
 				} else if(type === 'wtch'){
 					what = digest.attr('props.repo_name');
 				} else if(type === 'fork'){
@@ -95,7 +95,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 
 			var events = this.attr('types.code'),
 				length  = events.attr('length'),
-				types = ['push_event', 'create_event', 'pull_request_event'],
+				types = ['push', 'create', 'pull_request'],
 				grouped = {},
 				event, author, type, title, repo;
 			
@@ -108,14 +108,14 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 					return _.contains(types, tag);
 				});
 
-				// this check can be removed once all existing push_event/commits are grouped in db
+				// this check can be removed once all existing pushes/commits are grouped in db
 				if( !type ){
 					this.attr('hasEvents', (this.attr('hasEvents') || 1) - 1);
 					continue;
 				}
 
 				// ignore push events without commits
-				if( type == 'push_event' && event.attr('children').length == 0 ){
+				if( type == 'push' && event.attr('children').length == 0 ){
 					this.attr('hasEvents', (this.attr('hasEvents') || 1) - 1);
 					continue;
 				}
@@ -125,10 +125,10 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 				}
 				if( !grouped[repo][author] ) {
 					grouped[repo][author] = {
-						push_event: [], // grouped by title
-						create_event: [],
-						pull_request_event: [],
-						delete_event: [],
+						push: [], // grouped by title
+						create: [],
+						pull_request: [],
+						delete: [],
 						authorName: event.attr('author.name') || event.attr('actor') || author,
 						tags: events[i].attr('tags').serialize()
 					}

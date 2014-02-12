@@ -27,7 +27,7 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 		scope : EntityState.extend({
 			inited : true
 		}),
-		helpers : can.extend({
+		helpers : can.extend(sharedHelpers, {
 			groupedEvents : function(repo, opts){
 				var order         = ['push', 'pull_request', 'create'],
 					currentEvents = opts.context,
@@ -38,11 +38,11 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 						data, length;
 
 					if(type === 'push'){
-						can.each(currentEvents.attr('push_event'), function(pushEvent){
+						can.each(currentEvents.attr('push'), function(pushEvent){
 							events.push.apply(events, pushEvent.attr('children').sortByOriginTS());
 						});
 					} else {
-						events = EventModel.List.prototype.sortByOriginTS.call(opts.context.attr(type + '_event'));
+						events = EventModel.List.prototype.sortByOriginTS.call(opts.context.attr(type));
 					}
 
 					length = events.attr('length');
@@ -63,10 +63,12 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 				var title;
 
 				event = can.isFunction(event) ? event() : event;
-				title = event.attr('title');
-
+				
 				if(eventType === 'push'){
-					title = can.trim((event.attr('source_data.sha') || '').substring(0, 6) + ' ' + title);
+					title = event.attr('source_body');
+					title = can.trim((event.attr('props.sha') || '').substring(0, 6) + ' ' + title);
+				} else {
+					title = event.attr('title');
 				}
 
 				can.__clearReading();
@@ -76,7 +78,7 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 			eventUrl : function(event, eventType){
 				var url = 'https://github.com/';
 				if(eventType === 'push'){
-					url += event.attr('source_data.repo.name') + '/' + 'commit/' + event.attr('source_data.sha');
+					url += event.attr('props.repo_name') + '/' + 'commit/' + event.attr('props.sha');
 				} else if(eventType === 'create'){
 					// TODO: we need a better way to do this
 					url += event.attr('title').substr(24).replace(': ', '/tree/');
@@ -88,6 +90,6 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 
 				return url;
 			}
-		}, sharedHelpers)
+		})
 	})
 })

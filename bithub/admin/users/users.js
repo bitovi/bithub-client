@@ -47,8 +47,10 @@ steal(
 			},
 			
 			'{can.route} offset': function(j, d, newVal, oldVal) {
-				paginator.updateOffset(newVal);
-				this.loadList();
+				if(newVal){
+					paginator.updateOffset(newVal);
+					this.loadList();
+				}
 			},
 
 			'{can.route} action': function (route, ev, newVal, oldVal) {
