@@ -10,7 +10,7 @@ steal(
 		var defaultState = {
 			homepage: {
 				latest: {
-					order: 'thread_updated_at:desc',
+					order: 'thread_updated_ts:desc',
 					thread_updated_date: moment().format('YYYY-MM-DD'),
 					exclude: 'source_data',
 					offset: 0,
@@ -39,7 +39,7 @@ steal(
 			eventdetails: {}
 		};
 
-		
+
 		/*
 		 * HELPER FUNCTIONS
 		 */
@@ -50,19 +50,19 @@ steal(
 
 			for( var i=0; i<path.length; i++ ) {
 				if( obj[path[i]] == undefined ) {
-					return undefined;				
+					return undefined;
 				} else  {
 					obj = obj[path[i]];
 				}
 			}
-			
+
 			return obj;
 		}
-		
+
 		// calculates day/week/month date spans
 		var dateSpan = function( span ) {
 			var	format = 'YYYY-MM-DD';
-			
+
 			var datespans = {
 				day: moment().format(format),
 				week: moment().subtract('days', 7).format(format) + ":" + moment().format(format),
@@ -72,9 +72,19 @@ steal(
 			return datespans[span];
 		}
 
+		var filteringClean = function(params){
+			var attrs = ['tag', 'category', 'timespan', 'state'];
+			for(var i = 0; i < attrs.length; i++){
+				if(typeof params[attrs[i]] !== 'undefined'){
+					return false;
+				}
+			}
+			return true;
+		}
+
 		var filters = function() {
 			var params = {};
-			
+
 			if(can.route.attr('project') !== 'all'){
 				params.tag = can.route.attr('project');
 			}
@@ -86,6 +96,10 @@ steal(
 			}
 			if(can.route.attr('state') !== 'both'){
 				params.state = can.route.attr('state');
+			}
+
+			if(filteringClean(params)){
+				params.without_future = true;
 			}
 
 			return params;
@@ -101,20 +115,20 @@ steal(
 			var greatest = this.state.homepage.greatest;
 			this.state.attr('homepage.greatest.offset', greatest.offset + greatest.limit);
 		}
-		
+
 		/*
 		 * CONSTRUCTOR
 		 */
 
 		return can.Construct.extend({
-			
+
 			init: function( opts, cb ) {
 				var self = this;
 
 				defaultState.homepage.latest.thread_updated_date = function() {
 					return self.paginator.current();
 				};
-				
+
 				this.state = new can.Observe( defaultState );
 				this.paginator = new Paginator(cb);
 

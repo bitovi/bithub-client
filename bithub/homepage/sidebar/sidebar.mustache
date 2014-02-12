@@ -1,7 +1,7 @@
 <div class="sidebar">
 
   {{#if user.loggedInDelayed}} 
-  <div class="scorings logged-in">
+  <div clss="scorings logged-in">
 	<h4>Earn More Points</h4>
 	<div  class="well">
 	  <ul>
@@ -21,7 +21,7 @@
 	  </ul>
 
 	  <p>
-		Get points and votes for content you post, bug fixes, and sharing your apps or plugins. <a href="{{routes.earnpoints}}">Details &raquo;</a>
+		Get points and votes for content you post, bug fixes, for sharing your apps or plugins and for attending events. <a href="{{routes.earnpoints}}">Details &raquo;</a>
 	  </p>
 	</div>
   </div>
@@ -67,4 +67,31 @@
   {{/if}}
 
   <div id="leaderboard" class="leaderboard logged-out logged-in"></div>
+
+  {{#if meetups.length}}
+		<div class="visit-meetups">
+			<h4>Upcoming Events</h4>
+			<div>
+				<ul class="unstyled">
+					{{#meetups}}
+						<li class="clearfix">
+							<a href="{{url}}">
+								<span class="event-date-wrap">
+									{{ prettifyTs props.scheduled_at 'date'}}
+								</span>
+								<strong>
+									{{{v title }}}
+								</strong>
+							</a>
+							<br>
+							{{v props.location }}
+						</li>
+					{{/meetup}}
+					<li class="all-meetups">
+						<a href="{{ routes.meetups }}">All events &raquo;</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	{{/if}}
 </div>

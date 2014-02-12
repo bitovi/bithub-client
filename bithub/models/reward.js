@@ -14,11 +14,11 @@ steal(
 
 		var Reward = can.Model('Bithub.Models.Reward', {
 
-			findAll : 'GET /api/rewards',
-			findOne : 'GET /api/rewards/{id}',
-			create  : 'POST /api/rewards',
-			update  : 'PUT /api/rewards/{id}',
-			destroy : 'DELETE /api/rewards/{id}'
+			findAll : 'GET /api/v1/rewards',
+			findOne : 'GET /api/v1/rewards/{id}',
+			create  : 'POST /api/v1/rewards',
+			update  : 'PUT /api/v1/rewards/{id}',
+			destroy : 'DELETE /api/v1/rewards/{id}'
 
 		}, {
 			init : function(){
@@ -76,14 +76,14 @@ steal(
 				});
 
 				// mark next reward with 'almost' status
-				if( lastAchievedIdx < self.attr('length')-1) {
+				if( lastAchievedIdx < self.attr('length') - 1) {
 					self[lastAchievedIdx + 1].attr({
 						status_cssClass: "almost",
 						status_message: self.attr(lastAchievedIdx + 1).attr('point_minimum') - user.attr('score') + " points to go!"
 					});
 
 					// overall leader
-					if( lastAchievedIdx + 1 == self.attr('length')-1) {
+					if( lastAchievedIdx + 1 == self.attr('length') - 1) {
 						if( users.attr('length') ) {
 							self.attr((lastAchievedIdx + 1) + '.status_message', users.topUser().attr('score') - user.attr('score') + " points to go!" );
 						}

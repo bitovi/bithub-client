@@ -1,6 +1,7 @@
 steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
 	can.Mustache.registerHelper('prettifyTs', function( ts, format, opts ) {
+		var formatWith;
 
 		ts     = moment(can.isFunction(ts) ? ts() : ts);
 		format = can.isFunction(format) ? format() : format;
@@ -37,21 +38,24 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 		// calculate diff from date
 		var diff = moment().second(0).minute(0).hour(0).diff( moment(ts).second(0).minute(0).hour(0), 'days', true );
 
-		if (diff < 1) {
-			format = formats[format].today;
+
+		if(diff < 0){
+			formatWith = formats[format]._default;
+		} else if (diff < 1) {
+			formatWith = formats[format].today;
 		} else if (diff < 2) {
-			format = formats[format].yesterday;
+			formatWith = formats[format].yesterday;
 		} else if (diff < 7) {
-			format = formats[format].thisweek;
+			formatWith = formats[format].thisweek;
 		} else if (diff < 14) {
-			format = formats[format].lastweek;
+			formatWith = formats[format].lastweek;
 		} else {
-			format = formats[format]._default;
+			formatWith = formats[format]._default;
 		}
 
 		can.__clearReading();
 
-		return ts.local().format(format);
+		return ts.local().format(formatWith);
 	});
 	
 	can.Mustache.registerHelper('loop', function( collection, opts ) {

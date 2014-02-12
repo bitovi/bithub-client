@@ -47,11 +47,19 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 
 	return {
 		renderEventTags: renderEventTags,
-		renderStatusBar : function(event, opts){
-			var scope = opts.scope;
+		renderStatusBar : function(event, label, opts){
+			var scope;
+
+			if(arguments.length === 2){
+				opts  = label;
+				label = 'Earlier';
+			}
+
+			scope = opts.scope;
 
 			return statusBarView.render(scope.add({
-				event : event
+				event : event,
+				label : label
 			}), {
 				renderEventTags : $.proxy(renderEventTags, scope)
 			});

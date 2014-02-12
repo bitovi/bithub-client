@@ -22,7 +22,7 @@
 	height: 20px;
 	padding-right: 35px;
 }
-.login-twitter, .login-github, .login-google, 
+.login-twitter, .login-github, .login-google, .login-meetup,
 .login-profile, .login-points, .login-logout, .login-admin,
 .login-rewards, .login-activity {
 	.icon-font;
@@ -52,6 +52,15 @@
 .login-github:before {
 	content: "\e027"; 
 	color: @black;
+}
+.login-meetup:before {
+	background: url(/assets/images/meetup.png);
+	background-size: 16px 16px;
+	position: relative;
+	top: 2px;
+	content: "";
+	width: 16px;
+	height: 16px;
 }
 .login-google:before {
 	content: "\e031";

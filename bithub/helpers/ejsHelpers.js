@@ -70,7 +70,7 @@ steal('can', 'can/map/sort', 'vendor/moment', 'can/view/ejs').then(function() {
 		},
 
 		sortChildren: function(collection, attribute, direction) {
-			var dateAttributes = ['origin_ts', 'origin_date', 'thread_updated_at', 'thread_updated_date'],
+			var dateAttributes = ['origin_ts', 'origin_date', 'thread_updated_ts', 'thread_updated_date'],
 			numericAttributes = ['points'],
 			isSmaller = (direction === 'asc') ? -1 : 1,
 			isLarger = (direction === 'asc') ? 1 : -1;

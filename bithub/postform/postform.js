@@ -6,6 +6,9 @@ steal(
 'bithub/models/postas_user.js',
 'vendor/fileupload',
 function(Component, postformView, EventModel, TagModel, PostAsUserModel){
+
+	var users;
+
 	return Component.extend({
 		tag : 'bh-postform',
 		template : postformView,
@@ -44,7 +47,15 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				return categories;
 			},
 			eventProjects : function(){
-				return window.PROJECTS;
+				var projects = [],
+					method = this.attr('event').isNew() ? 'NewPost' : 'ExistingPost';
+
+				window.PROJECTS.each(function(project){
+					if(TagModel['allowedProjectsFor' + method].indexOf(project.attr('name')) > -1){
+						projects.push(project);
+					}
+				});
+				return projects;
 			},
 			currentUser : function(){
 				return window.CURRENT_USER;
@@ -86,10 +97,10 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				var event = this.attr('event');
 
 				if(event.isNew()){
-					return "/api/events";
+					return "/api/v1/events";
 				}
 
-				return can.sub("/api/events/{id}", event);
+				return can.sub("/api/v1/events/{id}", event);
 			},
 			removeTag : function(tag, el, ev){
 				var tags = this.attr('event.tags'),
@@ -151,10 +162,11 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 							clearTimeout(this.timeout);
 							this.timeout = setTimeout(function () {
 								PostAsUserModel.findAll({user : query, feed: feed}).then(function(list){
+									var results;
 									users = list;
 									process(can.map(list, function(user){
 										return user.fullName();
-									}))
+									}));
 								});
 							}, 200);
 
@@ -170,6 +182,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 
 							self.attr('event.origin_author_id', selectedUser.id);
 							self.attr('event.origin_author_feed', selectedUser.from);
+							self.attr('event.origin_author_name', selectedUser.fullName());
 
 							self.attr('postAsAvatar', selectedUser.profileImageUrl());
 
@@ -332,6 +345,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			},
 			eventErrored : function(req){
 				var errorJSON = JSON.parse(req.responseText || "{}");
+				console.log(errorJSON)
 				this.scope.attr('serverError', errorJSON.errors || null);
 				this.scope.attr('isLoading', false);
 			}

@@ -27,6 +27,13 @@ namespace :deploy do
   task :symlink_uploads do
     run "ln -nfs /home/bithub/web/shared/uploads #{current_path}/uploads"
   end
+
+  desc "Put production index.html in to place"
+  task :production_index do
+    run "mv /home/#{user}/#{application}/current/index.production.html /home/#{user}/#{application}/current/index.html"
+  end
 end
 
+
 after 'deploy:create_symlink', 'deploy:symlink_uploads'
+after 'deploy:symlink_uploads', 'deploy:production_index'

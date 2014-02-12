@@ -23,7 +23,7 @@ steal(
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
 		// used for ordering categories on latest view
-		var latestCategories = ['twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'event'];
+		var latestCategories = ['event', 'twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app'];
 		
 		var __templatesCache = {};
 
@@ -333,6 +333,7 @@ steal(
 				// current block
 				append = (function(counter){
 					return function(){
+						if(!self.element) return;
 						if(counter === self.__updateCounter){
 							self.element.find((isLatest() ? '.greatest' : '.latest') + '-group').remove();
 							self.element.find('.events-list-wrapper').append(content);
