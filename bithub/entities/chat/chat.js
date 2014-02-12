@@ -14,7 +14,7 @@ function(Component, chatView, EntityState, sharedHelpers){
 			showMessages : function(){
 				return this.attr('expandedMessages') || can.route.attr('category') === 'chat';
 			},
-			reversedMessages : function(){
+			sortedMessages : function(){
 				return this.attr('messages').reverse();
 			},
 			toggleMessages : function(){

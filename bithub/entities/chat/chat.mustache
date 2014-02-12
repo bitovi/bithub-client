@@ -9,7 +9,7 @@
 
 	<div class="chat-messages">
 
-		{{#reversedMessages}}
+		{{#sortedMessages}}
 			{{#unless canBeCollapsed}}
 				{{#showDateHeader}}
 					<h3 class="section-title"><i class="icon-calendar"></i>Chat Messages for {{ prettifyTs date 'date' }}</h3>
@@ -20,7 +20,7 @@
 				<div class="time">{{ prettifyTs origin_ts 'time' }}</div>
 				<strong class="actor">{{ actor }}</strong> {{ title }}
 			</div>
-		{{/reversedMessages}}
+		{{/sortedMessages}}
 
 	</div>
 
