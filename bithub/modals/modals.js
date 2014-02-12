@@ -36,6 +36,12 @@ steal('can',
 					  this.options.currentUser.login('github');
 				  },
 
+				  '#login-modal .providers .meetup a click': function( el, ev ) {
+					  ev.preventDefault();
+					  el.closest('.modal').modal('hide');
+					  this.options.currentUser.login('meetup');
+				  },
+
 				  showLogin: function () {
 					  this.element.find('#login-modal').modal('show');
 				  },

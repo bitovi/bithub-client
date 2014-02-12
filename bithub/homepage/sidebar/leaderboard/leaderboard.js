@@ -13,7 +13,7 @@ steal(
 		});
 
 		var breakAt = can.compute( function() {
-			return (rank() > 7) ? rank()-1 : 0;
+			return (rank() > 7) ? rank() -1 : 0;
 		});
 
 		var topLength = can.compute( function() {
