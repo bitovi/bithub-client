@@ -58,6 +58,7 @@ steal(
 			var datespans = [],
 				startDate, stopDate,
 				height, currentHeight = 0,
+				span = [],
 				i,j;
 
 			for(i = 0; i < days.length; i++) {
@@ -73,7 +74,13 @@ steal(
 
 				if( (currentHeight + height) >= threshold || i === days.length - 1) {
 
-					startDate === stopDate ? datespans.push( startDate) : datespans.push( stopDate + ':' + startDate);
+					span = [startDate]
+
+					if(startDate !== stopDate){
+						span.push(stopDate)
+					}
+
+					datespans.push(span.sort().join(':'));
 
 					startDate     = null; 
 					stopDate      = null; 
@@ -108,6 +115,11 @@ steal(
 
 			getDateSpans: function( params, cb, opts ) {
 				opts = opts || {};
+
+				if(params.tags && params.tags.length === 1 && params.tags[0] === 'event'){
+					params.only_future = true;
+					params.order = 'asc';
+				}
 				
 				this.findAll( can.extend({}, defaultParams, params), function( data ) {
 					cb( datespanBuilder( data.attr(), opts ) );

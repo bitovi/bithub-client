@@ -27,7 +27,7 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 		scope : EntityState.extend({
 			inited : true
 		}),
-		helpers : can.extend({
+		helpers : can.extend(sharedHelpers, {
 			groupedEvents : function(repo, opts){
 				var order         = ['push', 'pull_request', 'create'],
 					currentEvents = opts.context,
@@ -78,7 +78,7 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 			eventUrl : function(event, eventType){
 				var url = 'https://github.com/';
 				if(eventType === 'push'){
-					url += event.attr('source_data.repo.name') + '/' + 'commit/' + event.attr('source_data.sha');
+					url += event.attr('props.repo_name') + '/' + 'commit/' + event.attr('props.sha');
 				} else if(eventType === 'create'){
 					// TODO: we need a better way to do this
 					url += event.attr('title').substr(24).replace(': ', '/tree/');
@@ -90,6 +90,6 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 
 				return url;
 			}
-		}, sharedHelpers)
+		})
 	})
 })

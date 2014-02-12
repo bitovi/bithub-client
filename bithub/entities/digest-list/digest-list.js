@@ -70,6 +70,8 @@ function(Component, digestListView, EntityState){
 				var digest = can.isFunction(digestFn) ? digestFn() : digestFn,
 					author = digest.attr('props.origin_author_name');
 
+				type = can.isFunction(type) ? type() : type;
+
 				can.__clearReading();
 				
 				return digestDict.actorUrl[type] + author;
