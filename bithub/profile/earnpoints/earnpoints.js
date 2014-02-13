@@ -180,8 +180,10 @@ steal('can',
 						ev.preventDefault();
 						can.route.attr('newpost_c', 'event');
 						this.options.newpostVisibility( true );
+					},
+					"{window} userLinkError" : function(el, ev, msg){
+						alert(msg);
 					}
-					
 
 				});
 		});

@@ -10952,3 +10952,18 @@ h5.twitter-title {
   padding: 0;
   float: right;
 }
+#oauth-wrap {
+  margin: 85px 20px 0;
+}
+#oauth-wrap form .btn {
+  float: right;
+}
+#oauth-wrap form .btn-signup {
+  width: auto;
+  float: right;
+  margin: 0;
+  padding: 4px 12px;
+}
+#oauth-wrap form .btn-link {
+  color: #f30;
+}
