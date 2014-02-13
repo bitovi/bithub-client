@@ -10955,15 +10955,18 @@ h5.twitter-title {
 #oauth-wrap {
   margin: 85px 20px 0;
 }
-#oauth-wrap form .btn {
+#oauth-wrap .btn {
   float: right;
 }
-#oauth-wrap form .btn-signup {
+#oauth-wrap .btn-signup {
   width: auto;
   float: right;
   margin: 0;
   padding: 4px 12px;
 }
-#oauth-wrap form .btn-link {
+#oauth-wrap .btn-link {
   color: #f30;
+}
+#oauth-wrap .cannot-merge {
+  margin-bottom: 20px;
 }
