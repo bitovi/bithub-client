@@ -182,6 +182,27 @@ steal(
 					self.attr('activities', self.attr('activities') || []);
 					self.attr('activities').replace(activities);
 				}) 
+			},
+			avatarUrl : function(){
+				var defaultAvatar = '/assets/images/icon-user.png',
+					currentAvatar = this.attr('avatar_url'),
+					identities, sourceData;
+				if(currentAvatar === defaultAvatar){
+					identities = this.attr('identities');
+					for(var i = 0; i < identities.length; i++){
+						sourceData = identities[i].source_data;
+						currentAvatar = (
+							sourceData.image || 
+							sourceData.avatar_url ||
+							sourceData.profile_image_url ||
+							defaultAvatar
+						)
+						if(currentAvatar !== defaultAvatar){
+							return currentAvatar;
+						}
+					}
+				}
+				return currentAvatar;
 			}
 
 		});
