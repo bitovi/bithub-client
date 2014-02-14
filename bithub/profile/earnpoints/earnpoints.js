@@ -3,19 +3,19 @@ steal('can',
 		'bithub/homepage/sidebar/leaderboard',
 		function(can, initView, Leaderboard){
 
-			var watched = new can.Observe.List(),
-				starred = new can.Observe.List(),
+			var watched = new can.List(),
+				starred = new can.List(),
 				events = {
-					twitter: new can.Observe.List(),
-					bug: new can.Observe.List(),
-					feature: new can.Observe.List(),
-					code: new can.Observe.List(),
-					article: new can.Observe.List(),
-					app: new can.Observe.List(),
-					plugin: new can.Observe.List(),
-					event: new can.Observe.List()
+					twitter: new can.List(),
+					bug: new can.List(),
+					feature: new can.List(),
+					code: new can.List(),
+					article: new can.List(),
+					app: new can.List(),
+					plugin: new can.List(),
+					event: new can.List()
 				},
-				topPosts = new can.Observe.List();
+				topPosts = new can.List();
 
 			var eventsParams = {
 				order: 'upvotes:desc',
@@ -36,7 +36,7 @@ steal('can',
 						var self = this,
 							user = opts.currentUser;
 
-						user.isLoggedIn() && user.refreshSession();
+						user.isLoggedIn() && user.loadActivities();
 						
 						this.element.html(initView({
 							user: user,
@@ -50,6 +50,7 @@ steal('can',
 								isWatched: function( repo, opts ) {
 									watched.attr('length');
 									return _.filter(watched, function( item ) {
+										console.log('watched', item, repo)
 										return item == repo;
 									}).length ? opts.fn(this) : opts.inverse(this);
 								},
@@ -87,10 +88,17 @@ steal('can',
 
 					'{currentUser} authStatus' : function() {
 						if( this.options.currentUser.isLoggedIn() ) {
-							this.loadGithub();
-							this.loadEvents();
-							this.loadTopPosts();
+							this.options.currentUser.loadActivities();
 						}
+					},
+
+					'{currentUser} activities' : function(){
+						var self = this;
+						setTimeout(function(){
+							self.loadGithub();
+							self.loadEvents();
+							self.loadTopPosts();
+						}, 1);
 					},
 
 					loadGithub: function() {

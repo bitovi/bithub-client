@@ -149,14 +149,11 @@ steal(
 			},
 
 			watchedRepos: function() {
-				var watches = this.filterActivities( function( activity ) {
-					if( activity.attr('title') && activity.attr('title').indexOf('started watching bitovi/') == 0 ) 
-						return activity;
-				}, 'title');
-				
-				return _.map(watches, function( account ) {
-					var repo = github.matchRepo(account);
-					return repo && repo.repo;
+				return can.map(can.grep(this.attr('activities') || [], function(activity){
+					var title = activity.attr('title');
+					return title && title.indexOf('started watching bitovi/') == 0
+				}), function(activity){
+					return activity.attr('title')
 				});
 			},
 
@@ -178,6 +175,13 @@ steal(
 					return false;
 				}
 				return (this.attr('upvoted_events') || []).indexOf(event.attr('id')) > -1;
+			},
+			loadActivities : function(){
+				var self = this;
+				Bithub.Models.Activity.findAll({userId: this.attr('id')}, function(activities){
+					self.attr('activities', self.attr('activities') || []);
+					self.attr('activities').replace(activities);
+				}) 
 			}
 
 		});

@@ -186,10 +186,11 @@ steal('can',
 			serialize : function(){
 				var data = this._super.apply(this, arguments);
 
-				if(typeof data.datetime !== 'string'){
-					data.scheduled_at = moment(data.datetime).format('YYYY-MM-DDTHH:mm');
-					delete moment(data.datetime).utc().format();
+				if(typeof data.datetime !== 'undefined'){
+					data.scheduled_at = moment(data.datetime).utc().format();
+					delete data.datetime;
 				}
+				
 				if(typeof data.feed === 'undefined'){
 					data.feed = 'bithub';
 				}

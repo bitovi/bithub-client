@@ -27,7 +27,7 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 		scope : EntityState.extend({
 			inited : true
 		}),
-		helpers : can.extend(sharedHelpers, {
+		helpers : can.extend({}, sharedHelpers, {
 			groupedEvents : function(repo, opts){
 				var order         = ['push', 'pull_request', 'create'],
 					currentEvents = opts.context,

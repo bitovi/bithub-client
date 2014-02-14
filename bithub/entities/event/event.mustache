@@ -19,9 +19,11 @@
 								<strong>{{{v title }}}</strong>
 							</a>
 						</h5>
-						<div class="event-location">
-							{{v props.location }}
-						</div>
+						{{#if props.location}}
+							<div class="event-location">
+								{{v props.location }}
+							</div>
+						{{/if}}
 						<div class="body no-more">{{{v body }}}</div>
 					</div>
 

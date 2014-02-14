@@ -86,7 +86,19 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 				url = can.route.url({id: event.attr('id')});
 			}
 			can.__clearReading();
+			console.log('URL', url, event)
 			return url;
+		},
+		hasUrl : function(opts){
+			var url = "",
+				event = opts.context;
+			if (event.attr('url')) {
+				url = event.attr('url');
+			} else if (event.attr('feed') === 'bithub') {
+				url = can.route.url({id: event.attr('id')});
+			}
+			can.__clearReading();
+			return url !== "" ? opts.fn(opts.context) : opts.inverse(opts.context);
 		},
 		renderChildEvent : function(){
 			var isCommit = false,
