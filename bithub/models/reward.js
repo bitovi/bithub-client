@@ -4,6 +4,11 @@ steal(
 	'vendor/moment',
 	function (can) {
 
+		REWARD_STATUSES = {
+			ACHIEVED : 1,
+			SHIPPED  : 2
+		}
+
 		var imageFormat = function(imageUrl, format){
 			var imageUrlArr = imageUrl.split('/');
 
@@ -37,42 +42,49 @@ steal(
 
 		can.Model.List('Bithub.Models.Reward.List', {
 			matchAchievements: function( user, users ) {
-				var self = this,
+				var self            = this,
 					lastAchievedIdx = -1,
-					achievements = user.attr('achievements');
+					score           = user.attr('score'),
+					achievements    = user.attr('achievements') || [],
+					RS              = REWARD_STATUSES,
+					rewardStatuses  = {},
+					shippedAt       = {};
+
+
+				achievements.each(function(a){
+					var shipped = a.attr('shipped_at');
+					if(shipped){
+						rewardStatuses[a.reward_id] = RS.SHIPPED;
+						shippedAt[a.reward_id]      = moment(shipped).format('MM/DD/YY');
+					} else {
+						rewardStatuses = RS.ACHIEVED;
+					}
+				});
 
 				// match achievements against rewards
 				_.each(self, function( reward, idx ) {
-					_.each(achievements, function( achievement ) {
+					var status = rewardStatuses[reward.attr('id')],
+						pointMinimum = reward.attr('point_minimum');
 
-						if( reward.attr('id') == achievement.attr('reward_id') ) {
-
-							if( achievement.attr('shipped_at') ) {
-								reward.attr({
-									status_cssClass: 'achieved',
-									status_inlineMessage: 'Shipped ' + moment( achievement.attr('shipped_at') ).format('MM/DD/YY'),
-									imageUrlBasedOnShipping : reward.greyscaleImageUrl()
-								});
-							} else if( achievement.attr('achieved_at') ) {
-								reward.attr({
-									status_cssClass: 'shipping',
-									status_message: 'Shipping soon!',
-									imageUrlBasedOnShipping : reward.imageUrl()
-								});
-							} else {
-								reward.attr({
-									imageUrlBasedOnShipping : reward.imageUrl()
-								});
-							}
-
-							lastAchievedIdx = idx;
-						} else {
-							reward.attr({
-								imageUrlBasedOnShipping : reward.imageUrl()
-							});
-						}
-
-					});
+					if(status === RS.SHIPPED){
+						lastAchievedIdx = idx;
+						reward.attr({
+							status_cssClass: 'achieved',
+							status_inlineMessage: 'Shipped ' + shippedAt[reward.id],
+							imageUrlBasedOnShipping : reward.greyscaleImageUrl()
+						});
+					} else if(status === RS.ACHIEVED || pointMinimum <= score){
+						lastAchievedIdx = idx;
+						reward.attr({
+							status_cssClass: 'shipping',
+							status_message: 'Shipping soon!',
+							imageUrlBasedOnShipping : reward.imageUrl()
+						});
+					} else {
+						reward.attr({
+							imageUrlBasedOnShipping : reward.imageUrl()
+						});
+					}
 				});
 
 				// mark next reward with 'almost' status
@@ -94,8 +106,8 @@ steal(
 			nextRewardIdx: function( achievements ) {
 				if( !(achievements && achievements.attr('length')) ) return 0;
 
-				var self = this,
-					currIdx= 0,
+				var self    = this,
+					currIdx = 0,
 					lastIdx = _.last(achievements).attr('reward_id');
 
 				_.each( self, function( reward, idx ) {
