@@ -4,7 +4,7 @@
   {{#loop users length=topLength}}
   <li class="{{#if loggedIn}}active{{/if}}">
 	<span class="position">#{{__index}}</span>
-	{{#avatar_url}}<img class="avatar" src="{{.}}?size=22" alt="avatar">{{/avatar_url}}
+	{{#avatarUrl}}<img class="avatar" src="{{.}}?size=22" alt="avatar">{{/avatarUrl}}
 	{{name}}
 	<span class="points pull-right">{{score}}</span>
   </li>
@@ -18,7 +18,7 @@
 	{{#loop users begin=breakAt length=3}}
 	<li class="{{#if loggedIn}}active{{/if}}">
 	  <span class="position">#{{__index}}</span>
-	  {{#avatar_url}}<img class="avatar" src="{{.}}?size=22" alt="avatar">{{/avatar_url}}
+	  {{#avatarUrl}}<img class="avatar" src="{{.}}?size=22" alt="avatar">{{/avatarUrl}}
 	  {{name}}
 	  <span class="points pull-right">{{score}}</span>
 	</li>

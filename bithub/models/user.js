@@ -185,7 +185,7 @@ steal(
 			},
 			avatarUrl : function(){
 				var defaultAvatar = '/assets/images/icon-user.png',
-					currentAvatar = this.attr('avatar_url'),
+					currentAvatar = this.attr('avatar_url') || defaultAvatar,
 					identities, sourceData;
 				if(currentAvatar === defaultAvatar){
 					identities = this.attr('identities');
