@@ -46,23 +46,6 @@ steal(
 			return can.route.attr('view') === 'greatest';
 		}
 
-		
-		/* Some event_list specific helpers */
-		can.extend(can.EJS.Helpers.prototype, {
-			applyMore: function () {
-				return function (el) {
-					$(el).addClass('no-more');
-				}
-			},
-			applyChatHeight: function (day) {
-				return function (el) {
-					new ChatScroll(el, {day: day})
-				}
-			}
-			
-		});
-
-
 		return can.Control.extend({
 			defaults: { }
 		}, {
