@@ -25,11 +25,13 @@ steal(
 				this.element.html(profileInfoView({
 					countries: countries,
 					user: this.options.currentUser,
-					isEditing : this.options.isEditing
+					isEditing : this.options.isEditing,
+					unlinkIdentity : this.proxy('unlinkIdentity')
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {
-							return self.options.currentUser.getIdentity( provider ) ? opts.fn(this) : opts.inverse(this);
+							var identity = self.options.currentUser.getIdentity( provider );
+							return identity ? opts.fn(identity) : opts.inverse(this);
 						}
 					},
 					partials: {}
@@ -55,6 +57,15 @@ steal(
 				});
 
 				return countries;
+			},
+
+			unlinkIdentity : function(identity, el, ev){
+				var self = this;
+				if(confirm("Are you sure you want to unlink this identity?")){
+					identity.destroy(function(){
+						self.options.currentUser.refreshSession();
+					});
+				}
 			},
 
 			' submit': function( el, ev ) {

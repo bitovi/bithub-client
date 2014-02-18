@@ -69,7 +69,7 @@
 	
 	</div>
 
-	<div class="span2">
+	<div class="span3">
 	{{#if user.avatarUrl}}
 		<div class="avatar">
 			{{#user.avatarUrl}}<img src="{{.}}" alt="avatar">{{/user.avatarUrl}}
@@ -80,25 +80,25 @@
 
 		<li class="github">
 		{{#hasProvider 'github'}}
-		<span class="login-github"></span>Github
+			<span class="login-github"></span>Github ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
 		{{else}}
-		<a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
+			<a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
 		{{/hasProvider}}
 		</li>
 
 		<li class="twitter">
 		{{#hasProvider 'twitter'}}
-		<span class="login-twitter"></span>Twitter
+			<span class="login-twitter"></span>Twitter ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
 		{{else}}
-		<a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
+			<a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
 		{{/hasProvider}}
 		</li>
 
 		<li class="meetup">
 		{{#hasProvider 'meetup'}}
-		<span class="login-meetup"></span>Meetup
+			<span class="login-meetup"></span>Meetup ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
 		{{else}}
-		<a id="login-meetup-link" href="/api/auth/meetup" class="btn connect"><span class="login-meetup"></span>Connect Meetup</a>
+			<a id="login-meetup-link" href="/api/auth/meetup" class="btn connect"><span class="login-meetup"></span>Connect Meetup</a>
 		{{/hasProvider}}
 		</li>
 		

@@ -49,7 +49,7 @@ steal(
 
 			loadList: function () {
 				var self = this;
-				User.findAll(paginator.currentState(), function(users) {
+				User.findAll(can.extend(paginator.currentState(), {order: 'name:asc'}), function(users) {
 					self.element && self.element.html(usersListView({
 						users: users,
 						prevOffsetUrl: function(){
@@ -83,6 +83,12 @@ steal(
 					this.loadForm();
 				} else {
 					this.loadList();
+				}
+			},
+			'.delete-user click' : function(el, ev){
+				var user = el.closest('tr').data('user');
+				if(confirm('Are you sure?')){
+					user.destroy();
 				}
 			}
 		});

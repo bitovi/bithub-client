@@ -45,7 +45,7 @@ steal(
 				var self            = this,
 					lastAchievedIdx = -1,
 					score           = user.attr('score'),
-					achievements    = user.attr('achievements') || [],
+					achievements    = user.attr('achievements') || new can.List,
 					RS              = REWARD_STATUSES,
 					rewardStatuses  = {},
 					shippedAt       = {};

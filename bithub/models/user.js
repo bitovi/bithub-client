@@ -1,10 +1,12 @@
 steal(
 	'can',
+	'./identity.js',
 	'../helpers/auth.js',
 	'../helpers/github.js',
 	'../helpers/data.js',
 	'can/map/delegate',
-	function (can, auth, github, dataHelpers) {
+	'can/map/attributes',
+	function (can, Identity, auth, github, dataHelpers) {
 
 		var providers = {
 			twitter: { url: '/api/auth/twitter' },
@@ -30,8 +32,11 @@ steal(
 			findAll : 'GET  /api/v1/users',
 			findOne : 'GET  /api/v1/users/{id}',
 			//create  : 'POST /api/users',
-			update  : 'PUT  /api/v1/users/{id}'
-
+			update  : 'PUT  /api/v1/users/{id}',
+			destroy  : 'DELETE  /api/v1/users/{id}',
+			attributes : {
+				identities : Identity
+			}
 		}, {
 			fromSession: function() {
 				var self = this;

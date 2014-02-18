@@ -5,17 +5,19 @@
 			<th>Email</th>
 			<th>Roles</th>
 			<th>Points</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 
 	{{#users}}
 		
-		<tr>
+		<tr {{data 'user'}}>
 			<td><a href="{{ editUserUrl this }}">{{ name }}</a></td>
 			<td>{{ email }}</td>
 			<td>{{ rolesCsv }}</td>
 			<td>{{ score}}</td>
+			<td><button class="delete-user close">&times;</button></td>
 		</tr>
 		
 	{{/users}}
