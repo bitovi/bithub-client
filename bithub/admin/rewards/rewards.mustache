@@ -1,0 +1,37 @@
+<table class="table table-stripped">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Point minumum [Display text]</th>
+			<th>Disabled at</th>
+			<th>Image</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+	{{#rewards}}
+		<tr {{data 'reward' }}>
+			<td><a href="{{ editRewardUrl this }}">{{ title }}</a></td>
+			<td>
+				{{ point_minimum }}
+				{{#if display_point_minimum }}[{{ display_point_minimum }}]{{/if}}
+			</td>
+			<td>{{#if disabled_ts }}{{ prettifyTs disabled_ts 'date' }}{{/if}}</td>
+			<td><img src="{{ original_image_url }}"/></td>
+			<td><button class="delete-reward close">&times;</button></td>
+		</tr>
+	{{/rewards}}
+
+	</tbody>
+</table>
+
+<div class="actions pull-left">
+	<a class="btn" href="{{ newRewardUrl }}">New reward</a>
+</div>
+
+<div class="pagination pull-right">
+	<a href="{{ prevOffsetUrl }}" class="btn">Prev page</a>
+	<a href="{{ nextOffsetUrl }}" class="btn">Next page</a>
+</div>
+

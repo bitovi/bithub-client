@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'bithub/homepage/homepage.ejs',
+	'bithub/homepage/homepage.mustache',
 	'bithub/homepage/event_list',
 	'bithub/event_details',
 	'bithub/homepage/sidebar',

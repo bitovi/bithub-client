@@ -1,15 +1,27 @@
 steal(
 	'can',
-	'./users.ejs',
+	'./users.mustache',
 	'bithub/models/user.js',
 	'./form/form.js',
 	'../paginator.js',
 	function(can, usersListView, User, userFormControl, Paginator) {
 		
 		var isFormAction = function (route) {
-			return route==='edit' || route==='new';
+			return route === 'edit' || route === 'new';
 		}
 		
+		var paginationUrlParams = {
+			page    : 'admin',
+			view    : 'users',
+			action  : 'list'
+		}
+
+		var buildPaginationUrl = function(offset){
+			return can.route.url(can.extend({
+				offset : offset
+			}, paginationUrlParams));
+		}
+
 		var paginator;
 		return can.Control.extend({
 			pluginName: 'admin-users',
@@ -40,8 +52,21 @@ steal(
 				User.findAll(paginator.currentState(), function(users) {
 					self.element && self.element.html(usersListView({
 						users: users,
-						prevOffset: paginator.prevOffset(),
-						nextOffset: paginator.nextOffset()
+						prevOffsetUrl: function(){
+							return buildPaginationUrl(paginator.prevOffset());
+						},
+						nextOffsetUrl: function(){
+							return buildPaginationUrl(paginator.nextOffset());
+						}
+					}, {
+						editUserUrl : function(user){
+							return can.route.url({
+								page   : 'admin',
+								view   : 'users',
+								action :'edit',
+								id     : user.id
+							});
+						}
 					}));
 				});
 			},

@@ -1,7 +1,7 @@
 steal(
 	'can',
 	'bithub/models/reward.js',
-	'./rewards.ejs',
+	'./rewards.mustache',
 	'./form/form.js',
 	'../paginator.js',
 	function(can, Reward, rewardsListView, rewardFormControl, Paginator){
@@ -12,6 +12,18 @@ steal(
 
 		var defaultParams = {
 			order: 'point_minimum'
+		}
+
+		var paginationUrlParams = {
+			page    : 'admin',
+			view    : 'rewards',
+			action  : 'list'
+		}
+
+		var buildPaginationUrl = function(offset){
+			return can.route.url(can.extend({
+				offset : offset
+			}, paginationUrlParams));
 		}
 
 		return can.Control({
@@ -47,11 +59,23 @@ steal(
 				Reward.findAll(can.extend({}, paginator.currentState(), defaultParams ), function(rewards) {
 					self.element.html(rewardsListView({
 						rewards: rewards,
-						prevOffset: paginator.prevOffset(),
-						nextOffset: paginator.nextOffset()
+						prevOffsetUrl: function(){
+							return buildPaginationUrl(paginator.prevOffset());
+						},
+						nextOffsetUrl: function(){
+							return buildPaginationUrl(paginator.nextOffset());
+						}
 					}, {
-						formatDate: function(ts) {
-							return ts ? moment(ts).format('YYYY-MM-DD') : ''
+						editRewardUrl : function(tag){
+							return can.route.url({
+								page   : 'admin',
+								view   : 'rewards',
+								action : 'edit',
+								id     : tag.id
+							});
+						},
+						newRewardUrl : function(){
+							return can.route.url({page:'admin', view:'rewards', action:'new'});
 						}
 					}));
 				});

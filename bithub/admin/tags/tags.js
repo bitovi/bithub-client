@@ -1,13 +1,25 @@
 steal(
 	'can',
 	'bithub/models/tag.js',
-	'./tags.ejs',
+	'./tags.mustache',
 	'bithub/admin/tags/form',
 	'../paginator.js',
 	function(can, Tag, tagsListView, tagFormControl, Paginator) {
 		
 		var isFormAction = function (route) {
-			return route==='edit' || route==='new';
+			return route === 'edit' || route === 'new';
+		}
+
+		var paginationUrlParams = {
+			page    : 'admin',
+			view    : 'tags',
+			action  : 'list'
+		}
+
+		var buildPaginationUrl = function(offset){
+			return can.route.url(can.extend({
+				offset : offset
+			}, paginationUrlParams));
 		}
 		
 		var paginator;
@@ -40,8 +52,24 @@ steal(
 				Tag.findAll(paginator.currentState(), function(tags) {
 					self.element.html(tagsListView({
 						tags: tags,
-						prevOffset: paginator.prevOffset(),
-						nextOffset: paginator.nextOffset()
+						prevOffsetUrl: function(){
+							return buildPaginationUrl(paginator.prevOffset());
+						},
+						nextOffsetUrl: function(){
+							return buildPaginationUrl(paginator.nextOffset());
+						}
+					}, {
+						editTagUrl : function(tag){
+							return can.route.url({
+								page   : 'admin',
+								view   : 'tags',
+								action : 'edit',
+								id     : tag.id
+							});
+						},
+						newTagUrl : function(){
+							return can.route.url({page:'admin', view:'tags', action:'new'});
+						}
 					}));
 				});
 			},

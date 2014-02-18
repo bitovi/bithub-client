@@ -1,0 +1,28 @@
+<table class="table table-stripped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Roles</th>
+			<th>Points</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	{{#users}}
+		
+		<tr>
+			<td><a href="{{ editUserUrl this }}">{{ name }}</a></td>
+			<td>{{ email }}</td>
+			<td>{{ rolesCsv }}</td>
+			<td>{{ score}}</td>
+		</tr>
+		
+	{{/users}}
+	</tbody>
+</table>
+
+<div class="pagination pull-right">
+	<a href="{{ prevOffsetUrl }}" class="btn">Prev page</a>
+	<a href="{{ nextOffsetUrl }}" class="btn">Next page</a>
+</div>

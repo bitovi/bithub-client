@@ -143,6 +143,10 @@ steal(
 				})
 			},
 
+			rolesCsv : function(){
+				return (this.attr('roles') || []).join(', ')
+			},
+
 			filterActivities: function( condFn, pluckProp ) {
 				var filtered =  _.filter( this.attr('activities'), condFn );
 				return pluckProp ? _.pluck( filtered, pluckProp ) : filtered;

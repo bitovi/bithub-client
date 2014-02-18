@@ -1,0 +1,29 @@
+<table class="table table-stripped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Display Name</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	{{#tags}}
+		
+		<tr {{ data 'tag' }}>
+			<td><a href="{{ editTagUrl this }}">{{ name }}</a></td>
+			<td>{{ display_name }}</td>
+			<td><button class="delete-tag close">&times;</button></td>
+		</tr>
+		
+	{{/tags}}
+	</tbody>
+</table>
+
+<div class="actions pull-left">
+	<a class="btn" href="{{ newTagUrl }}">New reward</a>
+</div>
+
+<div class="pagination pull-right">
+	<a href="{{ prevOffsetUrl }}" class="btn">Prev page</a>
+	<a href="{{ nextOffsetUrl }}" class="btn">Next page</a>
+</div>

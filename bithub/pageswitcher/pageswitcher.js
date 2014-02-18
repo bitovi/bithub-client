@@ -6,7 +6,7 @@ steal(
 	'bithub/profile/rewards',
 	'bithub/profile',
 	'bithub/admin',
-	'./no_permissions.ejs',
+	'./no_permissions.mustache',
 	'bithub/helpers/permission_checker.js',
 	function(can, Homepage, EventDetails, EarnPoints, Rewards, Profile, AdminPanels, noPermsView, pc) {
 		
