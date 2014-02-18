@@ -7,19 +7,19 @@
 		Contribute to our open source community and be awarded with free stuff. Tweet, comment, fix bugs. The community votes for you and you get awesome rewards for helping.
 	</p>
 	{{/if}}
-	
+
 	<h2>Earn Points</h2>
 
 	<div class="points-wrapper">
 		<h3><i class="icon-user"></i> Your Account <span class="badge">+1 each</span></h3>
-				
+
 		{{#hasProvider 'twitter'}}
 		<p class="complete"><i class="icon-check"></i> Connect your Twitter account</p>
 		{{else}}
 		<p><a href="javascript://" id="connect-twitter-link">Connect your Twitter account</a></p>
 		{{/hasProvider}}
-		
-		
+
+
 		{{#hasProvider 'github'}}
 		<p class="complete"><i class="icon-check"></i> Connect your GitHub account</p>
 		{{else}}
@@ -44,7 +44,7 @@
 
 
 		<p>Follow these Twitter accounts:</p>
-		
+
 		<div class="twitter-accounts">
 		<a href="https://twitter.com/bitovi" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @bitovi</a>
 		<a href="https://twitter.com/canjs" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @canjs</a>
@@ -62,9 +62,9 @@
 		{{#isWatched 'javascriptmvc'}}<li class="complete"><i class="icon-check"></i> javascriptmvc</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/javascriptmvc">javascriptmvc</a></li>{{/isWatched}}
 		{{#isWatched 'canjs'}}<li class="complete"><i class="icon-check"></i> canjs</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/canjs">canjs</a></li>{{/isWatched}}
 		{{#isWatched 'jquerypp'}}<li class="complete"><i class="icon-check"></i> jquerypp</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/jquerypp">jquerypp</a></li>{{/isWatched}}
-		{{#isWatched 'funcunit'}}<li class="complete"><i class="icon-check"></i> funcunit</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/funcunit.js">funcunit</a></li>{{/isWatched}}
+		{{#isWatched 'funcunit'}}<li class="complete"><i class="icon-check"></i> funcunit</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/funcunit">funcunit</a></li>{{/isWatched}}
 		{{#isWatched 'documentjs'}}<li class="complete"><i class="icon-check"></i> documentjs</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/documentjs">documentjs</a></li>{{/isWatched}}
-		
+
 		{{#isWatched 'steal'}}<li class="complete"><i class="icon-check"></i> steal</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/steal">steal</a></li>{{/isWatched}}
 		{{#isWatched 'testee_js'}}<li class="complete"><i class="icon-check"></i> testee</li>{{else}}<li>&bull; <a href="https://github.com/bitovi/testee.js">testee</a></li>{{/isWatched}}
 		</ul>
@@ -160,17 +160,17 @@
 		<div class="widget">
 		<h2>Get Votes</h2>
 		<p>All the content you post can be upvoted by community.</p>
-		
+
 					{{^if user.isLoggedIn}}
 		<div class="btn-wrapper logged-out">
 		<button href="#login-modal" role="button" data-toggle="modal" class="btn-signup">Sign Up Now</button>
 		</div>
 		{{/if}}
-		
-			</div>
-			
 
-		
+			</div>
+
+
+
 		<div class="toprated widget clearfix">
 		<h4>{{#if user.isLoggedIn}}Your{{/if}} Top-Rated Posts</h4>
 		<ul class="unstyled">
@@ -179,9 +179,9 @@
 			{{/posts}}
 		</ul>
 		</div>
-		
+
 		<div class="leaderboard"></div>
-		
+
 	</div>
 	</div>
 </div>
