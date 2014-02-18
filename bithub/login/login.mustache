@@ -9,15 +9,15 @@
 <li id="profile-dropdown" class="dropdown">
   <button class="dropdown-toggle" data-toggle="dropdown">
 	<div class="gradient-border-wrapper">
-	  {{#user.avatar_url}}<img class="avatar" src="{{.}}" alt="gravtar">{{/user.avatar_url}}
+	  {{#user.avatarUrl}}<img class="avatar" src="{{.}}" alt="gravatar">{{/user.avatarUrl}}
 	</div>
 	<b class="caret"></b>
   </button>
   <ul class="dropdown-menu">
 	<li><a href="{{routes.earnpoints}}"><span class="login-points profile-points"></span>Earn Points</a></li>
 	<li><a href="{{routes.rewards}}"><span class="login-rewards profile-rewards"></span>Rewards</a></li>
-	<li><a href="{{routes.activities}}"><span class="login-activity profile-activity"></span>Activity History</a></li>
-	<li><a href="{{routes.profile}}"><span class="login-profile profile-account"></span>Edit Profile</a></li>
+	<li><a href="{{routes.activities}}"><span class="login-activity profile-activity"></span>Activity</a></li>
+	<li><a href="{{routes.profile}}"><span class="login-profile profile-account"></span>Profile</a></li>
 	
 	{{#user.isAdmin}}
 	<li><a href="{{routes.admin}}"><span class="login-admin admin-panel"></span>Admin Panel</a></li>

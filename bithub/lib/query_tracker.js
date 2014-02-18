@@ -12,13 +12,11 @@ steal(
 				latest: {
 					order: 'thread_updated_ts:desc',
 					thread_updated_date: moment().format('YYYY-MM-DD'),
-					exclude: 'source_data',
 					offset: 0,
 					limit: 1000
 				},
 				greatest: {
 					order: 'upvotes:desc',
-					exclude: 'source_data',
 					offset: 0,
 					limit: 15
 				},
