@@ -178,7 +178,7 @@ steal(
 			},
 			loadActivities : function(){
 				var self = this;
-				Bithub.Models.Activity.findAll({userId: this.attr('id')}, function(activities){
+				Bithub.Models.Activity.findAll({userId: this.attr('id'), limit: 100000}, function(activities){
 					self.attr('activities', self.attr('activities') || []);
 					self.attr('activities').replace(activities);
 				})
