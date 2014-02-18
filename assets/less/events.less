@@ -465,6 +465,15 @@ ul.tag-list li, .event .manage-bar ul.nav > li {
 .event-metadata a {
 	text-decoration: underline;
 	color: #999;
+	&.details-link {
+		text-decoration: none;
+		font-size: 150%;
+		float: right;
+		margin: -5px 0 0 5px;
+		&:hover {
+			color: #666;
+		}
+	}
 }
 .readmore-link, .btn-tiny, .btn.btn-tiny {
 	background-color: none;

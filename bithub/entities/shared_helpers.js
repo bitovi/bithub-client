@@ -45,6 +45,11 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 		return window.CURRENT_USER.hasVotedFor(event) ? opts.fn(opts.scope) : "";
 	}
 
+	var detailsLink = function(event){
+		var template = '<a href="/event/{id}" class="details-link"><b class="icon-link"></b></a>';
+		return can.sub(template, event);
+	}
+
 	return {
 		renderEventTags: renderEventTags,
 		renderStatusBar : function(event, label, opts){
@@ -61,7 +66,8 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 				event : event,
 				label : label
 			}), {
-				renderEventTags : $.proxy(renderEventTags, scope)
+				renderEventTags : $.proxy(renderEventTags, scope),
+				detailsLink     : detailsLink
 			});
 		},
 		renderToolbar : function(opts){
@@ -145,6 +151,7 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 				}, 1);
 				
 			}
-		}
+		},
+		detailsLink : detailsLink
 	}
 })

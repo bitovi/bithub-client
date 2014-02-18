@@ -9714,6 +9714,15 @@ ul.tag-list li,
   text-decoration: underline;
   color: #999;
 }
+.event-metadata a.details-link {
+  text-decoration: none;
+  font-size: 150%;
+  float: right;
+  margin: -5px 0 0 5px;
+}
+.event-metadata a.details-link:hover {
+  color: #666;
+}
 .readmore-link,
 .btn-tiny,
 .btn.btn-tiny {
@@ -10875,6 +10884,9 @@ h5.twitter-title {
 }
 .icon-calendar:before {
   content: "\e061";
+}
+.icon-link:before {
+  content: "\e062";
 }
 /* Default */
 .arrow:before {
