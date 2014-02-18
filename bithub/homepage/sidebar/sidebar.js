@@ -3,8 +3,9 @@ steal(
 	'./sidebar.mustache',
 	'bithub/homepage/sidebar/leaderboard',
 	'bithub/models/reward.js',
+	'bithub/models/accomplishment.js',
 	'bithub/helpers/mustacheHelpers.js',
-	function(can, sidebarView, Leaderboard, Reward){
+	function(can, sidebarView, Leaderboard, Reward, Accomplishment){
 
 		var accomplishments = new can.Observe({
 			profile: {
@@ -128,14 +129,14 @@ steal(
 
 			onLogin: function() {
 				this.matchRewards();
-				this.updateAccomplishments();
+				Accomplishment.findAll({userId : this.options.currentUser.id}, this.proxy('updateAccomplishments'));
 			},
 			
 			matchRewards: function() {
 				this.options.rewards.matchAchievements( this.options.currentUser, this.options.users );
 			},
 
-			updateAccomplishments: function() {
+			updateAccomplishments: function(acc) {
 				var user = this.options.currentUser;
 
 				// profile
@@ -143,11 +144,11 @@ steal(
 				accomplishments.attr('profile.github', user.getIdentity('github') ? true : false);
 				accomplishments.attr('profile.completed', user.isCompleted());
 				
-				_.each(user.followedAccounts(), function( account ) {
+				_.each(acc.followedAccounts(), function( account ) {
 					accomplishments.attr('twitterFollow.' + account, true);
 				});
 
-				_.each(user.watchedRepos(), function( repo ) {
+				_.each(acc.watchedRepos(), function( repo ) {
 					accomplishments.attr('githubWatch.' + repo, true);
 				});
 			},
