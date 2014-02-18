@@ -18,7 +18,7 @@
 	{{#loop users begin=breakAt length=3}}
 	<li class="{{#if loggedIn}}active{{/if}}">
 	  <span class="position">#{{__index}}</span>
-	  {{#avatarUrl}}<img class="avatar" src="{{.}}?size=22" alt="avatar">{{/avatarUrl}}
+	  {{#avatarUrl}}<img class="avatar" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
 	  {{name}}
 	  <span class="points pull-right">{{score}}</span>
 	</li>
