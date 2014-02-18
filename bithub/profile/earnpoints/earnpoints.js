@@ -37,7 +37,7 @@ steal('can',
 							user = opts.currentUser;
 
 						user.isLoggedIn() && user.loadActivities();
-						
+
 						this.element.html(initView({
 							user: user,
 							events: events,
@@ -77,7 +77,7 @@ steal('can',
 
 					'{loaded} change': function( fn, ev , newVal, oldVal ) {
 						var loaded = this.options.loaded;
-						
+
 						if( newVal == 0 ) {
 							this.mergeList(events.bug, events.feature, function(a, b) {
 								return (a.attr('upvotes') <= b.attr('upvotes'))
@@ -103,12 +103,11 @@ steal('can',
 
 					loadGithub: function() {
 						watched.replace( this.options.currentUser.watchedRepos() );
-						
 					},
 
 					loadEvents: function() {
 						var loaded = this.options.loaded;
-						
+
 						eventsParams.author_id = this.options.currentUser.attr('id');
 
 						_.each(_.keys(events), function(category) {
@@ -141,9 +140,9 @@ steal('can',
 					loadTopPosts: function() {
 						var user = this.options.currentUser;
 						var params = can.extend({}, topPostsParams);
-						
+
 						if( user.isLoggedIn() ) params.author_id = user.attr('id');
-						
+
 						Bithub.Models.Event.findAll(params, function( data ) {
 							topPosts.replace( data );
 						});
@@ -177,7 +176,7 @@ steal('can',
 						can.route.attr('newpost_c', 'app');
 						this.options.newpostVisibility( true );
 					},
-					
+
 					'#submit-plugin-link click': function( el, ev ) {
 						ev.preventDefault();
 						can.route.attr('newpost_c', 'plugin');

@@ -23,7 +23,7 @@ steal(
 				newVal === true ? $('.logged-in').fadeIn( speed ) : $('.logged-out').fadeIn( speed );
 			}, speed - 10 );
 		};
-			
+
 
 		var User = can.Model.extend('Bithub.Models.User', {
 
@@ -62,7 +62,7 @@ steal(
 					type: 'GET'
 				}).done( cbDone ).fail( cbFail );
 			},
-			
+
 			loggedIn: function( val ) {
 				if( val == undefined ) {
 					return this.attr('authStatus') == 'loggedIn';
@@ -75,27 +75,27 @@ steal(
 				}
 			},
 
-			delayedActions: function( func ) {				
+			delayedActions: function( func ) {
 				if (typeof func == "function") {
 
 					if( can.isArray(this.attr('delayedActions')) ) {
 						this.attr('delayedActions').push(func);
 					} else {
 						this.attr('delayedActions', [func]);
-					}					
+					}
 				}
-				
+
 				return this.attr('delayedActions');
 			},
 
 			executeDelayedActions: function() {
 				if( !this.attr('delayedActions') ) return;
-				
+
 				while(this.attr('delayedActions').length) {
 					this.attr('delayedActions').shift()();
 				}
 			},
-			
+
 			loggingIn: function() {
 				return this.attr('authStatus') == 'loggingIn';
 			},
@@ -105,7 +105,7 @@ steal(
 			},
 
 			hasEmail: function() {
-				return !!this.attr('email'); 
+				return !!this.attr('email');
 			},
 
 			hasAddress: function() {
@@ -153,13 +153,13 @@ steal(
 					var title = activity.attr('title');
 					return title && title.indexOf('started watching bitovi/') == 0
 				}), function(activity){
-					return activity.attr('title')
+					return activity.attr('title').match(/.*bitovi\/(.*).*/i)[1]
 				});
 			},
 
 			followedAccounts: function() {
 				var followes = this.filterActivities( function( activity ) {
-					if( activity.attr('title') && activity.attr('title').indexOf('followed @') == 0 ) 
+					if( activity.attr('title') && activity.attr('title').indexOf('followed @') == 0 )
 						return activity;
 				}, 'title');
 
@@ -181,7 +181,7 @@ steal(
 				Bithub.Models.Activity.findAll({userId: this.attr('id')}, function(activities){
 					self.attr('activities', self.attr('activities') || []);
 					self.attr('activities').replace(activities);
-				}) 
+				})
 			}
 
 		});
@@ -189,9 +189,9 @@ steal(
 		can.Model.List('Bithub.Models.User.List', {
 			topUser: function() {
 				if (this.attr('length') == 0) return;
-				
+
 				var bestUser = this.attr(0);
-				
+
 				this.each(function( user, idx ) {
 					if( user.attr('score') > bestUser.attr('score') ) {
 						bestUser = user;
@@ -205,4 +205,3 @@ steal(
 		return User;
 	}
 );
- 
