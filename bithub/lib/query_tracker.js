@@ -96,13 +96,11 @@ steal(
 				params.state = can.route.attr('state');
 			}
 
-			if(filteringClean(params)){
-				params.without_future = true;
-			}
-
 			if(params.category === 'event'){
 				params.order     = 'thread_updated_ts:asc';
 				params.in_future = true;
+			} else {
+				params.without_future = true;
 			}
 
 			if(params.category !== 'feature' && params.category !== 'bug'){

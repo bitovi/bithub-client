@@ -15,6 +15,9 @@ function(Component, chatView, EntityState, sharedHelpers){
 				return this.attr('expandedMessages') || can.route.attr('category') === 'chat';
 			},
 			sortedMessages : function(){
+				if(can.route.attr('category') === 'chat'){
+					return this.attr('messages').reverse();
+				}
 				return this.attr('messages');
 			},
 			toggleMessages : function(){
@@ -30,7 +33,7 @@ function(Component, chatView, EntityState, sharedHelpers){
 			},
 			showDateHeader : function(opts){
 
-				var date = opts.context.attr('origin_date'),
+				var date = opts.context.attr('origin_ts'),
 					momentedDate = moment(date).format('L'),
 					should = false;
 
