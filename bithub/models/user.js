@@ -11,7 +11,8 @@ steal(
 		var providers = {
 			twitter: { url: '/api/auth/twitter' },
 			github: { url: '/api/auth/github' },
-			meetup: { url: '/api/auth/meetup' }
+			meetup: { url: '/api/auth/meetup' },
+			stackexchange: { url: '/api/auth/stackexchange' }
 		};
 
 		var bindLoggedInState = function(ev, attr, how, newVal, oldVal) {
@@ -73,7 +74,7 @@ steal(
 					return this.attr('authStatus') == 'loggedIn';
 
 					// check providers
-				} else if( ['twitter','github','meetup'].indexOf(val) >= 0 ) {
+				} else if( ['twitter','github','meetup','stackexchange'].indexOf(val) >= 0 ) {
 					this.login(val);
 				} else if( val == false ) {
 					this.logout();
@@ -190,7 +191,7 @@ steal(
 				Bithub.Models.Activity.findAll({userId: this.attr('id'), limit: 100000}, function(activities){
 					self.attr('activities', self.attr('activities') || []);
 					self.attr('activities').replace(activities);
-				}) 
+				})
 			},
 			avatarUrl : function(){
 				var defaultAvatar = '/assets/images/icon-user.png',
@@ -201,7 +202,7 @@ steal(
 					for(var i = 0; i < identities.length; i++){
 						sourceData = identities[i].source_data;
 						currentAvatar = (
-							sourceData.image || 
+							sourceData.image ||
 							sourceData.avatar_url ||
 							sourceData.profile_image_url ||
 							defaultAvatar
