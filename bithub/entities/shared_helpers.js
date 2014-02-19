@@ -67,7 +67,17 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 				label : label
 			}), {
 				renderEventTags : $.proxy(renderEventTags, scope),
-				detailsLink     : detailsLink
+				detailsLink     : detailsLink,
+				eventUrl : function(event){
+					var url = "";
+					if (event.attr('feed') === 'bithub') {
+						url = can.route.url({id: event.attr('id')});
+					} else if (event.attr('url')) {
+						url = event.attr('url');
+					}
+					can.__clearReading();
+					return url;
+				}
 			});
 		},
 		renderToolbar : function(opts){
@@ -92,7 +102,6 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 				url = can.route.url({id: event.attr('id')});
 			}
 			can.__clearReading();
-			console.log('URL', url, event)
 			return url;
 		},
 		hasUrl : function(opts){
