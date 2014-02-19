@@ -18,12 +18,12 @@ steal('can',
 				topPosts = new can.List();
 
 			var eventsParams = {
-				order: 'upvotes:desc',
+				order: ['upvotes:desc', 'thread_updated_ts:desc'],
 				limit: 3
 			};
 
 			var topPostsParams = {
-				order: 'upvotes:desc',
+				order: ['upvotes:desc', 'thread_updated_ts:desc'],
 				limit: 5
 			};
 
@@ -50,7 +50,6 @@ steal('can',
 								isWatched: function( repo, opts ) {
 									watched.attr('length');
 									return _.filter(watched, function( item ) {
-										console.log('watched', item, repo)
 										return item == repo;
 									}).length ? opts.fn(this) : opts.inverse(this);
 								},
@@ -80,7 +79,7 @@ steal('can',
 
 						if( newVal == 0 ) {
 							this.mergeList(events.bug, events.feature, function(a, b) {
-								return (a.attr('upvotes') <= b.attr('upvotes'))
+								return (a.attr('upvotes') - b.attr('upvotes'))
 							});
 							loaded( _.keys(events).length ); // reset
 						}
@@ -126,15 +125,12 @@ steal('can',
 					},
 
 					mergeList: function( dst, src, condFn ) {
-						var insertAt = 0;
 						src.forEach(function( from ) {
-							dst.forEach(function( to, idx ) {
-								if( condFn(from, to) ) {
-									insertAt = idx;
-								}
-							});
-							dst.splice(insertAt, 0, from);
+							if(can.inArray(from, dst) === -1){
+								dst.push(from)
+							}
 						});
+						[].sort.call(dst, condFn)
 					},
 
 					loadTopPosts: function() {

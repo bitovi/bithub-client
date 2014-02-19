@@ -4,7 +4,7 @@ steal(
 	'./activities.mustache',
 	function(can, ActivityModel, activitiesView){
 
-		var whitelistedTypes = ['author','award', 'internal'];
+		var whitelistedTypes = ['author', 'award', 'internal'];
 
 		var calcPoints = function( event ) {
 			var sum = parseInt( event.attr('value') );
@@ -42,19 +42,10 @@ steal(
 					}
 				}, {
 					helpers: {
-						display: function(opts) {
-							var ctx = opts.context;
-							return _.contains(whitelistedTypes, ctx.attr('type')) && calcPoints(ctx) ? opts.fn(ctx) : opts.inverse(ctx);
-						},
-						calcPoints: function() {
-							var sum = calcPoints( this );
-							
-							if( sum > 0 ) {
-								return '+' + sum;
-							} else if( sum < 0 ) {
-								return '-' + sum;
-							} else {
-								return '0';
+						addPlus: function(val) {
+							val = can.isFunction(val) ? val() : val;
+							if(val > 0){
+								return "+" + val;
 							}
 						},
 						eventUrl: function() {
