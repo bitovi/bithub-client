@@ -105,6 +105,10 @@ steal(
 				params.in_future = true;
 			}
 
+			if(params.category !== 'feature' && params.category !== 'bug'){
+				delete params.state;
+			}
+
 			return params;
 		}
 
