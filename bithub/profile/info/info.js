@@ -11,10 +11,10 @@ steal(
 			order: ['priority:desc', 'name'],
 			limit: 500
 		}
-
+		
 		return can.Control.extend({
 			pluginName: 'profile-info',
-			defaults : {
+			defaults : { 
 				isEditing : false
 			}
 		}, {
@@ -72,7 +72,7 @@ steal(
 				var $submitBtn = this.element.find('button');
 
 				ev.preventDefault();
-
+				
 				$submitBtn.button('loading');
 
 				this.options.currentUser
@@ -102,12 +102,6 @@ steal(
 				ev.preventDefault();
 				this.options.currentUser.login('meetup');
 			},
-
-			'#login-stackexchange-link click': function( el, ev ) {
-				ev.preventDefault();
-				this.options.currentUser.login('stackexchange');
-			},
-
 			"{window} userLinkError" : function(el, ev, msg){
 				alert(msg);
 			}

@@ -31,25 +31,18 @@ steal(
 				user.login('github');
 			},
 
-			'#login-twitter-link click': function( el, ev ) {
+			'#login-twitter-link click': function( el, ev ) {				
 				ev.preventDefault();
-
+				
 				var user = this.options.currentUser;
 				user.login('twitter');
 			},
 
-			'#login-meetup-link click': function( el, ev ) {
+			'#login-meetup-link click': function( el, ev ) {				
 				ev.preventDefault();
-
+				
 				var user = this.options.currentUser;
 				user.login('meetup');
-			},
-
-			'#login-stackexchange-link click': function( el, ev ) {
-				ev.preventDefault();
-
-				var user = this.options.currentUser;
-				user.login('stackexchange');
 			},
 
 			'#show-newpost-form-btn click': function( el, ev ) {
