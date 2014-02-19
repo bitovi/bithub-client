@@ -113,8 +113,9 @@ steal('can',
 							var params = can.extend({category: category}, eventsParams);
 
 							if(category === 'event'){
-								params.order     = 'thread_updated_ts:asc';
-								params.in_future = true;
+								params.order   = 'thread_updated_ts:asc';
+								params.host_id = params.author_id;
+								delete params.author_id;
 							}
 
 							Bithub.Models.Event.findAll(params, function( data ) {
