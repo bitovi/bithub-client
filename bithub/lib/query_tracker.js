@@ -101,7 +101,8 @@ steal(
 			}
 
 			if(params.category === 'event'){
-				params.order = 'thread_updated_ts:asc';
+				params.order     = 'thread_updated_ts:asc';
+				params.in_future = true;
 			}
 
 			return params;

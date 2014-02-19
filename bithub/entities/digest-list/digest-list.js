@@ -73,6 +73,8 @@ function(Component, digestListView, EntityState){
 				type = can.isFunction(type) ? type() : type;
 
 				can.__clearReading();
+
+				type = type === 'watch' ? 'wtch' : type;
 				
 				return digestDict.actorUrl[type] + author;
 			},
