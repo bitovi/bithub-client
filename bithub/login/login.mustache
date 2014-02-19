@@ -18,11 +18,11 @@
 	<li><a href="{{routes.rewards}}"><span class="login-rewards profile-rewards"></span>Rewards</a></li>
 	<li><a href="{{routes.activities}}"><span class="login-activity profile-activity"></span>Activity</a></li>
 	<li><a href="{{routes.profile}}"><span class="login-profile profile-account"></span>Profile</a></li>
-	
+
 	{{#user.isAdmin}}
 	<li><a href="{{routes.admin}}"><span class="login-admin admin-panel"></span>Admin Panel</a></li>
 	{{/user.isAdmin}}
-	
+
 	<li><a id="logout-btn" href="javascript://"><span class="login-logout"></span>Logout</a></li>
   </ul>
 </li>
@@ -43,6 +43,7 @@
 	<li><a id="login-twitter-link" href="/api/auth/twitter"><span class="login-twitter"></span>Twitter</a></li>
 	<li><a id="login-github-link" href="/api/auth/github"><span class="login-github"></span>GitHub</a></li>
 	<li><a id="login-meetup-link" href="/api/auth/meetup"><span class="login-meetup"></span>Meetup</a></li>
+	<li><a id="login-stackexchange-link" href="/api/auth/stackexchange"><span class="login-stackexchange"></span>StackExchange</a></li>
   </ul>
 </li>
 

@@ -3,7 +3,7 @@
 	<div class="span5 offset3">
 
 	<form id="edit-profile-form">
-		
+
 		<div class="control-group">
 		<label class="wrapped-label-input">
 			<span>Name:</span>
@@ -43,7 +43,7 @@
 			<span>Postal Code:</span>
 			<input type="text" name="postal" value="{{user.postal}}">
 		</label>
-		
+
 		<select id="countryISO" name="countryISO">
 			{{#countries}}
 			<option value="{{iso}}">{{name}}</option>
@@ -61,12 +61,12 @@
 				<p class="error">Something went wrong!</p>
 			</div>
 			</div>
-		
+
 		{{/unless}}
 
 
 	</form>
-	
+
 	</div>
 
 	<div class="span3">
@@ -101,7 +101,14 @@
 			<a id="login-meetup-link" href="/api/auth/meetup" class="btn connect"><span class="login-meetup"></span>Connect Meetup</a>
 		{{/hasProvider}}
 		</li>
-		
+
+		<li class="stackexchange">
+		{{#hasProvider stackexchange}}
+			<span class="login-stackexchange"></span>StackExchange ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
+		{{else}}
+			<a id="login-stackexchange-link" href="/api/auth/stackexchange" class="btn connect"><span class="login-stackexchange"></span>Connect StackExchange</a>
+		{{/hasProvider}}
+		</li>
 	</ul>
 	</div>
 
