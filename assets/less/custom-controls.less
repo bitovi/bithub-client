@@ -222,7 +222,7 @@
 	background: @green;
 	height: 16px;
 	line-height: 16px;
-	.border-radius-left(2px);
+	.border-radius-left(0px);
 	.border-radius-right(30px);
 	.text-shadow;
 	padding: 0 7px 0 0;
@@ -233,7 +233,7 @@
 	&:before {
 		width: 0; 
 		height: 0; 
-		position:absolute;
+		position: absolute;
 		content : '';
 		left: -7px;
 		top: 0px;
@@ -241,7 +241,9 @@
 		display: block;
 		border-top: 8px solid transparent;
 		border-bottom: 8px solid transparent; 
-		border-right:7px solid @green; 
+		border-right:7px solid @green;
+		z-index: -1;
+		width: 1%;
 	}
 }
 
