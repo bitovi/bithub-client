@@ -216,19 +216,20 @@
 
 /* point badges */
 .badge, .sidebar .scorings .badge, .event .title .badge {
-	margin: 0px 5px 0px 3px;
+	margin: 0px 5px 0px 9px;
 	text-align: center;
 	font-size: 9px;
 	background: @green;
 	height: 16px;
 	line-height: 16px;
-	.border-radius-left(0px);
+	.border-radius-left(1em);
 	.border-radius-right(30px);
 	.text-shadow;
-	padding: 0 7px 0 7px;
+	padding: 0 7px 0 1px;
 	display: inline-block;
 	position: relative;
 	top: -1px;
+	
 	
 	&:before {
 		width: 0;
@@ -236,12 +237,12 @@
 		content: '';
 		left: 0;
 		top: 0;
-		z-index: 7;
 		display: block;
-		border-top: 8px solid white;
-		border-bottom: 8px solid white;
+		border-top: 8px solid transparent;
+		border-bottom: 8px solid transparent;
 		border-right: 7px solid @green;
 		bottom: 0;
+		margin-left: -6px;
 	}
 }
 
