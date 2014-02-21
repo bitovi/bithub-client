@@ -6089,7 +6089,7 @@ textarea:focus {
 .badge,
 .sidebar .scorings .badge,
 .event .title .badge {
-  margin: 0px 5px 0px 10px;
+  margin: 0px 5px 0px 3px;
   text-align: center;
   font-size: 9px;
   background: #26931d;
@@ -6108,7 +6108,7 @@ textarea:focus {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-  padding: 0 7px 0 0;
+  padding: 0 7px 0 7px;
   display: inline-block;
   position: relative;
   top: -1px;
@@ -6117,18 +6117,16 @@ textarea:focus {
 .sidebar .scorings .badge:before,
 .event .title .badge:before {
   width: 0;
-  height: 0;
   position: absolute;
   content: '';
-  left: -7px;
-  top: 0px;
+  left: 0;
+  top: 0;
   z-index: 7;
   display: block;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
+  border-top: 8px solid white;
+  border-bottom: 8px solid white;
   border-right: 7px solid #26931d;
-  z-index: -1;
-  width: 1%;
+  bottom: 0;
 }
 /* custom select menus */
 .select-menu {
@@ -9388,7 +9386,7 @@ h4.handwriting {
 .event .title .badge {
   float: left;
   margin-top: 2px;
-  margin-left: 10px;
+  margin-left: 3px;
   margin-right: 0;
 }
 .event .title .awarded {
