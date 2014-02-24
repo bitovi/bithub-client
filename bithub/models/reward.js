@@ -53,11 +53,12 @@ steal(
 
 				achievements.each(function(a){
 					var shipped = a.attr('shipped_at');
+
 					if(shipped){
 						rewardStatuses[a.reward_id] = RS.SHIPPED;
 						shippedAt[a.reward_id]      = moment(shipped).format('MM/DD/YY');
 					} else {
-						rewardStatuses = RS.ACHIEVED;
+						rewardStatuses[a.reward_id] = RS.ACHIEVED;
 					}
 				});
 
