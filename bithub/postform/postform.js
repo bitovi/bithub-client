@@ -61,13 +61,26 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				return window.CURRENT_USER;
 			},
 			availableTags : function(){
-				var eventTags = this.attr('event.tags');
+				var eventTags = this.attr('event.tags'),
+					category  = this.attr('event.category'),
+					project   = this.attr('event.project');
 
 				window.VISIBLE_TAGS.attr('length'); // trigger live binding
 				eventTags.attr('length'); // trigger live binding
 
 				return can.grep(window.VISIBLE_TAGS, function(tag){
-					return eventTags.indexOf(tag.attr('name')) === -1;
+					var tagName = tag.attr('name'),
+						check = eventTags.indexOf(tagName) === -1;
+					check = check && tagName !== category;
+					check = check && tagName !== project;
+					return check;
+				}).sort(function(a, b){
+					if(a.attr('name') > b.attr('name')){
+						return 1;
+					} else if(a.attr('name') < b.attr('name')){
+						return -1;
+					}
+					return 0;
 				});
 			},
 			eventTags : function(){
