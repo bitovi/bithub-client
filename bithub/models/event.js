@@ -212,6 +212,10 @@ steal('can',
 					delete data.origin_author_name;
 				}
 
+				data.tags.push.apply(data.tags, [data.feed, data.category, data.project]);
+
+				data.tags = _.uniq(data.tags);
+
 				return {
 					event : data
 				};
