@@ -123,6 +123,9 @@ steal('can',
 				if(data.id && data.props && data.props.location){
 					data.location = data.props.location;
 				}
+				if(data.body){
+					data.body = data.body.replace(/<!/g, '&lt;!');
+				}
 				return this._super(data);
 			}
 
