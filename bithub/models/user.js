@@ -38,6 +38,13 @@ steal(
 				identities : Identity
 			}
 		}, {
+			serialize : function(){
+				var data = this._super();
+				delete data.achievements;
+				delete data.identities;
+				delete data.activites;
+				return data;
+			},
 			fromSession: function() {
 				var self = this;
 
