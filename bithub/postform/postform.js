@@ -1,3 +1,11 @@
+/* jshint undef: true, unused: true, white: false, strict: false */
+/* global moment */
+/* global _ */
+/* global can */
+/* global window */
+/* global steal */
+/* global $ */
+
 steal(
 'can/component',
 './postform.mustache',
@@ -93,7 +101,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 
 				return _.uniq(can.grep(tags, function(tag){
 					return tag !== project && tag !== category;
-				}))
+				}));
 			},
 			getProjectForEvent : function(){
 				var event = this.attr('event'),
@@ -110,12 +118,12 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				var event = this.attr('event');
 
 				if(event.isNew()){
-					return "/api/v1/events";
+					return '/api/v1/events';
 				}
 
-				return can.sub("/api/v1/events/{id}", event);
+				return can.sub('/api/v1/events/{id}', event);
 			},
-			removeTag : function(tag, el, ev){
+			removeTag : function(tag){
 				var tags = this.attr('event.tags'),
 					index = tags.indexOf(tag);
 
@@ -123,7 +131,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					tags.splice(index, 1);
 				}
 			},
-			addTag : function(tag, el, ev){
+			addTag : function(tag){
 				this.attr('event.tags').push(tag.attr('name'));
 			},
 			removeImage : function(){
@@ -143,7 +151,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				return function(el){
 					var $datepicker = $(el);
 					$datepicker.datepicker({format: 'mm/dd/yyyy', weekStart: 0});
-				}
+				};
 			},
 			fileupload : function(){
 				var self = this;
@@ -152,10 +160,10 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 						datatype              : 'json',
 						limitMultiFileUploads : 1,
 						add                   : $.noop,
-						type                  : self.attr('event').isNew() ? "POST" : "PUT",
+						type                  : self.attr('event').isNew() ? 'POST' : 'PUT',
 						replaceFileInput      : false
 					});
-				}
+				};
 			},
 			typeahead : function(){
 				var self = this;
@@ -204,15 +212,15 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 						}
 					});
 
-				}
+				};
 			},
 			removeBrokenPreviewImage : function(){
 				return function(el){
 					var $el = $(el);
 					$el.on('error', function(){
 						$el.remove();
-					})
-				}
+					});
+				};
 			}
 		},
 		events : {
@@ -251,20 +259,20 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			' fileuploadprogress' : function( el, ev, data ){
 				this.scope.attr('imageUploadProgress', parseInt(data.loaded / data.total * 100, 10));
 			},
-			"{scope} hasImage" : function(hasImage, ev, newVal){
+			'{scope} hasImage' : function(hasImage, ev, newVal){
 				var imageUrl;
 				if(newVal === false){
 					delete this.__fileData;
 
 					this.element.find('.image-uploader .image-preview img').remove();
-					imageUrl = this.scope.attr('event').postImageUrl()
+					imageUrl = this.scope.attr('event').postImageUrl();
 
 					if(imageUrl){
 						this.element.find('.image-uploader .image-preview').html('<img src="'+imageUrl+'">');
 					}
 				}
 			},
-			"{scope.event} change" : function(event, ev, attr, how, newVal, oldVal){
+			'{scope.event} change' : function(event, ev, attr, how, newVal){
 				var dirty = this.scope.attr('__dirtyAttrs');
 				if(dirty.indexOf(attr) === -1){
 					dirty.push(attr);
@@ -279,7 +287,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					}
 				}
 			},
-			".event-time change" : function(el, ev){
+			'.event-time change' : function(el){
 				var newTime = can.trim(el.val()).toUpperCase(),
 					currentDateTime = this.scope.attr('event.datetime'),
 					parsedTime = moment(newTime, [
@@ -307,7 +315,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				}
 				el.val(this.scope.attr('event').time());
 			},
-			'.newpost-datepicker changeDate': function( el, ev ) {
+			'.newpost-datepicker changeDate': function( el ) {
 				var newDate    = moment(this.scope.attr('event.datetime')),
 					parsedDate = moment(el.find('input').val(), 'MM/DD/YYYY');
 
@@ -319,7 +327,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 
 				el.datepicker('hide');
 			},
-			"form submit" : function(el, ev){
+			'form submit' : function(el, ev){
 				var event = this.scope.attr('event'),
 					errors = event.errors(),
 					def;
@@ -361,10 +369,10 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				this.element.trigger('event.saved');
 			},
 			eventErrored : function(req){
-				var errorJSON = JSON.parse(req.responseText || "{}");
+				var errorJSON = JSON.parse(req.responseText || '{}');
 				this.scope.attr('serverError', errorJSON.errors || null);
 				this.scope.attr('isLoading', false);
 			}
 		}
-	})
-})
+	});
+});
