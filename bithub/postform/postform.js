@@ -22,13 +22,13 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			hasImage : false,
 			init : function(){
 				if(this.attr('event') === null){
-					this.attr('event', new EventModel);
+					this.attr('event', new EventModel());
 				}
 
 				if(!this.attr('event').isNew()){
 					this.__oldEvent = this.attr('event');
-					this.attr('event', new EventModel(this.attr('event').attr()))
-					this.attr('event.project', this.getProjectForEvent())
+					this.attr('event', new EventModel(this.attr('event').attr()));
+					this.attr('event.project', this.getProjectForEvent());
 				}
 
 				this.attr('__dirtyAttrs', []);
@@ -86,7 +86,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			eventTags : function(){
 				var event    = this.attr('event'),
 					category = event.attr('category'),
-					project  = event.attr('project')
+					project  = event.attr('project'),
 					tags     = event.attr('tags');
 
 				tags.attr('length'); // trigger live binding
@@ -136,12 +136,12 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					dirty         = this.attr('__dirtyAttrs');
 
 				if((this.attr('__showAllErrors') || dirty.indexOf(attr) > -1) && errorsForAttr){
-					return opts.fn(errorsForAttr.join('<br>'))
+					return opts.fn(errorsForAttr.join('<br>'));
 				}
 			},
 			datepicker : function(){
 				return function(el){
-					$datepicker = $(el);
+					var $datepicker = $(el);
 					$datepicker.datepicker({format: 'mm/dd/yyyy', weekStart: 0});
 				}
 			},
@@ -175,7 +175,6 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 							clearTimeout(this.timeout);
 							this.timeout = setTimeout(function () {
 								PostAsUserModel.findAll({user : query, feed: feed}).then(function(list){
-									var results;
 									users = list;
 									process(can.map(list, function(user){
 										return user.fullName();
@@ -185,10 +184,12 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 
 						},
 						matcher: function(item) {
-							return (item && item.toLowerCase().indexOf(this.query.trim().toLowerCase()) > -1)
+							return (item && item.toLowerCase().indexOf(this.query.trim().toLowerCase()) > -1);
 						},
 						updater: function (item) {
-							var key = item.split('/')[0].trim();
+							var key = item.split('/')[0].trim(),
+								selectedUser;
+
 							selectedUser = can.grep(users, function(user){
 								return user.username === key;
 							})[0];
@@ -254,8 +255,11 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				var imageUrl;
 				if(newVal === false){
 					delete this.__fileData;
+
 					this.element.find('.image-uploader .image-preview img').remove();
-					if(imageUrl = this.scope.attr('event').postImageUrl()){
+					imageUrl = this.scope.attr('event').postImageUrl()
+
+					if(imageUrl){
 						this.element.find('.image-uploader .image-preview').html('<img src="'+imageUrl+'">');
 					}
 				}
@@ -358,7 +362,6 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 			},
 			eventErrored : function(req){
 				var errorJSON = JSON.parse(req.responseText || "{}");
-				console.log(errorJSON)
 				this.scope.attr('serverError', errorJSON.errors || null);
 				this.scope.attr('isLoading', false);
 			}
