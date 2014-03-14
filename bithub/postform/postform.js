@@ -1,11 +1,3 @@
-/* jshint undef: true, unused: true, white: false, strict: false */
-/* global moment */
-/* global _ */
-/* global can */
-/* global window */
-/* global steal */
-/* global $ */
-
 steal(
 'can/component',
 './postform.mustache',
