@@ -9,6 +9,9 @@
 		"can" : false,
 		"window" : false,
 		"steal" : false,
+		"moment" : false,
+		"setTimeout" : false,
+		"clearTimeout" : false,
 		"$" : false
 	}
 }
