@@ -1,0 +1,13 @@
+{
+	"undef" : true,
+	"unused" : true,
+	"white" : false,
+	"strict" : false,
+	"globals" : {
+		"_" : false,
+		"can" : false,
+		"window" : false,
+		"steal" : false,
+		"$" : false
+	}
+}
