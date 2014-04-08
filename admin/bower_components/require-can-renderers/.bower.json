@@ -1,0 +1,13 @@
+{
+  "name": "require-can-renderers",
+  "homepage": "https://github.com/retro/require-can-renderers",
+  "_release": "1b6c32b9a2",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1b6c32b9a2ade9ae2e9fc2621e46d7cb2914e99c"
+  },
+  "_source": "git://github.com/retro/require-can-renderers.git",
+  "_target": "*",
+  "_originalSource": "git://github.com/retro/require-can-renderers.git"
+}

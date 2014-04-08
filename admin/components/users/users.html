@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Users demo page!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div id="content"></div>
+      </div>
+    </div>
+    <script type='text/javascript' src='../../bower_admin/components/requirejs/require.js'></script>
+    <script type='text/javascript' src='../../requirejsconfig.js'></script>
+    <script type='text/javascript'>
+
+      steal('admin/components/users/users', 'css!/styles/mockup/mockup', function(Users){
+
+        var renderer = can.view.mustache('<users></users>');
+
+        $('#content').html(renderer({
+          
+        }));
+        
+      })
+    </script>
+  </body>
+</html>

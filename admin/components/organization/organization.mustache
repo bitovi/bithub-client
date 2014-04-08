@@ -1,0 +1,16 @@
+<form role="form">
+	<h4>Search keywords:</h4>
+	<p>We will search for the items and posts containing these keywords across all connected networks</p>
+	<div class="clearfix keywords">
+		{{#organization.keywords}}
+			<div class="col-xs-2">
+				<input type="text" class="form-control" value="{{ . }}">
+			</div>
+		{{/organization.keywords}}
+		<button class="btn-primary btn-xs">+</button>
+	</div>
+	<hr>
+	<div class="save-wrapper clearfix">
+		<button class="btn btn-primary">Continue to the next step &raquo;</button>
+	</div>
+</form>

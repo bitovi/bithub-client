@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+	<div class="panel-heading">{{#if tag_group.isNew}}Add{{ else }}Edit{{/if}} tag group</div>
+	<form role="form">
+		<div class="tag"></div>
+		<div class="form-group">
+			<label>Tag group name</label>
+			<input type="text" class="form-control" placeholder="Tag group name" can-value="tag_group.name">
+		</div>
+		<div class="clearfix tag-selection">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<label>All Tags</label>
+					<ul class="tag-list-wrap list-group">
+						{{#tag.available}}
+							<li class="list-group-item">
+								<span class="label label-default">
+									{{ . }}
+								</span>
+								
+							</li>
+						{{/tag.available}}
+					</ul>
+				</div>
+			</div>
+			
+			<div class="col-xs-6">
+				<div class="form-group">
+					<label>Included</label>
+					<ul class="tag-list-wrap list-group">
+						{{#tag.included}}
+							<li class="list-group-item">
+								<span class="label label-primary">
+									{{ . }}
+								</span>
+								
+							</li>
+						{{/tag.included}}
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="save-wrapper clearfix">
+			<button class="btn btn-primary">{{#if tag.isNew}}Create{{ else }}Save{{/if}} Tag</button>
+			{{#if tag.isNew}}
+				<a href="javascript://" class="btn btn-link">Cancel</button>
+			{{else}}
+				<button class="btn btn-link">Delete Tag</button>
+			{{/if}}
+		</div>
+	</form>
+
+</div>

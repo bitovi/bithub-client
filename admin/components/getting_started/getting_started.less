@@ -1,0 +1,28 @@
+getting-started {
+	.alert {
+		a {
+			font-size: 150%;
+		}
+		.badge {
+			font-size: 120%;
+			border-radius: 100%;
+		}
+		.fa {
+			font-size: 120%;
+			color: #888;
+		}
+	}
+	.done a {
+		color: #bbb;
+		position: relative;
+		&::after{
+			content: '';
+			border-bottom: 2px solid #888;
+			position: absolute;
+			left: 0;
+			top: 50%;
+			width: 100%;
+		}
+	}
+	
+}

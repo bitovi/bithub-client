@@ -1,0 +1,62 @@
+<h1 class="admin-page-header">Rewards</h1>
+<hr>
+<table class="table">
+	{{#if rewards.length}}
+		<thead>
+			<tr>
+				<th class="col-xs-2">Image</th>
+				<th>Reward</th>
+				<th class="col-xs-2 clearfix">Required points</th>
+				<th></th>
+			</tr>
+		</thead>
+	{{/if}}
+
+	<tbody>
+		{{#rewards}}
+			<tr class="active">
+				<td></td>
+				<td>
+					<input type="text" class="form-control" can-value="title" placeholder="Title">
+					<textarea name="" id="" cols="30" rows="3" class="form-control" placeholder="Description" can-value="description"></textarea>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" can-value="is_coupon"> This is a coupon
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" can-value="requires_address"> Requires a mailing address
+						</label>
+					</div>
+				</td>
+				<td class="reward-rule">
+					<div class="clearfix">
+						<div class="col-xs-6">
+							<input type="text" value="1" class="form-control" can-value="point_minimum">
+						</div>
+						<div class="col-xs-4">
+							<label>Point</label>
+						</div>
+					</div>
+				</td>
+				<td class="col-xs-1">
+					<button class="btn btn-danger btn-xs" can-click="deleteReward">Delete reward</button>
+				</td>
+			</tr>
+		{{/rewards}}
+	</tbody>
+
+	
+	
+	<tr class="active">
+		<td colspan="4"><button class="btn btn-info" can-click="addReward">Add a Reward</button></td>
+	</tr>
+
+</table>
+
+<hr>
+
+<div class="save-wrapper clearfix">
+	<button class="btn btn-primary" {{#if isSaving}}disabled{{/if}} can-click="saveRewards">Save Rewards</button>
+</div>

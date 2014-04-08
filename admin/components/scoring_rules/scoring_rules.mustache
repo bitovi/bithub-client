@@ -1,0 +1,35 @@
+<div>
+	<h1 class="admin-page-header">Scoring Rules</h1>
+	<hr>
+
+</div>
+
+<form role="form">
+
+	<table class="table">
+		<tbody>
+			{{#groupedRules}}
+				<tr class="success">
+					<td colspan="3"><b>{{ label }}</b></td>
+				</tr>
+				{{#rules}}
+					<tr>
+						<td>{{ name }} is worth</td>
+						<td class="col-xs-1">
+							<input type="text" can-value="authorship_value" class="form-control input-sm">
+						</td>
+						<td class="col-xs-1">point</td>
+					</tr>
+				{{/rules}}
+			{{/groupedRules}}
+		</tbody>
+	</table>
+
+	<hr>
+	
+	<div class="save-wrapper clearfix">
+		<button class="btn btn-primary" can-click="saveRules" {{#if isSaving}}disabled{{/if}}>
+			Save scoring rules
+		</button>
+	</div>
+</form>

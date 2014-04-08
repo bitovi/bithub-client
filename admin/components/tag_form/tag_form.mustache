@@ -1,0 +1,22 @@
+<form role="form">
+	<div class="tag"></div>
+	<div class="form-group">
+		<label>Display name {{ title }}</label>
+		<input type="text" class="form-control" placeholder="Display Name" can-value="tag.name">
+	</div>
+	<div class="form-group">
+		<label>Aliases</label>
+		<div class="clearfix aliases-wrap">
+			{{#tag.aliases}}
+				<div class="label label-default">{{ . }}</div>
+			{{/tag.aliases}}
+			<div class="col-xs-2 input-wrap">
+				<input type="text" placeholder="Add alias" class="form-control">
+			</div>
+		</div>
+	</div>
+	<div class="save-wrapper clearfix">
+		<button class="btn btn-primary">Add Keyword</button>
+		<a href="javascript://" class="btn btn-link">Cancel</button>
+	</div>
+</form>

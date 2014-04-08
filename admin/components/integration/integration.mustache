@@ -1,0 +1,124 @@
+<h1 class="admin-page-header">Integration</h1>
+
+<hr>
+
+<div>
+	<div class="setup-panel">
+		<h4>
+			<span class="badge">1</span> Setup your widget
+		</h4>
+		<table class="table appearence">
+			<tbody>
+				<tr>
+					<td class="col-xs-4">
+						<h5>
+							Theme
+						</h5>
+					</td>
+					<td>
+						<div class="radio">
+							<label>
+								<input type="radio" name="theme" checked> For Light Backgrounds
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="theme"> For Dark Backgrounds
+							</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="col-xs-4">
+						<h5>
+							Typeface
+						</h5>
+					</td>
+					<td>
+						<div class="col-xs-3">
+							<select class="form-control">
+								<option>Sans Serif</option>
+							</select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="col-xs-4">
+						<h5>
+							Default Sort
+						</h5>
+					</td>
+					<td>
+						<div class="col-xs-3">
+							<select class="form-control">
+								<option>Best first</option>
+							</select>
+						</div>
+						
+					</td>
+				</tr>
+				<tr>
+					<td class="col-xs-4">
+						<h5>
+							Available pages
+						</h5>
+					</td>
+					<td>
+						<div class="pages-wrap">
+							
+							<div class="checkbox">
+								<i class="fa fa-align-justify order-pages"></i>
+								<label>
+									<input type="checkbox" name="theme" checked> Leaderboard
+								</label>
+							</div>
+							<div class="checkbox">
+								<i class="fa fa-align-justify order-pages"></i>
+								<label>
+									<input type="checkbox" name="theme" checked> Entries List
+								</label>
+							</div>
+							<hr>
+							<div class="checkbox not-available">
+								<i class="fa"></i>
+								<label>
+									<input type="checkbox" name="theme"> Rewards
+								</label>
+							</div>
+							<div class="checkbox not-available">
+								<i class="fa"></i>
+								<label>
+									<input type="checkbox" name="theme"> User Profile
+								</label>
+							</div>
+						</div>
+						
+					</td>
+				</tr>
+			</tbody>
+			
+		</table>
+		<button class="btn btn-info btn-xs">Preview</button>
+	</div>
+
+	<div class="setup-panel">
+		<h4>
+			<span class="badge">2</span> Place this code where you would like to show the BitHub button
+		</h4>
+		<textarea name=""  rows="1" class="form-control">
+&lt;script type="text/javascript" src="//cdn.bithub.com/integration/user_id/button.js"&gt;&lt/script&gt;
+		</textarea>
+	</div>
+	
+	<div class="setup-panel">
+		<h4>
+			<span class="badge">3</span> Verify integration by clicking the button below
+		</h4>
+		<button class="btn btn-primary">Verify</button>
+		<div class="alert alert-danger" style="margin-top: 20px">
+			<i class="fa fa-times"></i>
+			This integration doesn't work. Please check if the BitHub code is in place.
+		</div>
+	</div>
+	
+</div>

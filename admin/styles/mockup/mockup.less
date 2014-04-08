@@ -1,0 +1,208 @@
+// Core variables and mixins
+@import "variables.less";
+@import "../../bower_components/bootstrap/less/mixins.less";
+
+// Reset
+@import "../../bower_components/bootstrap/less/normalize.less";
+@import "../../bower_components/bootstrap/less/print.less";
+
+// Core CSS
+@import "../../bower_components/bootstrap/less/scaffolding.less";
+@import "../../bower_components/bootstrap/less/type.less";
+@import "../../bower_components/bootstrap/less/code.less";
+@import "../../bower_components/bootstrap/less/grid.less";
+@import "../../bower_components/bootstrap/less/tables.less";
+@import "../../bower_components/bootstrap/less/forms.less";
+@import "../../bower_components/bootstrap/less/buttons.less";
+
+// Components
+@import "../../bower_components/bootstrap/less/component-animations.less";
+@import "../../bower_components/bootstrap/less/dropdowns.less";
+@import "../../bower_components/bootstrap/less/button-groups.less";
+@import "../../bower_components/bootstrap/less/input-groups.less";
+@import "../../bower_components/bootstrap/less/navs.less";
+@import "../../bower_components/bootstrap/less/navbar.less";
+@import "../../bower_components/bootstrap/less/breadcrumbs.less";
+@import "../../bower_components/bootstrap/less/pagination.less";
+@import "../../bower_components/bootstrap/less/pager.less";
+@import "../../bower_components/bootstrap/less/labels.less";
+@import "../../bower_components/bootstrap/less/badges.less";
+@import "../../bower_components/bootstrap/less/jumbotron.less";
+@import "../../bower_components/bootstrap/less/thumbnails.less";
+@import "../../bower_components/bootstrap/less/alerts.less";
+@import "../../bower_components/bootstrap/less/progress-bars.less";
+@import "../../bower_components/bootstrap/less/media.less";
+@import "../../bower_components/bootstrap/less/list-group.less";
+@import "../../bower_components/bootstrap/less/panels.less";
+@import "../../bower_components/bootstrap/less/wells.less";
+@import "../../bower_components/bootstrap/less/close.less";
+
+// Components w/ JavaScript
+@import "../../bower_components/bootstrap/less/modals.less";
+@import "../../bower_components/bootstrap/less/tooltip.less";
+@import "../../bower_components/bootstrap/less/popovers.less";
+@import "../../bower_components/bootstrap/less/carousel.less";
+
+// Utility classes
+@import "../../bower_components/bootstrap/less/utilities.less";
+@import "../../bower_components/bootstrap/less/responsive-utilities.less";
+
+/*!
+ *  Font Awesome 4.0.3 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+
+@import "../../bower_components/font-awesome/less/mixins";
+@import "../../bower_components/font-awesome/less/path";
+@import "../../bower_components/font-awesome/less/core";
+@import "../../bower_components/font-awesome/less/larger";
+@import "../../bower_components/font-awesome/less/fixed-width";
+@import "../../bower_components/font-awesome/less/list";
+@import "../../bower_components/font-awesome/less/bordered-pulled";
+@import "../../bower_components/font-awesome/less/spinning";
+@import "../../bower_components/font-awesome/less/rotated-flipped";
+@import "../../bower_components/font-awesome/less/stacked";
+@import "../../bower_components/font-awesome/less/icons";
+
+
+
+.border-image(@fg: '_', @bg: '_', @side: 'all'){
+	border: 6px solid transparent;
+	border-image: url(~"/styles/mockup/images/border-@{bg}-@{fg}.png") 7 7 7 7 repeat;
+	border-width: 6px;
+}
+
+.alert, .navbar, .form-control, .well {
+	.border-image(@fg: '999', @bg: 'white');
+}
+.panel, .list-group-item, .btn {
+	.border-image(@fg: '000', @bg: 'white');
+}
+
+.panel-heading, .navbar-inverse, .progress {
+	.border-image(@bg: 'white')
+}
+.progress {
+	height: 24px;
+	box-shadow: none;
+	background: #eee;
+	border-width: 3px;
+	.progress-bar {
+		.border-image(@bg: 'eee');
+	}
+}
+.btn-link {
+	border-image: none;
+}
+.btn-primary, .btn-success, .btn-info, .btn-warning,  {
+	.border-image(@bg: 'white', @fg: '666');
+}
+.btn-danger {
+	.border-image(@bg: 'white', @fg: '7a3735');
+}
+.progress-bar {
+	box-shadow: none;
+}
+.jumbotron {
+	.border-image(@bg: 'white');
+}
+.jumbotron .btn-primary {
+	.border-image(@bg: 'eee');
+}
+.list-group-item {
+	margin-bottom: -10px;
+}
+.page-header {
+	.border-image(@fg: '666', @bg: 'white');
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-width: 0px 0px 7px;
+}
+
+.label {
+	.border-image(@bg: 'white');
+}
+.form-control {
+	padding: 0 12px;
+}
+body.demo {
+	padding-top: 20px;
+	background: white;
+}
+
+hr {
+	.border-image(@fg: 'ccc', @bg: 'white');
+	border-left: 0px solid transparent;
+	border-right: 0px solid transparent;
+	border-bottom: 0px solid transparent;
+}
+
+.aliases-wrap {
+	.border-image(@fg: '999', @bg: 'white');
+	.form-control {
+		border: none;
+		padding: 0;
+		height: 28px;
+	}
+}
+
+tag-groups .tag-list-wrap {
+	.border-image(@fg: '999', @bg: 'white');
+}
+
+.feed-type-wrapper {
+	li.list-group-item {
+		.border-image(@fg: 'CCC', @bg: 'white');
+	}
+	
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+	.border-image(@fg: '4e8abe', @bg: 'white');
+	padding: 4px 9px;
+}
+
+services .nav-pills > li {
+	.border-image(@fg: 'CCC', @bg: 'white');
+	border-left: 0px solid transparent;
+	border-right: 0px solid transparent;
+	border-top: 0px solid transparent;
+	&:last-child, &.active {
+		border-bottom: 0px solid transparent;
+	}
+}
+
+ul.nav-tabs {
+	.border-image(@fg: 'ccc', @bg: 'white');
+	border-left: 0px solid transparent;
+	border-right: 0px solid transparent;
+	border-top: 0px solid transparent;
+	li {
+		margin-bottom: -6px;
+		a {
+			padding-top: 16px;
+			color: #bbb;
+		}
+		.badge {
+			background-color: #bbb;
+		}
+	}
+	li.active {
+		margin-bottom: -6px;
+		a, a:hover, a:focus {
+			.border-image(@fg: 'ccc', @bg: 'white');
+			padding: 10px 15px 12px 15px;
+			border-bottom: 0px solid transparent;
+			background: white;
+		}
+	}
+}
+
+.overview-card {
+	.border-image(@fg: 'CCC', @bg: 'white');
+}
+
+.admin-page-header {
+	margin-top: 0;
+}

@@ -1,0 +1,154 @@
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Bithub</a>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				{{#whenState 'homepage,organization,scoring_rules,norewards,rewards'}}
+					{{#whenState 'homepage'}}
+						<li class="active"><a href="#">Homepage</a></li>
+					{{/whenState}}
+					{{#unlessState 'homepage'}}
+						<li><a href="#">Homepage</a></li>
+					{{/unlessState}}
+						<li><a href="#">Features</a></li>
+						<li><a href="#">Pricing</a></li>
+					{{#unlessState 'homepage'}}<li class="active"><a href="#"><b>Signup</b></a></li>{{/unlessState}}
+				{{/whenState}}
+				{{#whenState 'dashboard_popup,dashboard,scoring_rules_page,rewards_page'}}
+					<li {{#whenState 'dashboard_popup,dashboard'}}class="active"{{/when}}><a href="#">Dashboard</a></li>
+					<li><a href="#">Activity</a></li>
+					<li {{#whenState 'scoring_rules_page'}}class="active"{{/when}}><a href="#">Scoring rules</a></li>
+					<li {{#whenState 'rewards_page'}}class="active"{{/when}}><a href="#">Rewards</a></li>
+					<li><a href="#">Customers</a></li>
+					<li><a href="#">Integration</a></li>
+					<li><a href="#">Settings</a></li>
+				{{/whenState}}
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				{{#whenState 'homepage,organization,scoring_rules,norewards,rewards'}}
+					<li><a href="#">Login</a></li>
+				{{/whenState}}
+				{{#whenState 'dashboard_popup,dashboard'}}
+					<li><a href="#">Welcome <b>Justin</b></a></li>
+				{{/whenState}}
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+
+{{#whenState 'homepage'}}
+		<homepage></homepage>
+{{/whenState}}
+
+{{#whenState 'login'}}
+		<div class="col-xs-4 col-xs-offset-4">
+			<login></login>
+		</div>
+{{/whenState}}
+
+{{#unlessState 'homepage,dashboard,dashboard_popup,scoring_rules_page,rewards_page'}}
+	<ul class="nav nav-tabs steps">
+		<li {{#whenState 'organization'}}class="active"{{/whenState}}>
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="badge">1</span> Setup accounts
+			</a>
+		</li>
+		<li {{#whenState 'scoring_rules'}}class="active"{{/whenState}}>
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="badge">2</span> Scoring points
+			</a>
+		</li>
+		<li {{#whenState 'rewards,norewards'}}class="active"{{/whenState}}>
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="badge">3</span> Setup rewards
+			</a>
+		</li>
+	</ul>
+{{/unlessState}}
+
+{{#whenState 'organization'}}
+	<div class="alert alert-success">
+		You have connected the <b>@canjs</b> Twitter account. You can connect more accounts or <a href="javascript://">continue to the next step</a>
+	</div>
+	<div class="clearfix services">
+		<button class="btn btn-primary">
+			<i class="fa fa-twitter-square"></i> @canjs &#10003;
+		</button>
+
+		<button class="btn btn-primary">
+			<i class="fa fa-facebook-square"></i> Connect &#10003;
+		</button>
+		
+		<button class="btn btn-info">
+			<i class="fa fa-google-plus-square"></i> Connect
+		</button>
+	</div>
+	<hr>
+	<organization></organization>
+{{/whenState}}
+
+{{#whenState 'services'}}
+	<services></services>
+{{/whenState}}
+
+{{#whenState 'norewards'}}
+	<rewards></rewards>
+{{/whenState}}
+
+{{#whenState 'rewards'}}
+	<rewards hasrewards="true"></rewards>
+{{/whenState}}
+
+{{#whenState 'scoring_rules'}}
+	<scoring-rules></scoring-rules>
+{{/whenState}}
+
+{{#whenState 'dashboard_popup'}}
+	<div class="alert alert-warning finished-setup">
+		<div class="success-icon">
+			<i class="fa fa-check-circle"></i>
+		</div>
+
+		<div class="congratulations-wrap">
+			<h1>Congratulations!</h1>
+			<p>You have finished the setup!</p>
+		</div>
+		
+		<div class="alert alert-info">
+			<i class="fa fa-trophy"></i>&nbsp;
+			As a reward we'll extend your trial period for <b>2</b> days
+		</div>
+		<p>So far we've indexed <b>123</b> items from your networks.</p>
+		<hr>
+		<h4>Next steps:</h4>
+		<ol>
+			<li><a href="javascript://">Integrate Bithub</a> with your site</li>
+			<li>Promote your loyalty program</li>
+		</ol>
+		<hr>
+		<div class="btn-wrap clearfix">
+			<button class="btn btn-primary">Continue &raquo;</button>
+		</div>
+	</div>
+	<dashboard></dashboard>
+{{/whenState}}
+
+{{#whenState 'dashboard'}}
+	<dashboard></dashboard>
+{{/whenState}}
+
+{{#whenState 'scoring_rules_page'}}
+	<admin-page title="Scoring rules">
+		<scoring-rules onpage="true"></scoring-rules>
+	</admin-page>
+{{/whenState}}
+
+{{#whenState 'rewards_page'}}
+	<admin-page title="Rewards">
+		<rewards onpage="true"></rewards>
+	</admin-page>
+{{/whenState}}

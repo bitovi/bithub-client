@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Admin demo page!</title>
+  </head>
+  <body>
+    <div id="admin-wrap"></div>
+    <script type='text/javascript' src='../../bower_admin/components/requirejs/require.js'></script>
+    <script type='text/javascript' src='../../requirejsconfig.js'></script>
+    <script type='text/javascript'>
+
+      steal('can/route', 'admin/components/admin/admin', 'css!/styles/mockup/mockup', function(route, Admin){
+
+        var renderer = can.view.mustache('<admin></admin>');
+
+        $('#admin-wrap').html(renderer({
+          
+        }));
+
+        route('', {page : 'dashboard'})
+        route('/:page')
+
+        route('/:page/:stage')
+
+        route.ready();
+        
+      })
+    </script>
+  </body>
+</html>

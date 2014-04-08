@@ -1,0 +1,58 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mustache Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="test">
+    <div id="mustache"></div>
+    <div id="ejs"></div>
+  </div>
+  <script src="deps/require.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script>
+    mocha.setup('tdd');
+     function assert(expr, msg) {
+      if (!expr) throw new Error(msg || 'failed');
+    }
+  </script>
+  <script>
+    requirejs.config({
+      paths : {
+        'can'      : 'deps/can/can',
+        'jquery'   : 'deps/jquery',
+        'mustache' : '../lib/mustache',
+        'ejs'      : '../lib/ejs'
+      },
+      shim: {
+        jquery : {
+          exports : 'jQuery'
+        }
+      }
+    })
+    require(['jquery', 'can/util/string', 'mustache!./test', 'ejs!./test', 'can/view/modifiers'], function($, can, mustacheView, ejsView){
+      suite('Renderers', function(){
+        setup(function(){
+          $('#mustache').html(mustacheView({
+            engine : 'mustache'
+          }));
+          $('#ejs').html(ejsView({
+            engine : 'ejs'
+          }));
+        });
+        test('mustache renders correctly', function(){
+          var text = $('#mustache').text();
+          assert('Hello from mustache!' === text)
+        });
+        test('ejs renders correctly', function(){
+          var text = $('#ejs').text();
+          assert('Hello from ejs!' === text)
+        });
+      });
+      mocha.run();
+    })
+  </script>
+</body>
+</html>

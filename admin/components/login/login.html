@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Login demo page!</title>
+  </head>
+  <body>
+    <div class="container" style="margin-top: 20px;">
+      <div class="row">
+        <div id="content" class="col-xs-4 col-xs-offset-4"></div>
+      </div>
+    </div>
+    <script type='text/javascript' src='../../bower_admin/components/requirejs/require.js'></script>
+    <script type='text/javascript' src='../../requirejsconfig.js'></script>
+    <script type='text/javascript'>
+
+      steal('admin/components/login/login', 'css!/styles/mockup/mockup', function(Login){
+
+        var renderer = can.view.mustache('<login></login>');
+
+        $('#content').html(renderer({
+          
+        }));
+        
+      })
+    </script>
+  </body>
+</html>
