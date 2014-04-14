@@ -22,11 +22,19 @@ services {
 	}
 	.nav-services {
 		.fa-check {
-			color: #ccc;
+			color: #eee;
 		}
 		.active-service {
 			color: green;
 		}
+	}
+
+	li.active .fa-check {
+		color: rgba(255,255,255,0.2);
+	}
+
+	li.active .active-service {
+		color: white;
 	}
 	
 	.does-this-look-right {

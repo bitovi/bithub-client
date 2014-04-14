@@ -7,7 +7,7 @@
 				{{#each services}}
 					<li {{#ifTab this}}class="active"{{/ifTab}} can-click="switchTab" data-tab="{{ this }}">
 						<a href="javascript://">
-							<i class="fa fa-check {{activeService this}}"></i> {{ . }}
+							<i class="fa fa-check {{#isActiveProvider this}}active-service{{/isActiveProvider}}"></i> {{ . }}
 						</a>
 					</li>
 				{{/each}}
@@ -16,29 +16,49 @@
 
 		{{#ifTab 'twitter'}}
 			<div class="col-xs-9">
-				<button class="btn btn-default" can-click="connectTwitter">Connect Twitter</button>
+				{{#isActiveProvider provider}}
+					<p>Your Twitter account is connected!</p>
+				{{else}}
+					<p>Connect your Twitter account.</p>
+					<button class="btn btn-default" can-click="connectService">Connect Twitter</button>
+				{{/isActiveProvider}}
 			</div>
 		{{/ifTab}}
 
 		{{#ifTab 'github'}}
 			<div class="col-xs-9">
-				<button class="btn btn-default" can-click="connectGithub">Connect GitHub</button>
+				{{#isActiveProvider provider}}
+					<p>Your GitHub account is connected! Select repos you want to track:</p>
+					<h3>Repos</h3>
+					<ul class="list-unstyled">
+						{{#identity.repos}}
+							<li>
+								<label class="checkbox">
+									<input type="checkbox" can-click="toggleSelection" data-what="repos" {{#isSelected 'repos' this}}checked{{/isSelected}}>
+									{{ this }}
+								</label>
+							</li>
+						{{/identity.repos}}
+					</ul>
+				{{else}}
+					<p>Connect your GitHub account and select repos you want to track.</p>
+					<button class="btn btn-default" can-click="connectService">Connect GitHub</button>
+				{{/isActiveProvider}}
 			</div>
 		{{/ifTab}}
-		
-		{{#ifTab 'disqus'}}
+
+		{{#ifTab 'facebook'}}
 			<div class="col-xs-9">
-				<button class="btn btn-default" can-click="connectDisqus">Connect Disqus</button>
+				{{#isActiveProvider provider}}
+					<p>Your Facebook account is connected!</p>
+				{{else}}
+					<p>Connect your Facebook account and select pages you want to track.</p>
+					<button class="btn btn-default" can-click="connectService">Connect Facebook</button>
+				{{/isActiveProvider}}
 			</div>
 		{{/ifTab}}
 
-
-		{{#ifTab 'meetup'}}
-			<div class="col-xs-9">
-				<button class="btn btn-default" can-click="connectMeetup">Connect Meetup</button>
-			</div>
-		{{/ifTab}}
-
+		<!--
 		{{#ifTab 'rss'}}
 			<div class="col-xs-9">
 				<h3>Setup RSS</h3>
@@ -91,8 +111,14 @@
 				<button class="btn btn-info test-integration">Test this integration</button>
 			</div>
 		{{/ifTab}}
-
+		-->
 
 	</div>
+
+	{{#if configsChanged}}
+		<div>
+			<button class="btn btn-primary" can-click="saveConfigs">Save Service Configurations</button>
+		</div>
+	{{/if}}
 	
 </form>
