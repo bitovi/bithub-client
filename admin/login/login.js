@@ -1,19 +1,24 @@
-steal(
-	function () {
+steal('can/util/string', 'can/compute',
+	function (can) {
+
+		window.CONNECTING_FEED = can.compute("");
+
 		return {
 			connect: function(options) {
-				var self = this;
 				var windowPropsStr = options.windowPropsStr ? options.windowPropsStr : "width=600,height=300,scrollbars=yes";
 				var title = options.title ? options.title : "Oauth login";
 				var url = '/api/auth/' + options.feed + '_brand';
 
-				oauthWindow = window.open(url, title, windowPropsStr);
-				oauthWindowSweeper = window.setInterval(function() {
+				CONNECTING_FEED(options.feed);
+
+				var oauthWindow = window.open(url, title, windowPropsStr);
+				var oauthWindowSweeper = window.setInterval(function() {
 					if (oauthWindow.closed) {
+						CONNECTING_FEED("");
+						window.BRAND.reload();
 						window.clearInterval(oauthWindowSweeper);
-						self.fromSession();
 					}
-				}, 500);
+				}, 100);
 			}
 		};
 	});

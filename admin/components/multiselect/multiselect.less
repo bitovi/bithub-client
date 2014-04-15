@@ -1,0 +1,26 @@
+bh-multiselect {
+	.all-items, .selected-items {
+		width: 50%;
+		max-height: 200px;
+		overflow-y: auto;
+		float: left;
+		margin: 0;
+		li {
+			border-bottom: 1px solid #ddd;
+			padding: 0 0 0 15px;
+			.alert {
+				margin: 14px 15px 15px 0;
+			}
+		}
+	}
+	.all-items {
+		border-right: 1px solid #ddd;
+	}
+	.selected-items {
+		border-left: 1px solid #ddd;
+		margin-left: -1px;
+	}
+	.panel-body {
+		padding: 0;
+	}
+}

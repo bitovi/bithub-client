@@ -6,6 +6,8 @@ steal(
 'admin/models/feed_config.js',
 './services.less',
 'can/construct/proxy',
+'can/map/delegate',
+'admin/components/multiselect',
 function(Component, servicesView, login, BrandIdentity, FeedConfig){
 
 	var activeServices = [];
@@ -19,10 +21,17 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					configs : [],
 					identities : []
 				});
-
-				FeedConfig.findAll({}, this.proxy('updateIdentitiesAndConfigs'));
+				this.loadConfigs();
 			},
 			configsChanged : false,
+			loadingConfigs : false,
+			loadConfigs : function(){
+				this.attr('loadingConfigs', true);
+				FeedConfig.findAll({}, this.proxy('updateIdentitiesAndConfigs'));
+			},
+			isReloading : function(){
+				return this.attr('loadingConfigs') || BRAND.attr('_reloading');
+			},
 			updateIdentitiesAndConfigs : function(configs){
 				var identities = window.BRAND.attr('identities'),
 					hasConfig = can.map(configs, function(config){
@@ -40,13 +49,14 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				})
 
 				this.attr({
-					configs : configs,
-					identities : identities
+					configs        : configs,
+					identities     : identities,
+					loadingConfigs : false
 				});
 			},
 			services : ['Twitter', 'GitHub', 'Facebook'/*, 'Disqus', 'Meetup', 'RSS', 'IRC'*/],
 			accounts : ['bitovi', 'canjs', 'funcunit'],
-			currentTab : 'twitter',
+			currentTab : 'facebook',
 			switchTab : function(ctx, el, ev){
 				this.attr('currentTab', el.data('tab').toLowerCase());
 			},
@@ -55,33 +65,6 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				login.connect({
 					feed : provider
 				})
-			},
-			toggleSelection : function(val, el){
-				var currentTab = this.attr('currentTab'),
-					what       = el.data('what'),
-					config     = can.grep(this.attr('configs'), function(config){
-						return config.attr('feed_name') === currentTab;
-					})[0],
-					configOpts, index;
-
-				if(config){
-					configOpts = config.attr('config');
-
-					if(!configOpts){
-						config.attr('config', {});
-						configOpts = config.attr('config');
-					}
-
-					configOpts.attr(what, configOpts.attr(what) || []);
-					index = configOpts.attr(what).indexOf(val);
-
-					if(index < 0){
-						configOpts.attr(what).push(val);
-					} else {
-						configOpts.attr(what).splice(index, 1);
-					}
-					
-				}
 			},
 			saveConfigs : function(){
 				can.map(this.attr('configs'), function(config){
@@ -139,11 +122,21 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 
 				provider = can.isFunction(provider) ? provider() : provider;
 				return providers.indexOf(provider.toLowerCase()) > -1 ? opts.fn(opts.context) : opts.inverse(opts.context);
+			},
+			isConnecting : function(provider, opts){
+				var currentlyConnecting = window.CONNECTING_FEED();
+
+				provider = can.isFunction(provider) ? provider() : provider;
+
+				return provider === currentlyConnecting ? opts.fn(opts.scope) : opts.inverse(opts.scope);
 			}
 		},
 		events : {
 			"{scope.configs} change" : function(){
 				this.scope.attr('configsChanged', true);
+			},
+			"{BRAND} identities" : function(){
+				this.scope.loadConfigs();
 			}
 		}
 	})

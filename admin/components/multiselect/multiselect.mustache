@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+	<div class="panel-heading">{{ title }}</div>
+	<div class="panel-body clearfix">
+		<ul class="list-unstyled all-items">
+			{{#if notSelectedItems.length}}
+				{{#notSelectedItems}}
+					<li>
+						<label class="checkbox">
+							<input type="checkbox" can-change="selectItem"> {{ name }}
+						</label>
+					</li>
+				{{/notSelectedItems}}
+			{{else}}
+				<li>
+					<div class="alert alert-success">All {{ lowercased title }} are added!</div>
+				</li>
+			{{/if}}
+		</ul>
+		<ul class="list-unstyled selected-items">
+			{{#if selectedItems.length}}
+				{{#selectedItems}}
+					<li>
+						<label class="checkbox">
+							<input type="checkbox" can-change="deselectItem" checked> {{ name }}
+						</label>
+					</li>
+				{{/selectedItems}}
+			{{else}}
+				<li>
+					<div class="alert alert-success">Select {{ lowercased title }} you want to track!</div>
+				</li>
+			{{/if}}
+		</ul>
+	</div>
+</div>

@@ -14,110 +14,64 @@
 			</ul>
 		</div>
 
-		{{#ifTab 'twitter'}}
-			<div class="col-xs-9">
-				{{#isActiveProvider provider}}
-					<p>Your Twitter account is connected!</p>
-				{{else}}
-					<p>Connect your Twitter account.</p>
-					<button class="btn btn-default" can-click="connectService">Connect Twitter</button>
-				{{/isActiveProvider}}
-			</div>
-		{{/ifTab}}
+		<div class="col-xs-9">
+			{{#if isReloading}}
+				<h1><i class="fa fa-refresh fa-spin"></i></h1>
+			{{else}}
 
-		{{#ifTab 'github'}}
-			<div class="col-xs-9">
-				{{#isActiveProvider provider}}
-					<p>Your GitHub account is connected! Select repos you want to track:</p>
-					<h3>Repos</h3>
-					<ul class="list-unstyled">
-						{{#identity.repos}}
-							<li>
-								<label class="checkbox">
-									<input type="checkbox" can-click="toggleSelection" data-what="repos" {{#isSelected 'repos' this}}checked{{/isSelected}}>
-									{{ this }}
-								</label>
-							</li>
-						{{/identity.repos}}
-					</ul>
-				{{else}}
-					<p>Connect your GitHub account and select repos you want to track.</p>
-					<button class="btn btn-default" can-click="connectService">Connect GitHub</button>
-				{{/isActiveProvider}}
-			</div>
-		{{/ifTab}}
+				{{#ifTab 'twitter'}}
+					<h3>Twitter</h3>
+					{{#isActiveProvider provider}}
+						<p>Your Twitter account is connected!</p>
+					{{else}}
+						<p>Connect your Twitter account.</p>
+						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>
+							{{#isConnecting provider}}<i class="fa fa-refresh fa-spin"></i>{{/isConnecting}}
+							Connect{{#isConnecting provider}}ing{{/isConnecting}} Twitter
+						</button>
+					{{/isActiveProvider}}
+				{{/ifTab}}
 
-		{{#ifTab 'facebook'}}
-			<div class="col-xs-9">
-				{{#isActiveProvider provider}}
-					<p>Your Facebook account is connected!</p>
-				{{else}}
-					<p>Connect your Facebook account and select pages you want to track.</p>
-					<button class="btn btn-default" can-click="connectService">Connect Facebook</button>
-				{{/isActiveProvider}}
-			</div>
-		{{/ifTab}}
+				{{#ifTab 'github'}}
+					<h3>GitHub</h3>
+					{{#isActiveProvider provider}}
+						<p>Your GitHub account is connected! Select repos and organizations you want to track:</p>
+						<bh-multiselect title="Repos" items="identity.repos" selected-items="config.config.repos"></bh-multiselect>
+						<bh-multiselect title="Organizations" items="identity.orgs" selected-items="config.config.orgs"></bh-multiselect>
+					{{else}}
+						<p>Connect your GitHub account and select repos you want to track.</p>
+						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>
+							{{#isConnecting provider}}<i class="fa fa-refresh fa-spin"></i>{{/isConnecting}}
+							Connect{{#isConnecting provider}}ing{{/isConnecting}} GitHub
+						</button>
+					{{/isActiveProvider}}
+				{{/ifTab}}
 
-		<!--
-		{{#ifTab 'rss'}}
-			<div class="col-xs-9">
-				<h3>Setup RSS</h3>
-				<div class="form-group">
-					<label>RSS Feed URL</label>
-					<input type="text" class="form-control" value="http://www.bitovi.com/blog.rss">
-				</div>
-				<button class="btn-primary btn btn-xs">Add RSS Feed</button>
-				<hr>
+				{{#ifTab 'facebook'}}
+					<h3>FaceBook</h3>
+					{{#isActiveProvider provider}}
+						<p>Your Facebook account is connected! Select pages you want to track</p>
+						<bh-multiselect title="Pages" items="identity.pages" selected-items="config.config.pages"></bh-multiselect>
+					{{else}}
+						<p>Connect your Facebook account and select pages you want to track.</p>
+						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>
+							{{#isConnecting provider}}<i class="fa fa-refresh fa-spin"></i>{{/isConnecting}}
+							Connect{{#isConnecting provider}}ing{{/isConnecting}} Facebook
+						</button>
+					{{/isActiveProvider}}
+				{{/ifTab}}
 
-				<h4>Blacklisted domains:</h4>
-				<div class="form-group">
-					<input type="text" class="form-control" value="canjs.com">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" value="github.com">
-				</div>
-				<button class="btn-primary btn btn-xs">Add Domain</button>
-				<hr>
-
-				<button class="btn btn-info test-integration">Test this integration</button>
-			</div>
-		{{/ifTab}}
-
-		{{#ifTab 'irc'}}
-			<div class="col-xs-9">
-				<h3>Setup IRC</h3>
-				<div class="form-group">
-					<label>Server Address</label>
-					<input type="text" class="form-control" value="Server Address">
-				</div>
-				<div class="form-group">
-					<label>Username (optional)</label>
-					<input type="text" class="form-control" value="Username">
-				</div>
-				<div class="form-group">
-					<label>Password (optional)</label>
-					<input type="text" class="form-control" value="Password">
-				</div>
-				<div class="form-group">
-					<label>Port</label>
-					<input type="text" class="form-control" value="6667">
-				</div>
-				<div class="form-group">
-					<label>Channel</label>
-					<input type="text" class="form-control" value="Channel">
-				</div>
-				<hr>
-
-				<button class="btn btn-info test-integration">Test this integration</button>
-			</div>
-		{{/ifTab}}
-		-->
+				
+			{{/if}}
+		</div>
 
 	</div>
 
 	{{#if configsChanged}}
-		<div>
-			<button class="btn btn-primary" can-click="saveConfigs">Save Service Configurations</button>
+		<div class="row">
+			<div class="col-xs-9 col-xs-offset-3">
+				<button class="btn btn-primary" can-click="saveConfigs">Save Service Configurations</button>
+			</div>
 		</div>
 	{{/if}}
 	
