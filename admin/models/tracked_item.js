@@ -1,8 +1,8 @@
-steal('can/model', function(Model){
+steal('can/model', 'can/construct/super', function(Model){
 	var TrackedItem = Model.extend({
 
 	}, {
-
+		
 	});
 
 	TrackedItem.normalizers = {
@@ -27,6 +27,19 @@ steal('can/model', function(Model){
 			})
 
 			return data
+		}
+	}
+
+	TrackedItem.serializers = {
+		github : function(data){
+			var serialize = function(obj){
+				return obj.id;
+			}
+
+			data.repos = can.map(data.repos || [], serialize);
+			data.orgs =  can.map(data.orgs || [], serialize);
+
+			return data;
 		}
 	}
 

@@ -38,6 +38,11 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 		},
 		serialize : function(){
 			var data = this._super();
+
+			if(TrackedItem.serializers[data.feed_name]){
+				data = TrackedItem.serializers[data.feed_name](data);
+			}
+
 			return {
 				feed_config : data
 			}

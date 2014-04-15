@@ -3,6 +3,7 @@ steal('can/util/string', './brand_identity.js', 'can/model', 'can/map/attributes
 	return can.Model({
 
 		findOne : 'GET /api/v2/brands/brand',
+		update : 'PUT /api/v2/brands/brand',
 		attributes : {
 			identities : BrandIdentity
 		},
@@ -16,6 +17,17 @@ steal('can/util/string', './brand_identity.js', 'can/model', 'can/map/attributes
 			this.constructor.findOne({}, function(){
 				self.attr('_reloading', false);
 			});
+		},
+		serialize : function(){
+			var data = this._super();
+
+			if(data.keywords && data.keywords.length === 0){
+				data.keywords = null;
+			}
+
+			return {
+				brand : data
+			}
 		}
 	});
 

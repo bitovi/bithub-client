@@ -2,36 +2,32 @@
 <hr>
 
 <div>
-		<form>
-			<label>Brand, company or organization name</label>
-			<input type="text" class="form-control" value="CanJS">
-			<div class="checkbox">
-				<label for=""><input type="checkbox">Allow users to upvote</label>
-			</div>
-			<hr>
-			<label>Keywords</label>
-			<p>
-				We will filter items from the connected networks based on these keywords
-			</p>
-			<div class="form-control keywords-wrap">
-				<span class="badge">
-					<i class="fa fa-times-circle"></i>
-					canjs</span>
-				<span class="badge">
-					<i class="fa fa-times-circle"></i>
-					CanJS</span>
-				<span class="badge">
-					<i class="fa fa-times-circle"></i>
-					#canjs</span>
-				<span class="badge">
-					<i class="fa fa-times-circle"></i>
-					can_js</span>
-			</div>
-			<hr>
-			<div class="save-wrapper clearfix">
-				<button class="btn btn-primary">Save Settings</button>
-				<a href="javascript://" class="btn btn-link">Cancel</a>
-			</div>
-		</form>
-		
+	<div class="form-group">
+		<label>Brand, company or organization name</label>
+		<input type="text" class="form-control" can-value="brand.name">
+	</div>
+
+	<div class="form-group">
+		<label>Aliases</label>
+		<p>
+			When searching for your brand, company or organization name, we'll include these aliases:
+		</p>
+		<div class="panel panel-default">
+			<ul class="list-group">
+				{{#brand.keywords}}
+					<li class="list-group-item">{{ . }} <i class="fa fa-times-circle remove-keyword" can-click="removeKeyword"></i></li>
+				{{/brand.keywords}}
+				{{#if canAddKeywords}}
+					<li class="list-group-item add-keyword-wrap">
+						<input type="text" can-enter="addKeyword" class="form-control" placeholder="Add alias">
+					</li>
+				{{/if}}
+			</ul>
+		</div>
+	</div>
+	
+	<hr>
+	<div class="save-wrapper clearfix">
+		<button class="btn btn-primary" can-click="saveBrand">Save Settings</button>
+	</div>
 </div>

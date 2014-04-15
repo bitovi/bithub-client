@@ -6,7 +6,7 @@
 			<tr>
 				<th class="col-xs-2">Image</th>
 				<th>Reward</th>
-				<th class="col-xs-2 clearfix">Required points</th>
+				<th class="col-xs-2">Required points</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -17,8 +17,16 @@
 			<tr class="active">
 				<td></td>
 				<td>
-					<input type="text" class="form-control" can-value="title" placeholder="Title">
-					<textarea name="" id="" cols="30" rows="3" class="form-control" placeholder="Description" can-value="description"></textarea>
+					<div class="form-group">
+						<label>Title</label>
+						<input type="text" class="form-control" can-value="title" placeholder="Title">
+					</div>
+					
+					<div class="form-group">
+						<label>Description</label>
+						<textarea name="" id="" cols="30" rows="3" class="form-control" placeholder="Description" can-value="description"></textarea>
+					</div>
+					
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" can-value="is_coupon"> This is a coupon
@@ -36,7 +44,7 @@
 							<input type="text" value="1" class="form-control" can-value="point_minimum">
 						</div>
 						<div class="col-xs-4">
-							<label>Point</label>
+							<label>point</label>
 						</div>
 					</div>
 				</td>
@@ -45,13 +53,10 @@
 				</td>
 			</tr>
 		{{/rewards}}
+		<tr>
+			<td colspan="4" class="add-reward"><button class="btn btn-info" can-click="addReward">Add a Reward</button></td>
+		</tr>
 	</tbody>
-
-	
-	
-	<tr class="active">
-		<td colspan="4"><button class="btn btn-info" can-click="addReward">Add a Reward</button></td>
-	</tr>
 
 </table>
 
