@@ -23,13 +23,15 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 
 			can.batch.start();
 
-			if(!this.attr('config')){
+			if(!this.attr('config') || this.attr('config') === null){
 				this.attr('config', {});
 			}
+
 			if(provider === 'github'){
 				this.attr('config.repos', this.attr('config.repos') || []);
 				this.attr('config.orgs', this.attr('config.orgs') || []);
 			}
+
 			if(provider === 'facebook'){
 				this.attr('config.pages', this.attr('config.pages') || []);
 			}
@@ -42,9 +44,6 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 			if(TrackedItem.serializers[data.feed_name]){
 				data = TrackedItem.serializers[data.feed_name](data);
 			}
-
-
-			console.log('SAVE DATA!!!', can.extend({}, data))
 
 			return {
 				feed_config : data

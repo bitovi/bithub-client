@@ -11,20 +11,23 @@ steal('can/model', 'can/construct/super', function(Model){
 				return TrackedItem.model({name : str, id: str});
 			}
 
-			if(data.repos){
+			if(data && data.repos){
 				data.repos = can.map(data.repos, normalize);
 			}
 
-			if(data.orgs){
+			if(data && data.orgs){
 				data.orgs = can.map(data.orgs, normalize);
 			}
 
 			return data;
 		},
 		facebook : function(data){
-			data.pages = can.map(data.pages, function(page){
-				return TrackedItem.model(page);
-			})
+			if(data){
+				data.pages = can.map(data.pages, function(page){
+					return TrackedItem.model(page);
+				})
+			}
+			
 
 			return data;
 		}

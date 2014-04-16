@@ -56,7 +56,7 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 			},
 			services : ['Twitter', 'GitHub', 'Facebook'/*, 'Disqus', 'Meetup', 'RSS', 'IRC'*/],
 			accounts : ['bitovi', 'canjs', 'funcunit'],
-			currentTab : 'facebook',
+			currentTab : 'twitter',
 			switchTab : function(ctx, el, ev){
 				this.attr('currentTab', el.data('tab').toLowerCase());
 			},
