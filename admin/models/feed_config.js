@@ -43,6 +43,9 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 				data = TrackedItem.serializers[data.feed_name](data);
 			}
 
+
+			console.log('SAVE DATA!!!', can.extend({}, data))
+
 			return {
 				feed_config : data
 			}

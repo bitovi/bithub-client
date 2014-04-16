@@ -26,18 +26,40 @@ steal('can/model', 'can/construct/super', function(Model){
 				return TrackedItem.model(page);
 			})
 
-			return data
+			return data;
 		}
 	}
 
 	TrackedItem.serializers = {
 		github : function(data){
-			var serialize = function(obj){
-				return obj.id;
-			}
+			var repos = [],
+				orgs = [];
 
-			data.repos = can.map(data.repos || [], serialize);
-			data.orgs =  can.map(data.orgs || [], serialize);
+			data.config = data.config || {};
+
+			can.each(data.config.repos || [], function(item){
+				repos.push(item.id);
+			});
+
+			can.each(data.config.orgs || [], function(item){
+				orgs.push(item.id);
+			});
+
+			data.config.repos = repos;
+			data.config.orgs =  orgs
+
+			return data;
+		},
+		facebook : function(data){
+			var pages = [];
+
+			data.config = data.config || {};
+
+			can.each(data.config.pages || [], function(item){
+				pages.push(item);
+			});
+
+			data.config.pages = pages;
 
 			return data;
 		}
