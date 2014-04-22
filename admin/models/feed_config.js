@@ -36,6 +36,14 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 				this.attr('config.pages', this.attr('config.pages') || []);
 			}
 
+			if(provider === 'disqus'){
+				this.attr('config.forums', this.attr('config.forums') || []);
+			}
+
+			if(provider === 'meetup'){
+				this.attr('config.groups', this.attr('config.groups') || []);
+			}
+
 			can.batch.stop();
 		},
 		serialize : function(){

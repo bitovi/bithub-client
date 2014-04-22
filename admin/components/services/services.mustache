@@ -61,6 +61,47 @@
 					{{/isActiveProvider}}
 				{{/ifTab}}
 
+				{{#ifTab 'disqus'}}
+					<h3>Disqus</h3>
+					{{#isActiveProvider provider}}
+						<p>Your Disqus account is connected!</p>
+						<bh-multiselect title="Forums" items="identity.forums" selected-items="config.config.forums"></bh-multiselect>
+					{{else}}
+						<p>Connect your Disqus account.</p>
+						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>
+							{{#isConnecting provider}}<i class="fa fa-refresh fa-spin"></i>{{/isConnecting}}
+							Connect{{#isConnecting provider}}ing{{/isConnecting}} Disqus
+						</button>
+					{{/isActiveProvider}}
+				{{/ifTab}}
+
+				{{#ifTab 'stackexchange'}}
+					<h3>StackExchange</h3>
+					{{#isActiveProvider provider}}
+						<p>Your StackExchange account is connected!</p>
+					{{else}}
+						<p>Connect your StackExchange account.</p>
+						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>
+							{{#isConnecting provider}}<i class="fa fa-refresh fa-spin"></i>{{/isConnecting}}
+							Connect{{#isConnecting provider}}ing{{/isConnecting}} StackExchange
+						</button>
+					{{/isActiveProvider}}
+				{{/ifTab}}
+
+				{{#ifTab 'meetup'}}
+					<h3>Meetup</h3>
+					{{#isActiveProvider provider}}
+						<p>Your Meetup account is connected!</p>
+						<bh-multiselect title="Groups" items="identity.groups" selected-items="config.config.groups"></bh-multiselect>
+					{{else}}
+						<p>Connect your Meetup account.</p>
+						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>
+							{{#isConnecting provider}}<i class="fa fa-refresh fa-spin"></i>{{/isConnecting}}
+							Connect{{#isConnecting provider}}ing{{/isConnecting}} Meetup
+						</button>
+					{{/isActiveProvider}}
+				{{/ifTab}}
+
 				
 			{{/if}}
 		</div>

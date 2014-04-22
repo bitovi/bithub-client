@@ -15,8 +15,8 @@ steal('admin/models/brand.js', 'admin/components/admin', 'can/route', function(B
 		can.route('/:page/:stage')
 
 		can.route.ready();
-	}, function(){
-		console.log(arguments)
+	}, function(err){
+		console.log(err.stack)
 	})
 
 	

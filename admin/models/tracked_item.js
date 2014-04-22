@@ -1,14 +1,10 @@
 steal('can/model', 'can/construct/super', function(Model){
-	var TrackedItem = Model.extend({
-
-	}, {
-		
-	});
+	var TrackedItem = {};
 
 	TrackedItem.normalizers = {
 		github : function(data){
 			var normalize = function(str){
-				return TrackedItem.model({name : str, id: str});
+				return {name : str, id: str};
 			}
 
 			if(data && data.repos){
@@ -23,14 +19,32 @@ steal('can/model', 'can/construct/super', function(Model){
 		},
 		facebook : function(data){
 			if(data){
-				data.pages = can.map(data.pages, function(page){
-					return TrackedItem.model(page);
+				data.pages = can.map(data.pages || [], function(page){
+					return page;
 				})
 			}
 			
-
+			return data;
+		},
+		meetup : function(data){
+			if(data){
+				data.groups = can.map(data.groups || [], function(group){
+					return group;
+				})
+			}
+			
+			return data;
+		},
+		disqus : function(data){
+			if(data){
+				data.forums = can.map(data.forums || [], function(forum){
+					return forum;
+				})
+			}
+			
 			return data;
 		}
+
 	}
 
 	TrackedItem.serializers = {
@@ -63,6 +77,32 @@ steal('can/model', 'can/construct/super', function(Model){
 			});
 
 			data.config.pages = pages;
+
+			return data;
+		},
+		meetup : function(data){
+			var groups = [];
+
+			data.config = data.config || {};
+
+			can.each(data.config.groups || [], function(item){
+				groups.push(item);
+			});
+
+			data.config.groups = groups;
+
+			return data;
+		},
+		disqus : function(data){
+			var forums = [];
+
+			data.config = data.config || {};
+
+			can.each(data.config.forums || [], function(item){
+				forums.push(item);
+			});
+
+			data.config.forums = forums;
 
 			return data;
 		}

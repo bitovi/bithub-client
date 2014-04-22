@@ -16,6 +16,8 @@ steal('can/util/string', './brand_identity.js', 'can/model', 'can/map/attributes
 			this.attr('_reloading', true);
 			this.constructor.findOne({}, function(){
 				self.attr('_reloading', false);
+			}, function(err){
+				console.log(err.stack)
 			});
 		},
 		serialize : function(){
