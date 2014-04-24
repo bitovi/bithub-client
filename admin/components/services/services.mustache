@@ -23,6 +23,7 @@
 					<h3>Twitter</h3>
 					{{#isActiveProvider provider}}
 						<p>Your Twitter account is connected!</p>
+						<bh-multiselect title="Search Terms" items="brand.keywordList" selected-items="config.config.terms"></bh-multiselect>
 					{{else}}
 						<p>Connect your Twitter account.</p>
 						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>
@@ -79,6 +80,7 @@
 					<h3>StackExchange</h3>
 					{{#isActiveProvider provider}}
 						<p>Your StackExchange account is connected!</p>
+						<bh-multiselect title="Search Tags" items="brand.keywordList" selected-items="config.config.tags"></bh-multiselect>
 					{{else}}
 						<p>Connect your StackExchange account.</p>
 						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>
@@ -108,12 +110,23 @@
 
 	</div>
 
-	{{#if configsChanged}}
-		<div class="row">
-			<div class="col-xs-9 col-xs-offset-3">
-				<button class="btn btn-primary" can-click="saveConfigs">Save Service Configurations</button>
-			</div>
+	<div class="row">
+		<div class="col-xs-9 col-xs-offset-3 clearfix">
+			{{#if hasSavedConfigs}}
+				<div class="alert alert-info alert-dismissable">
+					<button type="button" class="close" can-click="hideHasSavedConfigs">&times;</button>
+					Service Configs are saved.
+				</div>
+			{{/if}}
+			<button class="btn btn-primary pull-right" can-click="saveConfigs" {{#if isSavingConfigs}}disabled{{/if}}>
+				{{#if isSavingConfigs}}
+					<i class="fa fa-refresh fa-spin"></i>
+					Saving ...
+				{{else}}
+					Save Service Configurations
+				{{/if}}
+			</button>
 		</div>
-	{{/if}}
+	</div>
 	
 </form>

@@ -14,9 +14,14 @@ steal('can/component', './multiselect.mustache', './multiselect.less', function(
 				this.attr('selectedItems').splice(index, 1);
 			},
 			notSelectedItems : function(){
-				var selectedItems = this.attr('selectedItems');
+				var selectedItems = this.attr('selectedItems') || [];
+				var selectedItemIds = can.map(selectedItems, function(i){
+					return i.attr('id');
+				});
+
+				selectedItems.attr('length')
 				return can.grep(this.attr('items'), function(item){
-					return selectedItems.indexOf(item) === -1;
+					return selectedItemIds.indexOf(item.attr('id')) === -1;
 				})
 			}
 		},

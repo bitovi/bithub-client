@@ -30,6 +30,17 @@ steal('can/util/string', './brand_identity.js', 'can/model', 'can/map/attributes
 			return {
 				brand : data
 			}
+		},
+		keywordList : function(){
+			var keywords = this.attr('keywords');
+
+			if(keywords.indexOf(this.attr('name')) === -1){
+				keywords.push(this.attr('name'));
+			}
+
+			return new can.List(can.map(keywords, function(keyword){
+				return {id: keyword, name: keyword};
+			}));
 		}
 	});
 

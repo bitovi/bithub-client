@@ -1,18 +1,35 @@
 steal('can/model', 'can/construct/super', function(Model){
 	var TrackedItem = {};
 
+	var normalizeString = function(str){
+		if(typeof str === 'string'){
+			return {name : str, id: str};
+		}
+		return str;
+	}
+
 	TrackedItem.normalizers = {
 		github : function(data){
-			var normalize = function(str){
-				return {name : str, id: str};
-			}
-
 			if(data && data.repos){
-				data.repos = can.map(data.repos, normalize);
+				data.repos = can.map(data.repos, normalizeString);
 			}
 
 			if(data && data.orgs){
-				data.orgs = can.map(data.orgs, normalize);
+				data.orgs = can.map(data.orgs, normalizeString);
+			}
+
+			return data;
+		},
+		twitter : function(data){
+			if(data && data.terms){
+				data.terms = can.map(data.terms, normalizeString);
+			}
+
+			return data;
+		},
+		stackexchange : function(data){
+			if(data && data.tags){
+				data.tags = can.map(data.tags, normalizeString);
 			}
 
 			return data;
@@ -64,6 +81,32 @@ steal('can/model', 'can/construct/super', function(Model){
 
 			data.config.repos = repos;
 			data.config.orgs =  orgs
+
+			return data;
+		},
+		twitter : function(data){
+			var terms = [];
+
+			data.config = data.config || {};
+
+			can.each(data.config.terms || [], function(item){
+				terms.push(item.id);
+			});
+
+			data.config.terms = terms;
+
+			return data;
+		},
+		stackexchange : function(data){
+			var tags = [];
+
+			data.config = data.config || {};
+
+			can.each(data.config.tags || [], function(item){
+				tags.push(item.id);
+			});
+
+			data.config.tags = tags;
 
 			return data;
 		},

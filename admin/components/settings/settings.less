@@ -11,14 +11,34 @@ settings {
 	}
 	
 	.remove-keyword {
-		float: right;
-		margin-top: 3px;
 		cursor: pointer;
 	}
 	.add-keyword-wrap {
 		padding: 0;
 		input.form-control {
 			border: none;
+		}
+	}
+
+	.keyword-list-wrap {
+		li, .form-control {
+			float: left;
+			width: auto;
+		}
+		input.form-control {
+			border: none;
+			box-shadow: none;
+			padding: 0 5px;
+		}
+	}
+
+	.keyword-list {
+		margin: 0;
+		li {
+			background: #DAEFFF;
+			margin: 3px;
+			padding: 5px;
+			border-radius: 3px;
 		}
 	}
 }

@@ -44,6 +44,14 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 				this.attr('config.groups', this.attr('config.groups') || []);
 			}
 
+			if(provider === 'twitter'){
+				this.attr('config.terms', this.attr('config.terms') || []);
+			}
+
+			if(provider === 'stackexchange'){
+				this.attr('config.tags', this.attr('config.tags') || []);
+			}
+
 			can.batch.stop();
 		},
 		serialize : function(){

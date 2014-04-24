@@ -16,12 +16,17 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 		tag : 'services',
 		template : servicesView,
 		scope : {
+			isSavingConfigs: false,
+			hasSavedConfigs: false,
 			init : function(){
 				this.attr({
 					configs : [],
 					identities : []
 				});
 				this.loadConfigs();
+			},
+			brand : function(){
+				return BRAND;
 			},
 			configsChanged : false,
 			loadingConfigs : false,
@@ -67,9 +72,21 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				})
 			},
 			saveConfigs : function(){
-				can.map(this.attr('configs'), function(config){
+				this.attr('isSavingConfigs', true);
+				$.when(can.map(this.attr('configs'), function(config){
 					config.save();
-				})
+				})).then(this.proxy('savedConfigs'))
+			},
+			savedConfigs : function(){
+				var self = this;
+				this.attr('isSavingConfigs', false);
+				this.attr('hasSavedConfigs', true);
+				clearTimeout(this.__hideHasSavedConfigs);
+				this.__hasSavedConfigs = setTimeout(this.proxy('hideHasSavedConfigs'), 5000);
+			},
+			hideHasSavedConfigs : function(){
+				clearTimeout(this.__hideHasSavedConfigs);
+				this.attr('hasSavedConfigs', false);
 			}
 		},
 		helpers : {

@@ -12,15 +12,13 @@
 		<p>
 			When searching for your brand, company or organization name, we'll include these aliases:
 		</p>
-		<div class="panel panel-default">
-			<ul class="list-group">
+		<div class="panel panel-default keyword-list-wrap">
+			<ul class="list-unstyled clearfix keyword-list">
 				{{#brand.keywords}}
-					<li class="list-group-item">{{ . }} <i class="fa fa-times-circle remove-keyword" can-click="removeKeyword"></i></li>
+					<li>{{ . }} <i class="fa fa-times-circle remove-keyword" can-click="removeKeyword"></i></li>
 				{{/brand.keywords}}
 				{{#if canAddKeywords}}
-					<li class="list-group-item add-keyword-wrap">
-						<input type="text" can-enter="addKeyword" class="form-control" placeholder="Add alias">
-					</li>
+					<input type="text" can-keydown="manageKeywords" class="form-control keyword-input" placeholder="Add alias">
 				{{/if}}
 			</ul>
 		</div>
@@ -28,6 +26,19 @@
 	
 	<hr>
 	<div class="save-wrapper clearfix">
-		<button class="btn btn-primary" can-click="saveBrand">Save Settings</button>
+		{{#if hasSavedBrand}}
+			<div class="alert alert-info alert-dismissable">
+				<button type="button" class="close" can-click="hideHasSavedBrand">&times;</button>
+				Brand changes are saved.
+			</div>
+		{{/if}}
+		<button class="btn btn-primary pull-right" can-click="saveBrand" {{#if isSavingBrand}}disabled{{/if}}>
+			{{#if isSavingBrand}}
+				<i class="fa fa-refresh fa-spin"></i>
+				Saving ...
+			{{else}}
+				Save Brand
+			{{/if}}
+		</button>
 	</div>
 </div>
