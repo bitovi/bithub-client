@@ -18,13 +18,13 @@
 		</ul>
 		<ul class="list-unstyled selected-items">
 			{{#if selectedItems.length}}
-				{{#selectedItems}}
+				{{#existingSelectedItems}}
 					<li>
 						<label class="checkbox">
 							<input type="checkbox" can-change="deselectItem" checked> {{ name }}
 						</label>
 					</li>
-				{{/selectedItems}}
+				{{/existingSelectedItems}}
 			{{else}}
 				<li>
 					<div class="alert alert-success">Select {{ lowercased title }} you want to track!</div>

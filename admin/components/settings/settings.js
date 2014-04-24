@@ -42,15 +42,13 @@ steal(
 			},
 			manageKeywords : function(ctx, el, ev){
 				var val = el.val(),
-					keywords = (this.brand().attr('keywords') || [])
+					keywords = (this.brand().attr('keywords') || []);
+
 				if(ev.which === 8 && val === ''){
 					keywords.pop();
-				} else if(ev.which === 32 || ev.which === 188){
+				} else if(ev.which === 32 || ev.which === 188 || ev.which === 13){
 					this.addKeyword(ctx, el, ev);
 				}
-			},
-			saveBrand : function(){
-				
 			},
 			saveBrand : function(){
 				var brand = this.brand();

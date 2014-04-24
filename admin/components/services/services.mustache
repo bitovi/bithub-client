@@ -95,6 +95,7 @@
 					{{#isActiveProvider provider}}
 						<p>Your Meetup account is connected!</p>
 						<bh-multiselect title="Groups" items="identity.groups" selected-items="config.config.groups"></bh-multiselect>
+						<bh-multiselect title="Search Terms" items="brand.keywordList" selected-items="config.config.terms"></bh-multiselect>
 					{{else}}
 						<p>Connect your Meetup account.</p>
 						<button class="btn btn-default" can-click="connectService" {{#isConnecting provider}}disabled{{/isConnecting}}>

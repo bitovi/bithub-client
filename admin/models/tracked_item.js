@@ -49,6 +49,10 @@ steal('can/model', 'can/construct/super', function(Model){
 					return group;
 				})
 			}
+
+			if(data && data.terms){
+				data.terms = can.map(data.terms, normalizeString);
+			}
 			
 			return data;
 		},
@@ -124,7 +128,8 @@ steal('can/model', 'can/construct/super', function(Model){
 			return data;
 		},
 		meetup : function(data){
-			var groups = [];
+			var groups = [],
+				terms = [];
 
 			data.config = data.config || {};
 
@@ -132,7 +137,12 @@ steal('can/model', 'can/construct/super', function(Model){
 				groups.push(item);
 			});
 
+			can.each(data.config.terms || [], function(item){
+				terms.push(item.id);
+			});
+
 			data.config.groups = groups;
+			data.config.terms = terms;
 
 			return data;
 		},

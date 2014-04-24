@@ -42,6 +42,7 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 
 			if(provider === 'meetup'){
 				this.attr('config.groups', this.attr('config.groups') || []);
+				this.attr('config.terms', this.attr('config.terms') || []);
 			}
 
 			if(provider === 'twitter'){

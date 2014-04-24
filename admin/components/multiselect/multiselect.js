@@ -1,4 +1,9 @@
 steal('can/component', './multiselect.mustache', './multiselect.less', function(Component, initView){
+
+	var toString = function(val){
+		return val + "";
+	}
+
 	return Component.extend({
 		tag : 'bh-multiselect',
 		template : initView,
@@ -16,12 +21,24 @@ steal('can/component', './multiselect.mustache', './multiselect.less', function(
 			notSelectedItems : function(){
 				var selectedItems = this.attr('selectedItems') || [];
 				var selectedItemIds = can.map(selectedItems, function(i){
-					return i.attr('id');
+					return toString(i.attr('id'));
 				});
 
 				selectedItems.attr('length')
 				return can.grep(this.attr('items'), function(item){
-					return selectedItemIds.indexOf(item.attr('id')) === -1;
+					return selectedItemIds.indexOf(toString(item.attr('id'))) === -1;
+				})
+			},
+			existingSelectedItems : function(){
+				var items         = this.attr('items') || [],
+					selectedItems = this.attr('selectedItems'),
+					ids           = can.map(items, function(i){ return toString(i.attr('id')) });
+
+				items.attr && items.attr('length');
+				selectedItems.attr && selectedItems.attr('length');
+
+				return can.grep(this.attr('selectedItems') || [], function(item){
+					return ids.indexOf(toString(item.attr('id'))) > -1;
 				})
 			}
 		},
