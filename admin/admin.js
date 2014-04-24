@@ -16,7 +16,7 @@ steal('admin/models/brand.js', 'admin/components/admin', 'can/route', function(B
 
 		can.route.ready();
 	}, function(err){
-		console.log(err.stack)
+		window.location.href = '/login';
 	})
 
 	

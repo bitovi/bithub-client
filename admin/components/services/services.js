@@ -154,6 +154,9 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 			},
 			"{BRAND} identities" : function(){
 				this.scope.loadConfigs();
+			},
+			"form submit" : function(el, ev){
+				ev.preventDefault();
 			}
 		}
 	})
