@@ -1,6 +1,13 @@
-steal('can/util/string', 'can/component', './rewards.mustache', 'admin/models/reward.js', './rewards.less', function(can, Component, rewardsView, Reward){
+steal(
+'can/util/string',
+'can/component',
+'./rewards.mustache',
+'admin/models/reward.js',
+'vendor/fileupload',
+'./rewards.less',
+function(can, Component, rewardsView, Reward, fileUpload){
 
-	return can.Component({
+return can.Component({
 	tag : 'rewards',
 	template : rewardsView,
 	scope : {
@@ -27,6 +34,17 @@ steal('can/util/string', 'can/component', './rewards.mustache', 'admin/models/re
 			var rewards = this.attr('rewards'),
 				self = this,
 				rewardDeferreds = can.map(rewards, function(reward){
+					var data, save;
+					if(reward.__fileUpload){
+						data          = reward.__fileUpload;
+						data.formData = {reward : $.param(reward.serialize().reward)};
+						data.submit();
+						save = data.jqXHR;
+						save.then(function(data){
+							reward.attr(data.data);
+						})
+						return save;
+					}
 					return reward.save();
 				})
 
@@ -37,7 +55,29 @@ steal('can/util/string', 'can/component', './rewards.mustache', 'admin/models/re
 			})
 
 		}
+	},
+	helpers : {
+		initFileUpload : function(reward){
+			return function(el){
+				var url = '/api/v2/rewards';
+
+				if(!reward.isNew()){
+					url = url + '/' + reward.attr('id');
+				}
+
+				$(el).fileupload({
+					url: url,
+					datatype: 'json',
+					limitMultiFileUploads: 1,
+					replaceFileInput: false,
+					acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+					add: function(el, data) {
+						reward.__fileUpload = data;
+					}
+				})
+			}
+		}
 	}
-	})
+})
 
 });

@@ -1,7 +1,8 @@
 <h1 class="admin-page-header">Rewards</h1>
 <hr>
+{{#if rewards.length}}
 <table class="table">
-	{{#if rewards.length}}
+	
 		<thead>
 			<tr>
 				<th class="col-xs-2">Image</th>
@@ -10,12 +11,17 @@
 				<th></th>
 			</tr>
 		</thead>
-	{{/if}}
+	
 
 	<tbody>
 		{{#rewards}}
-			<tr class="active">
-				<td></td>
+			<tr class="active" {{initFileUpload this}}>
+				<td class="image-cell">
+					{{#original_image_url}}
+						<img src="{{ original_image_url }}" class="reward-thumb" />
+					{{/}}
+					<input type="file">
+				</td>
 				<td>
 					<div class="form-group">
 						<label>Title</label>
@@ -53,15 +59,15 @@
 				</td>
 			</tr>
 		{{/rewards}}
-		<tr>
-			<td colspan="4" class="add-reward"><button class="btn btn-info" can-click="addReward">Add a Reward</button></td>
-		</tr>
 	</tbody>
 
 </table>
 
 <hr>
-
+{{else}}
+<div class="alert alert-info">Currently there are no rewards!</div>
+{{/if}}
 <div class="save-wrapper clearfix">
 	<button class="btn btn-primary" {{#if isSaving}}disabled{{/if}} can-click="saveRewards">Save Rewards</button>
+	<button class="btn btn-info" can-click="addReward">Add a Reward</button></td>
 </div>
