@@ -10,8 +10,6 @@ steal('can/util/string', 'can/compute',
 				var host = window.location.host.split('.');
 				var url = 'http://' + (host.splice(1, host.length - 1).join('.')) + '/api/auth/' + options.feed + '_brand';
 
-				alert(url)
-
 				CONNECTING_FEED(options.feed);
 
 				var oauthWindow = window.open(url, title, windowPropsStr);
