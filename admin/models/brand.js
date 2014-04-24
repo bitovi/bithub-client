@@ -32,7 +32,7 @@ steal('can/util/string', './brand_identity.js', 'can/model', 'can/map/attributes
 			}
 		},
 		keywordList : function(){
-			var keywords = this.attr('keywords').attr();
+			var keywords = this.attr('keywords').attr() || [];
 
 			if(keywords.indexOf(this.attr('name')) === -1){
 				keywords.push(this.attr('name'));
