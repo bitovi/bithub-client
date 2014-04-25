@@ -48,6 +48,7 @@ steal(
 					keywords.pop();
 				} else if(ev.which === 32 || ev.which === 188 || ev.which === 13){
 					this.addKeyword(ctx, el, ev);
+					ev.preventDefault();
 				}
 			},
 			saveBrand : function(){

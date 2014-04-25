@@ -18,7 +18,7 @@
 					<li>{{ . }} <i class="fa fa-times-circle remove-keyword" can-click="removeKeyword"></i></li>
 				{{/brand.keywords}}
 				{{#if canAddKeywords}}
-					<input type="text" can-keydown="manageKeywords" class="form-control keyword-input" placeholder="Add alias">
+					<input type="text" can-keydown="manageKeywords" can-blur="addKeyword" class="form-control keyword-input" placeholder="Add alias">
 				{{/if}}
 			</ul>
 		</div>
