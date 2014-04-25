@@ -112,14 +112,12 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					provider : tab
 				};
 
-				if(length > 0){
-					scope.identity = can.grep(activeIdentities, function(id){
-						return id.provider === tab;
-					})[0];
-					scope.config = can.grep(activeConfigs, function(config){
-						return config.feed_name === tab;
-					})[0];
-				}
+				scope.identity = can.grep(activeIdentities, function(id){
+					return id.provider === tab;
+				})[0];
+				scope.config = can.grep(activeConfigs, function(config){
+					return config.feed_name === tab;
+				})[0];
 
 				return this.attr('currentTab') === tab ? opts.fn(opts.scope.add(scope)) : ""
 			},
