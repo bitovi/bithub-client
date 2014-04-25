@@ -53,6 +53,10 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 				this.attr('config.tags', this.attr('config.tags') || []);
 			}
 
+			if(provider === 'rss'){
+				this.attr('config.urls', this.attr('config.urls') || []);
+			}
+
 			can.batch.stop();
 		},
 		serialize : function(){

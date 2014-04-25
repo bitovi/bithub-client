@@ -12,14 +12,13 @@ steal('can/util/string', 'can/component', './dashboard.mustache', 'bithub/models
 				this.loadNextPage();
 			},
 			items: [],
-			offset : 0,
 			isLoading : false,
 			currentProvider : 'all',
 			loadNextPage : function(){
 				var params = {
 					order: 'thread_updated_ts:desc',
 					limit: 50,
-					offset: this.attr('offset')
+					offset: this.attr('items.length')
 				}
 				var currentProvider = this.attr('currentProvider');
 
@@ -41,7 +40,6 @@ steal('can/util/string', 'can/component', './dashboard.mustache', 'bithub/models
 		},
 		events : {
 			"{scope} currentProvider" : function(){
-				this.scope.attr('offset', 0);
 				this.scope.attr('items').splice(0);
 				this.scope.loadNextPage();
 			}
