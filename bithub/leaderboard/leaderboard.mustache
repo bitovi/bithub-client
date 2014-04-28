@@ -1,0 +1,14 @@
+<div class="leaderboard-wrap">
+<h4>Leaderboard</h4>
+
+	<ul class="unstyled">
+		{{#each users}}
+			<li class="clearfix">
+			<span class="position pull-left">#{{calcIndex @index}}</span>
+			{{#avatarUrl}}<img class="avatar pull-left" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
+			<span class="leaderboard-name pull-left">{{name}}</span>
+			<span class="points pull-right">{{score}}</span>
+			</li>
+		{{/each}}
+	</ul>
+</div>

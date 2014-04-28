@@ -136,6 +136,7 @@ steal(
 		genRoutes( routes );
 
 		can.route('/rewards', { page: 'rewards' });
+		can.route('/leaderboard', { page: 'leaderboard' });
 		can.route('/earnpoints', { page: 'earnpoints' });
 
 		can.route('/profile', { page: 'profile', view: 'info' });

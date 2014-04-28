@@ -8891,12 +8891,20 @@ a.btn.connect span {
   border-radius: 20px;
   padding: 0 8px;
 }
-.sidebar .leaderboard {
+.leaderboard-wrap {
+  margin: 20px 20px 0;
+}
+.leaderboard-wrap h4 {
+  margin-bottom: 20px;
+}
+.sidebar .leaderboard,
+.leaderboard-wrap {
   color: #333;
   font-size: 14px;
   font-weight: bold;
 }
-.sidebar .leaderboard .avatar {
+.sidebar .leaderboard .avatar,
+.leaderboard-wrap .avatar {
   border: 2px solid #737373;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -8904,16 +8912,15 @@ a.btn.connect span {
   margin: 0 5px;
   width: 22px;
 }
-.sidebar .leaderboard ul li {
+.sidebar .leaderboard ul li,
+.leaderboard-wrap ul li {
   border-bottom: 1px solid #eeeeee;
   padding: 5px 15px;
   margin: 0px -15px;
   max-height: 40px;
 }
-.sidebar .leaderboard ul li:last-child {
-  border-bottom: 0px;
-}
-.sidebar .leaderboard ul li.active {
+.sidebar .leaderboard ul li.active,
+.leaderboard-wrap ul li.active {
   background: #71bee5 url(/assets/images/you-badge.gif) no-repeat left center;
   border-top: 1px solid #4995bb;
   border-bottom: 1px solid #4995bb;
@@ -8921,25 +8928,37 @@ a.btn.connect span {
   color: #fff;
 }
 .sidebar .leaderboard ul li .position,
-.sidebar .leaderboard ul li .points {
+.leaderboard-wrap ul li .position,
+.sidebar .leaderboard ul li .points,
+.leaderboard-wrap ul li .points {
   position: relative;
   color: #666;
   font-size: 20px;
   top: 2px;
 }
-.sidebar .leaderboard .lightning-divider {
+.sidebar .leaderboard .lightning-divider,
+.leaderboard-wrap .lightning-divider {
   background-image: url(/assets/images/lightning-divider.png);
   background-repeat: repeat-x;
   background-position: center center;
   height: 41px;
   margin: -20px -15px 0px -15px;
 }
-.sidebar .leaderboard .leaderboard-name {
+.sidebar .leaderboard .leaderboard-name,
+.leaderboard-wrap .leaderboard-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 200px;
+  width: 180px;
   margin-top: 3px;
+}
+.full-leaderboard-link {
+  display: block;
+  text-align: right;
+  font-size: 90%;
+}
+.leaderboard-wrap .leaderboard-name {
+  width: 500px;
 }
 .sidebar .leaderboard ul li.active .position,
 .sidebar .leaderboard ul li.active .points {
