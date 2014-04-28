@@ -356,7 +356,7 @@ a:focus {
   box-sizing: border-box;
   float: left;
   margin-left: 1.953125%;
-  *margin-left: 1.904296875%;
+  *margin-left: 1.90429688%;
 }
 .row-fluid [class*="span"]:first-child {
   margin-left: 0;
@@ -366,51 +366,51 @@ a:focus {
 }
 .row-fluid .span12 {
   width: 100%;
-  *width: 99.951171875%;
+  *width: 99.95117188%;
 }
 .row-fluid .span11 {
   width: 91.50390625%;
-  *width: 91.455078125%;
+  *width: 91.45507813%;
 }
 .row-fluid .span10 {
   width: 83.0078125%;
-  *width: 82.958984375%;
+  *width: 82.95898438%;
 }
 .row-fluid .span9 {
   width: 74.51171875%;
-  *width: 74.462890625%;
+  *width: 74.46289063%;
 }
 .row-fluid .span8 {
   width: 66.015625%;
-  *width: 65.966796875%;
+  *width: 65.96679688%;
 }
 .row-fluid .span7 {
   width: 57.51953125%;
-  *width: 57.470703125%;
+  *width: 57.47070313%;
 }
 .row-fluid .span6 {
   width: 49.0234375%;
-  *width: 48.974609375%;
+  *width: 48.97460938%;
 }
 .row-fluid .span5 {
   width: 40.52734375%;
-  *width: 40.478515625%;
+  *width: 40.47851563%;
 }
 .row-fluid .span4 {
   width: 32.03125%;
-  *width: 31.982421875%;
+  *width: 31.98242188%;
 }
 .row-fluid .span3 {
   width: 23.53515625%;
-  *width: 23.486328125%;
+  *width: 23.48632813%;
 }
 .row-fluid .span2 {
   width: 15.0390625%;
-  *width: 14.990234375%;
+  *width: 14.99023438%;
 }
 .row-fluid .span1 {
   width: 6.54296875%;
-  *width: 6.494140625%;
+  *width: 6.49414063%;
 }
 .row-fluid .offset12 {
   margin-left: 103.90625%;
@@ -8901,7 +8901,7 @@ a.btn.connect span {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  margin-right: 5px;
+  margin: 0 5px;
   width: 22px;
 }
 .sidebar .leaderboard ul li {
@@ -8933,6 +8933,13 @@ a.btn.connect span {
   background-position: center center;
   height: 41px;
   margin: -20px -15px 0px -15px;
+}
+.sidebar .leaderboard .leaderboard-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+  margin-top: 3px;
 }
 .sidebar .leaderboard ul li.active .position,
 .sidebar .leaderboard ul li.active .points {

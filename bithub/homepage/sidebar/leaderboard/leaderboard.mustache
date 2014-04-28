@@ -1,27 +1,27 @@
 <h4>Leaderboard</h4>
 
 <ul class="unstyled">
-  {{#loop users length=topLength}}
-  <li class="{{#if loggedIn}}active{{/if}}">
-	<span class="position">#{{__index}}</span>
-	{{#avatarUrl}}<img class="avatar" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
-	{{name}}
+	{{#loop users length=topLength}}
+	<li class="{{#if loggedIn}}active{{/if}} clearfix">
+	<span class="position pull-left">#{{__index}}</span>
+	{{#avatarUrl}}<img class="avatar pull-left" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
+	<span class="leaderboard-name pull-left">{{name}}</span>
 	<span class="points pull-right">{{score}}</span>
-  </li>
-  {{/loop}}
+	</li>
+	{{/loop}}
 </ul>
 
 {{#if breakAt}}
-  <ul class="unstyled"><li class="lightning-divider"></li></ul>
+	<ul class="unstyled"><li class="lightning-divider"></li></ul>
 
-  <ul class="unstyled">
+	<ul class="unstyled">
 	{{#loop users begin=breakAt length=3}}
-	<li class="{{#if loggedIn}}active{{/if}}">
-	  <span class="position">#{{__index}}</span>
-	  {{#avatarUrl}}<img class="avatar" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
-	  {{name}}
-	  <span class="points pull-right">{{score}}</span>
+	<li class="{{#if loggedIn}}active{{/if}} clearfix">
+		<span class="position pull-left">#{{__index}}</span>
+		{{#avatarUrl}}<img class="avatar pull-left" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
+		<span class="leaderboard-name pull-left">{{name}}</span>
+		<span class="points pull-right">{{score}}</span>
 	</li>
 	{{/loop}}  
-  </ul>
+	</ul>
 {{/if}}
