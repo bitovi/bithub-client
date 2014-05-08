@@ -27,7 +27,7 @@
   </div>
 
   <div class="awards free-stuff logged-in">
-	<h4>Rewards</h4>
+	<h4><a href="/rewards">Rewards</a></h4>
 	<div class="rewards">
 	  {{#iterRewards}}
 	  <a href="{{{rewardsUrl}}}" class="item {{reward.status_cssClass}}" {{#reward.thumbUrl}}style="background-image: url({{.}})"{{/reward.thumbUrl}}>
@@ -70,7 +70,7 @@
 
   {{#if meetups.length}}
 		<div class="visit-meetups">
-			<h4>Upcoming Events</h4>
+			<h4><a href="{{ routes.meetups }}">Upcoming Events</a></h4>
 			<div>
 				<ul class="unstyled">
 					{{#meetups}}
@@ -87,9 +87,6 @@
 							{{v props.location }}
 						</li>
 					{{/meetup}}
-					<li class="all-meetups">
-						<a href="{{ routes.meetups }}">All events &raquo;</a>
-					</li>
 				</ul>
 			</div>
 		</div>

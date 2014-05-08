@@ -1,0 +1,43 @@
+<div class="profile-content">
+
+	<h3 class="user-profile-header">User profile</h3>
+
+	<div class="span2">
+		{{#user}}
+			{{#if avatarUrl}}
+				<div class="avatar">
+					{{#avatarUrl}}<img src="{{.}}" alt="avatar">{{/avatarUrl}}
+				</div>
+			{{/if}}
+			<h4 class="username"><span class="badge">{{ score }}</span>{{name}}</h4>
+		{{/user}}
+	</div>
+
+	<div class="span10">
+		
+		{{#if activities.length}}
+			<ul id="activity-list">
+
+				{{#each activities}}
+					<li>
+						<span class="badge">{{ addPlus value }}</span>
+						<span class="type">{{type}}</span>
+						<a href="{{eventUrl}}">{{#if title}}{{title}}{{else}}{{comment}}{{/if}}</a>
+						<small>({{prettifyTs created_at "datetime"}})</small>
+					</li>
+				{{/each}}
+			
+			</ul>
+		{{ else }}
+			<div class="alert alert-info">User has no recorded activites</div>
+			
+		{{/if}}
+
+		{{#if isLoading}}
+			<div class="spinner-bottom">
+				<img src="/assets/images/ajax-loader-sm-blue.gif" alt="loading...">
+			</div>
+		{{/if}}
+	</div>
+
+</div>

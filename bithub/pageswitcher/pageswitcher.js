@@ -7,9 +7,10 @@ steal(
 	'bithub/profile',
 	'bithub/admin',
 	'bithub/leaderboard',
+	'bithub/user_profile',
 	'./no_permissions.mustache',
 	'bithub/helpers/permission_checker.js',
-	function(can, Homepage, EventDetails, EarnPoints, Rewards, Profile, AdminPanels, Leaderboard, noPermsView, pc) {
+	function(can, Homepage, EventDetails, EarnPoints, Rewards, Profile, AdminPanels, Leaderboard, UserProfile, noPermsView, pc) {
 		
 		return can.Control.extend({
 			defaults : { 
@@ -20,6 +21,7 @@ steal(
 					'rewards': Rewards,
 					'profile': Profile,
 					'admin': AdminPanels,
+					'user_profile': UserProfile,
 					'leaderboard': Leaderboard
 				}
 			}
