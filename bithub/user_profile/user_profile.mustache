@@ -2,14 +2,17 @@
 
 	<h3 class="user-profile-header">User profile</h3>
 
-	<div class="span2">
+	<div class="span2 user-profile-wrapper">
 		{{#user}}
 			{{#if avatarUrl}}
 				<div class="avatar">
 					{{#avatarUrl}}<img src="{{.}}" alt="avatar">{{/avatarUrl}}
 				</div>
 			{{/if}}
-			<h4 class="username"><span class="badge">{{ score }}</span>{{name}}</h4>
+			<h4 class="username">{{name}}</h4>
+			{{ score }} {{ pointInflector score}}
+			<hr>
+			{{{ userUrls this }}}
 		{{/user}}
 	</div>
 

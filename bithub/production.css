@@ -8839,6 +8839,23 @@ h4.username span.badge {
   margin-top: 3px;
   padding-left: 3px;
 }
+h4.username {
+  margin-bottom: 2px;
+}
+.user-profile-wrapper .avatar img {
+  box-sizing: border-box;
+  width: 100%;
+}
+.user-profile-wrapper hr {
+  margin: 10px 0;
+}
+.user-profile-wrapper a.identity {
+  display: block;
+  margin-bottom: 5px;
+}
+.user-profile-wrapper a.identity:hover {
+  text-decoration: none;
+}
 /* Sidebar -------------------------------------------------------- */
 .sidebar {
   color: #585656;

@@ -59,6 +59,19 @@ steal(
 						}
 						
 						return id ? can.route.url({page: 'eventdetails', id: id}) : 'javascript://';
+					},
+					userUrls : function(user){
+						return can.map(user.attr('identities'), function(identity){
+							return can.sub('<a href="{url}" class="clearfix identity"><span class="login-{provider}"></span> {name}</a>', {
+								url : identity.attr('profile_url'),
+								name : identity.attr('username') || identity.attr('name'),
+								provider : identity.attr('provider'),
+							})
+						}).join('')
+					},
+					pointInflector : function(score){
+						score = can.isFunction(score) ? score() : score;
+						return score === 1 ? "point" : "points"
 					}
 				}));
 			},
