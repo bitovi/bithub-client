@@ -6,7 +6,7 @@ steal(
 	function(can, initView, UserModel, ActivityModel){
 
 		var currentControl;
-		
+
 		return can.Control.extend({
 			pluginName: 'user_profile'
 		}, {
@@ -19,7 +19,7 @@ steal(
 					offset : 0
 				}
 				this.canLoad = true;
-				
+
 				this.isLoading = can.compute(false);
 
 				this.activities = new ActivityModel.List();
@@ -34,7 +34,7 @@ steal(
 			},
 
 			initControl : function () {
-				
+
 				this.element.html(initView({
 					activities: this.activities,
 					user : this.user,
@@ -57,11 +57,11 @@ steal(
 						} else if( this.attr('type') == 'award' ) {
 							id = this.attr('event_id');
 						}
-						
+
 						return id ? can.route.url({page: 'eventdetails', id: id}) : 'javascript://';
 					},
 					userUrls : function(user){
-						return can.map(user.attr('identities'), function(identity){
+						return can.map(user.attr('reduced_identities'), function(identity){
 							return can.sub('<a href="{url}" class="clearfix identity"><span class="login-{provider}"></span> {name}</a>', {
 								url : identity.attr('profile_url'),
 								name : identity.attr('username') || identity.attr('name'),
@@ -96,7 +96,7 @@ steal(
 					this.canLoad = false
 				}
 			}
-			
+
 		});
 	}
 );
