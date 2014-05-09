@@ -30,8 +30,13 @@ steal(
 			defaults : {}
 		}, {
 			init : function( elem, opts ) {
+				this.users = new Bithub.Models.User.List;
+
+				this.setFilteredUsers();
+
+
 				this.element.html(leaderBoardView( {
-					users: opts.users,
+					users: this.users,
 					currentUser: opts.currentUser,
 					breakAt: breakAt,
 					topLength: topLength
@@ -44,13 +49,20 @@ steal(
 			},
 
 			'{users} length': function () {
+				this.setFilteredUsers();
 				this.determineRank();
+			},
+
+			setFilteredUsers : function(){
+				this.users.replace(can.grep(this.options.users, function(user){
+					return !user.attr('roles') || user.attr('roles').length === 0;
+				}))
 			},
 
 			determineRank: function () {
 				var self = this;
 
-				this.options.users.each(function (user, i) {
+				this.users.each(function (user, i) {
 					if (self.options.currentUser.attr('id') === user.attr('id')) {
 						user.attr('loggedIn', true); // otherwise won't mark user on first login
 						rank( i );

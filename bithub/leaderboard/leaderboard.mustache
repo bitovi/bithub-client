@@ -1,5 +1,13 @@
 <div class="leaderboard-wrap">
-<h4>Leaderboard</h4>
+	<h4>Leaderboard</h4>
+	
+	{{#if isAdmin}}
+		<select class="include-admins">
+			<option value="filter-admins">Filter Admins</option>
+			<option value="include-admins">Include Admins</option>
+		</select>
+		<hr>
+	{{/if}}
 
 	<ul class="unstyled">
 		{{#each users}}
