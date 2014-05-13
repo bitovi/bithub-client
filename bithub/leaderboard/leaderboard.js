@@ -25,10 +25,15 @@ steal('can/control', './leaderboard.mustache', function(Control, initView){
 					}
 					return val;
 				}
-			}))
+			}));
+
+			this.__updatedUsers = false;
 		},
 		"{users} length" : function(){
-			this.replaceUsers(this.element.find('.include-admins'));
+			if(!this.__updatedUsers){
+				this.replaceUsers(this.element.find('.include-admins'));
+				this.__updatedUsers = true;
+			}
 		},
 		".include-admins change" : "replaceUsers",
 		replaceUsers : function(el, ev){
