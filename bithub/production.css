@@ -8832,7 +8832,8 @@ a.btn.connect span {
   margin-top: 0px;
 }
 h3.user-profile-header {
-  margin: -10px 20px 20px;
+  margin-top: -10px;
+  margin-bottom: 20px;
 }
 h4.username span.badge {
   float: left;
@@ -8855,6 +8856,19 @@ h4.username {
 }
 .user-profile-wrapper a.identity:hover {
   text-decoration: none;
+}
+.user-profile-page .twitter-profile-pic {
+  display: none;
+}
+.user-profile-page .events-group {
+  margin: -10px 0 20px;
+}
+.user-profile-page .events-group .alert {
+  margin-top: 10px;
+}
+.user-profile-page .events-group .alert-info {
+  background-color: #e9f8ff;
+  text-align: center;
 }
 /* Sidebar -------------------------------------------------------- */
 .sidebar {

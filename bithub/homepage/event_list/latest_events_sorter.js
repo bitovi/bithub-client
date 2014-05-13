@@ -15,10 +15,15 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter'];
 	var allowedDigest = ['follow','watch','fork']
 
+	var existingDigestFormatter = function(type, what, digest){
+		return [type, what, digest.attr('props.origin_author_name')].join(':');
+	}
+
 	return can.Map({
 		hasEvents : false,
 		init : function(){
 			this._super.apply(this, arguments);
+			this.__existingDigests = [];
 			this.attr('types', {});
 		},
 		appendEvents : function(events){
@@ -65,7 +70,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 					wtch  : {},
 					fork   : {}
 				},
-				digest, what, type;
+				digest, what, type, signature;
 
 			for(var i = 0; i < length; i++){
 				digest = digests[i],
@@ -81,7 +86,12 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 
 				if(type){
 					grouped[type][what] = grouped[type][what] || [];
-					grouped[type][what].push(digest);
+					signature = existingDigestFormatter(type, what, digest);
+					if(this.__existingDigests.indexOf(signature) === -1){
+						this.__existingDigests.push(signature);
+						grouped[type][what].push(digest);
+					}
+					
 				}
 
 			}
