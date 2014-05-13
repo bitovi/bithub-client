@@ -8835,6 +8835,10 @@ h3.user-profile-header {
   margin-top: -10px;
   margin-bottom: 20px;
 }
+h3.user-profile-header .leaderboard {
+  float: right;
+  font-size: 60%;
+}
 h4.username span.badge {
   float: left;
   margin-top: 3px;
