@@ -32,12 +32,20 @@ steal('can/control', './leaderboard.mustache', function(Control, initView){
 		},
 		".include-admins change" : "replaceUsers",
 		replaceUsers : function(el, ev){
-			var val = el.val();
-			if(val === 'include-admins'){
-				this.users.replace(this.options.users);
-			} else {
-				this.users.replace(filterAdmins(this.options.users));
-			}
+			var val = el.val(),
+				users = val === 'include-admins' ? this.options.users : filterAdmins(this.options.users),
+				self = this,
+				appendUsers = function(){
+					self.users.push.apply(self.users, users.splice(0, 20));
+					if(users.length > 0){
+						self.__appendUsers = setTimeout(appendUsers, 1);
+					}
+				}
+
+			clearTimeout(this.__appendUsers);
+			this.users.splice(0);
+			appendUsers();
+			
 		}
 	})
 })
