@@ -60,8 +60,13 @@
 	padding: 0 8px;
 }
 
- 
-.sidebar .leaderboard {
+.leaderboard-wrap {
+	margin: 20px 20px 0;
+	h4 {
+		margin-bottom: 20px;
+	}
+}
+.sidebar .leaderboard, .leaderboard-wrap {
 	color: #333;
 	font-size: 14px;
 	font-weight: bold;
@@ -71,7 +76,7 @@
 		-webkit-border-radius: 2px;
 		-moz-border-radius: 2px;
 		border-radius: 2px;	
-		margin-right: 5px;
+		margin: 0 5px;
 		width: 22px;
 	}
 	ul li {
@@ -80,9 +85,6 @@
 		margin: 0px -15px;
 		max-height: 40px;
 		
-		&:last-child {
-			border-bottom: 0px;
-		}
 		&.active {
 			background: #71bee5 url(/assets/images/you-badge.gif) no-repeat left center;
 			border-top: 1px solid #4995bb;
@@ -104,9 +106,28 @@
 		height: 41px;
 		margin: -20px -15px 0px -15px;
 	}
+
+	.leaderboard-name {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 180px;
+		margin-top: 3px;
+	}
 	
 }
 
+.full-leaderboard-link {
+	display: block;
+	text-align: right;
+	font-size: 90%;
+}
+
+.leaderboard-wrap {
+	.leaderboard-name {
+		width: 500px;
+	}
+}
 
 .sidebar .leaderboard ul li.active .position, .sidebar .leaderboard ul li.active .points {
 	color: #f3f4f4;

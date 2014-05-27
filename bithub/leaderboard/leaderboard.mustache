@@ -1,0 +1,24 @@
+<div class="leaderboard-wrap">
+	<h4>Leaderboard</h4>
+	
+	{{#if isAdmin}}
+		<select class="include-admins">
+			<option value="filter-admins">Filter Admins</option>
+			<option value="include-admins">Include Admins</option>
+		</select>
+		<hr>
+	{{/if}}
+
+	<ul class="unstyled">
+		{{#each users}}
+			<li class="clearfix">
+				<span class="position pull-left">#{{calcIndex @index}}</span>
+				{{#avatarUrl}}<img class="avatar pull-left" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
+			<span class="leaderboard-name pull-left">
+				<a href="/profile/{{id}}">{{name}}</a>
+			</span>
+			<span class="points pull-right">{{score}}</span>
+			</li>
+		{{/each}}
+	</ul>
+</div>

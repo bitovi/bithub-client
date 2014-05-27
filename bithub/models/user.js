@@ -206,7 +206,7 @@ steal(
 				if(currentAvatar === defaultAvatar){
 					identities = this.attr('identities') || [];
 					for(var i = 0; i < identities.length; i++){
-						sourceData = identities[i].source_data;
+						sourceData = identities[i].source_data || {};
 						currentAvatar = (
 							sourceData.image || 
 							sourceData.avatar_url ||

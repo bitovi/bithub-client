@@ -8831,49 +8831,6 @@ a.btn.connect span {
   margin-bottom: 5px;
   margin-top: 0px;
 }
-h3.user-profile-header {
-  margin-top: -10px;
-  margin-bottom: 20px;
-}
-h3.user-profile-header .leaderboard {
-  float: right;
-  font-size: 60%;
-}
-h4.username span.badge {
-  float: left;
-  margin-top: 3px;
-  padding-left: 3px;
-}
-h4.username {
-  margin-bottom: 2px;
-}
-.user-profile-wrapper .avatar img {
-  box-sizing: border-box;
-  width: 100%;
-}
-.user-profile-wrapper hr {
-  margin: 10px 0;
-}
-.user-profile-wrapper a.identity {
-  display: block;
-  margin-bottom: 5px;
-}
-.user-profile-wrapper a.identity:hover {
-  text-decoration: none;
-}
-.user-profile-page .twitter-profile-pic {
-  display: none;
-}
-.user-profile-page .events-group {
-  margin: -10px 0 20px;
-}
-.user-profile-page .events-group .alert {
-  margin-top: 10px;
-}
-.user-profile-page .events-group .alert-info {
-  background-color: #e9f8ff;
-  text-align: center;
-}
 /* Sidebar -------------------------------------------------------- */
 .sidebar {
   color: #585656;

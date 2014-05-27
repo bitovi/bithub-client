@@ -10,12 +10,14 @@ steal(
 	'admin/components/users',
 	'admin/components/integration',
 	'admin/components/getting_started',
+	'admin/components/categories',
 	'./admin.less'
 	, function(can, Component, adminView){
 
 		var pages = [
 			"Dashboard",
 			"Services",
+			"Categories",
 			"Scoring Rules",
 			"Rewards",
 			//"Registered Users",

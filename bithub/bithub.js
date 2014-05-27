@@ -136,10 +136,13 @@ steal(
 		genRoutes( routes );
 
 		can.route('/rewards', { page: 'rewards' });
+		can.route('/leaderboard', { page: 'leaderboard' });
 		can.route('/earnpoints', { page: 'earnpoints' });
 
 		can.route('/profile', { page: 'profile', view: 'info' });
 		can.route('/profile/activities', { page: 'profile', view: 'activities' });
+
+		can.route('/profile/:id', {page : 'user_profile'})
 		//can.route('/profile/rewards', { page: 'profile', view: 'rewards' });
 		//can.route('/profile/earn-points', { page: 'profile', view: 'earnpoints' });
 

@@ -1,4 +1,11 @@
-steal('can/util/string', 'can/component', './scoring_rules.mustache', 'admin/models/scoring_rules.js', './scoring_rules.less', function(can, Component, scoringRulesView, ScoringRules){
+steal(
+'can/util/string',
+'can/component',
+'./scoring_rules.mustache',
+'admin/models/scoring_rules.js',
+'./scoring_rules.less',
+'admin/components/tag_selection',
+function(can, Component, scoringRulesView, ScoringRules){
 
 	var Feeds = {
 		twitter : 'Twitter',

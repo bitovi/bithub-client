@@ -34,7 +34,9 @@ steal(
 			},
 			earnpoints: {},
 			rewards: {},
-			eventdetails: {}
+			eventdetails: {},
+			leaderboard: {},
+			user_profile: {}
 		};
 
 
