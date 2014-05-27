@@ -1,0 +1,59 @@
+<div class="form">
+	<div class="form-group">
+		<label>Category Name</label>
+		<input type="text" class="form-control" placeholder="Category name" can-value="category.name">
+	</div>
+
+	<div class="form-group">
+		<label>Constraints</label>
+
+		<div class="constraints-wrap">
+			{{#category.constraints}}
+				<div class="type-and-feed clearfix">
+					<div class="feed-wrap">
+						<select class="form-control" can-value="feed_name">
+							<option value="">Select feed</option>
+							{{#feeds}}
+								<option value="{{ name }}">{{ name }}</option>
+							{{/feeds}}
+						</select>
+					</div>
+					<div class="type-wrap">
+						<select class="form-control" can-value="type_name">
+							<option value="">Select type</option>
+							{{#availableTypes}}
+								<option value="{{ name }}">{{ name }}</option>
+							{{/availableTypes}}
+						</select>
+					</div>
+					<div class="remove-feed-wrap">
+						<button class="btn btn-danger" can-click="removeConstraint">Remove</button>
+					</div>
+				</div>
+				<div class="or-wrap">
+					<span>OR</span>
+					<hr>
+				</div>
+			{{/category.constraints}}
+		</div>
+
+		<button can-click="addConstraint" class="btn btn-sm btn-primary">Add Constraint</button>
+	</div>
+	<hr>
+	{{#if tags.length}}
+		<bh-multiselect title="Tags" items="tags" selected-items="category.tags"></bh-multiselect>
+	{{/if}}
+
+	<div class="row">
+		<div class="col-xs-3 col-xs-offset-9 clearfix">
+			<button class="btn btn-primary pull-right" can-click="saveCategory" {{#if isSaving}}disabled{{/if}}>
+				{{#if isSavingConfigs}}
+					<i class="fa fa-refresh fa-spin"></i>
+					Saving ...
+				{{else}}
+					Save Category
+				{{/if}}
+			</button>
+		</div>
+	</div>
+</div>
