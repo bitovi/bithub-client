@@ -3,7 +3,7 @@ steal(
 'can/component',
 './rewards.mustache',
 'admin/models/reward.js',
-'vendor/fileupload',
+'fileupload-processing',
 './rewards.less',
 function(can, Component, rewardsView, Reward, fileUpload){
 

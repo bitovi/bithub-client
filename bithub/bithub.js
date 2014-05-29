@@ -13,8 +13,8 @@ steal(
 	'bithub/helpers/loadtime.js',
 	'ui/onbottom.js',
 	'can/route/pushstate',
-	'vendor/bootstrap',
-	'vendor/bootstrap-datepicker',
+	'bootstrap',
+	'bootstrap-datepicker',
 	'vendor/lodash',
 	'vendor/jstz',
 

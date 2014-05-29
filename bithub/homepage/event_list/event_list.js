@@ -15,7 +15,7 @@ steal(
 	'bithub/helpers/fun_helpers.js',
 	'can/construct/proxy',
 	'bithub/helpers/mustacheHelpers.js',
-	'ui/more',
+	'more',
 	'can/map/delegate',
 	'bithub/entities',
 	function (can, initView, latestView, greatestView, determineEventPartial, Handlers, HtmlSelect, Spinner, PostRendering, LatestEventsSorter, Event, Upvote, Award, f) {

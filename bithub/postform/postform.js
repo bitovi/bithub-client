@@ -4,7 +4,7 @@ steal(
 'bithub/models/event.js',
 'bithub/models/tag.js',
 'bithub/models/postas_user.js',
-'vendor/fileupload',
+'fileupload-processing',
 function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 
 	var users;

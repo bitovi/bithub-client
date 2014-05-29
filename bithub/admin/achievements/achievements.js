@@ -1,7 +1,7 @@
 steal('can',
 	  './init.mustache',
 	  'bithub/models/achievement.js',
-	  'vendor/bootstrap-datepicker',
+	  'bootstrap-datepicker',
 	  'vendor/moment',
 	  function(can, initView, Achievement, Datepicker){
 		  return can.Control.extend({

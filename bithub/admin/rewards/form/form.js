@@ -2,9 +2,9 @@ steal(
 	'can',
 	'./form.mustache',
 	'bithub/models/reward.js',
-	'vendor/fileupload',
+	'fileupload-processing',
 	'jquerypp/dom/form_params',
-	'vendor/bootstrap-datepicker',
+	'bootstrap-datepicker',
 	function(can, rewardFromView, Reward, fileUpload, Datepicker){
 		return can.Control.extend({
 			defaults : { 'Reward': Reward }

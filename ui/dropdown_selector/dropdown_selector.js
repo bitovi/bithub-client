@@ -1,7 +1,7 @@
 steal(
 	'can',
 	'./init.ejs',
-	'vendor/bootstrap',
+	'bootstrap',
 	function(can, initView){
 
 		var currentViewFiltered = function () {

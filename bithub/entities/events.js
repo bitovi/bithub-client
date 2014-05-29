@@ -1,4 +1,4 @@
-steal('ui/more', function(){
+steal('more', function(){
 	return {
 		" inserted" : 'applyMore',
 		"{scope} inited" : 'applyMore',
