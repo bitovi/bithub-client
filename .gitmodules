@@ -4,9 +4,6 @@
 [submodule "jquerypp"]
 	path = jquerypp
 	url = git://github.com/bitovi/jquerypp.git
-[submodule "steal"]
-	path = steal
-	url = git://github.com/bitovi/steal.git
 [submodule "funcunit"]
 	path = funcunit
 	url = git://github.com/bitovi/funcunit.git

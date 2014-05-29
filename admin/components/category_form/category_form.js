@@ -27,8 +27,12 @@ function(can, Component, categoryFormView, FeedModel, TagModel){
 				var self = true;
 				this.attr('isSaving', true);
 				this.attr('category').save(function(){
-					this.attr('isSaving', false);
+					self.cancelEdit();
+					self.attr('isSaving', false);
 				});
+			},
+			cancelEdit : function(){
+				this.attr('category', null);
 			}
 		},
 		helpers : {

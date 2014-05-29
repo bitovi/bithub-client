@@ -11,7 +11,10 @@ steal(
 			template : categoriesView,
 			scope : {
 				init : function(){
-					this.attr('currentCategory', new FunnelModel)
+					
+				},
+				createCategory : function(){
+					this.attr('currentCategory', new FunnelModel);
 				}
 			}
 		})

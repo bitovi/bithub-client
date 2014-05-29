@@ -1,1 +1,13 @@
-<category-form category="currentCategory"></category-form>
+{{#if currentCategory}}
+	<category-form category="currentCategory"></category-form>
+{{ else }}
+<h1 class="admin-page-header">Categories</h1>
+<hr>
+{{#if categories.length}}
+
+{{else}}
+	<div class="alert alert-notice">Currently there are no categories.</div>
+{{/if}}
+<hr>
+<button class="btn btn-primary" can-click="createCategory">Add Category</button>
+{{/if}}

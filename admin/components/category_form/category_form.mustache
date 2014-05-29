@@ -1,3 +1,5 @@
+<h1 class="admin-page-header">{{#if category.isNew}}Create{{else}}Edit{{/if}} category</h1>
+<hr>
 <div class="form">
 	<div class="form-group">
 		<label>Category Name</label>
@@ -54,6 +56,7 @@
 					Save Category
 				{{/if}}
 			</button>
+			<button class="btn pull-right cancel" can-click="cancelEdit" {{#if isSaving}}disabled{{/if}}>Cancel</button>
 		</div>
 	</div>
 </div>
