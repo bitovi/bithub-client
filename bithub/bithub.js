@@ -31,9 +31,9 @@ steal(
 			return
 		}
 
-		// Display load time 
+		// Display load time
 		loadtime();
-		
+
 		// Routes
 
 		var projects = ['canjs', 'donejs', 'javascriptmvc', 'funcunit', 'jquerypp', 'stealjs', 'canui', 'documentjs'],
@@ -55,7 +55,7 @@ steal(
 		},{
 			params: ['latest'],
 			paramKey: 'view',
-			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'all'},	
+			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'all'},
 			childs: [{
 				params: categories,
 				paramKey: 'category'
@@ -70,7 +70,7 @@ steal(
 		},{
 			params: ['greatest'],
 			paramKey: 'view',
-			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'month'},	
+			defaultProps: {page: 'homepage', view: 'latest', project: 'all', category: 'all', timespan: 'month'},
 			childs: [{
 				params: timespans,
 				paramKey: 'timespan'
@@ -108,13 +108,13 @@ steal(
 		var genRoutes = function( routes, prefix, props ) {
 			prefix = prefix || '/';
 			props = props || {};
-			
+
 			_.each(routes, function(v, k, l) {
 				var params = v.params,
 					childs = v.childs,
 					key = v.paramKey,
 					defaultProps = v.defaultProps;
-				
+
 				_.each(params, function(v, k, l) {
 					var exclude = (defaultProps && defaultProps[key]) || [];
 					var route = declareRoute( [v], prefix, exclude );
@@ -122,14 +122,14 @@ steal(
 					var newProps = {};
 					_.extend(newProps, defaultProps, props)
 					newProps[key] = v;
-					
+
 					//console.log( route, newProps );
 					can.route( route, newProps );
-					
+
 					if( childs ) {
 						genRoutes( childs, route + '/', newProps );
 					}
-				});	
+				});
 			});
 		};
 
@@ -139,17 +139,19 @@ steal(
 		can.route('/leaderboard', { page: 'leaderboard' });
 		can.route('/earnpoints', { page: 'earnpoints' });
 
+        can.route('/user_profile/:id', {page : 'user_profile'})
+
 		can.route('/profile', { page: 'profile', view: 'info' });
 		can.route('/profile/activities', { page: 'profile', view: 'activities' });
 
-		can.route('/profile/:id', {page : 'user_profile'})
+
 		//can.route('/profile/rewards', { page: 'profile', view: 'rewards' });
 		//can.route('/profile/earn-points', { page: 'profile', view: 'earnpoints' });
 
 		can.route('/event/:id', { page: 'eventdetails' });
 
 		can.route.ready();
-		
+
 		var	newpostVisibility = can.compute(false),
 			projects          = new can.Model.List(),
 			categories        = new can.Model.List(),
@@ -165,7 +167,7 @@ steal(
 				xhr.setRequestHeader('clientTz', jstz.determine().name() || 'UTC');
 			}
 		});
-		
+
 		// Preload events on route init
 		window.EVENTS_PRELOADED = false;
 
@@ -178,7 +180,7 @@ steal(
 					// this prevents events control to trigger on initial can.route change
 					window.EVENTS_PRELOADED = true;
 					preloadedEvents.replace(events);
-					
+
 					// trigger change manually if there are no events
 					events.length == 0 && preloadedEvents._triggerChange('length', 'add');
 				});
@@ -200,7 +202,7 @@ steal(
 		var modals = new Modals('#bootstrapModals', {
 			currentUser: currentUser
 		});
-		
+
 		new PageSwitcher('#pages', {
 			currentUser: currentUser,
 			preloadedEvents: preloadedEvents,
@@ -234,7 +236,7 @@ steal(
 			project: can.route.attr('newpost_p') || '',
 			category: can.route.attr('newpost_c') || ''
 		});
-	
+
 		can.route.attr('newpost') && newpostVisibility(true);
 
 
@@ -244,7 +246,7 @@ steal(
 			});
 			visibleTags.push.apply(visibleTags, buffer);
 		}
-		
+
 		// Load category tags
 		Tag.findAll({type: 'category', order: 'priority:desc'}, function (data) {
 
@@ -253,7 +255,7 @@ steal(
 				(blacklisted.indexOf(el.attr('name')) >= 0) && remove.unshift(i);
 			});
 			for(var idx = 0; idx < remove.length; idx++) { data.splice(remove[idx], 1) }
-			
+
 			categories.replace(data);
 			updateVisibleTags( data, {type: 'category'} );
 		});

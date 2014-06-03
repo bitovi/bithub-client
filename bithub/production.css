@@ -8874,6 +8874,14 @@ h4.username {
   background-color: #e9f8ff;
   text-align: center;
 }
+.leaderboard-admins {
+  float: right;
+  margin-top: 10px;
+}
+.leaderboard-admins input {
+  float: left;
+  margin: 5px 5px 0 0;
+}
 /* Sidebar -------------------------------------------------------- */
 .sidebar {
   color: #585656;
