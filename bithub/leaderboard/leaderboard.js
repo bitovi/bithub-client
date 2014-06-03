@@ -1,4 +1,4 @@
-steal('can/control', './leaderboard.mustache', function(Control, initView){
+steal('can/control', './leaderboard.mustache!', function(Control, initView){
 
 	var filterAdmins = function(users){
 		return can.grep(users, function(user){

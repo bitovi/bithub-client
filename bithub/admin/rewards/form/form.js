@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./form.mustache',
+	'./form.mustache!',
 	'bithub/models/reward.js',
 	'fileupload-processing',
 	'jquerypp/dom/form_params',

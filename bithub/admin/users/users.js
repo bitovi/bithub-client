@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./users.mustache',
+	'./users.mustache!',
 	'bithub/models/user.js',
 	'./form/form.js',
 	'../paginator.js',

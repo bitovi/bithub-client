@@ -1,6 +1,6 @@
 steal('can',
-	  './init.mustache',
-	  './_twitter_modal.mustache',
+	  './init.mustache!',
+	  './_twitter_modal.mustache!',
 	  function(can, initView, twitterModal) {
 		  return can.Control(
 			  {

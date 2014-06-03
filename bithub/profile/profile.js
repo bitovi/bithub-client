@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./init.mustache',
+	'./init.mustache!',
 	'bithub/profile/info',
 	'bithub/profile/activities',
 	function(can, initView, ProfileInfoControl, ProfileActivitiesControl){

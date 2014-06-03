@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./init.ejs',
+	'./init.ejs!',
 	'jquerypp/dom/cookie',
 	'can/map/delegate',
 	function(can, initView){

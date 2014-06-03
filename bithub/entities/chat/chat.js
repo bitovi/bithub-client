@@ -1,6 +1,6 @@
 steal(
 'can/component',
-'./chat.mustache',
+'./chat.mustache!',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
 'can/construct/proxy',

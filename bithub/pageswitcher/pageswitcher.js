@@ -8,7 +8,7 @@ steal(
 	'bithub/admin',
 	'bithub/leaderboard',
 	'bithub/user_profile',
-	'./no_permissions.mustache',
+	'./no_permissions.mustache!',
 	'bithub/helpers/permission_checker.js',
 	function(can, Homepage, EventDetails, EarnPoints, Rewards, Profile, AdminPanels, Leaderboard, UserProfile, noPermsView, pc) {
 		

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "devDependencies": {
     "grunt": "~0.4.1",
-	"grunt-steal-node": "0.2.3"
+    "grunt-steal-node": "0.2.3",
+    "steal-tools": "git://github.com/bitovi/steal-tools.git"
   }
 }

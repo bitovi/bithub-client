@@ -1,8 +1,8 @@
 steal(
-'./shared_views/child.mustache', 
-'./shared_views/status_bar.mustache',
-'./shared_views/upvote.mustache',
-'./shared_views/toolbar.mustache',
+'./shared_views/child.mustache!', 
+'./shared_views/status_bar.mustache!',
+'./shared_views/upvote.mustache!',
+'./shared_views/toolbar.mustache!',
 function(childEventView, statusBarView, upvoteView, toolbarView){
 
 	var renderEventTags = function (tags, opts) {

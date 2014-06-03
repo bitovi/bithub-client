@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./init.mustache',
+	'./init.mustache!',
 	'bithub/models/event.js',
 	'./typeahead',
 	'bithub/postform',

@@ -1,7 +1,7 @@
 steal(
 	'can',
 	'bithub/models/activity.js',
-	'./activities.mustache',
+	'./activities.mustache!',
 	function(can, ActivityModel, activitiesView){
 
 		var whitelistedTypes = ['author', 'award', 'internal'];

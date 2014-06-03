@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./filterbar.mustache',
+	'./filterbar.mustache!',
 	'ui/radio_selector',
 	'ui/dropdown_selector',
 	'ui/lru_selector',

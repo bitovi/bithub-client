@@ -1930,22 +1930,22 @@ function logloads(loads) {
   // helpers
   var extend = function(d, s){
     for(var prop in s) {
-  	  d[prop] = s[prop]	
-  	}
-  	return d;
+      d[prop] = s[prop] 
+    }
+    return d;
   }
-	
+  
   var cloneSystemLoader = function(System){
-  	var Loader = __$global.Loader || __$global.LoaderPolyfill;
-  	var loader = new Loader(System);
-  	loader.baseURL = System.baseURL;
-  	loader.paths = extend({}, System.paths);
-  	return loader;
+    var Loader = __$global.Loader || __$global.LoaderPolyfill;
+    var loader = new Loader(System);
+    loader.baseURL = System.baseURL;
+    loader.paths = extend({}, System.paths);
+    return loader;
   }
 
 
   var upgradeLoader = function(baseLoader) {
-  	var System = cloneSystemLoader(baseLoader);// Define an IE-friendly shim good-enough for purposes
+    var System = cloneSystemLoader(baseLoader);// Define an IE-friendly shim good-enough for purposes
 var indexOf = Array.prototype.indexOf || function(item) { 
   for (var i = 0, thisLen = this.length; i < thisLen; i++) {
     if (this[i] === item)
@@ -2097,7 +2097,7 @@ function core(loader) {
       // loader on window
       var restoreLoaderAsSystem = false;
       if(load.name == '@traceur' && loader === loader.global.System) {
-      	restoreLoaderAsSystem = true;
+        restoreLoaderAsSystem = true;
       }
       // support sourceMappingURL (efficiently)
       var sourceMappingURL;
@@ -2241,7 +2241,7 @@ function formats(loader) {
       throw new TypeError('No format found for ' + (format ? format : load.address));
 
     load.metadata.format = format;
-	instantiating[load.name] = load;
+  instantiating[load.name] = load;
 
     // now invoke format instantiation
     var deps = curFormat.deps(load);
@@ -2255,7 +2255,7 @@ function formats(loader) {
       deps: deps,
       execute: function() {
         var output = curFormat.execute.call(this, Array.prototype.splice.call(arguments, 0, arguments.length), load);
-		delete instantiating[load.name];
+    delete instantiating[load.name];
         if (output instanceof loader.global.Module)
           return output;
         else
@@ -2265,17 +2265,17 @@ function formats(loader) {
   };
   var systemFormatNormalize = loader.normalize;
   loader.normalize = function(name, refererName, refererAdress) {
-  	var load = instantiating[refererName],
-  		format = load && this.format[load.metadata.format],
-  		normalize = format && format.normalize;
-  	if(normalize) {
-  		return normalize.call(this, name, refererName, refererAdress, systemFormatNormalize);
-  		if(res != null) {
-  			return res;
-  		}
-  	} 
-	return systemFormatNormalize.apply(this, arguments);
-  	
+    var load = instantiating[refererName],
+      format = load && this.format[load.metadata.format],
+      normalize = format && format.normalize;
+    if(normalize) {
+      return normalize.call(this, name, refererName, refererAdress, systemFormatNormalize);
+      if(res != null) {
+        return res;
+      }
+    } 
+  return systemFormatNormalize.apply(this, arguments);
+    
   };
 
 
@@ -2395,7 +2395,7 @@ function formatAMD(loader) {
       var meta = load.metadata;
       var defined = false;
       global.define = function(name, _deps, factory) {
-      	
+        
         if (typeof name != 'string') {
           factory = _deps;
           _deps = name;
@@ -2558,9 +2558,9 @@ function formatCJS(loader) {
         glString += 'var ' + _g + ' = _g.' + _g + ';';
 
       var execLoad = {
-      	name: load.name,
-      	source: glString + load.source,
-      	address: load.address
+        name: load.name,
+        source: glString + load.source,
+        address: load.address
       };
       loader.__exec(execLoad);
 
@@ -2853,7 +2853,7 @@ function plugins(loader) {
         load.metadata.plugin = plugin;
         load.metadata.pluginName = pluginName;
         load.metadata.pluginArgument = load.name;
-		load.metadata.buildType = plugin.buildType || "js";
+    load.metadata.buildType = plugin.buildType || "js";
         // run plugin locate if given
         if (plugin.locate)
           return plugin.locate.call(loader, load);
@@ -2897,7 +2897,7 @@ function plugins(loader) {
   
   var loaderInstantiate = loader.instantiate;
   loader.instantiate = function(load){
-  	var plugin = load.metadata.plugin;
+    var plugin = load.metadata.plugin;
     if (plugin && plugin.instantiate)
       return plugin.instantiate.call(this, load);
 
@@ -3249,7 +3249,7 @@ function versions(loader) {
     var originalSystemLoader = __$global.System;
     __$global.System = upgradeLoader(System);
     __$global.System.clone = function(){
-      	return upgradeLoader(originalSystemLoader);
+        return upgradeLoader(originalSystemLoader);
     }
   };
   if (!__$global.System || __$global.System.registerModule) {
@@ -3287,473 +3287,530 @@ function versions(loader) {
 })(typeof window != 'undefined' ? window : global);
 (function(global){
 
-	// helpers
-	var camelize = function(str){
-		return str.replace(/-+(.)?/g, function(match, chr){ 
-			return chr ? chr.toUpperCase() : '' 
-		});
-	},
-		each = function( o, cb){
-			var i, len;
+  // helpers
+  var camelize = function(str){
+    return str.replace(/-+(.)?/g, function(match, chr){ 
+      return chr ? chr.toUpperCase() : '' 
+    });
+  },
+    each = function( o, cb){
+      var i, len;
 
-			// weak array detection, but we only use this internally so don't
-			// pass it weird stuff
-			if ( typeof o.length == 'number' && (o.length - 1) in o) {
-				for ( i = 0, len = o.length; i < len; i++ ) {
-					cb.call(o[i], o[i], i, o);
-				}
-			} else {
-				for ( i in o ) {
-					if(o.hasOwnProperty(i)){
-						cb.call(o[i], o[i], i, o);
-					}
-				}
-			}
-			return o;
-		},
-		map = function(o, cb) {
-			var arr = [];
-			each(o, function(item, i){
-				arr[i] = cb(item, i);
-			});
-			return arr;
-		},
-		isString = function(o) {
-			return typeof o == "string";
-		},
-		extend = function(d,s){
-			each(s, function(v, p){
-				d[p] = v;
-			});
-			return d;
-		},
-		dir = function(uri){
-			var lastSlash = uri.lastIndexOf("/");
-			if(lastSlash !== -1) {
-				return uri.substr(0, lastSlash);
-			} else {
-				return uri;
-			}
-		},
-		last = function(arr){
-			return arr[arr.length - 1];
-		},
-		parseURI = function(url) {
-			var m = String(url).replace(/^\s+|\s+$/g, '').match(/^([^:\/?#]+:)?(\/\/(?:[^:@]*(?::[^:@]*)?@)?(([^:\/?#]*)(?::(\d*))?))?([^?#]*)(\?[^#]*)?(#[\s\S]*)?/);
-				// authority = '//' + user + ':' + pass '@' + hostname + ':' port
-				return (m ? {
-				href     : m[0] || '',
-				protocol : m[1] || '',
-				authority: m[2] || '',
-				host     : m[3] || '',
-				hostname : m[4] || '',
-				port     : m[5] || '',
-				pathname : m[6] || '',
-				search   : m[7] || '',
-				hash     : m[8] || ''
-			} : null);
-		},
-		  
-		joinURIs = function(base, href) {
-			function removeDotSegments(input) {
-				var output = [];
-				input.replace(/^(\.\.?(\/|$))+/, '')
-					.replace(/\/(\.(\/|$))+/g, '/')
-					.replace(/\/\.\.$/, '/../')
-					.replace(/\/?[^\/]*/g, function (p) {
-						if (p === '/..') {
-							output.pop();
-						} else {
-							output.push(p);
-						}
-					});
-				return output.join('').replace(/^\//, input.charAt(0) === '/' ? '/' : '');
-			}
+      // weak array detection, but we only use this internally so don't
+      // pass it weird stuff
+      if ( typeof o.length == 'number' && (o.length - 1) in o) {
+        for ( i = 0, len = o.length; i < len; i++ ) {
+          cb.call(o[i], o[i], i, o);
+        }
+      } else {
+        for ( i in o ) {
+          if(o.hasOwnProperty(i)){
+            cb.call(o[i], o[i], i, o);
+          }
+        }
+      }
+      return o;
+    },
+    map = function(o, cb) {
+      var arr = [];
+      each(o, function(item, i){
+        arr[i] = cb(item, i);
+      });
+      return arr;
+    },
+    isString = function(o) {
+      return typeof o == "string";
+    },
+    extend = function(d,s){
+      each(s, function(v, p){
+        d[p] = v;
+      });
+      return d;
+    },
+    dir = function(uri){
+      var lastSlash = uri.lastIndexOf("/");
+      if(lastSlash !== -1) {
+        return uri.substr(0, lastSlash);
+      } else {
+        return uri;
+      }
+    },
+    last = function(arr){
+      return arr[arr.length - 1];
+    },
+    parseURI = function(url) {
+      var m = String(url).replace(/^\s+|\s+$/g, '').match(/^([^:\/?#]+:)?(\/\/(?:[^:@]*(?::[^:@]*)?@)?(([^:\/?#]*)(?::(\d*))?))?([^?#]*)(\?[^#]*)?(#[\s\S]*)?/);
+        // authority = '//' + user + ':' + pass '@' + hostname + ':' port
+        return (m ? {
+        href     : m[0] || '',
+        protocol : m[1] || '',
+        authority: m[2] || '',
+        host     : m[3] || '',
+        hostname : m[4] || '',
+        port     : m[5] || '',
+        pathname : m[6] || '',
+        search   : m[7] || '',
+        hash     : m[8] || ''
+      } : null);
+    },
+      
+    joinURIs = function(base, href) {
+      function removeDotSegments(input) {
+        var output = [];
+        input.replace(/^(\.\.?(\/|$))+/, '')
+          .replace(/\/(\.(\/|$))+/g, '/')
+          .replace(/\/\.\.$/, '/../')
+          .replace(/\/?[^\/]*/g, function (p) {
+            if (p === '/..') {
+              output.pop();
+            } else {
+              output.push(p);
+            }
+          });
+        return output.join('').replace(/^\//, input.charAt(0) === '/' ? '/' : '');
+      }
 
-			href = parseURI(href || '');
-			base = parseURI(base || '');
+      href = parseURI(href || '');
+      base = parseURI(base || '');
 
-			return !href || !base ? null : (href.protocol || base.protocol) +
-				(href.protocol || href.authority ? href.authority : base.authority) +
-				removeDotSegments(href.protocol || href.authority || href.pathname.charAt(0) === '/' ? href.pathname : (href.pathname ? ((base.authority && !base.pathname ? '/' : '') + base.pathname.slice(0, base.pathname.lastIndexOf('/') + 1) + href.pathname) : base.pathname)) +
-					(href.protocol || href.authority || href.pathname ? href.search : (href.search || base.search)) +
-					href.hash;
-		};
-
-
-	var filename = function(uri){
-		var lastSlash = uri.lastIndexOf("/"),
-			matches = ( lastSlash == -1 ? uri : uri.substr(lastSlash+1) ).match(/^[\w-\s\.]+/);
-		return matches ? matches[0] : "";
-	};
-	
-	var ext = function(uri){
-		var fn = filename(uri);
-		var dot = fn.lastIndexOf(".");
-		if(dot !== -1) {
-			return fn.substr(dot+1);
-		} else {
-			return "";
-		}
-	};
+      return !href || !base ? null : (href.protocol || base.protocol) +
+        (href.protocol || href.authority ? href.authority : base.authority) +
+        removeDotSegments(href.protocol || href.authority || href.pathname.charAt(0) === '/' ? href.pathname : (href.pathname ? ((base.authority && !base.pathname ? '/' : '') + base.pathname.slice(0, base.pathname.lastIndexOf('/') + 1) + href.pathname) : base.pathname)) +
+          (href.protocol || href.authority || href.pathname ? href.search : (href.search || base.search)) +
+          href.hash;
+    };
 
 
-	var pluginCache = {};
-	
-	var normalize = function(name, loader){
+  var filename = function(uri){
+    var lastSlash = uri.lastIndexOf("/"),
+      matches = ( lastSlash == -1 ? uri : uri.substr(lastSlash+1) ).match(/^[\w-\s\.]+/);
+    return matches ? matches[0] : "";
+  };
+  
+  var ext = function(uri){
+    var fn = filename(uri);
+    var dot = fn.lastIndexOf(".");
+    if(dot !== -1) {
+      return fn.substr(dot+1);
+    } else {
+      return "";
+    }
+  };
 
-		// Detech if this name contains a plugin part like: app.less!steal/less
-		// and catch the plugin name so that when it is normalized we do not perform
-		// Steal's normalization against it.
-		var pluginIndex = name.lastIndexOf('!');
-		var pluginPart = "";
-		if (pluginIndex != -1) {
-			// argumentName is the part before the !
-			var argumentName = name.substr(0, pluginIndex);
-			var pluginName = name.substr(pluginIndex + 1) || argumentName.substr(argumentName.lastIndexOf('.') + 1);
-			pluginPart = "!" + pluginName;
-			pluginCache[pluginName] = true;
+  var pluginCache = {};
+  
+  var normalize = function(name, loader){
 
-			// Set the name to the argument name so that we can normalize it alone.
-			name = argumentName;
-		} else if(pluginCache[name]) {
-			// This is a plugin so just return the name unnormalized.
-			return name;
-		}
+    // Detech if this name contains a plugin part like: app.less!steal/less
+    // and catch the plugin name so that when it is normalized we do not perform
+    // Steal's normalization against it.
+    var pluginIndex = name.lastIndexOf('!');
+    var pluginPart = "";
+    if (pluginIndex != -1) {
+      // argumentName is the part before the !
+      var argumentName = name.substr(0, pluginIndex);
+      var pluginName = name.substr(pluginIndex + 1) || argumentName.substr(argumentName.lastIndexOf('.') + 1);
+      pluginPart = "!" + pluginName;
+      pluginCache[pluginName] = true;
 
-		var last = filename(name),
-			extension = ext(name);
-		// if the name ends with /
-		if(	name[name.length -1] === "/" ) {
-			return name+filename( name.substr(0, name.length-1) ) + pluginPart;
-		} else if(	!/^(\w+(?:s)?:\/\/|\.|file|\/)/.test(name) &&
-			// and doesn't end with a dot
-			 last.indexOf(".") === -1 
-			) {
-			return name+"/"+last + pluginPart;
-		} else {
-			if(extension === "js") {
-				return name.substr(0, name.lastIndexOf(".")) + pluginPart;
-			} else {
-				return name + pluginPart;
-			}
-		}
-	};
+      // Set the name to the argument name so that we can normalize it alone.
+      name = argumentName;
+    } else if(pluginCache[name]) {
+      // This is a plugin so just return the name unnormalized.
+      return name;
+    }
 
+    var last = filename(name),
+      extension = ext(name);
+    // if the name ends with /
+    if( name[name.length -1] === "/" ) {
+      return name+filename( name.substr(0, name.length-1) ) + pluginPart;
+    } else if(  !/^(\w+(?:s)?:\/\/|\.|file|\/)/.test(name) &&
+      // and doesn't end with a dot
+       last.indexOf(".") === -1 
+      ) {
+      return name+"/"+last + pluginPart;
+    } else {
+      if(extension === "js") {
+        return name.substr(0, name.lastIndexOf(".")) + pluginPart;
+      } else {
+        return name + pluginPart;
+      }
+    }
+  };
 
 
 var makeSteal = function(System){
-	
-	var configDeferred,
-		devDeferred,
-		appDeferred;
+  
+  var configDeferred,
+    devDeferred,
+    appDeferred;
 
-	var steal = function(){
-		var args = arguments;
-		var afterConfig = function(){
-			var imports = [];
-			var factory;
-			each(args, function(arg){
-				if(isString(arg)) {
-					imports.push( steal.System['import']( normalize(arg) ) );
-				} else if(typeof arg === "function") {
-					factory = arg;
-				}
-			});
-			
-			var modules = Promise.all(imports);
-			if(factory) {
-				return modules.then(function(modules) {
-			        return factory && factory.apply(null, modules);
-			   });
-			} else {
-				return modules;
-			}
-		};
-		if(steal.config().env === "production") {
-			return afterConfig();
-		} else {
-			// wait until the config has loaded
-			return configDeferred.then(afterConfig,afterConfig);
-		}
-		
-	};
-	
-	steal.System = System;
-	steal.parseURI = parseURI;
-	steal.joinURIs = joinURIs;
+  var steal = function(){
+    var args = arguments;
+    var afterConfig = function(){
+      var imports = [];
+      var factory;
+      each(args, function(arg){
+        if(isString(arg)) {
+          imports.push( steal.System['import']( normalize(arg) ) );
+        } else if(typeof arg === "function") {
+          factory = arg;
+        }
+      });
+      
+      var modules = Promise.all(imports);
+      if(factory) {
+        return modules.then(function(modules) {
+              return factory && factory.apply(null, modules);
+         });
+      } else {
+        return modules;
+      }
+    };
+    if(steal.config().env === "production") {
+      return afterConfig();
+    } else {
+      // wait until the config has loaded
+      return configDeferred.then(afterConfig,afterConfig);
+    }
+    
+  };
+  
+  steal.System = System;
+  steal.parseURI = parseURI;
+  steal.joinURIs = joinURIs;
 
 
-	var configData = {
-		env: "development"
-	};
-	
-	steal.config = function(data, value){
-		if(isString(data)) {
-			var name = data;
-			if(arguments.length >= 2) {
-				
-			} else {
-				
-				var special = configSpecial[name];
-				if(special && special.get) {
-					return special.get();
-				} else {
-					return configData[name];
-				}
-			}
-		} else if(typeof data === "object") {
-			data = extend({},data);
-			each(configSpecial, function(special, name){
-				if(special.set && data[name]){
-					var res = special.set(data[name]);
-					if(res !== undefined) {
-						configData[name] = res;
-					} 
-					delete data[name];
-					
-				}
-			});
-			
-			extend(configData, data);
-			
-		} else {
-			var config = {};
-			
-			each(configSpecial, function(special, name){
-				if(special.get){
-					config[name] = special.get();
-				}
-			});
-			return extend(config, configData);	
-		}
-	};
+
+  // System.ext = {bar: "path/to/bar"}
+  // foo.bar! -> foo.bar!path/to/bar
+  var addExt = function(loader) {
+    
+    loader.ext = {};
+    
+    var normalize = loader.normalize,
+      endingExtension = /\.(\w+)!$/;
+      
+    loader.normalize = function(name, parentName, parentAddress){
+      var matches = name.match(endingExtension),
+        ext;
+      
+      if(matches && loader.ext[ext = matches[1]]) {
+        name = name + loader.ext[ext];
+      }
+      return normalize.call(this, name, parentName, parentAddress);
+    };
+  };
+
+  if(typeof System){
+    addExt(System);
+  }
+  
+
+
+  // "path/to/folder/" -> "path/to/folder/folder"
+  var addForwardSlash = function(loader) {
+    var normalize = loader.normalize;
+
+    loader.normalize = function(name, parentName, parentAddress) {
+      var lastPos = name.length - 1,
+        secondToLast,
+        folderName;
+
+      if (name[lastPos] === "/") {
+        secondToLast = name.substring(0, lastPos).lastIndexOf("/");
+        folderName = name.substring(secondToLast + 1, lastPos);
+        name += folderName;
+      }
+      return normalize.call(this, name, parentName, parentAddress);
+    };
+  };
+
+  if (typeof System) {
+    addForwardSlash(System);
+  }
+
+  var configData = {
+    env: "development"
+  };
+  
+  steal.config = function(data, value){
+    if(isString(data)) {
+      var name = data;
+      if(arguments.length >= 2) {
+        
+      } else {
+        
+        var special = configSpecial[name];
+        if(special && special.get) {
+          return special.get();
+        } else {
+          return configData[name];
+        }
+      }
+    } else if(typeof data === "object") {
+      data = extend({},data);
+      each(configSpecial, function(special, name){
+        if(special.set && data[name]){
+          var res = special.set(data[name]);
+          if(res !== undefined) {
+            configData[name] = res;
+          } 
+          delete data[name];
+          
+        }
+      });
+      
+      extend(configData, data);
+      
+    } else {
+      var config = {};
+      
+      each(configSpecial, function(special, name){
+        if(special.get){
+          config[name] = special.get();
+        }
+      });
+      return extend(config, configData);  
+    }
+  };
 
 var getSetToSystem = function(prop){
-	return {
-		get: function(){
-			return steal.System[prop];
-		},
-		set: function(val){
-			if(typeof val === "object" && typeof steal.System[prop] === "object") {
-				steal.System[prop] = extend(steal.System[prop] || {},val || {});
-			} else {
-				steal.System[prop] = val;
-			}
-		}
-	};
+  return {
+    get: function(){
+      return steal.System[prop];
+    },
+    set: function(val){
+      if(typeof val === "object" && typeof steal.System[prop] === "object") {
+        steal.System[prop] = extend(steal.System[prop] || {},val || {});
+      } else {
+        steal.System[prop] = val;
+      }
+    }
+  };
 };
 
 var configSpecial = {
-	env: {
-		set: function(val){
-			addProductionBundles();
-			return val;
-		}
-	},
-	root: getSetToSystem("baseURL"),
-	config: {
-		set: function(val){
-			var name = filename(val),
-				root = dir(val);
-			System.paths["stealconfig"] = name;
-			configSpecial.root.set( (root === val ? "." : root)  +"/");
-		}
-	},
-	paths: getSetToSystem("paths"),
-	map: getSetToSystem("map"),
-	startId: {
-		set: function(val){
-			configSpecial.main.set(  normalize(val) );
-		},
-		get: function(){
-			return System.main;
-		}
-	},
-	main: {
-		get: getSetToSystem("main").get,
-		set: function(val){
-			System.main = val;
-			addProductionBundles();
-		}
-	},
-	meta: getSetToSystem("meta")
+  env: {
+    set: function(val){
+      addProductionBundles();
+      return val;
+    }
+  },
+  root: getSetToSystem("baseURL"),
+  config: {
+    set: function(val){
+      var name = filename(val),
+        root = dir(val);
+      System.paths["stealconfig"] = name;
+      configSpecial.root.set( (root === val ? "." : root)  +"/");
+    }
+  },
+  paths: getSetToSystem("paths"),
+  map: getSetToSystem("map"),
+  startId: {
+    set: function(val){
+      configSpecial.main.set(  normalize(val) );
+    },
+    get: function(){
+      return System.main;
+    }
+  },
+  main: {
+    get: getSetToSystem("main").get,
+    set: function(val){
+      System.main = val;
+      addProductionBundles();
+    }
+  },
+  meta: getSetToSystem("meta"),
+  ext: getSetToSystem("ext")
 };
 
 
 var addProductionBundles = function(){
-	if(configData.env === "production" && System.main) {		
-		var main = System.main,
-			bundlesDir = System.bundlesPath || "bundles/",
-			bundleName = bundlesDir+filename(main);
-		
-		System.meta[bundleName] = {format:"amd"};
-		System.bundles[bundleName] = [main];
-	}
+  if(configData.env === "production" && System.main) {    
+    var main = System.main,
+      bundlesDir = System.bundlesPath || "bundles/",
+      bundleName = bundlesDir+filename(main);
+    
+    System.meta[bundleName] = {format:"amd"};
+    System.bundles[bundleName] = [main];
+  }
 };
 
-	
+  var LESS_ENGINE = "less-1.7.0";
+  var getScriptOptions = function () {
+  
+    var options = {},
+      parts, src, query, startFile, env,
+      scripts = document.getElementsByTagName("script");
+  
+    var script = scripts[scripts.length - 1];
+  
+    if (script) {
+  
+      // Split on question mark to get query
+      parts = script.src.split("?");
+      src = parts.shift();
+      
+      query = parts.join("?");
+  
+      // Split on comma to get startFile and env
+      parts = query.split(",");
+  
+      if (src.indexOf("steal.production") > -1) {
+        options.env = "production";
+      }
+  
+      // Grab startFile
+      startFile = parts[0];
+  
+      if (startFile) {
+        options.startId = startFile;
+      }
+  
+      // Grab env
+      env = parts[1];
+  
+      if (env) {
+        options.env = env;
+      }
+  
+      // Split on / to get rootUrl
+      parts = src.split("/");
+      var lastPart = parts.pop();
+      
+      if(lastPart.indexOf("steal") === 0 && !System.paths["steal/dev"]) {
+        options.paths = {
+          "steal/*": parts.join("/")+"/*.js",
+          "less" :  parts.join("/")+"/"+LESS_ENGINE+".js",
+          "@traceur": parts.slice(0,-1).join("/")+"/traceur/traceur.js",
+          
+        };
+        
+      }
+      
+      if ( last(parts) === "steal" ) {
+        parts.pop();
+        if ( last(parts) === "bower_components" ) {
+          parts.pop();
+        }
+      }
+      var root = parts.join("/");
+      options.root = root+"/";
+      each(script.attributes, function(attr){
+        var optionName = 
+          camelize( attr.nodeName.indexOf("data-") === 0 ?
+             attr.nodeName.replace("data-","") :
+             attr.nodeName );
+             
+        options[optionName] = attr.value;
+      });
+      
+    }
+  
+    return options;
+  };
+  
+  var getOptionsFromStealLocation = function(){
+    var options = {};
+    if(typeof __dirname === "string" && !System.paths["steal/dev"]) {
+      options.paths = {
+        "steal/*": __dirname+"/*.js",
+        "@traceur": __dirname.split("/").slice(0,-1).join("/")+"/traceur/traceur.js"
+      };
+    }
+    
+    System.register("less",[], function(){
+      var r = require;
+      return { __useDefault: true, 'default': r('less') };
+    });
+    return options;
+  };
+  
+  steal.startup = function(config){
+    
+    // get options from the script tag
+    if(global.document) {
+      var urlOptions = getScriptOptions();
+    } else {
+      var urlOptions = getOptionsFromStealLocation();
+    }
 
-	var getScriptOptions = function () {
-	
-		var options = {},
-			parts, src, query, startFile, env,
-			scripts = document.getElementsByTagName("script");
-	
-		var script = scripts[scripts.length - 1];
-	
-		if (script) {
-	
-			// Split on question mark to get query
-			parts = script.src.split("?");
-			src = parts.shift();
-			
-			query = parts.join("?");
-	
-			// Split on comma to get startFile and env
-			parts = query.split(",");
-	
-			if (src.indexOf("steal.production") > -1) {
-				options.env = "production";
-			}
-	
-			// Grab startFile
-			startFile = parts[0];
-	
-			if (startFile) {
-				options.startId = startFile;
-			}
-	
-			// Grab env
-			env = parts[1];
-	
-			if (env) {
-				options.env = env;
-			}
-	
-			// Split on / to get rootUrl
-			parts = src.split("/");
-			var lastPart = parts.pop();
-			
-			if(lastPart.indexOf("steal") === 0 && !System.paths["steal/dev/dev"]) {
-				options.paths = {
-					"steal/*": parts.join("/")+"/*.js",
-					"@traceur": parts.slice(0,-1).join("/")+"/traceur/traceur.js"
-				};
-				
-			}
-			
-			if ( last(parts) === "steal" ) {
-				parts.pop();
-				if ( last(parts) === "bower_components" ) {
-					parts.pop();
-				}
-			}
-			var root = parts.join("/");
-			options.root = root+"/";
-			each(script.attributes, function(attr){
-				var optionName = 
-					camelize( attr.nodeName.indexOf("data-") === 0 ?
-						 attr.nodeName.replace("data-","") :
-						 attr.nodeName );
-						 
-				options[optionName] = attr.value;
-			});
-			
-		}
-	
-		return options;
-	};
-	
-	var getOptionsFromStealLocation = function(){
-		var options = {};
-		if(typeof __dirname === "string" && !System.paths["steal/dev/dev"]) {
-			options.paths = {
-				"steal/*": __dirname+"/*.js",
-				"@traceur": __dirname.split("/").slice(0,-1).join("/")+"/traceur/traceur.js"
-			};
-		}
-		return options;
-	};
-	
-	steal.startup = function(config){
-		
-		// get options from the script tag
-		if(global.document) {
-			var urlOptions = getScriptOptions();
-		} else {
-			var urlOptions = getOptionsFromStealLocation();
-		}
-		if(!System.map.css) {
-			System.map.css = "steal/css";	
-		}
+    extend(System.ext,{
+      css: 'steal/css',
+      less: 'steal/less'
+    });
 
-		// B: DO THINGS WITH OPTIONS
-		// CALCULATE CURRENT LOCATION OF THINGS ...
-		steal.config(urlOptions);
-		
-		var options = steal.config();
-	
-		// mark things that have already been loaded
-		each(options.executed || [], function( i, stel ) {
-			System.register(stel,[],function(){});
-		});
-		
-		// immediate steals we do
-		var steals = [];
-	
-		// add start files first
-		if ( options.startIds ) {
-			/// this can be a string or an array
-			steals.push.apply(steals, isString(options.startIds) ? [options.startIds] : options.startIds);
-			options.startIds = steals.slice(0);
-		}
-	
-		// we only load things with force = true
-		if ( options.env == "production" ) {
-			
-			return appDeferred = steal.System.import(steal.System.main)["catch"](function(e){
-				console.log(e);
-			});
-			
-		} else if(options.env == "development"){
-			
-			configDeferred = steal.System.import("stealconfig");
-			
-			devDeferred = configDeferred.then(function(){
-				// If a configuration was passed to startup we'll use that to overwrite
- 				// what was loaded in stealconfig.js
-				if(config) {
-					steal.config(config);
-				}
+    // B: DO THINGS WITH OPTIONS
+    // CALCULATE CURRENT LOCATION OF THINGS ...
+    steal.config(urlOptions);
+    
+    var options = steal.config();
+  
+    // mark things that have already been loaded
+    each(options.executed || [], function( i, stel ) {
+      System.register(stel,[],function(){});
+    });
+    
+    // immediate steals we do
+    var steals = [];
+  
+    // add start files first
+    if ( options.startIds ) {
+      /// this can be a string or an array
+      steals.push.apply(steals, isString(options.startIds) ? [options.startIds] : options.startIds);
+      options.startIds = steals.slice(0);
+    }
+  
+    // we only load things with force = true
+    if ( options.env == "production" ) {
+      
+      return appDeferred = steal.System.import(steal.System.main)["catch"](function(e){
+        console.log(e);
+      });
+      
+    } else if(options.env == "development"){
+      
+      configDeferred = steal.System.import("stealconfig");
+      
+      devDeferred = configDeferred.then(function(){
+        // If a configuration was passed to startup we'll use that to overwrite
+        // what was loaded in stealconfig.js
+        if(config) {
+          steal.config(config);
+        }
 
-				return steal("steal/dev");
-			},function(){
-				console.log("steal - error loading stealconfig.");
-				return steal("steal/dev");
-			});
-			
-			appDeferred = devDeferred.then(function(){
-				
-				// if there's a main, get it, otherwise, we are just loading
-				// the config.
-				return steal.System.main ? 
-					System.import(steal.System.main):
-					configDeferred;
-			}).then(function(){
-				if(steal.dev) {
-					steal.dev.log("app loaded successfully")
-				}
-			}, function(error){
-				console.log("error",error,  error.stack);
-			});
-			return appDeferred;
-		}
-	};
+        return steal.System.import("steal/dev");
+      },function(){
+        console.log("steal - error loading stealconfig.");
+        return steal.System.import("steal/dev");
+      });
+      
+      appDeferred = devDeferred.then(function(){
+        
+        // if there's a main, get it, otherwise, we are just loading
+        // the config.
+        return steal.System.main ? 
+          System.import(steal.System.main):
+          configDeferred;
+      }).then(function(){
+        if(steal.dev) {
+          steal.dev.log("app loaded successfully")
+        }
+      }, function(error){
+        console.log("error",error,  error.stack);
+      });
+      return appDeferred;
+    }
+  };
 
-	return steal;	
+  return steal; 
+
+
 };
-
 
   
 
@@ -3773,109 +3830,109 @@ var addProductionBundles = function(){
 
   
   var addFormat = function(loader){
-  	  function makeRequire(parentName, deps, depsNormalized) {
-	    return function(names, callback, errback) {
-	      if (typeof names == 'string' && indexOf.call(deps, names) != -1)
-	        return loader.getModule(depsNormalized[indexOf.call(deps, names)]);
-	      return require(names, callback, errback, { name: parentName });
-	    };
-	  };
-	  function prepareExecute(depNames, load) {
-	    var meta = load.metadata;
-	    var deps = [];
-	    for (var i = 0; i < depNames.length; i++) {
-	      var module = loader.get(depNames[i]);
-	      if (module.__useDefault) {
-	        module = module['default'];
-	      }
-	      else if (!module.__esModule) {
-	        // compatibility -> ES6 modules must have a __esModule flag
-	        // we clone the module object to handle this
-	        var moduleClone = { __esModule: true };
-	        for (var p in module)
-	          moduleClone[p] = module[p];
-	        module = moduleClone;
-	      }
-	      deps[i] = module;
-	    }
-	
-	    var module, exports;
-	
-	    return {
-	      deps: deps,
-	      module: module || exports && { exports: exports }
-	    };
-	  }
-  	
-  	
-  	loader.formats.unshift('steal');
-  	loader.format.steal = {
-	    detect: function(load) {
-	      return !!load.source.match(stealRegEx);
-	    },
-	    deps: function(load) {
-		  var global = loader.global;
-	      var deps = [];
-	      var meta = load.metadata;
-	      var oldSteal = global.steal;
-		
-	      global.steal = function(){
-	          for( var i = 0; i < arguments.length; i++ ) {
-	          if (typeof arguments[i] == 'string') {
-	            deps.push( arguments[i] );
-	          } else {
-	            meta.factory = arguments[i];
-	          }
-	        }
-	      };
-	
-	      loader.__exec(load);
-	      global.steal = oldSteal;
-	      // deps not defined for an AMD module that defines a different name
-	      deps = deps || [];
-	
-	      deps = prepareDeps(deps, meta);
-	
-	      global.define = undefined;
-	
-	      meta.deps = deps;
-	
-	      return deps;
-	
-	    },
-	    execute: function(depNames, load ) {
-	      if (!load.metadata.factory)
-	        return;
-	      var execs = prepareExecute(depNames, load);
-	      return load.metadata.factory.apply(loader.global, execs.deps) || execs.module && execs.module.exports;
-	    },
-	    normalize: function(name, refererName, refererAddress, baseNormalize){
-	      return baseNormalize(normalize(name, this), refererName, refererAddress);
-	    }
-	  };
-  	return loader;
+      function makeRequire(parentName, deps, depsNormalized) {
+      return function(names, callback, errback) {
+        if (typeof names == 'string' && indexOf.call(deps, names) != -1)
+          return loader.getModule(depsNormalized[indexOf.call(deps, names)]);
+        return require(names, callback, errback, { name: parentName });
+      };
+    };
+    function prepareExecute(depNames, load) {
+      var meta = load.metadata;
+      var deps = [];
+      for (var i = 0; i < depNames.length; i++) {
+        var module = loader.get(depNames[i]);
+        if (module.__useDefault) {
+          module = module['default'];
+        }
+        else if (!module.__esModule) {
+          // compatibility -> ES6 modules must have a __esModule flag
+          // we clone the module object to handle this
+          var moduleClone = { __esModule: true };
+          for (var p in module)
+            moduleClone[p] = module[p];
+          module = moduleClone;
+        }
+        deps[i] = module;
+      }
+  
+      var module, exports;
+  
+      return {
+        deps: deps,
+        module: module || exports && { exports: exports }
+      };
+    }
+    
+    
+    loader.formats.unshift('steal');
+    loader.format.steal = {
+      detect: function(load) {
+        return !!load.source.match(stealRegEx);
+      },
+      deps: function(load) {
+      var global = loader.global;
+        var deps = [];
+        var meta = load.metadata;
+        var oldSteal = global.steal;
+    
+        global.steal = function(){
+            for( var i = 0; i < arguments.length; i++ ) {
+            if (typeof arguments[i] == 'string') {
+              deps.push( arguments[i] );
+            } else {
+              meta.factory = arguments[i];
+            }
+          }
+        };
+  
+        loader.__exec(load);
+        global.steal = oldSteal;
+        // deps not defined for an AMD module that defines a different name
+        deps = deps || [];
+  
+        deps = prepareDeps(deps, meta);
+  
+        global.define = undefined;
+  
+        meta.deps = deps;
+  
+        return deps;
+  
+      },
+      execute: function(depNames, load ) {
+        if (!load.metadata.factory)
+          return;
+        var execs = prepareExecute(depNames, load);
+        return load.metadata.factory.apply(loader.global, execs.deps) || execs.module && execs.module.exports;
+      },
+      normalize: function(name, refererName, refererAddress, baseNormalize){
+        return baseNormalize(normalize(name, this), refererName, refererAddress);
+      }
+    };
+    return loader;
   };
   
   if(typeof System !== "undefined") {
-  	addFormat(System);
+    addFormat(System);
   }
 
   
 
 
-	if (typeof window != 'undefined') {
-		window.steal = makeSteal(System);
-		window.steal.startup();
-		window.steal.addFormat = addFormat;
+  if (typeof window != 'undefined') {
+    window.steal = makeSteal(System);
+    window.steal.startup();
+    window.steal.addFormat = addFormat;
     }
     else {
-    	var steal = makeSteal(System);
-		steal.System = System;
-		steal.dev = require("./dev/dev.js");
-		steal.clone = makeSteal;
-		module.exports = steal;
-		global.steal = steal;
-		global.steal.addFormat = addFormat;
+      var steal = makeSteal(System);
+    steal.System = System;
+    steal.dev = require("./dev.js");
+    steal.clone = makeSteal;
+    module.exports = steal;
+    global.steal = steal;
+    global.steal.addFormat = addFormat;
     }
     
 })(typeof window == "undefined" ? global : window);

@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./info.mustache',
+	'./info.mustache!',
 	'ui/bootstrap_dropdown',
 	'bithub/models/country.js',
 	'can/list',

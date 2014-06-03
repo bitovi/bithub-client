@@ -1,5 +1,5 @@
 steal('can',
-		'./init.mustache',
+		'./init.mustache!',
 		'bithub/homepage/sidebar/leaderboard',
 		function(can, initView, Leaderboard){
 

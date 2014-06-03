@@ -1,6 +1,6 @@
 steal(
 'can/component',
-'./push.mustache',
+'./push.mustache!',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
 function(Component, pushView, EntityState, sharedHelpers){

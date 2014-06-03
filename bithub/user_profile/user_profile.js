@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./user_profile.mustache',
+	'./user_profile.mustache!',
 	'bithub/models/user.js',
 	'bithub/models/activity.js',
 	'bithub/homepage/event_list/determine_event_partial.js',

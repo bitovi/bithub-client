@@ -1,8 +1,8 @@
 steal(
 	'can',
-	'bithub/homepage/event_list/views/init.mustache',
-	'bithub/homepage/event_list/views/latest.mustache',
-	'bithub/homepage/event_list/views/greatest.mustache',
+	'bithub/homepage/event_list/views/init.mustache!',
+	'bithub/homepage/event_list/views/latest.mustache!',
+	'bithub/homepage/event_list/views/greatest.mustache!',
 	'bithub/homepage/event_list/determine_event_partial.js',
 	'bithub/homepage/event_list/handlers',
 	'ui/html_select',

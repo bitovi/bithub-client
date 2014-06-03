@@ -1,6 +1,6 @@
 steal(
 'can/component',
-'./twitter.mustache',
+'./twitter.mustache!',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
 'bithub/entities/events.js',

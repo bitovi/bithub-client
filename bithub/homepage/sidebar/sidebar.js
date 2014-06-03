@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./sidebar.mustache',
+	'./sidebar.mustache!',
 	'bithub/homepage/sidebar/leaderboard',
 	'bithub/models/reward.js',
 	'bithub/models/accomplishment.js',

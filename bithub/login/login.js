@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./login.mustache',
+	'./login.mustache!',
 	function(can, initView) {
 
 		return can.Control({

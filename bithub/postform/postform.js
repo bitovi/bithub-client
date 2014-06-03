@@ -1,6 +1,6 @@
 steal(
 'can/component',
-'./postform.mustache',
+'./postform.mustache!',
 'bithub/models/event.js',
 'bithub/models/tag.js',
 'bithub/models/postas_user.js',

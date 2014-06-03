@@ -1,3 +1,7 @@
+# StealJS
+
+[![Build Status](https://travis-ci.org/bitovi/steal.svg?branch=master)](https://travis-ci.org/bitovi/steal)
+
 StealJS is an ES6, AMD, CommonJS, and steal client-side loader. Combined with 
 [steal-tools](https://github.com/bitovi/steal-tools/tree/systemjs), its designed
 to simplify dependency management while being extremely powerful and flexible.
@@ -10,7 +14,7 @@ Steal builds from [SystemJS](https://github.com/systemjs/systemjs) and
  - plugin extension mapping _(upcoming)_
  - production builds with [steal-tools](https://github.com/bitovi/steal-tools/tree/systemjs)
 
-But its __killer__ feature - progressively loaded apps that balance caching and the 
+But it's __killer__ feature - progressively loaded apps that balance caching and the 
 number of script requests.
 
 StealJS supports IE8+ with AMD, CommonJS, and Steal syntax and IE9+ for ES6 syntax.
@@ -95,13 +99,13 @@ Lets see how to get a basic app up and running.
 
 2. Configure jQuery's path and export:
 
-   Add a `System.paths` config to `stealconfig.js` to tell steal where to find
-   jQuery. Add a `System.meta` config to tell SystemJS that jQuery exports the "jQuery"
+   Add a config for `System.paths` to `stealconfig.js` to tell steal where to find
+   jQuery. Add a config for `System.meta` to tell SystemJS that jQuery exports the "jQuery"
    variable.
    
    ```js
-   System.paths = {jquery: 'bower_components/jquery/dist/jquery.js'};
-   System.meta = {jquery: { exports: "jQuery" } };
+   System.paths.jquery = "bower_components/jquery/dist/jquery.js";
+   System.meta.jquery = { exports: "jQuery" };
    ```
 
 3. Load jQuery.

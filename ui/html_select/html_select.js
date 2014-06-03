@@ -1,5 +1,5 @@
 steal('can',
-	  './init.mustache',
+	  './init.mustache!',
 	  function(can, initView){
 		  return can.Control.extend({
 			  defaults : {}

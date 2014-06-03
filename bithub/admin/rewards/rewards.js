@@ -1,7 +1,7 @@
 steal(
 	'can',
 	'bithub/models/reward.js',
-	'./rewards.mustache',
+	'./rewards.mustache!',
 	'./form/form.js',
 	'../paginator.js',
 	function(can, Reward, rewardsListView, rewardFormControl, Paginator){

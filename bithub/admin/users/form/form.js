@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./form.mustache',
+	'./form.mustache!',
 	'bithub/models/user.js',
 	'bithub/profile/info',
 	function(can, userFormView, User, UserInfo){

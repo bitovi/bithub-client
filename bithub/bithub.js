@@ -11,14 +11,15 @@ steal(
 	'bithub/models/tag.js',
 	'bithub/models/user.js',
 	'bithub/helpers/loadtime.js',
+	'jstz',
 	'ui/onbottom.js',
 	'can/route/pushstate',
 	'bootstrap',
 	'bootstrap-datepicker',
 	'vendor/lodash',
-	'vendor/jstz',
 
-	function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, loadtime) {
+	function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, loadtime, jstz) {
+
 		var href = window.location.href
 
 		if(href.substr(href.length - 1) === '/' && href !== window.location.origin + "/"){

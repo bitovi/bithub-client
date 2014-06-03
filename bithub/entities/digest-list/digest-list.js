@@ -1,6 +1,6 @@
 steal(
 'can/component',
-'./digest-list.mustache',
+'./digest-list.mustache!',
 'bithub/entities/entity_state.js',
 function(Component, digestListView, EntityState){
 	

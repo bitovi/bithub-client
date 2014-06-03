@@ -1,4 +1,4 @@
-steal('can/control', './editpost.mustache', 'bithub/postform', function(Control, editPostView){
+steal('can/control', './editpost.mustache!', 'bithub/postform', function(Control, editPostView){
 	return Control.extend({
 		open : function(event){
 			var div = $('.edit-post-modal');

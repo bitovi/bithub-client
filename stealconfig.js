@@ -9,6 +9,7 @@ steal.config({
 		'fileupload/fileupload' : 'fileupload',
 		'fileupload-processing/fileupload-processing' : 'fileupload-processing',
 		'more/more' : 'more',
+		'jstz/jstz' : 'jstz'
 	},
 	paths: {
 		"can": "can/can.js",
@@ -20,7 +21,7 @@ steal.config({
 		'fileupload' : 'vendor/fileupload/fileupload.src.js',
 		'fileupload-processing' : 'vendor/fileupload/fileupload-fp.src.js',
 		'more' : 'ui/more/more.js',
-
+		'jstz': "vendor/jstz/jstz.js",
 	},
 	meta : {
 		jquery: {
@@ -30,7 +31,7 @@ steal.config({
 			deps: ['jquery']
 		},
 		"bootstrap-datepicker" : {
-			deps : ['jquery', 'vendor/bootstrap-datepicker.less!']
+			deps : ['jquery']
 		},
 		"fileupload-load-image" : {
 			deps :['jquery']
@@ -45,12 +46,15 @@ steal.config({
 			deps : ['fileupload']
 		},
 		"more" : {
-			deps : ["jquery", 'jquerypp/dom/range/range.js']
+			deps : ["jquery", 'jquerypp/dom/range/range']
+		},
+		jstz : {
+			exports : "jstz"
 		}
 	},
 	ext: {
-		ejs: "can/view/ejs/systemjs.js",
-		mustache: "can/view/mustache/systemjs.js"
+		ejs: "can/view/ejs/system",
+		mustache: "can/view/mustache/system"
 	}
 });
 

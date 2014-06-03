@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./form.mustache',
+	'./form.mustache!',
 	'bithub/models/tag.js',
 	'jquerypp/dom/form_params',
 	function(can, tagFormView, Tag){

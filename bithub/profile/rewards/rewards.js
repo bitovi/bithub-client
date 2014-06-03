@@ -1,5 +1,5 @@
 steal('can',
-		'./init.mustache',
+		'./init.mustache!',
 		'bithub/models/reward.js',
 		function(can, initView, Reward){
 

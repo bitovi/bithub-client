@@ -1,5 +1,5 @@
 steal('can',
-	  './init.mustache',
+	  './init.mustache!',
 	  'bithub/models/achievement.js',
 	  'bootstrap-datepicker',
 	  'vendor/moment',

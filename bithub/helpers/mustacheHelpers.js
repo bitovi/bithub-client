@@ -1,4 +1,4 @@
-steal('can/view/mustache', 'vendor/moment', function (Mustache) {
+steal('can/view/mustache', 'can/control', 'vendor/moment', function (Mustache, Control) {
 
 	can.Mustache.registerHelper('prettifyTs', function( ts, format, opts ) {
 		var formatWith;
@@ -128,7 +128,7 @@ steal('can/view/mustache', 'vendor/moment', function (Mustache) {
 
 	}
 
-	var ImgErrorHandler = can.Control({
+	var ImgErrorHandler = Control.extend({
 		" load" : function(){
 			this.destroy(); // cleanup after ourselves
 		}, 

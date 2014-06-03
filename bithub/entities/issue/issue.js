@@ -1,7 +1,7 @@
 steal(
 'can/component',
-'./issue.mustache',
-'./child.mustache',
+'./issue.mustache!',
+'./child.mustache!',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
 'bithub/entities/events.js',

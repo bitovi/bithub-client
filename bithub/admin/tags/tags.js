@@ -1,7 +1,7 @@
 steal(
 	'can',
 	'bithub/models/tag.js',
-	'./tags.mustache',
+	'./tags.mustache!',
 	'bithub/admin/tags/form',
 	'../paginator.js',
 	function(can, Tag, tagsListView, tagFormControl, Paginator) {

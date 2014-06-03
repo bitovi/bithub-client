@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./init.ejs',
+	'./init.ejs!',
 	'bootstrap',
 	function(can, initView){
 

@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./init.ejs',
+	'./init.ejs!',
 	function(can, initView){
 
 		var makeRouteForOption = function (item) {

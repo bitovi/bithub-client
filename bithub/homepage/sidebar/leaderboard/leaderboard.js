@@ -1,6 +1,6 @@
 steal(
 	'can',
-	'./leaderboard.mustache',
+	'./leaderboard.mustache!',
 	'bithub/models/user.js',
 	'can/map/delegate',
 	'bithub/helpers/mustacheHelpers.js',

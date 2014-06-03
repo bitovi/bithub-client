@@ -1,7 +1,7 @@
 steal(
 	'can',
 	'bithub/models/event.js',
-	'./event_details.mustache',
+	'./event_details.mustache!',
 	'bithub/homepage/event_list/determine_event_partial.js',	
 	'bithub/homepage/event_list/handlers',	
 	'bithub/helpers/mustacheHelpers.js',

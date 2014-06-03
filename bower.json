@@ -1,0 +1,20 @@
+{
+  "name": "bithub",
+  "version": "0.0.0",
+  "homepage": "https://github.com/bitovi/bithub-client",
+  "authors": [
+    "Mihael Konjevic <konjevic@gmail.com>"
+  ],
+  "license": "-",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "stealjs": "git://github.com/bitovi/steal#c0a9b526c719b0d65fb682e14dac244eafe9c7df"
+  }
+}
