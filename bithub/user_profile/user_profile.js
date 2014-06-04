@@ -60,6 +60,7 @@ steal(
 
             renderView : function () {
                 var self = this;
+
                 this.element.html(initView({
                     user : this.user,
                     isLoading : this.isLoading,
@@ -140,6 +141,9 @@ steal(
                         }).join('');
                     }
                 }));
+
+
+
             },
 
             //"{window} onbottom" : "loadActivities",
