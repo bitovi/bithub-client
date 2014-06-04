@@ -19,7 +19,11 @@ steal(
         return can.Control.extend({
             pluginName: 'user_profile'
         }, {
-            init : function (elem, opts) {
+            init : function(){
+                this.initControl();
+            },
+            "{can.route} id" : "initControl",
+            initControl : function () {
                 var id = can.route.attr('id'),
                     self = this;
 
@@ -49,12 +53,12 @@ steal(
                 this.loadedEvents = can.compute(false);
 
                 this.loadActivities();
-                this.initControl();
+                this.renderView();
 
                 new Leaderboard(this.element.find('#leaderboard'), this.options);
             },
 
-            initControl : function () {
+            renderView : function () {
                 var self = this;
                 this.element.html(initView({
                     user : this.user,
