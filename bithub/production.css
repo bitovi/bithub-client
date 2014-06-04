@@ -8850,6 +8850,7 @@ h4.username {
 .user-profile-wrapper .avatar img {
   box-sizing: border-box;
   width: 100%;
+  padding: 10px 20%;
 }
 .user-profile-wrapper hr {
   margin: 10px 0;
@@ -8881,6 +8882,12 @@ h4.username {
 .leaderboard-admins input {
   float: left;
   margin: 5px 5px 0 0;
+}
+.user-profile-page .user-profile-wrapper .leaderboard ul li {
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 0;
+  margin-left: 0;
 }
 /* Sidebar -------------------------------------------------------- */
 .sidebar {

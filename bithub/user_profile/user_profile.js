@@ -6,8 +6,9 @@ steal(
     'bithub/homepage/event_list/determine_event_partial.js',
     'bithub/homepage/event_list/latest_events_sorter.js',
     'bithub/homepage/event_list/handlers',
+    'bithub/homepage/sidebar/leaderboard',
     'bithub/entities',
-    function(can, initView, UserModel, ActivityModel, determineEventPartial, LatestEventsSorter, Handlers){
+    function(can, initView, UserModel, ActivityModel, determineEventPartial, LatestEventsSorter, Handlers, Leaderboard){
 
         var currentControl;
 
@@ -49,6 +50,8 @@ steal(
 
                 this.loadActivities();
                 this.initControl();
+
+                new Leaderboard(this.element.find('#leaderboard'), this.options);
             },
 
             initControl : function () {

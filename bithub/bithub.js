@@ -140,7 +140,7 @@ steal(
 		can.route('/leaderboard', { page: 'leaderboard' });
 		can.route('/earnpoints', { page: 'earnpoints' });
 
-        can.route('/user_profile/:id', {page : 'user_profile'})
+        can.route('/profile/:id', {page : 'user_profile'})
 
 		can.route('/profile', { page: 'profile', view: 'info' });
 		can.route('/profile/activities', { page: 'profile', view: 'activities' });
