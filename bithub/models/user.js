@@ -227,10 +227,13 @@ steal(
 			topUser: function() {
 				if (this.attr('length') == 0) return;
 
-				var bestUser = this.attr(0);
+				var bestUser = new can.Map({score : 0});
 
 				this.each(function( user, idx ) {
-					if( user.attr('score') > bestUser.attr('score') && (!user.attr('roles') || user.attr('roles').length)) {
+                    var roles = user.attr('roles'),
+                        length = (roles && roles.attr && roles.attr('length')) || 0;
+
+					if( user.attr('score') > bestUser.attr('score') && (!roles || length === 0)) {
 						bestUser = user;
 					}
 				});
