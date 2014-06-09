@@ -8850,6 +8850,7 @@ h4.username {
 .user-profile-wrapper .avatar img {
   box-sizing: border-box;
   width: 100%;
+  padding: 10px 20%;
 }
 .user-profile-wrapper hr {
   margin: 10px 0;
@@ -8865,7 +8866,7 @@ h4.username {
   display: none;
 }
 .user-profile-page .events-group {
-  margin: -10px 0 20px;
+  margin: 0px 0 20px;
 }
 .user-profile-page .events-group .alert {
   margin-top: 10px;
@@ -8873,6 +8874,20 @@ h4.username {
 .user-profile-page .events-group .alert-info {
   background-color: #e9f8ff;
   text-align: center;
+}
+.leaderboard-admins {
+  float: right;
+  margin-top: 10px;
+}
+.leaderboard-admins input {
+  float: left;
+  margin: 5px 5px 0 0;
+}
+.user-profile-page .user-profile-wrapper .leaderboard ul li {
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 0;
+  margin-left: 0;
 }
 /* Sidebar -------------------------------------------------------- */
 .sidebar {

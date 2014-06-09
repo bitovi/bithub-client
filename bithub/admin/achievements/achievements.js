@@ -12,11 +12,11 @@ steal('can',
 			  init : function( elem, opts ){
 				  var self = this,
 					  achievements = this.options.achievements;
-				  
+
 				  Achievement.findAll({}, function( data ) {
 					  achievements.replace( data );
 				  });
-				  
+
 				  this.element.html(initView({
 					  achievements: achievements
 				  }, {

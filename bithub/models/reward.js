@@ -10,7 +10,7 @@ steal(
 		}
 
 		var imageFormat = function(imageUrl, format){
-			var imageUrlArr = imageUrl.split('/');
+			var imageUrlArr = (imageUrl || "").split('/');
 
 			imageUrlArr[imageUrlArr.length - 1] = format + "_" + imageUrlArr[imageUrlArr.length - 1];
 

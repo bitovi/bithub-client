@@ -21,49 +21,63 @@ function(Component, codeView, EntityState, sharedHelpers, EventModel){
 		}
 	}
 
+    var order = ['push', 'pull_request', 'create']
+
 	can.Component.extend({
 		tag : 'bh-code',
 		template : codeView,
 		scope : EntityState.extend({
-			inited : true
+			inited : true,
+            init : function(){
+            },
+            preparedEvents : function(){
+                var prepared = [],
+                    events = this.events,
+                    curEvents, evGroup;
+
+                can.each(events, function(e){
+                    var repo = e.repo;
+
+                    prepared.push.apply(prepared, can.map(e.userEvents, function(curEvents){
+                        var evGroup = {
+                            authorName : curEvents.authorName
+                        }
+
+                        evGroup.grouped = can.map(order, function(type){
+                            var evs = [];
+                            if(type === 'push'){
+                                can.each(curEvents.push, function(pushEvent){
+                                    if(pushEvent.children && pushEvent.children.sortByOriginTS){
+                                        evs.push.apply(evs, pushEvent.children.sortByOriginTS());
+                                    }
+                                });
+                            } else {
+                                evs = EventModel.List.prototype.sortByOriginTS.call(curEvents[type] || []);
+                            }
+
+                            var res = {
+                                title : titles[type][(evs.length === 1 ? 'sg' : 'pl')] + repo,
+                                repoUserEvents : evs,
+                                eventType      : type
+                            }
+
+                            return evs.length ? res : null;
+                        })
+
+                        return evGroup;
+                    }))
+                })
+
+                return prepared;
+            }
+
 		}),
 		helpers : can.extend({}, sharedHelpers, {
-			groupedEvents : function(repo, opts){
-				var order         = ['push', 'pull_request', 'create'],
-					currentEvents = opts.context,
-					repo          = can.isFunction(repo) ? repo() : repo;
-
-				return can.map(order, function(type){
-					var events = new can.List(),
-						data, length;
-
-					if(type === 'push'){
-						can.each(currentEvents.attr('push'), function(pushEvent){
-							events.push.apply(events, pushEvent.attr('children').sortByOriginTS());
-						});
-					} else {
-						events = EventModel.List.prototype.sortByOriginTS.call(opts.context.attr(type));
-					}
-
-					length = events.attr('length');
-
-					data = {
-						title          : titles[type][(length === 1 ? 'sg' : 'pl')] + repo,
-						repoUserEvents : events,
-						eventType      : type
-					};
-
-					can.__clearReading();
-
-					return length > 0 ? opts.fn(data) : '';
-
-				}).join('');
-			},
 			eventTitle : function(event, eventType){
 				var title;
 
 				event = can.isFunction(event) ? event() : event;
-				
+
 				if(eventType === 'push'){
 					title = event.attr('source_body');
 					title = can.trim((event.attr('props.sha') || '').substring(0, 6) + ' ' + title);

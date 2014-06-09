@@ -197,7 +197,7 @@ steal(
 				Bithub.Models.Activity.findAll({userId: this.attr('id'), limit: 100000}, function(activities){
 					self.attr('activities', self.attr('activities') || []);
 					self.attr('activities').replace(activities);
-				}) 
+				})
 			},
 			avatarUrl : function(){
 				var defaultAvatar = '/assets/images/icon-user.png',
@@ -208,7 +208,7 @@ steal(
 					for(var i = 0; i < identities.length; i++){
 						sourceData = identities[i].source_data || {};
 						currentAvatar = (
-							sourceData.image || 
+							sourceData.image ||
 							sourceData.avatar_url ||
 							sourceData.profile_image_url ||
 							defaultAvatar
@@ -227,10 +227,13 @@ steal(
 			topUser: function() {
 				if (this.attr('length') == 0) return;
 
-				var bestUser = this.attr(0);
+				var bestUser = new can.Map({score : 0});
 
 				this.each(function( user, idx ) {
-					if( user.attr('score') > bestUser.attr('score') ) {
+                    var roles = user.attr('roles'),
+                        length = (roles && roles.attr && roles.attr('length')) || 0;
+
+					if( user.attr('score') > bestUser.attr('score') && (!roles || length === 0)) {
 						bestUser = user;
 					}
 				});
