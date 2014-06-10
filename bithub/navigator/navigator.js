@@ -22,8 +22,11 @@ steal(
 			initControl: function (currentPage) {
 				var control, className, $div = $('<div/>');
 
-				if (currentPage === 'admin') control = AdminNavbar
-				else control = Filterbar;
+				if (currentPage === 'admin'){
+					control = AdminNavbar;
+				} else {
+					control = Filterbar;
+				}
 
 				if (!pc.hasPermissions(this.options.currentUser, control)) {
 					new Filterbar($div, this.options);
@@ -37,7 +40,7 @@ steal(
 				new ProfileNavbar('#profile-navbar', this.options);
 			},
 
-			'{currentUser} loggedIn' : function () {
+			'{currentUser} loggedInDelayed change' : function () {
 				var self = this;
 				setTimeout(function() {
 					self.initControl(can.route.attr('page'))

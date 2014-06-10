@@ -9155,6 +9155,9 @@ h4.handwriting {
 }
 .visit-meetups {
   margin-top: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .visit-meetups li {
   border-bottom: 1px solid #eee;
@@ -11055,6 +11058,10 @@ h5.twitter-title {
   line-height: 100%;
   padding: 0;
   float: right;
+}
+.admin-rewards table img {
+  max-width: 100px;
+  max-height: 100px;
 }
 #oauth-wrap {
   margin: 85px 20px 0;

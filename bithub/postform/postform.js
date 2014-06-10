@@ -29,6 +29,11 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					this.__oldEvent = this.attr('event');
 					this.attr('event', new EventModel(this.attr('event').attr()));
 					this.attr('event.project', this.getProjectForEvent());
+				} else {
+					this.attr('event').attr({
+						project : can.route.attr('newpost_p'),
+						category : can.route.attr('newpost_c')
+					})
 				}
 
 				this.attr('__dirtyAttrs', []);
@@ -213,6 +218,14 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 						$el.remove();
 					});
 				};
+			},
+			isCurrentProject : function(name, opts){
+				name = can.isFunction(name) ? name() : name;
+				return name === this.attr('event.project') ? opts.fn() : "";
+			},
+			isCurrentCategory : function(name, opts){
+				name = can.isFunction(name) ? name() : name;
+				return name === this.attr('event.category') ? opts.fn() : "";
 			}
 		},
 		events : {

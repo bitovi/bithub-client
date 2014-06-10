@@ -44,7 +44,7 @@
 						<select can-value="event.project">
 							<option value="">Pick a Project</option>
 							{{#eventProjects}}
-								<option value="{{name}}">{{display_name}}</option>
+								<option value="{{name}}" {{#isCurrentProject name}}selected{{/if}}>{{display_name}}</option>
 							{{/eventProjects}}
 						</select>
 					</div>
@@ -60,7 +60,7 @@
 						<select can-value="event.category">
 							<option value="">Pick a Category</option>
 							{{#eventCategories}}
-								<option value="{{name}}">{{display_name}}</option>
+								<option value="{{name}}" {{#isCurrentCategory name}}selected{{/if}}>{{display_name}}</option>
 							{{/eventCategories}}
 						</select>
 					</div>

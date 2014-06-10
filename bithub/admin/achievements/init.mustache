@@ -1,36 +1,70 @@
-<table class="table table-stripped">
-  <thead>
-	<tr>
-	  <th>User</th>
-	  <th>Address</th>
-	  <th>Reward</th>
-	  <th>Achieved</th>
-	  <th>Shipped</th>
-	  <th></th>
-	</tr>
-  </thead>
-  <tbody>
-	{{#achievements}}
-	<tr {{data 'achievement'}}>
-	  <td>
-		{{user.name}}<br>
-		<a href="mailto:{{user.email}}">{{user.email}}</a>
-	  </td>
-	  <td>
-		{{user.address}}<br>
-		{{user.city}} {{user.state}} {{user.postal}}<br>
-		{{user.country.name}}
-	  </td>
-	  <td>{{reward.title}}</td>
-	  <td>{{formatTs achieved_at}}</td>
-	  <td><input name="shipped_at" type="text" value="{{formatTs shipped_at}}" {{datepicker}} /></td>
-	  <td>
-		<button class="btn btn-primary save">Save</button>
-	  </td>
-	</tr>
-	{{/achievements}}
-  </tbody>
-</table>
+<div class="span12">
+	<h3>Achievements</h3>
+	<div class="nav nav-tabs">
+		<li {{#isCurrentFilter 'achieved-complete'}}class="active"{{/isCurrentFilter}}>
+			<a href="{{filterUrl 'achieved-complete'}}">Achieved (Complete profile)</a>
+		</li>
+		<li {{#isCurrentFilter 'achieved-incomplete'}}class="active"{{/isCurrentFilter}}>
+			<a href="{{filterUrl 'achieved-incomplete'}}">Achieved (Incomplete profile)</a>
+		</li>
+		<li {{#isCurrentFilter 'shipped'}}class="active"{{/isCurrentFilter}}>
+			<a href="{{filterUrl 'shipped'}}">Shipped</a>
+		</li>
+	</div>
 
-
-
+	{{#if loading}}
+		Loading ...
+	{{ else }}
+		{{#if hasPagination}}
+			<div class="pagination">
+				<ul>
+					{{#pages}}
+						<li {{#isActivePage this}}class="active"{{/isActivePage}}><a href="{{pageUrl this}}">{{ . }}</a></li>
+					{{/pages}}
+				</ul>
+			</div>
+		{{/if}}
+		<table class="table table-stripped">
+			<thead>
+				<tr>
+					<th>User</th>
+					<th>Address</th>
+					<th>Reward</th>
+					<th>Achieved</th>
+					<th>Shipped</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#achievements}}
+				<tr {{data 'achievement'}}>
+					<td>
+						{{user.name}}<br>
+						<a href="mailto:{{user.email}}">{{user.email}}</a>
+					</td>
+					<td>
+						{{user.address}}<br>
+						{{user.city}} {{user.state}} {{user.postal}}<br>
+						{{user.country.name}}
+					</td>
+					<td>{{reward.title}}</td>
+					<td>{{formatTs achieved_at}}</td>
+					<td><input name="shipped_at" type="text" value="{{formatTs shipped_at}}" {{datepicker}} /></td>
+					<td>
+						<button class="btn btn-primary save">Save</button>
+					</td>
+				</tr>
+				{{/achievements}}
+			</tbody>
+		</table>
+		{{#if hasPagination}}
+			<div class="pagination">
+				<ul>
+					{{#pages}}
+						<li {{#isActivePage this}}class="active"{{/isActivePage}}><a href="{{pageUrl this}}">{{ . }}</a></li>
+					{{/pages}}
+				</ul>
+			</div>
+		{{/if}}
+	{{/if}}
+</div>
