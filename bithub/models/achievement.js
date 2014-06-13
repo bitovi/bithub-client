@@ -12,7 +12,13 @@ steal(
 			update  : 'PUT /api/v1/achievements/{id}',
 			destroy : 'DELETE /api/v1/achievements/{id}'
 
-		}, {});
+		}, {
+			serialize : function(){
+				var data = this._super();
+				delete data.saving;
+				return data;
+			}
+		});
 		
 		return Model;
 	});

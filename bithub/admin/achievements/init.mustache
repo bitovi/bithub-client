@@ -32,14 +32,14 @@
 					<th>Reward</th>
 					<th>Achieved</th>
 					<th>Shipped</th>
-					<th></th>
+					<th style="width: 100px"></th>
 				</tr>
 			</thead>
 			<tbody>
 				{{#achievements}}
 				<tr {{data 'achievement'}}>
 					<td>
-						{{user.name}}<br>
+						{{user.name}}{{#shipped_at}}<span class="badge">&nbsp;&nbsp;SHIPPED</span>{{/shipped_at}}<br>
 						<a href="mailto:{{user.email}}">{{user.email}}</a>
 					</td>
 					<td>
@@ -51,7 +51,7 @@
 					<td>{{formatTs achieved_at}}</td>
 					<td><input name="shipped_at" type="text" value="{{formatTs shipped_at}}" {{datepicker}} /></td>
 					<td>
-						<button class="btn btn-primary save">Save</button>
+						<button class="btn btn-primary save">{{#if saving}}Saving{{else}}Save{{/if}}</button>
 					</td>
 				</tr>
 				{{/achievements}}

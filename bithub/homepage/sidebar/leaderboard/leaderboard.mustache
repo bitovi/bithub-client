@@ -4,7 +4,7 @@
 	{{#loop users length=topLength}}
 	<li class="{{#if loggedIn}}active{{/if}} clearfix">
 	<span class="position pull-left">#{{__index}}</span>
-	{{#avatarUrl}}<img class="avatar pull-left" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
+	{{#avatarUrl}}<img class="avatar pull-left" src="{{.}}" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
 	<span class="leaderboard-name pull-left">
 		<a href="/profile/{{id}}">{{name}}</a>
 	</span>
@@ -20,7 +20,7 @@
 	{{#loop users begin=breakAt length=3}}
 	<li class="{{#if loggedIn}}active{{/if}} clearfix">
 		<span class="position pull-left">#{{__index}}</span>
-		{{#avatarUrl}}<img class="avatar pull-left" src="{{.}}?size=22" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
+		{{#avatarUrl}}<img class="avatar pull-left" src="{{.}}" alt="avatar" {{ imgErrorHandler }}>{{/avatarUrl}}
 		<span class="leaderboard-name pull-left">
 			<a href="/profile/{{id}}">{{name}}</a>
 		</span>

@@ -176,11 +176,20 @@ steal('can',
 				var achievement = el.closest('tr').data('achievement'),
 				shipped_at = el.closest('tr').find('input[name=shipped_at]').val();
 
-				achievement.attr('shipped_at', shipped_at && moment(shipped_at).format() );
+				achievement.attr({
+					shipped_at : shipped_at && moment(shipped_at).format(),
+					saving : true
+				});
+				
 				achievement.save(function() {
+					achievement.attr('saving', false);
 					el.removeClass('btn-primary').addClass('btn-success');
 					setTimeout(function() { el.removeClass('btn-success').addClass('btn-primary')}, 3000);
 				}, function() {
+					can.batch.start();
+					achievement.removeAttr('shipped_at');
+					achievement.attr('saving', false);
+					can.batch.stop();
 					el.removeClass('btn-primary').addClass('btn-danger');
 					setTimeout(function() { el.removeClass('btn-danger').addClass('btn-primary')}, 3000);
 				});
