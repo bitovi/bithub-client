@@ -14,6 +14,13 @@ steal(
 
 		var sizes = ["Small", "Medium", "Large", "X-Large", "2X-Large"];
 		
+		var blankCountry = {
+			iso:'',
+			name: '--',
+			display_name: '--'
+		}
+
+
 		return can.Control.extend({
 			pluginName: 'profile-info',
 			defaults : { 
@@ -21,11 +28,12 @@ steal(
 			}
 		}, {
 			init: function() {
-				var self = this,
-					countries = this.loadCountries();
+				var self = this;
+
+				this.countries = new can.Observe.List([ blankCountry ]);
 
 				this.element.html(profileInfoView({
-					countries: countries,
+					countries: this.countries,
 					user: this.options.currentUser,
 					isEditing : this.options.isEditing,
 					unlinkIdentity : this.proxy('unlinkIdentity'),
@@ -43,23 +51,26 @@ steal(
 				if(this.options.isEditing){
 					this.element.find(':input').prop('disabled', true).addClass('disabled');
 				}
+
+				if(this.options.currentUser.isLoggedIn()){
+					this.loadCountries();
+				}
 			},
 
 			loadCountries: function() {
-				var self = this,
-					blankCountry = {
-						iso:'',
-						name: '--',
-						display_name: '--'
-					};
-				var	countries = new can.Observe.List([ blankCountry ]);
+				var self = this;
+				if(this.countries.attr('length') === 1){
+					Country.findAll( countriesParams, function (data) {
+						self.countries.push.apply(self.countries, data);
+						self.element && self.element.find('#countryISO').val(
+							self.options.currentUser.attr('country.iso')
+						);
+					});
+				}
+			},
 
-				Country.findAll( countriesParams, function (data) {
-					countries.push.apply(countries, data);
-					self.element && self.element.find('#countryISO').val( self.options.currentUser.attr('country.iso') );
-				});
-
-				return countries;
+			'{currentUser} authStatus' : function (fn, ev, newVal, oldVal) {
+				if (newVal == 'loggedIn') this.loadCountries();
 			},
 
 			unlinkIdentity : function(identity, el, ev){
