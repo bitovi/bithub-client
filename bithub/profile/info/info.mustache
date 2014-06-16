@@ -17,13 +17,22 @@
 			<input type="text" name="email" value="{{user.email}}">
 		</label>
 		</div>
+		<p class="mailing-addr-caption">Hoodie and T-shirt size:</p>
+		<div class="controls controls-row">
+			<select id="shirt-size" name="size" value="{{user.size}}">
+				<option value="">--</option>
+				{{#sizes}}
+				<option value="{{.}}">{{.}}</option>
+				{{/sizes}}
+			</select>
+		</div>
 
 		<p class="mailing-addr-caption">Mailing Address (so we can send you swag):</p>
 
 		<div class="control-group">
 		<label class="wrapped-label-input">
 			<span>Street:</span>
-			<input type="text" name="address" style="width: 330px;" value="{{user.address}}">
+			<input type="text" name="address" value="{{user.address}}">
 		</label>
 		</div>
 

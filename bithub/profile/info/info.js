@@ -11,6 +11,8 @@ steal(
 			order: ['priority:desc', 'name'],
 			limit: 500
 		}
+
+		var sizes = ["Small", "Medium", "Large", "X-Large", "2X-Large"];
 		
 		return can.Control.extend({
 			pluginName: 'profile-info',
@@ -26,7 +28,8 @@ steal(
 					countries: countries,
 					user: this.options.currentUser,
 					isEditing : this.options.isEditing,
-					unlinkIdentity : this.proxy('unlinkIdentity')
+					unlinkIdentity : this.proxy('unlinkIdentity'),
+					sizes: sizes
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {

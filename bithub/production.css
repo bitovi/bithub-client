@@ -8567,9 +8567,9 @@ button#show-newpost-form-btn .caret {
   margin: 10px 0px 4px 10px;
 }
 #edit-profile-form .controls-row label {
-  width: 175px;
+  width: 186px;
   display: inline-block;
-  margin: 0px 10px 10px 0px;
+  margin: 0px 11px 10px 0px;
 }
 .form-status {
   text-align: center;
@@ -8587,7 +8587,11 @@ button#show-newpost-form-btn .caret {
   display: none;
 }
 .controls-row select {
-  width: 190px;
+  width: 200px;
+  margin-bottom: 2px;
+}
+.controls-row select#shirt-size {
+  width: 415px;
 }
 #edit-profile-form .controls-row label:last-child {
   margin-right: 0px;
