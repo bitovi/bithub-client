@@ -1,118 +1,132 @@
+{{#if user.isLoggedIn}}
 <div class="profile-content">
-<div class="row">
-	<div class="span5 offset3">
+	<div class="row">
+		<div class="span5 offset3">
+			<form id="edit-profile-form">
 
-	<form id="edit-profile-form">
-		
-		<div class="control-group">
-		<label class="wrapped-label-input">
-			<span>Name:</span>
-			<input type="text" name="name" value="{{user.name}}">
-		</label>
+				<div class="control-group">
+					<label class="wrapped-label-input">
+						<span>Name:</span>
+						<input type="text" name="name" value="{{user.name}}">
+					</label>
+				</div>
+
+				<div class="control-group">
+					<label class="wrapped-label-input">
+						<span>Email:</span>
+						<input type="text" name="email" value="{{user.email}}">
+					</label>
+				</div>
+				<p class="mailing-addr-caption">Hoodie and T-shirt size:</p>
+				<div class="controls controls-row">
+					<select id="shirt-size" name="size" value="{{user.size}}">
+						<option value="">--</option>
+						{{#sizes}}
+						<option value="{{.}}">{{.}}</option>
+						{{/sizes}}
+					</select>
+				</div>
+
+				<p class="mailing-addr-caption">Mailing Address (so we can send you swag):</p>
+
+				<div class="control-group">
+					<label class="wrapped-label-input">
+						<span>Street:</span>
+						<input type="text" name="address" value="{{user.address}}">
+					</label>
+				</div>
+
+				<div class="controls controls-row">
+					<label class="wrapped-label-input">
+						<span>City:</span>
+						<input type="text" name="city" value="{{user.city}}">
+					</label>
+					<label class="wrapped-label-input">
+						<span>State/Province:</span>
+						<input type="text" name="state" value="{{user.state}}">
+					</label>
+				</div>
+
+				<div class="controls controls-row">
+					<label class="wrapped-label-input">
+						<span>Postal Code:</span>
+						<input type="text" name="postal" value="{{user.postal}}">
+					</label>
+
+					<select id="countryISO" name="countryISO">
+						{{#countries}}
+						<option value="{{iso}}">{{name}}</option>
+						{{/countries}}
+					</select>
+				</div>
+
+				{{#unless isEditing}}
+
+				<div class="control-group">
+					<button type="submit" name="update" class="btn-bigass light" data-loading-text="Saving...">Update</button>
+
+					<div class="form-status">
+						<p class="success">Saved!</p>
+						<p class="error">Something went wrong!</p>
+					</div>
+				</div>
+
+				{{/unless}}
+
+
+			</form>
+
 		</div>
 
-		<div class="control-group">
-		<label class="wrapped-label-input">
-			<span>Email:</span>
-			<input type="text" name="email" value="{{user.email}}">
-		</label>
-		</div>
-		<p class="mailing-addr-caption">Hoodie and T-shirt size:</p>
-		<div class="controls controls-row">
-			<select id="shirt-size" name="size" value="{{user.size}}">
-				<option value="">--</option>
-				{{#sizes}}
-				<option value="{{.}}">{{.}}</option>
-				{{/sizes}}
-			</select>
-		</div>
-
-		<p class="mailing-addr-caption">Mailing Address (so we can send you swag):</p>
-
-		<div class="control-group">
-		<label class="wrapped-label-input">
-			<span>Street:</span>
-			<input type="text" name="address" value="{{user.address}}">
-		</label>
-		</div>
-
-		<div class="controls controls-row">
-		<label class="wrapped-label-input">
-			<span>City:</span>
-			<input type="text" name="city" value="{{user.city}}">
-		</label>
-		<label class="wrapped-label-input">
-			<span>State/Province:</span>
-			<input type="text" name="state" value="{{user.state}}">
-		</label>
-		</div>
-
-		<div class="controls controls-row">
-		<label class="wrapped-label-input">
-			<span>Postal Code:</span>
-			<input type="text" name="postal" value="{{user.postal}}">
-		</label>
-		
-		<select id="countryISO" name="countryISO">
-			{{#countries}}
-			<option value="{{iso}}">{{name}}</option>
-			{{/countries}}
-		</select>
-		</div>
-
-		{{#unless isEditing}}
-
-			<div class="control-group">
-			<button type="submit" name="update" class="btn-bigass light" data-loading-text="Saving...">Update</button>
-
-			<div class="form-status">
-				<p class="success">Saved!</p>
-				<p class="error">Something went wrong!</p>
+		<div class="span3">
+			{{#if user.avatarUrl}}
+			<div class="avatar">
+				{{#user.avatarUrl}}<img src="{{.}}" alt="avatar">{{/user.avatarUrl}}
 			</div>
-			</div>
-		
-		{{/unless}}
+			{{/if}}
 
+			<ul class="providers">
 
-	</form>
-	
-	</div>
+				<li class="github">
+					{{#hasProvider 'github'}}
+					<span class="login-github"></span>Github ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
+					{{else}}
+					<a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
+					{{/hasProvider}}
+				</li>
 
-	<div class="span3">
-	{{#if user.avatarUrl}}
-		<div class="avatar">
-			{{#user.avatarUrl}}<img src="{{.}}" alt="avatar">{{/user.avatarUrl}}
+				<li class="twitter">
+					{{#hasProvider 'twitter'}}
+					<span class="login-twitter"></span>Twitter ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
+					{{else}}
+					<a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
+					{{/hasProvider}}
+				</li>
+
+				<li class="meetup">
+					{{#hasProvider 'meetup'}}
+					<span class="login-meetup"></span>Meetup ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
+					{{else}}
+					<a id="login-meetup-link" href="/api/auth/meetup" class="btn connect"><span class="login-meetup"></span>Connect Meetup</a>
+					{{/hasProvider}}
+				</li>
+
+			</ul>
 		</div>
-	{{/if}}
 
-	<ul class="providers">
-
-		<li class="github">
-		{{#hasProvider 'github'}}
-			<span class="login-github"></span>Github ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
-		{{else}}
-			<a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span>Connect Github</a>
-		{{/hasProvider}}
-		</li>
-
-		<li class="twitter">
-		{{#hasProvider 'twitter'}}
-			<span class="login-twitter"></span>Twitter ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
-		{{else}}
-			<a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span>Connect Twitter</a>
-		{{/hasProvider}}
-		</li>
-
-		<li class="meetup">
-		{{#hasProvider 'meetup'}}
-			<span class="login-meetup"></span>Meetup ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
-		{{else}}
-			<a id="login-meetup-link" href="/api/auth/meetup" class="btn connect"><span class="login-meetup"></span>Connect Meetup</a>
-		{{/hasProvider}}
-		</li>
-		
-	</ul>
 	</div>
-
 </div>
+{{else}}
+<div class="profile-login">
+	<div class="row">
+		<div class="span4 offset4">
+			<h3 id="login-modal-label">Login <small>... via these services</small></h3>
+			<ul class="providers">
+				<li class="twitter"><a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span> Twitter</a></li>
+				<li class="github"><a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span> GitHub</a></li>
+				<li class="meetup"><a id="login-meetup-link" href="/api/auth/meetup" class="btn connect"><span class="login-meetup"></span> Meetup</a></li>
+			</ul>
+		</div>
+	</div>
 </div>
+{{/if}}

@@ -8893,6 +8893,19 @@ h4.username {
   margin-right: 0;
   margin-left: 0;
 }
+.profile-login {
+  margin-top: 20px;
+}
+.profile-login ul.providers li {
+  float: left;
+  margin-right: 15px;
+}
+.profile-login ul.providers li:last-child {
+  margin-right: 0;
+}
+.profile-login ul.providers li a {
+  width: 95px;
+}
 /* Sidebar -------------------------------------------------------- */
 .sidebar {
   color: #585656;
