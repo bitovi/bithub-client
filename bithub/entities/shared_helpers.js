@@ -6,6 +6,7 @@ steal(
 function(childEventView, statusBarView, upvoteView, toolbarView){
 
 	var renderEventTags = function (tags, opts) {
+
 		var buffer, linkTags, visibleTags;
 		
 		tags        = can.isFunction(tags) ? tags() : tags;
@@ -14,7 +15,7 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 		visibleTags = this.visibleTags ? this.visibleTags() : this.attr('visibleTags')();
 
 		visibleTags.attr('length');
-		
+
 		can.each(tags, function( eventTag ) {
 			var matched = false;
 
@@ -36,8 +37,6 @@ function(childEventView, statusBarView, upvoteView, toolbarView){
 			});
 		});
 
-		can.__clearReading();
-		
 		return '<ul class="tag-list nav">' + buffer + '</ul>';
 	}
 

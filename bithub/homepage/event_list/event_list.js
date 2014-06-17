@@ -23,7 +23,7 @@ steal(
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
 		// used for ordering categories on latest view
-		var latestCategories = ['event', 'twitter', 'bug', 'comment', 'feature', 'question', 'article', 'plugin', 'app', 'uncategorized'];
+		var latestCategories = ['app', 'article', 'event', 'twitter', 'bug', 'comment', 'feature', 'question', 'plugin', 'uncategorized'];
 		
 		var __templatesCache = {};
 

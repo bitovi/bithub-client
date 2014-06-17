@@ -159,6 +159,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 						add                   : $.noop,
 						type                  : self.attr('event').isNew() ? 'POST' : 'PUT',
 						replaceFileInput      : false,
+						url                   : self.formAction(),
 						progress : function(e, data){
 							self.attr('imageUploadProgress', parseInt(data.loaded / data.total * 100, 10));
 						},
@@ -352,6 +353,8 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					can.batch.stop();
 					return;
 				}
+
+				console.log(this.__fileData)
 
 				if(this.__fileData){
 					this.__fileData.formData = event.serializeToArray('event');
