@@ -158,7 +158,13 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 						limitMultiFileUploads : 1,
 						add                   : $.noop,
 						type                  : self.attr('event').isNew() ? 'POST' : 'PUT',
-						replaceFileInput      : false
+						replaceFileInput      : false,
+						progress : function(e, data){
+							self.attr('imageUploadProgress', parseInt(data.loaded / data.total * 100, 10));
+						},
+						fail : function(){
+							self.attr('serverError', ['There was a problem with the image upload, please try again.']);
+						}
 					});
 				};
 			},
@@ -234,7 +240,8 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 					if( !data.files[i].name.match( /(\.|\/)(gif|jpe?g|png)$/i ) ) {
 						this.scope.attr({
 							imageUploadError : true,
-							hasImage : false
+							hasImage : false,
+							imageUploadProgress : 0
 						});
 						el.find('.image-uploader .image-preview img').remove();
 
@@ -260,9 +267,6 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 						noRevoke: true
 					}
 				);
-			},
-			' fileuploadprogress' : function( el, ev, data ){
-				this.scope.attr('imageUploadProgress', parseInt(data.loaded / data.total * 100, 10));
 			},
 			'{scope} hasImage' : function(hasImage, ev, newVal){
 				var imageUrl;
