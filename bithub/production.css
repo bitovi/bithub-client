@@ -8093,7 +8093,8 @@ button.btn-inverse:active.active {
 .login-logout,
 .login-admin,
 .login-rewards,
-.login-activity {
+.login-activity,
+.login-stackexchange {
   background-position: -144px -48px;
   font-family: "bitstrap";
   speak: none;
@@ -8134,6 +8135,7 @@ button.btn-inverse:active.active {
 .login-admin:before,
 .login-rewards:before,
 .login-activity:before,
+.login-stackexchange:before,
 .login-twitter:before,
 .login-github:before,
 .login-google:before,
@@ -8143,7 +8145,8 @@ button.btn-inverse:active.active {
 .login-logout:before,
 .login-admin:before,
 .login-rewards:before,
-.login-activity:before {
+.login-activity:before,
+.login-stackexchange:before {
   text-decoration: inherit;
   display: inline-block;
   speak: none;
@@ -8157,7 +8160,8 @@ button.btn-inverse:active.active {
 .login-logout:before,
 .login-admin:before,
 .login-rewards:before,
-.login-activity:before {
+.login-activity:before,
+.login-stackexchange:before {
   font-size: 28px;
   text-decoration: inherit;
   display: inline-block;
@@ -8174,6 +8178,15 @@ button.btn-inverse:active.active {
 .login-github:before {
   content: "\e027";
   color: #000000;
+}
+.login-stackexchange:before {
+  background: url(/assets/images/stackexchange.png);
+  background-size: 16px 16px;
+  position: relative;
+  top: 2px;
+  content: "";
+  width: 16px;
+  height: 16px;
 }
 .login-meetup:before {
   background: url(/assets/images/meetup.png);
@@ -8216,6 +8229,7 @@ button.btn-inverse:active.active {
 .dropdown-menu > li > a:hover .login-logout:before,
 .dropdown-menu > li > a:hover .login-admin:before,
 .dropdown-menu > li > a:hover .login-rewards:before,
+.dropdown-menu > li > a:hover .login-stackexchange:before,
 .dropdown-menu > li > a:hover .login-activity:before {
   color: #ffffff;
 }
@@ -8657,11 +8671,15 @@ a.btn.connect {
   padding: 0px;
   height: 22px;
   vertical-align: top;
-  width: 120px;
+  width: 165px;
   text-align: left;
 }
 a.btn.connect span {
   margin: 2px 5px;
+}
+#login-modal {
+  width: 750px;
+  margin-left: -375px;
 }
 #login-modal .modal-body {
   text-align: center;
@@ -8679,7 +8697,7 @@ a.btn.connect span {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 10px;
-  width: 90px;
+  width: 140px;
 }
 #activity-list {
   list-style: none;

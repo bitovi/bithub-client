@@ -24,7 +24,7 @@
 }
 .login-twitter, .login-github, .login-google, .login-meetup,
 .login-profile, .login-points, .login-logout, .login-admin,
-.login-rewards, .login-activity {
+.login-rewards, .login-activity, .login-stackexchange {
 	.icon-font;
 	width: 20px;
 	height: 20px;
@@ -52,6 +52,16 @@
 .login-github:before {
 	content: "\e027"; 
 	color: @black;
+}
+
+.login-stackexchange:before {
+	background: url(/assets/images/stackexchange.png);
+	background-size: 16px 16px;
+	position: relative;
+	top: 2px;
+	content: "";
+	width: 16px;
+	height: 16px;
 }
 .login-meetup:before {
 	background: url(/assets/images/meetup.png);
@@ -94,7 +104,8 @@
 .dropdown-menu > li > a:hover .login-logout,
 .dropdown-menu > li > a:hover .login-admin,
 .dropdown-menu > li > a:hover .login-rewards,
-.dropdown-menu > li > a:hover .login-activity {
+.dropdown-menu > li > a:hover .login-stackexchange,
+.dropdown-menu > li > a:hover .login-activity  {
 	&:before {
 		color: @white;
 	}

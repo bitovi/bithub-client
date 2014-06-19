@@ -11,7 +11,8 @@ steal(
 		var providers = {
 			twitter: { url: '/api/auth/twitter' },
 			github: { url: '/api/auth/github' },
-			meetup: { url: '/api/auth/meetup' }
+			meetup: { url: '/api/auth/meetup' },
+			stackexchange: { url: '/api/auth/stackexchange' }
 		};
 
 		var bindLoggedInState = function(ev, attr, how, newVal, oldVal) {
@@ -80,7 +81,7 @@ steal(
 					return this.attr('authStatus') == 'loggedIn';
 
 					// check providers
-				} else if( ['twitter','github','meetup'].indexOf(val) >= 0 ) {
+				} else if( ['twitter','github','meetup', 'stackexchange'].indexOf(val) >= 0 ) {
 					this.login(val);
 				} else if( val == false ) {
 					this.logout();

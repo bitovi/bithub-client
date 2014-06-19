@@ -45,6 +45,13 @@ steal(
 				user.login('meetup');
 			},
 
+			'#login-stackexchange-link click': function( el, ev ) {				
+				ev.preventDefault();
+				
+				var user = this.options.currentUser;
+				user.login('stackexchange');
+			},
+
 			'#show-newpost-form-btn click': function( el, ev ) {
 				this.options.newpostVisibility( !this.options.newpostVisibility() );
 			},

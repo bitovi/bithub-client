@@ -1,4 +1,4 @@
-{{#if user.isLoggedIn}}
+{{#if showForm}}
 <div class="profile-content">
 	<div class="row">
 		<div class="span5 offset3">
@@ -111,6 +111,14 @@
 					{{/hasProvider}}
 				</li>
 
+				<li class="stackexchange">
+					{{#hasProvider 'stackexchange'}}
+					<span class="login-stackexchange"></span>Stack Exchange ({{ identifier }}) <a href="javascript://" can-click="unlinkIdentity">&times;</a>
+					{{else}}
+					<a id="login-stackexchange-link" href="/api/auth/stackexchange" class="btn connect"><span class="login-stackexchange"></span>Connect Stack Exchange</a>
+					{{/hasProvider}}
+				</li>
+
 			</ul>
 		</div>
 
@@ -125,6 +133,7 @@
 				<li class="twitter"><a id="login-twitter-link" href="/api/auth/twitter" class="btn connect"><span class="login-twitter"></span> Twitter</a></li>
 				<li class="github"><a id="login-github-link" href="/api/auth/github" class="btn connect"><span class="login-github"></span> GitHub</a></li>
 				<li class="meetup"><a id="login-meetup-link" href="/api/auth/meetup" class="btn connect"><span class="login-meetup"></span> Meetup</a></li>
+				<li class="stackexchange"><a id="login-stackexchange-link" href="/api/auth/stackexchange" class="btn connect"><span class="login-stackexchange"></span> Meetup</a></li>
 			</ul>
 		</div>
 	</div>

@@ -37,7 +37,11 @@ steal(
 					user: this.options.currentUser,
 					isEditing : this.options.isEditing,
 					unlinkIdentity : this.proxy('unlinkIdentity'),
-					sizes: sizes
+					sizes: sizes,
+					showForm : function(){
+						var authStatus = self.options.currentUser.attr('authStatus');
+						return authStatus === 'loggingIn' || authStatus === 'loggedIn';
+					}
 				}, {
 					helpers: {
 						hasProvider: function( provider, opts ) {
@@ -115,6 +119,11 @@ steal(
 			'#login-meetup-link click': function( el, ev ) {
 				ev.preventDefault();
 				this.options.currentUser.login('meetup');
+			},
+
+			'#login-stackexchange-link click': function( el, ev ) {
+				ev.preventDefault();
+				this.options.currentUser.login('stackexchange');
 			},
 			"{window} userLinkError" : function(el, ev, msg){
 				alert(msg);
