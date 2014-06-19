@@ -120,12 +120,26 @@ steal('can',
 				});
 			},
 			model : function(data){
+				var dataChildren, children, item;
 				if(data.id && data.props && data.props.location){
 					data.location = data.props.location;
 				}
 				if(data.body){
 					data.body = data.body.replace(/<!/g, '&lt;!');
 				}
+
+				if(data.type === "question" && data.feed === 'stackexchange'){
+					dataChildren = data.children || [];
+					children = [];
+					for(var i = 0; i < dataChildren.length; i++){
+						item = dataChildren[i];
+						if(item.type !== 'comment'){
+							children.push(item);
+						}
+					}
+					data.children = children;
+				}
+
 				return this._super(data);
 			}
 
