@@ -1,4 +1,4 @@
-steal('can/map', 'can/map/attributes', function(Map){
+steal('can/map', 'can/map/attributes', 'can/map/validations', function(Map){
 
 	return Map.extend({}, {
 		inited : false,
