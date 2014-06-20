@@ -1,6 +1,6 @@
-steal('can/map', function(Map){
+steal('can/map', 'can/map/attributes', function(Map){
 
-	return Map.extend({
+	return Map.extend({}, {
 		inited : false,
 		projects : function(){
 			return window.PROJECTS;

@@ -1,4 +1,9 @@
 // Load all of the plugin dependencies
+window.onerror = function (message, file, line, column, errorObj) {
+            console.log(arguments)
+            if(errorObj !== undefined) //so it won't blow up in the rest of the browsers
+                console.log('Error: ' + errorObj.stack);
+        }
 steal(
     'can',
     'bithub/pageswitcher',
@@ -20,6 +25,8 @@ steal(
 
     function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, loadtime) {
         var href = window.location.href
+
+        
 
         if(href.substr(href.length - 1) === '/' && href !== window.location.origin + "/"){
             window.location.href = href.substr(0, href.length - 1);
@@ -288,6 +295,7 @@ steal(
                 can.trigger(window, data.type, data.message);
             }
         })
+
 
         new UI.Onbottom(document, {threshold: $(window).innerHeight() / 2 });
 
