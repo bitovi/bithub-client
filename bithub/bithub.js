@@ -1,5 +1,14 @@
 // Load all of the plugin dependencies
 
+
+window.onerror = function (message, file, line, column, errorObj) {
+    console.log(arguments)
+    if(errorObj !== undefined) //so it won't blow up in the rest of the browsers
+        console.log('Error: ' + errorObj.stack);
+}
+
+
+
 steal(
     'can',
     'bithub/pageswitcher',

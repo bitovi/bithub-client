@@ -10,6 +10,8 @@ steal('ui/more', function(){
 			}
 		},
 		applyMore : function(){
+			if(can.route.attr('id')) return;
+
 			var self = this;
 			setTimeout(function(){
 				var $el, width;
