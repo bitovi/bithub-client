@@ -48,8 +48,10 @@ function(can, Component, scoringRulesView, ScoringRules){
 						var tags  = rule.attr('required_tags'),
 							group = {label: 'General', name: 'general'};
 
+						console.log(tags)
+
 						for(var i = 0; i < keys.length; i++){
-							if(tags.indexOf(keys[i]) > -1){
+							if(tags && tags.indexOf && tags.indexOf(keys[i]) > -1){
 								group = {label: Feeds[keys[i]], name: keys[i]};
 								break;
 							}

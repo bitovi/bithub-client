@@ -59,7 +59,7 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					loadingConfigs : false
 				});
 			},
-			services : ['Twitter', 'GitHub', 'Facebook', 'Disqus', 'StackExchange', 'Meetup' /*'Meetup', 'RSS', 'IRC'*/],
+			services : ['Twitter', 'GitHub', 'Facebook', 'Disqus', 'StackExchange', 'Meetup', 'RSS', /*'IRC'*/],
 			accounts : ['bitovi', 'canjs', 'funcunit'],
 			currentTab : 'twitter',
 			switchTab : function(ctx, el, ev){

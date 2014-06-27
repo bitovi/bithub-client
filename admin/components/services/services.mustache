@@ -105,6 +105,12 @@
 					{{/isActiveProvider}}
 				{{/ifTab}}
 
+					{{#ifTab 'rss'}}
+						<h3>RSS</h3>
+						<p>Add RSS URLs you want to track</p>
+						<bh-item-list title="RSS URLs" items="config.config.urls"></bh-item-list>
+					{{/ifTab}}
+
 				
 			{{/if}}
 		</div>
