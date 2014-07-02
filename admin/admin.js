@@ -1,5 +1,9 @@
 steal('admin/models/brand.js', 'admin/components/admin', 'can/route', function(Brand){
 
+	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+		options.data = JSON.stringify(originalOptions.data);
+		options.contentType = 'application/json';
+	});
 
 	Brand.findOne({}, function(brand){
 		window.BRAND = brand;

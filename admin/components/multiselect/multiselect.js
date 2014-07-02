@@ -24,7 +24,8 @@ steal('can/component', './multiselect.mustache', './multiselect.less', function(
 					return toString(i.attr('id'));
 				});
 
-				selectedItems.attr('length')
+				selectedItems.attr && selectedItems.attr('length');
+
 				return can.grep(this.attr('items'), function(item){
 					return selectedItemIds.indexOf(toString(item.attr('id'))) === -1;
 				})

@@ -8,6 +8,7 @@ steal(
 'can/construct/proxy',
 'can/map/delegate',
 'admin/components/multiselect',
+'admin/components/item_list',
 function(Component, servicesView, login, BrandIdentity, FeedConfig){
 
 	var activeServices = [];
@@ -51,7 +52,16 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 							brand_name : window.BRAND.attr('name')
 						}))
 					}
-				})
+				});
+
+				configs.push(can.grep(configs, function(c){
+					return c.attr('feed_name') === 'rss'
+				})[0] || new FeedConfig({
+					feed_name : 'rss',
+					brand_name : window.BRAND.attr('name')
+				}))
+
+				console.log(configs)
 
 				this.attr({
 					configs        : configs,
@@ -59,7 +69,9 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					loadingConfigs : false
 				});
 			},
+
 			services : ['Twitter', 'GitHub', 'Facebook', 'Disqus', 'StackExchange', 'Meetup', 'RSS', /*'IRC'*/],
+
 			accounts : ['bitovi', 'canjs', 'funcunit'],
 			currentTab : 'twitter',
 			switchTab : function(ctx, el, ev){
@@ -102,14 +114,12 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					provider : tab
 				};
 
-				if(length > 0){
-					scope.identity = can.grep(activeIdentities, function(id){
-						return id.provider === tab;
-					})[0];
-					scope.config = can.grep(activeConfigs, function(config){
-						return config.feed_name === tab;
-					})[0];
-				}
+				scope.identity = can.grep(activeIdentities, function(id){
+					return id.provider === tab;
+				})[0];
+				scope.config = can.grep(activeConfigs, function(config){
+					return config.feed_name === tab;
+				})[0];
 
 				return this.attr('currentTab') === tab ? opts.fn(opts.scope.add(scope)) : ""
 			},

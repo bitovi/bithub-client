@@ -9,20 +9,42 @@ steal('can/util/string', 'can/component', './dashboard.mustache', 'bithub/models
 		template : dashboardView,
 		scope : {
 			init : function(){
-				EventModel.findAll({}, this.proxy('updateItems'));
+				this.loadNextPage();
 			},
-			updateItems : function(items){
-				this.attr('items', items);
+			items: [],
+			isLoading : false,
+			currentProvider : 'all',
+			loadNextPage : function(){
+				var params = {
+					order: 'thread_updated_ts:desc',
+					limit: 50,
+					offset: this.attr('items.length')
+				}
+				var currentProvider = this.attr('currentProvider');
+
+				if(currentProvider !== 'all'){
+					params.category = currentProvider;
+				}
+
+				this.attr('isLoading', true);
+				EventModel.findAll(params, this.proxy('updateItems'));
+			},
+			updateItems : function(newItems){
+				var items = this.attr('items');
+				items.push.apply(items, newItems);
+				this.attr('isLoading', false);
+			},
+			identities : function(){
+				return window.BRAND.attr('identities');
+			}
+		},
+		events : {
+			"{scope} currentProvider" : function(){
+				this.scope.attr('items').splice(0);
+				this.scope.loadNextPage();
 			}
 		},
 		helpers : {
-			stage : function(stage, opts){
-				var currentStage = parseInt(can.route.attr('stage') || 0);
-				stage = can.isFunction(stage) ? stage() : stage;
-				stage = parseInt(stage);
-
-				return stage >= currentStage ? opts.fn() : opts.inverse();
-			},
 			renderEntity : function(event){
 				var component = determineEventPartial(event.attr('tags')),
 					template = '<{c} currentdate="date" event="event" inited="inited" user="user"></{c}>',

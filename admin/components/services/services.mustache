@@ -49,7 +49,7 @@
 				{{/ifTab}}
 
 				{{#ifTab 'facebook'}}
-					<h3>FaceBook</h3>
+					<h3>Facebook</h3>
 					{{#isActiveProvider provider}}
 						<p>Your Facebook account is connected! Select pages you want to track</p>
 						<bh-multiselect title="Pages" items="identity.pages" selected-items="config.config.pages"></bh-multiselect>
@@ -105,13 +105,12 @@
 					{{/isActiveProvider}}
 				{{/ifTab}}
 
-					{{#ifTab 'rss'}}
-						<h3>RSS</h3>
-						<p>Add RSS URLs you want to track</p>
-						<bh-item-list title="RSS URLs" items="config.config.urls"></bh-item-list>
-					{{/ifTab}}
 
-				
+				{{#ifTab 'rss'}}
+					<h3>RSS</h3>
+					<p>Add RSS URLs you want to track</p>
+					<bh-item-list title="RSS URLs" items="config.config.urls"></bh-item-list>
+				{{/ifTab}}
 			{{/if}}
 		</div>
 
@@ -135,5 +134,5 @@
 			</button>
 		</div>
 	</div>
-	
+
 </form>

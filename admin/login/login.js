@@ -8,7 +8,8 @@ steal('can/util/string', 'can/compute',
 				var windowPropsStr = options.windowPropsStr ? options.windowPropsStr : "width=600,height=300,scrollbars=yes";
 				var title = options.title ? options.title : "Oauth login";
 				var host = window.location.host.split('.');
-				var url = 'http://' + (host.splice(1, host.length - 1).join('.')) + '/api/auth/' + options.feed + '_brand';
+				var url = '/api/auth/' + options.feed + '_brand'
+				console.log(url)
 
 				CONNECTING_FEED(options.feed);
 

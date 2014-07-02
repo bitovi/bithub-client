@@ -1,66 +1,14 @@
-<div class="steps clearfix" style="display: none">
-	<div class="alert alert-{{#stage 1}}info{{else}}success done{{/stage}}">
-		{{#stage 1}}
-			<span class="badge">1</span>
-		{{else}}
-			<i class="fa fa-check"></i>
-		{{/stage}}
-		<a href="javascript://">Setup your brand and keywords &raquo;</a>
-	</div>
+<h1 class="admin-page-header">Dashboard</h1>
 
-	<div class="alert alert-{{#stage 2}}info{{else}}success done{{/stage}}">
-		{{#stage 2}}
-			<span class="badge">2</span>
-		{{else}}
-			<i class="fa fa-check"></i>
-		{{/stage}}
-		<a href="javascript://">Connect social networks &raquo;</a>
-	</div>
-
-	<div class="alert alert-{{#stage 3}}info{{else}}success done{{/stage}}">
-		{{#stage 3}}
-			<span class="badge">3</span>
-		{{else}}
-			<i class="fa fa-check"></i>
-		{{/stage}}
-		<a href="javascript://">Setup scoring rules &raquo;</a>
-	</div>
-
-	<div class="alert alert-{{#stage 4}}info{{else}}success done{{/stage}}">
-		{{#stage 4}}
-			<span class="badge">4</span>
-		{{else}}
-			<i class="fa fa-check"></i>
-		{{/stage}}
-		<a href="javascript://">Add Rewards &raquo;</a>
-	</div>
-</div>
-<hr class="steps-separator">
-
-{{#if onuserpage}}
-	<hr>
-	<h3 class="user-activity-header">Mihael's activity</h3>
-{{ else }}
-	<h1 class="admin-page-header">Dashboard</h1>
-{{/if}}
-
-<div class="clearfix filter-wrap {{#if onuserpage}}user-filter-wrap{{/if}}">
+<div class="clearfix filter-wrap">
 	<div class="col-xs-2">
-		<label>Sort by</label>
-		<select class="form-control">
-			<option value>Points</option>
-		</select>
-	</div>
-	<div class="col-xs-2">
-		<label>Created in</label>
-		<select class="form-control">
-			<option value>Last week</option>
-		</select>
-	</div>
-	<div class="col-xs-2">
-		<label>Networks</label>
-		<select class="form-control">
-			<option value>All</option>
+		<label>Providers</label>
+		<select class="form-control" can-value="currentProvider">
+			<option value="all">All</option>
+			{{#identities}}
+				<option value="{{ provider }}">{{ name }}</option>
+			{{/identities}}
+			<option value="{{ rss }}">RSS</option>
 		</select>
 	</div>
 </div>
@@ -68,9 +16,20 @@
 <hr>
 
 <div class="activity-wrap">
-	{{#items}}
+	{{#each items}}
 		<div class="event-wrap">
 			{{{renderEntity this}}}
 		</div>
-	{{/items}}
+	{{/each}}
+</div>
+<div class="row load-row">
+	<div class="col-xs-3 col-xs-offset-4">
+		<button class="btn btn-primary load-next-page" can-click="loadNextPage" {{#if isLoading}}disabled{{/if}}>
+			{{#if isLoading}}
+				<i class="fa fa-refresh fa-spin"></i> Loading...
+			{{else}}
+				Load Next Page
+			{{/if}}
+		</button>
+	</div>
 </div>
