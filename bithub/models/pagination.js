@@ -102,7 +102,7 @@ steal(
 		var paginationId = 0;
 		
 		return can.Model.extend('Bithub.Models.Pagination', {
-			findAll : 'GET /api/v1/events/pagination',
+			findAll : 'GET /api/v2/entities/pagination',
 
 			model : function(data){
 				data.id = ++paginationId;

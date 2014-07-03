@@ -115,10 +115,10 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				var event = this.attr('event');
 
 				if(event.isNew()){
-					return '/api/v1/events';
+					return '/api/v2/entities';
 				}
 
-				return can.sub('/api/v1/events/{id}', event);
+				return can.sub('/api/v2/entities/{id}', event);
 			},
 			removeTag : function(tag){
 				var tags = this.attr('event.tags'),
