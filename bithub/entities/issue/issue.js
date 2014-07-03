@@ -1,11 +1,10 @@
 steal(
 'can/component',
 './issue.mustache',
-'./child.mustache',
 'bithub/entities/entity_state.js',
 'bithub/entities/shared_helpers.js',
 'bithub/entities/events.js',
-function(Component, issueView, childEventView, EntityState, sharedHelpers, sharedEvents){
+function(Component, issueView, EntityState, sharedHelpers, sharedEvents){
 	can.Component.extend({
 		tag : 'bh-issue',
 		template : issueView,
