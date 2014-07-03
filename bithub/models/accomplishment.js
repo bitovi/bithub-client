@@ -6,7 +6,7 @@ steal(
 		
 		var Model = can.Model('Bithub.Models.Accomplishment', {
 
-			findAll : 'GET /api/v1/users/{userId}/accomplishments',
+			findAll : 'GET /api/v2/users/{userId}/accomplishments',
 
 		}, {});
 

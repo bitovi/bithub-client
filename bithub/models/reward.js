@@ -19,11 +19,11 @@ steal(
 
 		var Reward = can.Model('Bithub.Models.Reward', {
 
-			findAll : 'GET /api/v1/rewards',
-			findOne : 'GET /api/v1/rewards/{id}',
-			create  : 'POST /api/v1/rewards',
-			update  : 'PUT /api/v1/rewards/{id}',
-			destroy : 'DELETE /api/v1/rewards/{id}'
+			findAll : 'GET /api/v2/rewards',
+			findOne : 'GET /api/v2/rewards/{id}',
+			create  : 'POST /api/v2/rewards',
+			update  : 'PUT /api/v2/rewards/{id}',
+			destroy : 'DELETE /api/v2/rewards/{id}'
 
 		}, {
 			init : function(){

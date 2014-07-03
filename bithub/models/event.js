@@ -46,11 +46,11 @@ steal('can',
 
 		var Event = can.Model('Bithub.Models.Event', {
 
-			findAll : 'GET /api/v1/events',
-			findOne : 'GET /api/v1/events/{id}',
-			create  : 'POST /api/v1/events',
-			update  : 'PUT /api/v1/events/{id}',
-			destroy : 'DELETE /api/v1/events/{id}',
+			findAll : 'GET /api/v2/events',
+			findOne : 'GET /api/v2/events/{id}',
+			create  : 'POST /api/v2/events',
+			update  : 'PUT /api/v2/events/{id}',
+			destroy : 'DELETE /api/v2/events/{id}',
 
 			findGreatest : function(){
 				return this.findAll.apply(this, arguments);

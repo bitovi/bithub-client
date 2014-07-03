@@ -3,7 +3,7 @@ steal(
 	'can/construct/super',
 	function (can) {
 		var PostasUser = can.Model('Bithub.Models.PostasUser', {
-			findAll : 'GET /api/v1/users/{feed}',
+			findAll : 'GET /api/v2/users/{feed}',
 			model : function(data){
 				data.from = data.screen_name ? 'twitter' : 'github';
 				data.username = data.screen_name || data.username || data.login;
