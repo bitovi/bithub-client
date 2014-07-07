@@ -54,7 +54,7 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 			}
 
 			if(provider === 'rss'){
-				this.attr('config.urls', this.attr('config.urls') || []);
+				this.attr('config.sites', this.attr('config.sites') || []);
 			}
 
 			can.batch.stop();

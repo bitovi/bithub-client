@@ -99,6 +99,18 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 			hideHasSavedConfigs : function(){
 				clearTimeout(this.__hideHasSavedConfigs);
 				this.attr('hasSavedConfigs', false);
+			},
+			addRss : function(){
+				var configs = this.attr('configs'),
+					rssConfig = can.grep(configs, function(config){
+						console.log(config)
+						return config.attr('feed_name', 'rss');
+					})[0];
+
+				rssConfig.attr('config.sites').push({})
+
+
+				
 			}
 		},
 		helpers : {
@@ -120,6 +132,8 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				scope.config = can.grep(activeConfigs, function(config){
 					return config.feed_name === tab;
 				})[0];
+
+				//console.log(scope)
 
 				return this.attr('currentTab') === tab ? opts.fn(opts.scope.add(scope)) : ""
 			},
