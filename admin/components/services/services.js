@@ -107,6 +107,9 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 						return config.attr('feed_name', 'rss');
 					})[0];
 
+				rssConfig.attr('config', rssConfig.attr('config') || {})
+				rssConfig.attr('config.sites', rssConfig.attr('config.sites') || [])
+
 				rssConfig.attr('config.sites').push({})
 
 
