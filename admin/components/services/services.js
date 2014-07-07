@@ -103,8 +103,7 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 			addRss : function(){
 				var configs = this.attr('configs'),
 					rssConfig = can.grep(configs, function(config){
-						console.log(config)
-						return config.attr('feed_name', 'rss');
+						return config.attr('feed_name') === 'rss';
 					})[0];
 
 				rssConfig.attr('config', rssConfig.attr('config') || {})
