@@ -8,7 +8,7 @@ steal('can/util/string', 'can/model', 'can/construct/super', function(can){
 
 	return can.Model({
 
-		findAll : 'GET /api/v1/tags',
+		findAll : 'GET /api/v2/tags',
 		models : function(data){
 			var tags = data.data.sort(function(a, b){
 				var aName = a.display_name || a.name,

@@ -1,8 +1,10 @@
 steal('admin/models/brand.js', 'admin/components/admin', 'can/route', function(Brand){
 
 	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-		options.data = JSON.stringify(originalOptions.data);
-		options.contentType = 'application/json';
+		if(options.type.toLowerCase() !== 'get'){
+			options.data = JSON.stringify(originalOptions.data);
+			options.contentType = 'application/json';
+		}
 	});
 
 	Brand.findOne({}, function(brand){
