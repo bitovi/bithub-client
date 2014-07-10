@@ -1,12 +1,12 @@
 {{#if currentFunnel}}
 	<category-form category="currentFunnel" done-editing="doneEditing"></category-form>
 {{else}}
-	<h1 class="admin-page-header">Services</h1>
+	<h1 class="admin-page-header">Categories</h1>
 	<hr>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Funnel Name</th>
+				<th>Category Name</th>
 				<th class="actions"></th>
 			</tr>
 		</thead>
@@ -16,6 +16,7 @@
 					<td>{{ display_name }}</td>
 					<td>
 						<button class="btn btn-xs" can-click="editFunnel">Edit</button>
+						<button class="btn btn-xs btn-danger" can-click="deleteFunnel">Delete</button>
 					</td>
 				</tr>
 			{{/funnels}}

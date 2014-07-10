@@ -16,6 +16,11 @@ steal(
 				init : function(){
 					this.attr('funnels', new FunnelModel.List({}));
 				},
+				deleteFunnel : function(ctx){
+					if(confirm('Are you sure?')){
+						ctx.destroy();
+					}
+				},
 				editFunnel : function(ctx){
 					this.openFunnelForm(ctx);
 				},
