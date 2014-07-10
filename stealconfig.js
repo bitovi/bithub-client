@@ -2,8 +2,7 @@ steal.config({
 	map: {
 		"*": {
 			"jquery/jquery.js" : "jquery",
-			"can/util/util.js": "can/util/jquery/jquery.js",
-			"can/util/array/each.js" : "bithub/lib/each.js"
+			"can/util/util.js": "can/util/jquery/jquery.js"
 		}
 	},
 	paths: {

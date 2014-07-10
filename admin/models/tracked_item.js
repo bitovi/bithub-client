@@ -158,6 +158,18 @@ steal('can/model', 'can/construct/super', function(Model){
 			data.config.forums = forums;
 
 			return data;
+		},
+		rss : function(data){
+			if(!data.config){
+				data.config = {};
+			}
+			if(!data.config.sites){
+				data.config.sites = [];
+			}
+
+			delete data.config.urls;
+
+			return data;
 		}
 	}
 

@@ -109,10 +109,18 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				rssConfig.attr('config', rssConfig.attr('config') || {})
 				rssConfig.attr('config.sites', rssConfig.attr('config.sites') || [])
 
-				rssConfig.attr('config.sites').push({})
+				rssConfig.attr('config.sites').push({})	
+			},
+			removeRss : function(rss){
+				var configs = this.attr('configs'),
+					rssConfig = can.grep(configs, function(config){
+						return config.attr('feed_name') === 'rss';
+					})[0],
+					index = rssConfig.attr('config.sites').indexOf(rss);
 
-
-				
+				if(confirm('Are you sure?')){
+					rssConfig.attr('config.sites').splice(index, 1);
+				}
 			}
 		},
 		helpers : {

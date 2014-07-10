@@ -2,11 +2,10 @@ steal(
 'can/util/string',
 'can/component',
 './category_form.mustache',
-'admin/models/feed.js',
-'admin/models/tag.js',
+'admin/models/tag_tree.js',
 './category_form.less',
 'admin/components/multiselect',
-function(can, Component, categoryFormView, FeedModel, TagModel){
+function(can, Component, categoryFormView, TagTreeModel){
 
 	return can.Component({
 		tag : 'category-form',
@@ -14,7 +13,6 @@ function(can, Component, categoryFormView, FeedModel, TagModel){
 		scope : {
 			isSaving : false,
 			init : function(){
-				this.attr('feeds', new FeedModel.List({}));
 				this.attr('tags', new TagModel.List({}));
 			},
 			addConstraint : function(){

@@ -69,6 +69,9 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 			return {
 				feed_config : data
 			}
+		},
+		save : function(){
+			return this._super.apply(this, arguments);
 		}
 	});
 

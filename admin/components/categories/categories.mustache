@@ -1,1 +1,22 @@
-<category-form category="currentCategory"></category-form>
+{{#if currentFunnel}}
+	<category-form category="currentFunnel"></category-form>
+{{else}}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Funnel Name</th>
+				<th></th>
+			</tr>
+		</thead>
+		{{#funnels}}
+			<tbody>
+				<tr>
+					<td>{{ display_name }}</td>
+					<td>
+						<button class="btn btn-xs" can-click="editFunnel">Edit</button>
+					</td>
+				</tr>
+			</tbody>
+		{{/funnels}}
+	</table>
+{{/if}}

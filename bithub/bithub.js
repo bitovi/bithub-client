@@ -20,6 +20,7 @@ steal(
     'bithub/models/event.js',
     'bithub/models/tag.js',
     'bithub/models/user.js',
+    'bithub/models/funnel.js',
     'bithub/helpers/loadtime.js',
     'ui/onbottom.js',
     'can/route/pushstate',
@@ -28,7 +29,7 @@ steal(
     'vendor/lodash',
     'vendor/jstz',
 
-    function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, loadtime) {
+    function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, Funnel, loadtime) {
         var href = window.location.href
 
         
@@ -263,7 +264,7 @@ steal(
         }
 
         // Load category tags
-        Tag.findAll({type: 'category', order: 'priority:desc'}, function (data) {
+        /*Tag.findAll({type: 'category', order: 'priority:desc'}, function (data) {
 
             var blacklisted = ['digest','issue','github_comment'], remove = [];
             data.each(function(el, i) {
@@ -273,7 +274,12 @@ steal(
 
             categories.replace(data);
             updateVisibleTags( data, {type: 'category'} );
-        });
+        });*/
+
+        Funnel.findAll({}, function(data){
+            categories.replace(data)
+            updateVisibleTags(data, {type: 'category'})
+        })
 
         // Load project tags
         Tag.findAll({type: 'project'}, function (data) {

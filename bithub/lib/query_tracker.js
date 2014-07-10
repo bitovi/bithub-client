@@ -89,7 +89,7 @@ steal(
 				params.tag = can.route.attr('project');
 			}
 			if(can.route.attr('category') !== 'all'){
-				params.category = can.route.attr('category');
+				params.funnel = can.route.attr('category');
 			}
 			if(can.route.attr('timespan') !== 'all' && can.route.attr('view') !== 'latest'){
 				params.thread_updated_date = dateSpan(can.route.attr('timespan'))
@@ -98,14 +98,14 @@ steal(
 				params.state = can.route.attr('state');
 			}
 
-			if(params.category === 'event'){
+			if(params.funnel === 'event'){
 				params.order     = 'thread_updated_ts:asc';
 				params.in_future = true;
 			} else {
 				params.without_future = true;
 			}
 
-			if(params.category !== 'feature' && params.category !== 'bug'){
+			if(params.funnel !== 'feature' && params.funnel !== 'bug'){
 				delete params.state;
 			}
 

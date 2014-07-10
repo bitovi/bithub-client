@@ -10,8 +10,15 @@ steal(
 			tag : 'categories',
 			template : categoriesView,
 			scope : {
+				currentFunnel : null,
 				init : function(){
-					this.attr('currentCategory', new FunnelModel)
+					this.attr('funnels', new FunnelModel.List({}));
+				},
+				editFunnel : function(ctx){
+					this.attr('currentFunnel', ctx);
+				},
+				newFunnel : function(){
+					this.attr('currentFunnel', new FunnelModel);
 				}
 			}
 		})
