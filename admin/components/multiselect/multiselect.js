@@ -21,25 +21,48 @@ steal('can/component', './multiselect.mustache', './multiselect.less', function(
 			notSelectedItems : function(){
 				var selectedItems = this.attr('selectedItems') || [];
 				var selectedItemIds = can.map(selectedItems, function(i){
+					if(typeof i === 'string'){
+						return i;
+					}
 					return toString(i.attr('id'));
 				});
 
 				selectedItems.attr && selectedItems.attr('length');
 
 				return can.grep(this.attr('items'), function(item){
-					return selectedItemIds.indexOf(toString(item.attr('id'))) === -1;
+					if(typeof item === 'string'){
+						return selectedItemIds.indexOf(item) === -1;
+					} else {
+						return selectedItemIds.indexOf(toString(item.attr('id'))) === -1
+					}
 				})
 			},
 			existingSelectedItems : function(){
 				var items         = this.attr('items') || [],
 					selectedItems = this.attr('selectedItems') || [],
-					ids           = can.map(items, function(i){ return toString(i.attr('id')) });
+					ids           = can.map(items, function(i){ return toString(i.attr('id')) }),
+					names         = can.map(items, function(i){ return toString(i.attr('name')) }),
+					filteredItems = []
 
 				items.attr && items.attr('length');
 				selectedItems.attr && selectedItems.attr('length');
 
-				return can.grep(this.attr('selectedItems') || [], function(item){
+				filteredItems = can.grep(selectedItems, function(item){
+					if(typeof item === 'string'){
+
+						return names.indexOf(item) > -1;
+					}
 					return ids.indexOf(toString(item.attr('id'))) > -1;
+				})
+
+
+				return can.map(filteredItems, function(item){
+					if(typeof item === 'string'){
+						return {
+							name : item
+						}
+					}
+					return item;
 				})
 			}
 		},
