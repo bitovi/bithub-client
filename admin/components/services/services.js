@@ -100,22 +100,25 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				clearTimeout(this.__hideHasSavedConfigs);
 				this.attr('hasSavedConfigs', false);
 			},
+			rssConfig : function(){
+				var configs = this.attr('configs');
+				return can.grep(configs, function(config){
+					return config.attr('feed_name') === 'rss';
+				})[0];
+			},
 			addRss : function(){
-				var configs = this.attr('configs'),
-					rssConfig = can.grep(configs, function(config){
-						return config.attr('feed_name') === 'rss';
-					})[0];
+				var rssConfig = this.rssConfig();
 
-				rssConfig.attr('config', rssConfig.attr('config') || {})
-				rssConfig.attr('config.sites', rssConfig.attr('config.sites') || [])
+				if(rssConfig){
+					rssConfig.attr('config', rssConfig.attr('config') || {})
+					rssConfig.attr('config.sites', rssConfig.attr('config.sites') || [])
 
-				rssConfig.attr('config.sites').push({})	
+					rssConfig.attr('config.sites').push({})
+				}
+
 			},
 			removeRss : function(rss){
-				var configs = this.attr('configs'),
-					rssConfig = can.grep(configs, function(config){
-						return config.attr('feed_name') === 'rss';
-					})[0],
+				var rssConfig = this.rssConfig(),
 					index = rssConfig.attr('config.sites').indexOf(rss);
 
 				if(confirm('Are you sure?')){
@@ -161,7 +164,19 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 			isActiveProvider : function(provider, opts){
 				var activeIdentities = this.attr('identities'),
 					length = activeIdentities.attr('length'),
-					providers;
+					rssConfig, check, providers;
+
+				provider = can.isFunction(provider) ? provider() : provider;
+
+				if(provider.toLowerCase() === 'rss'){
+					rssConfig = this.rssConfig();
+					if(rssConfig){
+						check = rssConfig.attr('config.sites');
+						check = check && check.attr('length') > 0;
+						return check ? opts.fn(opts.context) : opts.inverse(opts.context);
+					}
+					
+				}
 
 				if(length === 0){
 					return opts.inverse(opts.context);
@@ -171,7 +186,8 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					return id.attr('provider');
 				});
 
-				provider = can.isFunction(provider) ? provider() : provider;
+				
+
 				return providers.indexOf(provider.toLowerCase()) > -1 ? opts.fn(opts.context) : opts.inverse(opts.context);
 			},
 			isConnecting : function(provider, opts){
