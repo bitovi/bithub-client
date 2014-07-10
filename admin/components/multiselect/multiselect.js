@@ -32,7 +32,7 @@ steal('can/component', './multiselect.mustache', './multiselect.less', function(
 			},
 			existingSelectedItems : function(){
 				var items         = this.attr('items') || [],
-					selectedItems = this.attr('selectedItems'),
+					selectedItems = this.attr('selectedItems') || [],
 					ids           = can.map(items, function(i){ return toString(i.attr('id')) });
 
 				items.attr && items.attr('length');

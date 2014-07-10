@@ -61,8 +61,6 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					brand_name : window.BRAND.attr('name')
 				}))
 
-				console.log(configs)
-
 				this.attr({
 					configs        : configs,
 					identities     : identities,
