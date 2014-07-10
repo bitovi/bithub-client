@@ -12,7 +12,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 		}
 	};
 
-	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter'];
+	var allowedCategories = ['app','article','bug','chat','code','comment','digest','event','feature','plugin','question','twitter','uncategorized'];
 	var allowedDigest = ['follow','watch','fork']
 
 	var existingDigestFormatter = function(type, what, digest){
