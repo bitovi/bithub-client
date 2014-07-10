@@ -12,8 +12,20 @@ function(can, Component, categoryFormView, TagTreeModel){
 		template : categoryFormView,
 		scope : {
 			isSaving : false,
+			loading : true,
 			init : function(){
-				this.attr('tags', new TagModel.List({}));
+				var self = this;
+
+				this.attr('feeds', new can.List);
+				this.attr('keywords', new can.List);
+
+				TagTreeModel.findAll().then(function(data){
+					can.batch.start();
+					self.attr('feeds').replace(data.feeds);
+					self.attr('keywords').replace(data.keywords);
+					self.attr('loading', false);
+					can.batch.stop();
+				});
 			},
 			addConstraint : function(){
 				this.attr('category').addConstraint();
@@ -22,17 +34,22 @@ function(can, Component, categoryFormView, TagTreeModel){
 				this.attr('category').removeConstraint(constraint);
 			},
 			saveCategory : function(){
-				var self = true;
+				var self = this;
 				this.attr('isSaving', true);
 				this.attr('category').save(function(){
-					this.attr('isSaving', false);
+					self.attr('isSaving', false);
+					self.attr('doneEditing', true);
 				});
+			},
+			cancelEditing : function(){
+				this.attr('doneEditing', true);
 			}
 		},
 		helpers : {
 			availableTypes : function(opts){
 				var context = opts.context,
 					feedName = context.attr('feed_name'),
+					feeds = this.attr('feeds'),
 					feed;
 
 				if(feedName !== ""){

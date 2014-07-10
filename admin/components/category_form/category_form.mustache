@@ -1,3 +1,7 @@
+{{#if loading}}
+{{ else }}
+<h1 class="admin-page-header">{{#if category.isNew }}Create{{else}}Update{{/if}} category</h1>
+<hr>
 <div class="form">
 	<div class="form-group">
 		<label>Category Name</label>
@@ -40,8 +44,8 @@
 		<button can-click="addConstraint" class="btn btn-sm btn-primary">Add Constraint</button>
 	</div>
 	<hr>
-	{{#if tags.length}}
-		<bh-multiselect title="Tags" items="tags" selected-items="category.tags"></bh-multiselect>
+	{{#if keywords.length}}
+		<bh-multiselect title="Tags" items="keywords" selected-items="category.tags"></bh-multiselect>
 	{{/if}}
 
 	<div class="row">
@@ -54,6 +58,8 @@
 					Save Category
 				{{/if}}
 			</button>
+			<button class="btn btn-link pull-right" can-click="cancelEditing">Cancel</button>
 		</div>
 	</div>
 </div>
+{{/if}}

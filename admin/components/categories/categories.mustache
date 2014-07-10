@@ -1,22 +1,24 @@
 {{#if currentFunnel}}
-	<category-form category="currentFunnel"></category-form>
+	<category-form category="currentFunnel" done-editing="doneEditing"></category-form>
 {{else}}
+	<h1 class="admin-page-header">Services</h1>
+	<hr>
 	<table class="table">
 		<thead>
 			<tr>
 				<th>Funnel Name</th>
-				<th></th>
+				<th class="actions"></th>
 			</tr>
 		</thead>
-		{{#funnels}}
-			<tbody>
+		<tbody>
+			{{#funnels}}
 				<tr>
 					<td>{{ display_name }}</td>
 					<td>
 						<button class="btn btn-xs" can-click="editFunnel">Edit</button>
 					</td>
 				</tr>
-			</tbody>
-		{{/funnels}}
+			{{/funnels}}
+		</tbody>
 	</table>
 {{/if}}
