@@ -99,9 +99,12 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				this.attr('hasSavedConfigs', false);
 			},
 			rssConfig : function(){
+				return this.getConfig('rss');
+			},
+			getConfig : function(provider){
 				var configs = this.attr('configs');
 				return can.grep(configs, function(config){
-					return config.attr('feed_name') === 'rss';
+					return config.attr('feed_name') === provider;
 				})[0];
 			},
 			addRss : function(){
@@ -121,6 +124,20 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 
 				if(confirm('Are you sure?')){
 					rssConfig.attr('config.sites').splice(index, 1);
+				}
+			},
+			addAdditionalRepo : function(ctx, el, ev){
+				var githubConfig, val;
+				if(ev.which === 13){
+					val = el.val();
+					githubConfig  = this.getConfig('github')
+					
+					githubConfig.attr('config').attr('repos').push({
+						name : val,
+						id : val
+					});
+					el.val('');
+					ev.preventDefault();
 				}
 			}
 		},
@@ -194,6 +211,17 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				provider = can.isFunction(provider) ? provider() : provider;
 
 				return provider === currentlyConnecting ? opts.fn(opts.scope) : opts.inverse(opts.scope);
+			},
+			identities : function(provider, opts){
+				var identities;
+
+				provider = can.isFunction(provider) ? provider() : provider;
+				identities = this.attr('identities');
+				identities.attr('length');
+
+				return opts.fn(opts.scope.add(can.grep(identities, function(identity){
+					return identity.attr('provider') === provider;
+				})));
 			}
 		},
 		events : {

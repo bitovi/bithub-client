@@ -15,7 +15,7 @@ steal(
 			},
 			canAddKeywords : function(){
 				var keywords = (this.brand().attr('keywords') || []);
-				return (keywords.attr ? keywords.attr('length') : keywords.length) < 4;
+				return (keywords.attr ? keywords.attr('length') : keywords.length) < 11;
 			},
 			addKeyword : function(ctx, el, ev){
 

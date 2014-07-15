@@ -121,27 +121,26 @@
 					{{/event}}
 				</div>
 
+				<div class="control-group clearfix tag-control-group">
+					<div class="available-tags">
+						<h5>Available Tags</h5>
+						<ul class="unstyled">
+							{{#availableTags}}
+								<li can-click="addTag">{{ name }}<span class="tag-icon">&#9656;</span></li>
+							{{/availableTags}}
+						</ul>
+					</div>
+					<div class="event-tags">
+						<h5>Event Tags</h5>
+						<ul class="unstyled">
+							{{#eventTags}}
+								<li can-click="removeTag">{{ . }}<span class="tag-icon">&times;</span></li>
+							{{/eventTags}}
+						</ul>
+					</div>
+				</div>
+
 				{{#if currentUser.isAdmin}}
-					{{#unless event.isNew}}
-						<div class="control-group clearfix tag-control-group">
-							<div class="available-tags">
-								<h5>Available Tags</h5>
-								<ul class="unstyled">
-									{{#availableTags}}
-										<li can-click="addTag">{{ name }}<span class="tag-icon">&#9656;</span></li>
-									{{/availableTags}}
-								</ul>
-							</div>
-							<div class="event-tags">
-								<h5>Event Tags</h5>
-								<ul class="unstyled">
-									{{#eventTags}}
-										<li can-click="removeTag">{{ . }}<span class="tag-icon">&times;</span></li>
-									{{/eventTags}}
-								</ul>
-							</div>
-						</div>
-					{{/unless}}
 					<div class="control-group post-as" id="newpost-form-post-as">
 						<label style="float: left; width: 50px;">
 							<input type="radio" can-value="event.origin_author_feed" class="origin-feed" value="github"/>GH

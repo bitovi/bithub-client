@@ -9,6 +9,7 @@ steal('can/component', './multiselect.mustache', './multiselect.less', function(
 		template : initView,
 		scope : {
 			title : "@",
+			allowNonExistingItems : "@",
 			init : function(){
 			},
 			selectItem : function(item){
@@ -47,13 +48,19 @@ steal('can/component', './multiselect.mustache', './multiselect.less', function(
 				items.attr && items.attr('length');
 				selectedItems.attr && selectedItems.attr('length');
 
-				filteredItems = can.grep(selectedItems, function(item){
-					if(typeof item === 'string'){
+				if(this.attr('allowNonExistingItems')){
+					filteredItems = selectedItems
+				} else {
+					filteredItems = can.grep(selectedItems, function(item){
+						if(typeof item === 'string'){
 
-						return names.indexOf(item) > -1;
-					}
-					return ids.indexOf(toString(item.attr('id'))) > -1;
-				})
+							return names.indexOf(item) > -1;
+						}
+						return ids.indexOf(toString(item.attr('id'))) > -1;
+					})
+				}
+
+				
 
 
 				return can.map(filteredItems, function(item){
