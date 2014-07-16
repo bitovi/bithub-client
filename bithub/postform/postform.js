@@ -66,7 +66,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				return window.CURRENT_USER;
 			},
 			availableTags : function(){
-				var eventTags = this.attr('event.tags'),
+				var eventTags = this.attr('event.tags') || new can.List,
 					category  = this.attr('event.category'),
 					project   = this.attr('event.project');
 
@@ -89,10 +89,10 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 				});
 			},
 			eventTags : function(){
-				var event    = this.attr('event'),
-					category = event.attr('category'),
-					project  = event.attr('project'),
-					tags     = event.attr('tags');
+				var event    = this.attr('event')  || new can.List,
+					category = event.attr('category') || new can.List,
+					project  = event.attr('project') || new can.List,
+					tags     = event.attr('tags') || new can.List;
 
 				tags.attr('length'); // trigger live binding
 

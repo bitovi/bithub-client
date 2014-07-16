@@ -19,6 +19,20 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 		return [type, what, digest.attr('props.origin_author_name')].join(':');
 	}
 
+	var getCategory = function(event){
+		var maxScore = 0,
+			currentCategory = null;
+		can.each(CATEGORIES, function(c){
+			var score = c.score(event);
+			if(score > maxScore){
+				maxScore = score;
+				currentCategory = c;
+			}
+		});
+
+		return maxScore > 0 ? currentCategory.attr('name') : 'uncategorized'
+	}
+
 	return can.Map({
 		hasEvents : false,
 		init : function(){
@@ -40,7 +54,6 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 				event = events[i];
 
 				// skip events that are not whitelisted
-				if( !_.contains(allowedCategories, event.attr('category')) ) continue;
 				if( event.attr('category') === 'digest' && _.intersection(allowedDigest, event.attr('tags')).length == 0 ) continue;
 				
 				this.addEvent(event)
@@ -48,7 +61,7 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 		},
 		addEvent : function(event){
 			var types = this.attr('types'),
-				category = event.attr('category'),
+				category = getCategory(event),
 				method   = category === 'chat' ? 'unshift' : 'push';
 
 			if(!this.attr('types.' + category)){
