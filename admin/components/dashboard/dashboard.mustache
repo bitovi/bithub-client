@@ -2,13 +2,12 @@
 
 <div class="clearfix filter-wrap">
 	<div class="col-xs-2">
-		<label>Providers</label>
-		<select class="form-control" can-value="currentProvider">
-			<option value="all">All</option>
-			{{#identities}}
-				<option value="{{ provider }}">{{ name }}</option>
-			{{/identities}}
-			<option value="{{ rss }}">RSS</option>
+		<label>Funnels</label>
+		<select class="form-control" can-value="currentFunnel">
+			<option value="">All</option>
+			{{#funnels}}
+				<option value="{{ name }}">{{ display_name }}</option>
+			{{/funnels}}
 		</select>
 	</div>
 </div>

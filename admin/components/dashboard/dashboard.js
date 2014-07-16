@@ -1,4 +1,4 @@
-steal('can/util/string', 'can/component', './dashboard.mustache', 'bithub/models/event.js', 'bithub/homepage/event_list/determine_event_partial.js', 'bithub/models/user.js', 'bithub/homepage/event_list', './dashboard.less',function(can, Component, dashboardView, EventModel, determineEventPartial, UserModel, EventList){
+steal('can/util/string', 'can/component', './dashboard.mustache', 'bithub/models/event.js', 'bithub/homepage/event_list/determine_event_partial.js', 'bithub/models/user.js', 'bithub/models/funnel.js', 'bithub/homepage/event_list', './dashboard.less',function(can, Component, dashboardView, EventModel, determineEventPartial, UserModel, FunnelModel, EventList){
 
 	var __templatesCache = {}
 
@@ -9,21 +9,27 @@ steal('can/util/string', 'can/component', './dashboard.mustache', 'bithub/models
 		template : dashboardView,
 		scope : {
 			init : function(){
+				var self = this;
 				this.loadNextPage();
+				FunnelModel.findAll({}, function(data){
+					self.attr('funnels').replace(data);
+				});
 			},
 			items: [],
+			funnels : [],
 			isLoading : false,
-			currentProvider : 'all',
+			currentFunnel : null,
 			loadNextPage : function(){
 				var params = {
 					order: 'thread_updated_ts:desc',
 					limit: 50,
 					offset: this.attr('items.length')
 				}
-				var currentProvider = this.attr('currentProvider');
 
-				if(currentProvider !== 'all'){
-					params.category = currentProvider;
+				var currentFunnel = this.attr('currentFunnel');
+
+				if(currentFunnel){
+					params.funnel_name = currentFunnel;
 				}
 
 				this.attr('isLoading', true);
@@ -33,13 +39,10 @@ steal('can/util/string', 'can/component', './dashboard.mustache', 'bithub/models
 				var items = this.attr('items');
 				items.push.apply(items, newItems);
 				this.attr('isLoading', false);
-			},
-			identities : function(){
-				return window.BRAND.attr('identities');
 			}
 		},
 		events : {
-			"{scope} currentProvider" : function(){
+			"{scope} currentFunnel" : function(){
 				this.scope.attr('items').splice(0);
 				this.scope.loadNextPage();
 			}

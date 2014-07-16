@@ -83,7 +83,9 @@ steal(
 
 			"{categories} change": function() {
 				this.options.categories.forEach( function( item ) {
-					items.push({name: item.name, display_name: item.display_name });
+					if(!item.attr('disabled')){
+						items.push({name: item.name, display_name: item.display_name });
+					}
 				});
 				this.loadOrderingFromCookie();
 				this.sortItems();
