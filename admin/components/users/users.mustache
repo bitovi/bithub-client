@@ -1,51 +1,36 @@
 <h1 class="admin-page-header">Registered Users</h1>
 <hr>
-<div>
-	{{#if userDetails}}
-		<button class="btn-primary btn" can-click="showList">&laquo; Return to the list</button>
-		<hr>
-		<user-details></user-details>
-	{{ else }}
-		<table class="table">
-			<tr class="success">
-				<th>Points</th>
+{{#if loading}}
+Loading ...
+{{else}}
+	<table class="table table-stripped">
+		<thead>
+			<tr>
 				<th>Name</th>
-				<th>City / Country</th>
-				<th>Connected Services</th>
+				<th>Email</th>
+				<th>Roles</th>
+				<th>Points</th>
 				<th></th>
 			</tr>
-			<tbody>
-				{{#users}}
-					<tr>
-						<td class="col-xs-1">
-							<span class="badge">
-								23
-							</span>
-						</td>
-						<td>
-							Mihael Konjevic
-						</td>
-						<td>
-							Zagreb 10000, Croatia 
-						</td>
-						<td class="col-xs-3">Twitter, Facebook, Foursquare</td>
-						<td class="col-xs-1">
-							<button class="btn btn-xs btn-primary" can-click="showDetails">Details</button>
-						</td>
-					</tr>
-				{{/users}}
-			</tbody>
-		</table>
+		</thead>
+		<tbody>
 
-		<ul class="pagination">
-			<li><a href="#">&laquo;</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">&raquo;</a></li>
-		</ul>
+		{{#users}}
+			
+			<tr {{data 'user'}}>
+				<td><a href="{{ editUserUrl this }}">{{ name }}</a></td>
+				<td>{{ email }}</td>
+				<td>{{ rolesCsv }}</td>
+				<td>{{ score}}</td>
+				<td><button class="delete-user close">&times;</button></td>
+			</tr>
+			
+		{{/users}}
+		</tbody>
+	</table>
 
-	{{/if}}
-</div>
+	<div class="pagination pull-right">
+		<a href="{{ prevOffsetUrl }}" class="btn">Prev page</a>
+		<a href="{{ nextOffsetUrl }}" class="btn">Next page</a>
+	</div>
+{{/if}}

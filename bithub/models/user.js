@@ -44,7 +44,9 @@ steal(
 				delete data.achievements;
 				delete data.identities;
 				delete data.activites;
-				return data;
+				return {
+					user: data
+				};
 			},
 			fromSession: function() {
 				var self = this;

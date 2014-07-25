@@ -11,8 +11,9 @@ steal(
 	'admin/components/integration',
 	'admin/components/getting_started',
 	'admin/components/categories',
-	'./admin.less'
-	, function(can, Component, adminView){
+	'admin/components/achievements',
+	'./admin.less',
+	function(can, Component, adminView){
 
 		var pages = [
 			"Dashboard",
@@ -22,6 +23,8 @@ steal(
 			"Rewards",
 			//"Registered Users",
 			//"Integration",
+			"Achievements",
+			"Users",
 			"Settings"
 		];
 

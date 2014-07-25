@@ -8,7 +8,6 @@ window.onerror = function (message, file, line, column, errorObj) {
 }
 
 
-
 steal(
     'can',
     'bithub/pageswitcher',
@@ -30,6 +29,14 @@ steal(
     'vendor/jstz',
 
     function(can, PageSwitcher, Navigator, Login, Newpost, QueryTracker, Modals, Event, Tag, User, Funnel, loadtime) {
+
+        $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+            if(options.type.toLowerCase() !== 'get'){
+                options.data = JSON.stringify(originalOptions.data);
+                options.contentType = 'application/json';
+            }
+        });
+
         var href = window.location.href
 
         
