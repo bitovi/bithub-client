@@ -9,7 +9,7 @@ steal(
 			var params = {tags: []};
 			
 			if (can.route.attr('project') !== 'all') params.tags.push( can.route.attr('project') );
-			if (can.route.attr('category') !== 'all') params.tags.push( can.route.attr('category') );
+			if (can.route.attr('category') !== 'all') params.funnel = can.route.attr('category') ;
 
 			// hack for bug/feature state
 			if( ['bug','feature'].indexOf( can.route.attr('category') ) >= 0 ) {
