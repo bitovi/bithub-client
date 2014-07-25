@@ -11,7 +11,7 @@ function(Component, initView, AchievementModel){
 
 		delete data.filter;
 
-		/*if(filter === 'achieved-complete'){
+		if(filter === 'achieved-complete'){
 			data.shipped_at = '*null';
 			data.profile_completed = true;
 		} else if(filter === 'achieved-incomplete'){
@@ -19,7 +19,7 @@ function(Component, initView, AchievementModel){
 			data.profile_not_completed = true;
 		} else if(filter === 'shipped'){
 			data.shipped_at = '*notnull';
-		}*/
+		}
 
 		return data;
 			
