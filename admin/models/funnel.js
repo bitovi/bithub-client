@@ -13,6 +13,7 @@ steal('can/model', 'can/construct/super', function(Model){
 
 	return Model({
 		findAll : 'GET /api/v2/funnels.json',
+		findOne : 'GET /api/v2/funnels/{id}.json',
 		create : 'POST /api/v2/funnels.json',
 		update : 'PUT /api/v2/funnels/{id}.json',
 		destroy : 'DELETE /api/v2/funnels/{id}.json'

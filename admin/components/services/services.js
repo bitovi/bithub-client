@@ -24,6 +24,11 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					configs : [],
 					identities : []
 				});
+
+				if(can.route.attr('currentTab')){
+					this.attr('currentTab', can.route.attr('currentTab'));
+				}
+
 				this.loadConfigs();
 			},
 			brand : function(){
@@ -73,7 +78,7 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 			accounts : ['bitovi', 'canjs', 'funcunit'],
 			currentTab : 'twitter',
 			switchTab : function(ctx, el, ev){
-				this.attr('currentTab', el.data('tab').toLowerCase());
+				can.route.attr('currentTab', el.data('tab').toLowerCase());
 			},
 			connectService : function(ctx){
 				var provider = ctx.provider;
@@ -233,6 +238,9 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 			},
 			"form submit" : function(el, ev){
 				ev.preventDefault();
+			},
+			"{can.route} currentTab" : function(){
+				this.scope.attr('currentTab', can.route.attr('currentTab'));
 			}
 		}
 	})

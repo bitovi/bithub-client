@@ -31,11 +31,10 @@ function(can, Component, scoringRulesView, ScoringRules){
 		template : scoringRulesView,
 		scope : {
 			init : function(){
-				ScoringRules.findAll({}, this.proxy('updateScoringRules'))
+				ScoringRules.findAll({}).then(this.proxy('updateScoringRules'))
 			},
 			updateScoringRules : function(rules){
 				this.attr('scoringRules', rules);
-				console.log(rules)
 			},
 			groupedRules : function(){
 				var grouped = [],
@@ -47,8 +46,6 @@ function(can, Component, scoringRulesView, ScoringRules){
 					can.each(rules, function(rule){
 						var tags  = rule.attr('required_tags'),
 							group = {label: 'General', name: 'general'};
-
-						console.log(tags)
 
 						for(var i = 0; i < keys.length; i++){
 							if(tags && tags.indexOf && tags.indexOf(keys[i]) > -1){

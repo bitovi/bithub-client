@@ -15,15 +15,7 @@
 	{{#if loading}}
 		Loading ...
 	{{ else }}
-		{{#if hasPagination}}
-			<div class="pagination">
-				<ul>
-					{{#pages}}
-						<li {{#isActivePage this}}class="active"{{/isActivePage}}><a href="{{pageUrl this}}">{{ . }}</a></li>
-					{{/pages}}
-				</ul>
-			</div>
-		{{/if}}
+		<admin-pagination count="count" params="params"></admin-pagination>
 		<table class="table table-stripped">
 			<thead>
 				<tr>
@@ -57,14 +49,6 @@
 				{{/achievements}}
 			</tbody>
 		</table>
-		{{#if hasPagination}}
-			<div class="pagination">
-				<ul>
-					{{#pages}}
-						<li {{#isActivePage this}}class="active"{{/isActivePage}}><a href="{{pageUrl this}}">{{ . }}</a></li>
-					{{/pages}}
-				</ul>
-			</div>
-		{{/if}}
+		<admin-pagination count="count" params="params"></admin-pagination>
 	{{/if}}
 </div>

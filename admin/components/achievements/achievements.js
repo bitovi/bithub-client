@@ -5,6 +5,26 @@ steal(
 './achievements.less',
 function(Component, initView, AchievementModel){
 
+	var prepareFilter = function(data){
+
+		var filter = data.filter;
+
+		delete data.filter;
+
+		if(filter === 'achieved-complete'){
+			data.shipped_at = '*null';
+			data.profile_completed = true;
+		} else if(filter === 'achieved-incomplete'){
+			data.shipped_at = '*null';
+			data.profile_not_completed = true;
+		} else if(filter === 'shipped'){
+			data.shipped_at = '*notnull';
+		}
+
+		return data;
+			
+	}
+
 	Component.extend({
 		tag : 'achievements',
 		template : initView,
@@ -14,12 +34,14 @@ function(Component, initView, AchievementModel){
 			count : 0,
 			init : function(){
 				var params = can.route.attr('achievementsFilter');
-				this.loadAchievements();
+			
 				this.attr('params', params ? params.serialize() : {filter : 'achieved-complete'});
+				this.updateParams();
+				this.loadAchievements();
 			},
 			loadAchievements : function(){
 				var self = this,
-					def = AchievementModel.findAll(this.attr('params').serialize());
+					def = AchievementModel.findAll(prepareFilter(this.attr('params').serialize()));
 
 				this.attr('loading', true);
 
@@ -47,6 +69,15 @@ function(Component, initView, AchievementModel){
 				return can.map(new Array(Math.ceil(count / limit)), function(){
 					return ++i;
 				});
+			},
+			updateParams : function(){
+				var params = this.attr('params').serialize(),
+					currentPage = can.route.attr('currentPage') || 1;
+
+				params.offset = (currentPage - 1) * 50;
+
+				this.attr('params', params);
+				can.route.attr('achievementsFilter', params);
 			}
 		},
 		helpers : {
@@ -108,10 +139,13 @@ function(Component, initView, AchievementModel){
 			}
 		},
 		events : {
+			"{can.route} currentPage" : function(){
+				this.scope.updateParams();
+			},
 			"{can.route} achievementsFilter change" : function(){
 				var params = can.route.attr('achievementsFilter');
 				this.scope.attr('params', params ? params.serialize() : {});
-				this.scope.loadAchievements();
+				this.scope.loadAchievements()
 			}
 		}
 	})

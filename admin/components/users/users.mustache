@@ -3,6 +3,9 @@
 {{#if loading}}
 Loading ...
 {{else}}
+
+	<admin-pagination count="count" params="params"></admin-pagination>
+	
 	<table class="table table-stripped">
 		<thead>
 			<tr>
@@ -18,7 +21,7 @@ Loading ...
 		{{#users}}
 			
 			<tr {{data 'user'}}>
-				<td><a href="{{ editUserUrl this }}">{{ name }}</a></td>
+				<td>{{ name }}</td>
 				<td>{{ email }}</td>
 				<td>{{ rolesCsv }}</td>
 				<td>{{ score}}</td>
@@ -29,8 +32,5 @@ Loading ...
 		</tbody>
 	</table>
 
-	<div class="pagination pull-right">
-		<a href="{{ prevOffsetUrl }}" class="btn">Prev page</a>
-		<a href="{{ nextOffsetUrl }}" class="btn">Next page</a>
-	</div>
+	<admin-pagination count="count" params="params"></admin-pagination>
 {{/if}}

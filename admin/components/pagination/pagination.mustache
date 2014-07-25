@@ -1,0 +1,9 @@
+{{#if hasPagination}}
+	<ul class="pagination">
+		{{#pages}}
+			<li {{#isCurrent this}}class="active"{{/isCurrent}}>
+				<a href="{{ paginationUrl this }}">{{ . }}</a>
+			</li>
+		{{/pages}}
+	</ul>
+{{/if}}

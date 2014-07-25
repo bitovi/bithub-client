@@ -79,6 +79,9 @@ steal(
 					}
 				}
 				return currentAvatar;
+			},
+			rolesCsv : function(){
+				return (this.attr('roles') || []).join(', ')
 			}
 
 		});

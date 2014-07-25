@@ -3,7 +3,7 @@
 {{else}}
 	<h1 class="admin-page-header">
 		Categories
-		<button class="btn btn-primary create-category" can-click="newFunnel">Create Category</button>
+		<a href="{{ funnelLink 'new' }}" class="btn btn-primary create-category">Create Category</a>
 	</h1>
 	<hr>
 	<table class="table">
@@ -18,7 +18,7 @@
 				<tr>
 					<td>{{ display_name }}</td>
 					<td>
-						<button class="btn btn-xs" can-click="editFunnel">Edit</button>
+						<a class="btn btn-xs" href="{{ funnelLink this }}">Edit</a>
 						<button class="btn btn-xs btn-danger" can-click="deleteFunnel">Delete</button>
 					</td>
 				</tr>
