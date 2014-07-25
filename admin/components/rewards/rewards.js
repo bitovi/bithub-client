@@ -37,7 +37,7 @@ return can.Component({
 					var data, save;
 					if(reward.__fileUpload){
 						data          = reward.__fileUpload;
-						data.formData = {reward : $.param(reward.serialize().reward)};
+						data.formData = {rewardData: $.param(reward.serialize().reward)};
 						data.submit();
 						save = data.jqXHR;
 						save.then(function(data){
@@ -67,10 +67,11 @@ return can.Component({
 
 				$(el).fileupload({
 					url: url,
-					datatype: 'json',
+					dataType: 'json',
 					limitMultiFileUploads: 1,
 					replaceFileInput: false,
 					acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+					forceIframeTransport : true,
 					add: function(el, data) {
 						reward.__fileUpload = data;
 					}
