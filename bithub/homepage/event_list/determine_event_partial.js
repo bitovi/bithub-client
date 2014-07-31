@@ -2,7 +2,7 @@ steal(function(){
 
 	var eventPartialsLookup = [{
 		template: 'bh-push',
-		tags: ['push']
+		tags: ['push', 'pull_request']
 	}, {
 		template: 'bh-issue',
 		tags: ['bug', 'feature']
@@ -27,6 +27,8 @@ steal(function(){
 			
 			if (score > bestScore) template = partial.template;
 		} );
+
+		console.log('TEMPLATE', template)
 		
 		return template;
 	}

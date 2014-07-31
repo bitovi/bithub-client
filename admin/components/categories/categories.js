@@ -32,7 +32,7 @@ steal(
 						self.attr('funnels').splice(0);
 						self.attr('funnels').replace(data);
 						can.batch.stop();
-						
+
 						delete self.__loadFunnelsReq;
 					});
 
@@ -78,9 +78,7 @@ steal(
 							var funnels = self.attr('funnels');
 							can.route.removeAttr('id');
 							self.attr('currentFunnel') && self.attr('currentFunnel', null);
-							if(!funnels || funnels.attr('length') === 0){
-								self.loadFunnels();
-							}
+							self.loadFunnels();
 						}, 1)
 					}
 

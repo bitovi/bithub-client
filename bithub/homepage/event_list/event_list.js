@@ -35,7 +35,7 @@ steal(
 
 			categories.push('uncategorized');
 			latestCategories = can.grep(categories, function(category){
-				return category !== 'digest' && category !== 'chat';
+				return category !== 'digest' && category !== 'chat' && category !== 'code';
 			});
 
 			return latestCategories
