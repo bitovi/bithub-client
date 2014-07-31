@@ -27,8 +27,6 @@ steal(function(){
 			
 			if (score > bestScore) template = partial.template;
 		} );
-
-		console.log('TEMPLATE', template)
 		
 		return template;
 	}

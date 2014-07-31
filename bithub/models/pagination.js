@@ -28,7 +28,9 @@ steal(
 			'event': ASHCurried100, 
 			'plugin': ASHCurried100,
 			'question': ASHCurried100,
-			'twitter': ASHCurried100
+			'twitter': ASHCurried100,
+			'unknown': ASHCurried100
+
 		},
 			THRESHOLD = 500,
 			SECTION_TITLE = 35;		
