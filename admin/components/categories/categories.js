@@ -12,6 +12,7 @@ steal(
 			template : categoriesView,
 			scope : {
 				currentFunnel : null,
+				funnels : [],
 				init : function(){
 					var id = can.route.attr('id');
 					if(id){
@@ -21,7 +22,20 @@ steal(
 					}
 				},
 				loadFunnels : function(){
-					this.attr('funnels', new FunnelModel.List({}));
+					var self = this;
+
+					if(this.__loadFunnelsReq) return;
+
+					this.__loadFunnelsReq = FunnelModel.findAll({}, function(data){
+
+						can.batch.start();
+						self.attr('funnels').splice(0);
+						self.attr('funnels').replace(data);
+						can.batch.stop();
+						
+						delete self.__loadFunnelsReq;
+					});
+
 				},
 				deleteFunnel : function(ctx){
 					if(confirm('Are you sure?')){
@@ -39,7 +53,6 @@ steal(
 						if(funnel.length){
 							this.openFunnelForm(funnel[0]);
 						} else {
-							console.log('aaaa')
 							FunnelModel.findOne({id: idOrFunnel}).then(function(f){
 								self.openFunnelForm(f);
 							})
@@ -60,16 +73,38 @@ steal(
 				setDoneEditing : function(val){
 					var self = this;
 					if(val){
-						setTimeout(function(){
+						clearTimeout(this.__loadFunnels);
+						this.__loadFunnels = setTimeout(function(){
+							var funnels = self.attr('funnels');
 							can.route.removeAttr('id');
 							self.attr('currentFunnel') && self.attr('currentFunnel', null);
-							if(!self.attr('funnels')){
+							if(!funnels || funnels.attr('length') === 0){
 								self.loadFunnels();
 							}
 						}, 1)
 					}
 
 					return val
+				},
+				moveUp : function(funnel){
+					var funnels = this.attr('funnels'),
+						index = funnels.indexOf(funnel);
+
+					can.batch.start();
+					funnels.splice(index, 1);
+					funnels.splice(index - 1, 0, funnel);
+					funnel.moveUpAndSave();
+					can.batch.stop();
+				},
+				moveDown : function(funnel){
+					var funnels = this.attr('funnels'),
+						index = funnels.indexOf(funnel);
+
+					can.batch.start();
+					funnels.splice(index, 1);
+					funnels.splice(index + 1, 0, funnel);
+					funnel.moveDownAndSave();
+					can.batch.stop();
 				}
 			},
 			events : {
@@ -97,6 +132,20 @@ steal(
 
 					params.id = linkTo.attr('id');
 					return can.route.url(params);
+				},
+				isFirst : function(opts){
+					var index = opts.scope.attr('@index');
+
+					index = can.isFunction(index) ? index() : index;
+
+					return index === 0 ? opts.fn() : "";
+				},
+				isLast : function(opts){
+					var index = opts.scope.attr('@index');
+
+					index = can.isFunction(index) ? index() : index;
+
+					return index === this.attr('funnels').attr('length') - 1 ? opts.fn() : "";
 				}
 			}
 		})

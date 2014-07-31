@@ -44,9 +44,11 @@ steal(
 					helpers: {
 						addPlus: function(val) {
 							val = can.isFunction(val) ? val() : val;
-							if(val > 0){
+
+							if(parseInt(val, 10) > 0){
 								return "+" + val;
 							}
+							return "0";
 						},
 						eventUrl: function() {
 							var id;

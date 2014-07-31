@@ -31,6 +31,8 @@ steal('can/model', 'can/construct/super', function(Model){
 				}
 			});
 
+			data.display_name = data.display_name || data.name;
+
 			return {
 				funnel : data
 			}
@@ -47,6 +49,14 @@ steal('can/model', 'can/construct/super', function(Model){
 				index = constraints.indexOf(constraint);
 
 			constraints.splice(index, 1);
-		}
+		},
+		moveDownAndSave : function(){
+			this.attr('position_position', 'down');
+			this.save();
+		},
+		moveUpAndSave : function(){
+			this.attr('position_position', 'up');
+			this.save();
+		},
 	})
 })

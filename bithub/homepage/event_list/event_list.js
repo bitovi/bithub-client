@@ -23,8 +23,24 @@ steal(
 		var areNotEmpty = _.compose(_.isEmpty, f.complement);
 
 		// used for ordering categories on latest view
-		var latestCategories = ['app', 'article', 'event', 'twitter', 'bug', 'comment', 'feature', 'question', 'plugin', 'uncategorized'];
+		var latestCategories;
 		
+		var getLatestCategories = function(){
+			var categories;
+			if(latestCategories) return latestCategories;
+
+			categories = can.map(window.CATEGORIES, function(c){
+				return c.attr('name');
+			})
+
+			categories.push('uncategorized');
+			latestCategories = can.grep(categories, function(category){
+				return category !== 'digest' && category !== 'chat';
+			});
+
+			return latestCategories
+		}
+
 		var __templatesCache = {};
 
 
@@ -252,7 +268,7 @@ steal(
 				}, {
 					dailyCategories : function(opts){
 						var date = opts.context.attr('date');
-						return can.map(latestCategories, function(category){
+						return can.map(getLatestCategories(), function(category){
 							var events = opts.context.attr('types.' + category);
 							if(events && events.length){
 								return opts.fn({

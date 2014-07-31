@@ -15,6 +15,9 @@ steal('can',
 						var filtered = _.filter(data, function( reward ) {
 							if (!reward.disabled_ts) return reward;
 						});
+
+						console.log('REWARDS', data)
+
 						rewards.replace( filtered );
 					});
 					

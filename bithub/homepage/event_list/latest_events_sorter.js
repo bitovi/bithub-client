@@ -20,17 +20,8 @@ steal('can/map', 'can/list', 'can/construct/super', function(Observe, List){
 	}
 
 	var getCategory = function(event){
-		var maxScore = 0,
-			currentCategory = null;
-		can.each(CATEGORIES, function(c){
-			var score = c.score(event);
-			if(score > maxScore){
-				maxScore = score;
-				currentCategory = c;
-			}
-		});
 
-		return maxScore > 0 ? currentCategory.attr('name') : 'uncategorized'
+		return event.attr('funnels.0') || 'uncategorized'
 	}
 
 	return can.Map({

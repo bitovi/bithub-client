@@ -6,23 +6,39 @@
 		<a href="{{ funnelLink 'new' }}" class="btn btn-primary create-category">Create Category</a>
 	</h1>
 	<hr>
+	<div class="alert alert-info">
+		Ordering the categories will influence their position on the frontpage and in the menu.
+	</div>
 	<table class="table">
 		<thead>
 			<tr>
+				<th class="reorder"></th>
 				<th>Category Name</th>
 				<th class="actions"></th>
 			</tr>
 		</thead>
 		<tbody>
-			{{#funnels}}
+			{{#each funnels}}
 				<tr>
+					<td>
+						<div class="btn-group">
+							<button class="btn btn-xs btn-default" can-click="moveUp" {{#isFirst}}disabled{{/isFirst}}>
+								&#9650;
+							</button>
+							<button class="btn btn-xs btn-default" can-click="moveDown" {{#isLast}}disabled{{/isLast}}>
+								&#9660;
+							</button>
+						</div>
+					</td>
 					<td>{{ display_name }}</td>
 					<td>
-						<a class="btn btn-xs" href="{{ funnelLink this }}">Edit</a>
-						<button class="btn btn-xs btn-danger" can-click="deleteFunnel">Delete</button>
+						<div class="btn-group">
+							<a class="btn btn-xs btn-default" href="{{ funnelLink this }}">Edit</a>
+							<button class="btn btn-xs btn-danger" can-click="deleteFunnel">Delete</button>
+						</div>
 					</td>
 				</tr>
-			{{/funnels}}
+			{{/each}}
 		</tbody>
 	</table>
 {{/if}}
