@@ -8,7 +8,6 @@ steal('can/component', './item_list.mustache', './item_list.less', function(Comp
 		tag : 'bh-item-list',
 		template : initView,
 		scope : {
-			title : "@",
 			init : function(){
 
 			},
@@ -25,6 +24,17 @@ steal('can/component', './item_list.mustache', './item_list.less', function(Comp
 					index = items.indexOf(item);
 
 				items.splice(index, 1);
+			},
+			manageItem : function(ctx, el, ev){
+				var val = el.val(),
+					items = (this.attr('items') || []);
+
+				if(ev.which === 8 && val === ''){
+					items.pop();
+				} else if(ev.which === 32 || ev.which === 188 || ev.which === 13){
+					this.addItem(ctx, el, ev);
+					ev.preventDefault();
+				}
 			}
 		},
 		helpers : {
@@ -33,9 +43,10 @@ steal('can/component', './item_list.mustache', './item_list.less', function(Comp
 			}
 		},
 		events : {
-			'button click' : function(){
-				var el = this.element.find('input');
-				this.scope.addItem(this.scope, el)
+			".keyword-list click" : function(el, ev){
+				if($(ev.target).is('.keyword-list')){
+					el.find('input').focus();
+				}
 			}
 		}
 	})

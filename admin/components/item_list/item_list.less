@@ -1,13 +1,34 @@
 bh-item-list {
 	display: block;
-	button {
-		width: 100%;
-	}
-	.badge {
+	.remove-item {
 		cursor: pointer;
-		line-height: 1;
 	}
 	.add-item-wrap {
-		margin-bottom: 20px
+		padding: 0;
+		input.form-control {
+			border: none;
+		}
+	}
+
+	.item-list-wrap {
+		li, .form-control {
+			float: left;
+			width: auto;
+		}
+		input.form-control {
+			border: none;
+			box-shadow: none;
+			padding: 0 5px;
+		}
+	}
+
+	.item-list {
+		margin: 0;
+		li {
+			background: #DAEFFF;
+			margin: 3px;
+			padding: 5px;
+			border-radius: 3px;
+		}
 	}
 }

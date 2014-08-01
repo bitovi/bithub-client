@@ -1,18 +1,8 @@
-{{#if items.length}}
-	<ul class="list-group">
+<div class="panel panel-default item-list-wrap">
+	<ul class="list-unstyled clearfix item-list">
 		{{#items}}
-			<li class="list-group-item">
-				{{ . }}
-				<span class="badge" can-click="removeItem">&times;</span>
-			</li>
+			<li>{{ . }} <i class="fa fa-times-circle remove-item" can-click="removeItem"></i></li>
 		{{/items}}
+		<input type="text" can-keydown="manageItem" can-blur="addItem" class="form-control keyword-input" placeholder="Add tag">
 	</ul>
-{{/if}}
-<div class="clearfix row add-item-wrap">
-	<div class="col-xs-10">
-		<input type="text" class="form-control" can-enter="addItem" placeholder="Add Item">
-	</div>
-	<div class="col-xs-2">
-		<button class="btn btn-primary">Add Item</button>
-	</div>
 </div>
