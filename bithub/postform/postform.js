@@ -160,6 +160,7 @@ function(Component, postformView, EventModel, TagModel, PostAsUserModel){
 						type                  : self.attr('event').isNew() ? 'POST' : 'PUT',
 						replaceFileInput      : false,
 						url                   : self.formAction(),
+						forceIframeTransport  : true,
 						progress : function(e, data){
 							self.attr('imageUploadProgress', parseInt(data.loaded / data.total * 100, 10));
 						},
