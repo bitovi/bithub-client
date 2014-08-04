@@ -119,7 +119,9 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					rssConfig.attr('config', rssConfig.attr('config') || {})
 					rssConfig.attr('config.sites', rssConfig.attr('config.sites') || [])
 
-					rssConfig.attr('config.sites').push({})
+					rssConfig.attr('config.sites').push({
+						tags: []
+					})
 				}
 
 			},
