@@ -129,7 +129,7 @@ steal(
 
 			onLogin: function() {
 				this.matchRewards();
-				Accomplishment.findAll({userId : this.options.currentUser.id}, this.proxy('updateAccomplishments'));
+				Bithub.Models.Activity.findAll({userId : this.options.currentUser.id}, this.proxy('updateAccomplishments'));
 			},
 			
 			matchRewards: function() {
@@ -138,7 +138,6 @@ steal(
 
 			updateAccomplishments: function(acc) {
 				var user = this.options.currentUser;
-
 				// profile
 				accomplishments.attr('profile.twitter', user.getIdentity('twitter') ? true : false);
 				accomplishments.attr('profile.github', user.getIdentity('github') ? true : false);
