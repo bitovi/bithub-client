@@ -1,16 +1,5 @@
 steal('can/model', 'can/construct/super', function(Model){
 
-	var prepareTags = function(tags){
-		return can.map(function(tag){
-			if(typeof tag === 'string'){
-				return {
-					name : tag
-				}
-			}
-			return tag;
-		})
-	}
-
 	return Model({
 		findAll : 'GET /api/v2/funnels.json',
 		findOne : 'GET /api/v2/funnels/{id}.json',
@@ -19,11 +8,14 @@ steal('can/model', 'can/construct/super', function(Model){
 		destroy : 'DELETE /api/v2/funnels/{id}.json'
 	},{
 		init : function(){
-			this.attr('tags', prepareTags(this.attr('tags') || []));
+			this.attr('tags', this.attr('tags') || []);
 			this.attr('constraints', this.attr('constraints') || []);
 		},
 		serialize : function(){
-			var data = this._super();
+			var data = this._super(),
+				tags = data.tags;
+
+
 			
 			data.tags = can.map(data.tags, function(tag){
 				if(typeof tag !== 'string'){
@@ -31,7 +23,11 @@ steal('can/model', 'can/construct/super', function(Model){
 				}
 			});
 
+			console.log('DATA', data)
+
 			data.display_name = data.display_name || data.name;
+
+			data.disabled = (data.disabled === 'true' || data.disabled === true);
 
 			return {
 				funnel : data

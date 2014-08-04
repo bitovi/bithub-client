@@ -21,14 +21,28 @@ function(can, Component, categoryFormView, TagTreeModel, TagModel){
 				this.attr('keywords', new can.List);
 
 				$.when(TagModel.findAll({
-					order : 'name'
+					order : ['name', 'ASC']
 				}), TagTreeModel.findAll()).then(function(tags, data){
 					can.batch.start();
 					self.attr('feeds').replace(data[0].feeds);
 					self.attr('keywords').replace(tags);
 					self.attr('loading', false);
+					self.prepareCategoryTags();
 					can.batch.stop();
 				})
+			},
+			prepareCategoryTags : function(){;
+				var category = this.attr('category'),
+					tags = category.attr('tags'),
+					keywords = this.attr('keywords'),
+					tagsArr = tags.attr();
+
+				keywords.attr('length');
+				tags.attr('length');
+
+				this.attr('category.tags', can.grep(keywords, function(keyword){
+					return can.inArray(keyword.attr('name'), tagsArr) > -1;
+				}));
 			},
 			addConstraint : function(){
 				this.attr('category').addConstraint();
