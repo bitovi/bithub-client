@@ -28,6 +28,7 @@ steal(
 		}, {
 			init : function(){
 				this.attr('imageUrlBasedOnShipping', this.imageUrl());
+				this.attr('display_point_minimum', this.attr('description'));
 			},
 			imageUrl : function(){
 				return imageFormat(this.attr('original_image_url'), '240x240');
