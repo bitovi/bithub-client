@@ -3,9 +3,10 @@ steal(
 'can/component',
 './category_form.mustache',
 'admin/models/tag_tree.js',
+'admin/models/tag.js',
 './category_form.less',
 'admin/components/multiselect',
-function(can, Component, categoryFormView, TagTreeModel){
+function(can, Component, categoryFormView, TagTreeModel, TagModel){
 
 	return can.Component({
 		tag : 'category-form',
@@ -19,13 +20,15 @@ function(can, Component, categoryFormView, TagTreeModel){
 				this.attr('feeds', new can.List);
 				this.attr('keywords', new can.List);
 
-				TagTreeModel.findAll().then(function(data){
+				$.when(TagModel.findAll({
+					order : 'name'
+				}), TagTreeModel.findAll()).then(function(tags, data){
 					can.batch.start();
-					self.attr('feeds').replace(data.feeds);
-					self.attr('keywords').replace(data.keywords);
+					self.attr('feeds').replace(data[0].feeds);
+					self.attr('keywords').replace(tags);
 					self.attr('loading', false);
 					can.batch.stop();
-				});
+				})
 			},
 			addConstraint : function(){
 				this.attr('category').addConstraint();
