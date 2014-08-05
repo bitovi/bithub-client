@@ -139,6 +139,28 @@
 					{{/config.config.sites}}
 					<button can-click="addRss" class="btn">Add RSS Feed</button>
 				{{/ifTab}}
+
+				{{#ifTab 'irc'}}
+					<h3>IRC</h3>
+					<p>Add IRC servers and channels</p>
+					{{#config.config.chats}}
+						<div class="form-group">
+							<label class="control-label">IRC Server</label>
+							<button class="btn btn-xs btn-primary remove-feed-button" can-click="removeIrc">Remove Server</button>
+							<bh-item-list items="tags" title="Tags"></bh-item-list>
+						</div>
+						<div class="form-group">
+							<label class="control-label">IRC Server URL</label>
+							<input type="text" class="form-control" can-value="server">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Channel</label>
+							<input type="text" class="form-control" can-value="channel">
+						</div>
+						<hr>
+					{{/config.config.chats}}
+					<button can-click="addIrc" class="btn">Add IRC server</button>
+				{{/ifTab}}
 			{{/if}}
 		</div>
 

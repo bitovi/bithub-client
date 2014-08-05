@@ -73,7 +73,7 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 				});
 			},
 
-			services : ['Twitter', 'GitHub', 'Facebook', 'Disqus', 'StackExchange', 'Meetup', 'RSS', /*'IRC'*/],
+			services : ['Twitter', 'GitHub', 'Facebook', 'Disqus', 'StackExchange', 'Meetup', 'RSS', 'IRC'],
 
 			accounts : ['bitovi', 'canjs', 'funcunit'],
 			currentTab : 'twitter',
@@ -131,6 +131,30 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 
 				if(confirm('Are you sure?')){
 					rssConfig.attr('config.sites').splice(index, 1);
+				}
+			},
+			ircConfig : function(){
+				return this.getConfig('irc');
+			},
+			addIrc : function(){
+				var ircConfig = this.ircConfig();
+
+				if(ircConfig){
+					ircConfig.attr('config', ircConfig.attr('config') || {})
+					ircConfig.attr('config.chats', ircConfig.attr('config.chats') || [])
+
+					ircConfig.attr('config.chats').push({
+						tags: []
+					})
+				}
+
+			},
+			removeIrc : function(rss){
+				var ircConfig = this.ircConfig(),
+					index = ircConfig.attr('config.chats').indexOf(rss);
+
+				if(confirm('Are you sure?')){
+					ircConfig.attr('config.chats').splice(index, 1);
 				}
 			},
 			addAdditionalRepo : function(ctx, el, ev){
@@ -194,6 +218,16 @@ function(Component, servicesView, login, BrandIdentity, FeedConfig){
 					rssConfig = this.rssConfig();
 					if(rssConfig){
 						check = rssConfig.attr('config.sites');
+						check = check && check.attr('length') > 0;
+						return check ? opts.fn(opts.context) : opts.inverse(opts.context);
+					}
+					
+				}
+
+				if(provider.toLowerCase() === 'irc'){
+					ircConfig = this.ircConfig();
+					if(ircConfig){
+						check = ircConfig.attr('config.chats');
 						check = check && check.attr('length') > 0;
 						return check ? opts.fn(opts.context) : opts.inverse(opts.context);
 					}

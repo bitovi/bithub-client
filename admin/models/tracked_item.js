@@ -170,6 +170,23 @@ steal('can/model', 'can/construct/super', function(Model){
 			delete data.config.urls;
 
 			return data;
+		},
+		irc : function(data){
+			if(!data.config){
+				data.config = {};
+			}
+
+			data.config.chats = can.map(data.config.chats || [], function(config){
+				if(config.channel.substr(0, 1) !== '#'){
+					config.channel = '#' + config.channel;
+				}
+
+				return config;
+			})
+
+			delete data.config.sites;
+
+			return data;
 		}
 	}
 

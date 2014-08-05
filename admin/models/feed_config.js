@@ -53,8 +53,12 @@ steal('can/util/string', './tracked_item.js', 'can/model', 'can/construct/super'
 				this.attr('config.tags', this.attr('config.tags') || []);
 			}
 
-			if(provider === 'rss'){
+			if(provider === 'irc'){
 				this.attr('config.sites', this.attr('config.sites') || []);
+			}
+
+			if(provider === 'rss'){
+				this.attr('config.chats', this.attr('config.chats') || []);
 			}
 
 			can.batch.stop();
